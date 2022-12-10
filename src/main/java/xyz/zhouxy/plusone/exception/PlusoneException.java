@@ -11,17 +11,17 @@ public class PlusoneException extends RuntimeException implements IWithCode {
 
     private final int code;
 
-    protected PlusoneException(int code, String msg) {
+    public PlusoneException(int code, String msg) {
         super(msg);
         this.code = code;
     }
 
-    protected PlusoneException(int code, Throwable cause) {
+    public PlusoneException(int code, Throwable cause) {
         super(cause);
         this.code = code;
     }
 
-    protected PlusoneException(int code, String msg, Throwable cause) {
+    public PlusoneException(int code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = code;
     }
