@@ -35,4 +35,11 @@ public abstract class Enumeration<T extends Enumeration<T>> {
         Enumeration<?> other = (Enumeration<?>) obj;
         return value == other.value;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[").append(value).append(": ").append(name).append("]");
+        return builder.toString();
+    }
 }
