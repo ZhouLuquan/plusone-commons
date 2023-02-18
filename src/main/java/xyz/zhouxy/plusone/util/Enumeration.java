@@ -1,6 +1,8 @@
 package xyz.zhouxy.plusone.util;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Enumeration<T extends Enumeration<T>> {
     protected final int value;
@@ -41,5 +43,24 @@ public abstract class Enumeration<T extends Enumeration<T>> {
         StringBuilder builder = new StringBuilder();
         builder.append("[").append(value).append(": ").append(name).append("]");
         return builder.toString();
+    }
+
+    protected static final class EnumerationValuesHolder<T extends Enumeration<T>> {
+        private final Map<Integer, T> constants = new ConcurrentHashMap<>();
+    
+        @SafeVarargs
+        public EnumerationValuesHolder(T... values) {
+            for (T value : values) {
+                put(value);
+            }
+        }
+    
+        private void put(T constant) {
+            this.constants.put(constant.getValue(), constant);
+        }
+    
+        public T get(int value) {
+            return this.constants.get(value);
+        }
     }
 }
