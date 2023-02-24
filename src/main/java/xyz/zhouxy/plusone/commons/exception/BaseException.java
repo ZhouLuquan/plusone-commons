@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.exception;
+package xyz.zhouxy.plusone.commons.exception;
 
 /**
  * 带错误码的异常。
@@ -11,17 +11,17 @@ public abstract class BaseException extends RuntimeException implements IWithCod
 
     private final int code;
 
-    public BaseException(int code, String msg) {
+    protected BaseException(int code, String msg) {
         super(msg);
         this.code = code;
     }
 
-    public BaseException(int code, Throwable cause) {
+    protected BaseException(int code, Throwable cause) {
         super(cause);
         this.code = code;
     }
 
-    public BaseException(int code, String msg, Throwable cause) {
+    protected BaseException(int code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = code;
     }

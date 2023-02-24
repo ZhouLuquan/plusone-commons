@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.util;
+package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Arrays;
 import java.util.Collections;

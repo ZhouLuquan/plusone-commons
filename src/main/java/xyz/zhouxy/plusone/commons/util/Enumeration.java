@@ -1,9 +1,12 @@
-package xyz.zhouxy.plusone.util;
+package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 枚举类
+ */
 public abstract class Enumeration<T extends Enumeration<T>> {
     protected final int value;
     protected final String name;

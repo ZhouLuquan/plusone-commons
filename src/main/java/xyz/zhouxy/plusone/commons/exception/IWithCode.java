@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.exception;
+package xyz.zhouxy.plusone.commons.exception;
 
 /**
  * 规定实现类带有 {@code getCode} 方法。

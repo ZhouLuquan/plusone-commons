@@ -14,7 +14,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <lombok.version>1.18.24</lombok.version>
         <jackson.version>2.13.4</jackson.version>
-        <hutool.version>5.8.11</hutool.version>
     </properties>
 
     <dependencies>
@@ -28,11 +27,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 </project>
