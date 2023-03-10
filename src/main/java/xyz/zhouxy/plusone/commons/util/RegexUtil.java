@@ -1,13 +1,11 @@
 package xyz.zhouxy.plusone.commons.util;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexUtil {
 
     public static boolean matches(CharSequence input, Pattern regex) {
-        Matcher m = regex.matcher(input);
-        return m.matches();
+        return regex.matcher(input).matches();
     }
 
     public static boolean matchesOr(CharSequence input, Pattern... regexs) {
