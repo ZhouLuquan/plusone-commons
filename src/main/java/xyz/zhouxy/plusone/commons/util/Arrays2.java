@@ -31,6 +31,14 @@ public abstract class Arrays2 {
         return values;
     }
 
+    public static double[] of(final double... values) {
+        return values;
+    }
+
+    public static float[] of(final float... values) {
+        return values;
+    }
+
     private Arrays2() {
         throw new IllegalStateException("Utility class");
     }
