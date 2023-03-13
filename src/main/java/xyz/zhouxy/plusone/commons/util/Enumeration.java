@@ -59,9 +59,7 @@ public abstract class Enumeration<T extends Enumeration<T>> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[").append(value).append(": ").append(name).append("]");
-        return builder.toString();
+        return "[" + value + ": " + name + "]";
     }
 
     protected static final class EnumerationValuesHolder<T extends Enumeration<T>> {
