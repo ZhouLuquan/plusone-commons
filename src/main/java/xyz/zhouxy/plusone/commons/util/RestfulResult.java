@@ -16,6 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AccessLevel;
@@ -35,12 +38,13 @@ import lombok.ToString;
 public class RestfulResult {
 
     public static final int SUCCESS_STATUS = 2000000;
+    public static final int DEFAULT_ERROR_STATUS = 500000;
 
     private final Object status;
     private final String message;
     private final Object data;
 
-    private RestfulResult(Object status, String message) {
+    private RestfulResult(final Object status, final String message) {
         this(status, message, null);
     }
 
@@ -48,27 +52,96 @@ public class RestfulResult {
         return new RestfulResult(SUCCESS_STATUS, "操作成功");
     }
 
-    public static RestfulResult success(String message) {
+    public static RestfulResult success(final String message) {
         return new RestfulResult(SUCCESS_STATUS, message);
     }
 
-    public static RestfulResult success(String message, Object data) {
+    public static RestfulResult success(final String message, final Object data) {
         return new RestfulResult(SUCCESS_STATUS, message, data);
     }
 
     public static RestfulResult error() {
-        return new RestfulResult(500000, "未知错误");
+        return new RestfulResult(DEFAULT_ERROR_STATUS, "未知错误");
     }
 
-    public static RestfulResult error(Object status, String message) {
+    public static RestfulResult error(final Object status, final String message) {
         return new RestfulResult(status, message);
     }
 
-    public static RestfulResult error(Object status, String message, Object data) {
+    public static RestfulResult error(final Object status, final String message, final Object data) {
         return new RestfulResult(status, message, data);
     }
 
-    public static RestfulResult error(Object status, Throwable e) {
+    public static RestfulResult error(final Object status, final Throwable e) {
         return new RestfulResult(status, e.getMessage());
+    }
+
+    public static RestfulResult of(
+            final boolean isSuccess,
+            final Supplier<RestfulResult> success,
+            final Supplier<RestfulResult> error) {
+        return isSuccess ? success.get() : error.get();
+    }
+
+    public static RestfulResult of(
+            final BooleanSupplier isSuccess,
+            final Supplier<RestfulResult> success,
+            final Supplier<RestfulResult> error) {
+        return isSuccess.getAsBoolean() ? success.get() : error.get();
+    }
+
+    // Builder
+    public static Builder successIf(final boolean condition) {
+        return successIf(() -> condition);
+    }
+
+    public static Builder successIf(final BooleanSupplier booleanSupplier) {
+        return new Builder(booleanSupplier, () -> success());
+    }
+
+    public static Builder successIf(final boolean condition, final String msg) {
+        return new Builder(() -> condition, () -> success(msg));
+    }
+
+    public static Builder successIf(final BooleanSupplier booleanSupplier, final String msg) {
+        return new Builder(booleanSupplier, () -> success(msg));
+    }
+
+    public static Builder successIf(final boolean condition, final String msg, final Object data) {
+        return new Builder(() -> condition, () -> success(msg, data));
+    }
+
+    public static Builder successIf(final BooleanSupplier booleanSupplier, final String msg, final Object data) {
+        return new Builder(booleanSupplier, () -> success(msg, data));
+    }
+
+    public static class Builder {
+        private final BooleanSupplier booleanSupplier;
+        private final Supplier<RestfulResult> success;
+
+        public Builder(final BooleanSupplier booleanSupplier, final Supplier<RestfulResult> success) {
+            this.booleanSupplier = booleanSupplier;
+            this.success = success;
+        }
+
+        public RestfulResult orError() {
+            return this.booleanSupplier.getAsBoolean()
+                    ? this.success.get()
+                    : RestfulResult.error();
+        }
+
+        public RestfulResult orError(final Object status, final String msg) {
+            return orError(status, msg, null);
+        }
+
+        public RestfulResult orError(final Object status, final Throwable e) {
+            return orError(status, e.getMessage());
+        }
+
+        public RestfulResult orError(final Object status, final String msg, final Object data) {
+            return this.booleanSupplier.getAsBoolean()
+                    ? this.success.get()
+                    : RestfulResult.error(status, msg, data);
+        }
     }
 }
