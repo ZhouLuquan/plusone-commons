@@ -38,7 +38,7 @@ import lombok.ToString;
 public class RestfulResult {
 
     public static final int SUCCESS_STATUS = 2000000;
-    public static final int DEFAULT_ERROR_STATUS = 500000;
+    public static final int DEFAULT_ERROR_STATUS = 5000000;
 
     private final Object status;
     private final String message;
