@@ -18,9 +18,6 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.List;
 
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * 返回分页查询的结果
  *
@@ -29,8 +26,6 @@ import lombok.ToString;
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  * @see PagingAndSortingQueryParams
  */
-@ToString
-@Setter
 public class PageDTO<T> {
 
     private Long total;
@@ -53,4 +48,20 @@ public class PageDTO<T> {
         return content;
     }
 
+    // Setters
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public void setContent(List<T> content) {
+        this.content = content;
+    }
+
+    // Setters end
+
+    @Override
+    public String toString() {
+        return "PageDTO [total=" + total + ", content=" + content + "]";
+    }
 }

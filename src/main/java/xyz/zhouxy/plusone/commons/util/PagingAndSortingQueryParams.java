@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.Setter;
-
 /**
  * 分页排序查询参数
  *
@@ -33,7 +31,6 @@ import lombok.Setter;
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  * @see PageDTO
  */
-@Setter
 public class PagingAndSortingQueryParams {
 
     protected String orderBy;
@@ -66,4 +63,19 @@ public class PagingAndSortingQueryParams {
         return (getPageNum() - 1) * getSize();
     }
 
+    // Setters
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public void setPageNum(Long pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    // Setters end
 }

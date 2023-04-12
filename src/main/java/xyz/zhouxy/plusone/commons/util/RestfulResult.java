@@ -21,20 +21,12 @@ import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-
 /**
  * 对返回给前端的数据进行封装
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ToString
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RestfulResult {
 
     public static final int SUCCESS_STATUS = 2000000;
@@ -88,6 +80,37 @@ public class RestfulResult {
             final Supplier<RestfulResult> success,
             final Supplier<RestfulResult> error) {
         return isSuccess.getAsBoolean() ? success.get() : error.get();
+    }
+
+    // Constructors
+
+    private RestfulResult(Object status, String message, Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
+    // Constructors end
+
+    // Getters
+
+    public Object getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    // Getters end
+
+    @Override
+    public String toString() {
+        return "RestfulResult [status=" + status + ", message=" + message + ", data=" + data + "]";
     }
 
     // Builder
