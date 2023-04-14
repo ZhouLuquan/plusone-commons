@@ -16,46 +16,46 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-public abstract class Arrays2 {
+public class ArrayUtil {
 
     @SafeVarargs
-    public static <T> T[] of(final T... values) {
+    public static <T> T[] newArray(final T... values) {
         return values;
     }
 
-    public static short[] of(final short... values) {
+    public static short[] newArray(final short... values) {
         return values;
     }
 
-    public static int[] of(final int... values) {
+    public static int[] newArray(final int... values) {
         return values;
     }
 
-    public static long[] of(final long... values) {
+    public static long[] newArray(final long... values) {
         return values;
     }
 
-    public static byte[] of(final byte... values) {
+    public static byte[] newArray(final byte... values) {
         return values;
     }
 
-    public static boolean[] of(final boolean... values) {
+    public static boolean[] newArray(final boolean... values) {
         return values;
     }
 
-    public static char[] of(final char... values) {
+    public static char[] newArray(final char... values) {
         return values;
     }
 
-    public static double[] of(final double... values) {
+    public static double[] newArray(final double... values) {
         return values;
     }
 
-    public static float[] of(final float... values) {
+    public static float[] newArray(final float... values) {
         return values;
     }
 
-    private Arrays2() {
+    private ArrayUtil() {
         throw new IllegalStateException("Utility class");
     }
 }
