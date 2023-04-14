@@ -96,7 +96,7 @@ public class RestfulResult {
     }
 
     public static Builder successIf(final BooleanSupplier booleanSupplier) {
-        return new Builder(booleanSupplier, () -> success());
+        return new Builder(booleanSupplier, RestfulResult::success);
     }
 
     public static Builder successIf(final boolean condition, final String msg) {
