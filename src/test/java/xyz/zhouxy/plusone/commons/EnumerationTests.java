@@ -1,6 +1,5 @@
 package xyz.zhouxy.plusone.commons;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Lists;

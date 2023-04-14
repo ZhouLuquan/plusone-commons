@@ -94,7 +94,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
 
         @Nonnull
         public Collection<T> getValues() {
-            return this.values.values();
+            return Objects.requireNonNull(this.values.values());
         }
     }
 }

@@ -26,16 +26,15 @@ public class RegexUtil {
 
     private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
 
+    @Nonnull
     public static Pattern getPattern(final String regex) {
         Objects.requireNonNull(regex);
-        Pattern pattern;
-        if (!PATTERN_CACHE.containsKey(regex)) {
+        Pattern pattern = PATTERN_CACHE.get(regex);
+        if (pattern == null) {
             pattern = Pattern.compile(regex);
             PATTERN_CACHE.put(regex, pattern);
-        } else {
-            pattern = PATTERN_CACHE.get(regex);
         }
-        return pattern;
+        return Objects.requireNonNull(pattern);
     }
 
     public static boolean matches(@Nonnull CharSequence input, @Nonnull String regex) {
@@ -49,7 +48,7 @@ public class RegexUtil {
     public static boolean matchesOr(@Nonnull CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, regex);
+            isMatched = matches(input, Objects.requireNonNull(regex));
             if (isMatched) {
                 return true;
             }
@@ -60,7 +59,7 @@ public class RegexUtil {
     public static boolean matchesOr(@Nonnull CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, pattern);
+            isMatched = matches(input, Objects.requireNonNull(pattern));
             if (isMatched) {
                 return true;
             }
@@ -71,7 +70,7 @@ public class RegexUtil {
     public static boolean matchesAnd(@Nonnull CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, regex);
+            isMatched = matches(input, Objects.requireNonNull(regex));
             if (!isMatched) {
                 return false;
             }
@@ -82,7 +81,7 @@ public class RegexUtil {
     public static boolean matchesAnd(@Nonnull CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, pattern);
+            isMatched = matches(input, Objects.requireNonNull(pattern));
             if (!isMatched) {
                 return false;
             }
