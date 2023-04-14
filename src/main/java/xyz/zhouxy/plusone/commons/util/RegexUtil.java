@@ -16,17 +16,39 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 public class RegexUtil {
 
-    public static boolean matches(CharSequence input, Pattern regex) {
+    private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
+
+    public static Pattern getPattern(final String regex) {
+        Objects.requireNonNull(regex);
+        Pattern pattern;
+        if (!PATTERN_CACHE.containsKey(regex)) {
+            pattern = Pattern.compile(regex);
+            PATTERN_CACHE.put(regex, pattern);
+        } else {
+            pattern = PATTERN_CACHE.get(regex);
+        }
+        return pattern;
+    }
+
+    public static boolean matches(@Nonnull CharSequence input, @Nonnull String regex) {
+        return matches(input, getPattern(regex));
+    }
+
+    public static boolean matches(@Nonnull CharSequence input, @Nonnull Pattern regex) {
         return regex.matcher(input).matches();
     }
 
-    public static boolean matchesOr(CharSequence input, Pattern... regexs) {
+    public static boolean matchesOr(@Nonnull CharSequence input, String... regexes) {
         boolean isMatched;
-        for (Pattern regex : regexs) {
+        for (String regex : regexes) {
             isMatched = matches(input, regex);
             if (isMatched) {
                 return true;
@@ -35,10 +57,32 @@ public class RegexUtil {
         return false;
     }
 
-    public static boolean matchesAnd(CharSequence input, Pattern... regexs) {
+    public static boolean matchesOr(@Nonnull CharSequence input, Pattern... patterns) {
         boolean isMatched;
-        for (Pattern regex : regexs) {
+        for (Pattern pattern : patterns) {
+            isMatched = matches(input, pattern);
+            if (isMatched) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean matchesAnd(@Nonnull CharSequence input, String... regexes) {
+        boolean isMatched;
+        for (String regex : regexes) {
             isMatched = matches(input, regex);
+            if (!isMatched) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean matchesAnd(@Nonnull CharSequence input, Pattern... patterns) {
+        boolean isMatched;
+        for (Pattern pattern : patterns) {
+            isMatched = matches(input, pattern);
             if (!isMatched) {
                 return false;
             }
