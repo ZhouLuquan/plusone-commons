@@ -11,8 +11,7 @@ class RestfulResultTest {
     @Test
     void testSuccessIf() {
         String str = null;
-        RestfulResult result = RestfulResult.successIf(str != null, "成功")
-                .orError();
+        RestfulResult result = RestfulResult.successIf(str != null).orError();
         log.info(result.toString());
         assertEquals(RestfulResult.DEFAULT_ERROR_STATUS, result.getStatus());
 
@@ -23,8 +22,7 @@ class RestfulResultTest {
         assertEquals("失败", result.getMessage());
 
         str = "";
-        result = RestfulResult.successIf(str != null, "成功")
-                .orError();
+        result = RestfulResult.successIf(str != null).orError();
         log.info(result.toString());
         assertEquals(RestfulResult.SUCCESS_STATUS, result.getStatus());
 
