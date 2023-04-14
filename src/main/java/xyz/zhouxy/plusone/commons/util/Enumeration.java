@@ -16,37 +16,47 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Nonnull;
+
 /**
  * 枚举类
  */
-public abstract class Enumeration<T extends Enumeration<T>> {
-    protected final int value;
+public abstract class Enumeration<T extends Enumeration<T>> implements Comparable<T> {
+    protected final int id;
+    @Nonnull
     protected final String name;
 
-    protected Enumeration(int value, String name) {
-        this.value = value;
+    protected Enumeration(int id, @Nonnull String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public int getValue() {
-        return value;
+    public final int getId() {
+        return id;
     }
 
-    public String getName() {
+    @Nonnull
+    public final String getName() {
         return name;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(value);
+    public final int compareTo(T o) {
+        return Integer.compare(this.id, o.id);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -54,30 +64,37 @@ public abstract class Enumeration<T extends Enumeration<T>> {
         if (getClass() != obj.getClass())
             return false;
         Enumeration<?> other = (Enumeration<?>) obj;
-        return value == other.value;
+        return id == other.id;
     }
 
     @Override
-    public String toString() {
-        return "[" + value + ": " + name + "]";
+    @Nonnull
+    public final String toString() {
+        return getClass().getSimpleName() + "[" + id + ": " + name + "]";
     }
 
-    protected static final class EnumerationValuesHolder<T extends Enumeration<T>> {
-        private final Map<Integer, T> constants = new ConcurrentHashMap<>();
+    protected static final class ValueSet<T extends Enumeration<T>> {
+        private final Map<Integer, T> values = new ConcurrentHashMap<>();
     
         @SafeVarargs
-        public EnumerationValuesHolder(T... values) {
+        public ValueSet(T... values) {
             for (T value : values) {
-                put(value);
+                put(Objects.requireNonNull(value));
             }
         }
-    
-        private void put(T constant) {
-            this.constants.put(constant.getValue(), constant);
+
+        private void put(@Nonnull T value) {
+            this.values.put(value.getId(), value);
         }
-    
-        public T get(int value) {
-            return this.constants.get(value);
+
+        @Nonnull
+        public T get(int id) {
+            return Objects.requireNonNull(this.values.get(id));
+        }
+
+        @Nonnull
+        public Collection<T> getValues() {
+            return this.values.values();
         }
     }
 }
