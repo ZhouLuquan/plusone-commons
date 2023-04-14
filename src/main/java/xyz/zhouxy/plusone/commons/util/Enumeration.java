@@ -31,7 +31,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     @Nonnull
     protected final String name;
 
-    protected Enumeration(int id, @Nonnull String name) {
+    protected Enumeration(final int id, @Nonnull final String name) {
         this.id = id;
         this.name = name;
     }
@@ -46,7 +46,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     @Override
-    public final int compareTo(T o) {
+    public final int compareTo(final T o) {
         return Integer.compare(this.id, o.id);
     }
 
@@ -56,7 +56,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -70,7 +70,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     @Override
     @Nonnull
     public final String toString() {
-        return getClass().getSimpleName() + "[" + id + ": " + name + "]";
+        return getClass().getSimpleName() + '(' + id + ":" + name + ')';
     }
 
     protected static final class ValueSet<T extends Enumeration<T>> {
@@ -83,12 +83,12 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
             }
         }
 
-        private void put(@Nonnull T value) {
+        private void put(@Nonnull final T value) {
             this.values.put(value.getId(), value);
         }
 
         @Nonnull
-        public T get(int id) {
+        public T get(final int id) {
             return Objects.requireNonNull(this.values.get(id));
         }
 
