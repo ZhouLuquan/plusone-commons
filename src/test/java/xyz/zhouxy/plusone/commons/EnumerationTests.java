@@ -3,16 +3,18 @@ package xyz.zhouxy.plusone.commons;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xyz.zhouxy.plusone.commons.util.Enumeration;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-@Slf4j
 class EnumerationTests {
+
+    private static final Logger log = LoggerFactory.getLogger(EnumerationTests.class);
 
     @Test
     void testEnumeration() {

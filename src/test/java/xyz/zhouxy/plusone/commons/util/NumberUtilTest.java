@@ -3,11 +3,13 @@ package xyz.zhouxy.plusone.commons.util;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 class NumberUtilTest {
+    private static final Logger log = LoggerFactory.getLogger(NumberUtilTest.class);
+
     @Test
     void testSum() {
         long result = 0;
