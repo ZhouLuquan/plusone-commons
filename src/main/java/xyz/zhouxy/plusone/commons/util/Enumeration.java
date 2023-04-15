@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 /**
@@ -40,7 +41,6 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
         return id;
     }
 
-    @Nonnull
     public final String getName() {
         return name;
     }
@@ -68,7 +68,6 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     @Override
-    @Nonnull
     public final String toString() {
         return getClass().getSimpleName() + '(' + id + ":" + name + ')';
     }
@@ -87,14 +86,13 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
             this.values.put(value.getId(), value);
         }
 
-        @Nonnull
+        @CheckForNull
         public T get(final int id) {
-            return Objects.requireNonNull(this.values.get(id));
+            return this.values.get(id);
         }
 
-        @Nonnull
         public Collection<T> getValues() {
-            return Objects.requireNonNull(this.values.values());
+            return this.values.values();
         }
     }
 }
