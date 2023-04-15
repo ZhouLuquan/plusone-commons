@@ -37,15 +37,15 @@ public class RegexUtil {
         return Objects.requireNonNull(pattern);
     }
 
-    public static boolean matches(@Nonnull CharSequence input, @Nonnull String regex) {
+    public static boolean matches(CharSequence input, @Nonnull String regex) {
         return matches(input, getPattern(regex));
     }
 
-    public static boolean matches(@Nonnull CharSequence input, @Nonnull Pattern regex) {
+    public static boolean matches(CharSequence input, @Nonnull Pattern regex) {
         return regex.matcher(input).matches();
     }
 
-    public static boolean matchesOr(@Nonnull CharSequence input, String... regexes) {
+    public static boolean matchesOr(CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
             isMatched = matches(input, Objects.requireNonNull(regex));
@@ -56,7 +56,7 @@ public class RegexUtil {
         return false;
     }
 
-    public static boolean matchesOr(@Nonnull CharSequence input, Pattern... patterns) {
+    public static boolean matchesOr(CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
             isMatched = matches(input, Objects.requireNonNull(pattern));
@@ -67,7 +67,7 @@ public class RegexUtil {
         return false;
     }
 
-    public static boolean matchesAnd(@Nonnull CharSequence input, String... regexes) {
+    public static boolean matchesAnd(CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
             isMatched = matches(input, Objects.requireNonNull(regex));
@@ -78,7 +78,7 @@ public class RegexUtil {
         return true;
     }
 
-    public static boolean matchesAnd(@Nonnull CharSequence input, Pattern... patterns) {
+    public static boolean matchesAnd(CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
             isMatched = matches(input, Objects.requireNonNull(pattern));
