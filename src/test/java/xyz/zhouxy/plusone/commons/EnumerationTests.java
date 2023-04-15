@@ -42,12 +42,10 @@ final class EntityStatus extends Enumeration<EntityStatus> {
     private static final ValueSet<EntityStatus> VALUE_SET = new ValueSet<>(
             AVAILABLE, DISABLED);
 
-    @Nonnull
     public static EntityStatus of(int value) {
         return VALUE_SET.get(value);
     }
 
-    @Nonnull
     public static Collection<EntityStatus> constants() {
         return VALUE_SET.getValues();
     }
@@ -63,12 +61,10 @@ final class Result extends Enumeration<Result> {
 
     private static final ValueSet<Result> VALUE_SET = new ValueSet<>(SUCCESSFUL, FAILURE);
 
-    @Nonnull
     public static Result of(int id) {
         return VALUE_SET.get(id);
     }
 
-    @Nonnull
     public static Collection<Result> constants() {
         return VALUE_SET.getValues();
     }
