@@ -20,14 +20,17 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Nonnull;
+
 /**
  * 枚举类
  */
 public abstract class Enumeration<T extends Enumeration<T>> {
     protected final int value;
+    @Nonnull
     protected final String name;
 
-    protected Enumeration(int value, String name) {
+    protected Enumeration(int value, @Nonnull String name) {
         this.value = value;
         this.name = name;
     }
@@ -36,6 +39,7 @@ public abstract class Enumeration<T extends Enumeration<T>> {
         return value;
     }
 
+    @Nonnull
     public String getName() {
         return name;
     }
@@ -68,16 +72,20 @@ public abstract class Enumeration<T extends Enumeration<T>> {
         @SafeVarargs
         public EnumerationValuesHolder(T... values) {
             for (T value : values) {
+                Objects.requireNonNull(value);
                 put(value);
             }
         }
     
-        private void put(T constant) {
+        private void put(@Nonnull T constant) {
             this.constants.put(constant.getValue(), constant);
         }
-    
+
+        @Nonnull
         public T get(int value) {
-            return this.constants.get(value);
+            T val = this.constants.get(value);
+            Objects.requireNonNull(val);
+            return val;
         }
     }
 }

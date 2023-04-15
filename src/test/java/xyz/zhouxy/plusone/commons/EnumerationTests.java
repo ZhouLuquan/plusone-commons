@@ -2,6 +2,8 @@ package xyz.zhouxy.plusone.commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import javax.annotation.Nonnull;
+
 import org.junit.jupiter.api.Test;
 
 import xyz.zhouxy.plusone.commons.util.Enumeration;
@@ -16,7 +18,7 @@ class EnumerationTests {
 
 final class EntityStatus extends Enumeration<EntityStatus> {
 
-    private EntityStatus(int value, String name) {
+    private EntityStatus(int value, @Nonnull String name) {
         super(value, name);
     }
 

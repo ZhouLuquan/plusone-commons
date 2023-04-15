@@ -16,42 +16,64 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
 public abstract class Arrays2 {
 
     @SafeVarargs
+    @Nonnull
     public static <T> T[] of(final T... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static short[] of(final short... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static int[] of(final int... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static long[] of(final long... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static byte[] of(final byte... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static boolean[] of(final boolean... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static char[] of(final char... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static double[] of(final double... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 
+    @Nonnull
     public static float[] of(final float... values) {
+        Objects.requireNonNull(values);
         return values;
     }
 

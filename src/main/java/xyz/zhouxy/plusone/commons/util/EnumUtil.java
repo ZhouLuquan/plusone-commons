@@ -18,6 +18,9 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * 枚举工具类
  *
@@ -37,7 +40,7 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) {
+    public static <E extends Enum<?>> E valueOf(@Nonnull Class<E> clazz, int ordinal) {
         E[] values = clazz.getEnumConstants();
         try {
             return values[ordinal];
@@ -54,11 +57,12 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, Integer ordinal) {
+    public static <E extends Enum<?>> E getValueOrDefault(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
         E[] values = clazz.getEnumConstants();
         try {
             return Objects.nonNull(ordinal) ? values[ordinal] : values[0];
         } catch (IndexOutOfBoundsException e) {
+            Objects.requireNonNull(ordinal);
             throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
         }
     }
@@ -71,19 +75,17 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E getValueNullable(Class<E> clazz, Integer ordinal) {
+    public static <E extends Enum<?>> E getValueNullable(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
         E[] values = clazz.getEnumConstants();
         try {
             return Objects.nonNull(ordinal) ? values[ordinal] : null;
         } catch (IndexOutOfBoundsException e) {
+            Objects.requireNonNull(ordinal);
             throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
         }
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinal(Class<E> clazz, Integer ordinal) {
-        if (ordinal == null) {
-            throw new IllegalArgumentException("ordinal 不能为空");
-        }
+    public static <E extends Enum<?>> Integer checkOrdinal(@Nonnull Class<E> clazz, @Nonnull Integer ordinal) {
         E[] values = clazz.getEnumConstants();
         if (ordinal >= 0 && ordinal < values.length) {
             return ordinal;
@@ -91,15 +93,15 @@ public final class EnumUtil {
         throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> clazz, Integer ordinal) {
-        if (Objects.isNull(ordinal)) {
+    public static <E extends Enum<?>> Integer checkOrdinalNullable(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
+        if (ordinal == null) {
             return null;
         }
         return checkOrdinal(clazz, ordinal);
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinalOrDefault(Class<E> clazz, Integer ordinal) {
-        if (Objects.isNull(ordinal)) {
+    public static <E extends Enum<?>> Integer checkOrdinalOrDefault(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
+        if (ordinal == null) {
             return 0;
         }
         return checkOrdinal(clazz, ordinal);

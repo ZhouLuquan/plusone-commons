@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /**
  * 返回分页查询的结果
  *
@@ -28,37 +30,30 @@ import java.util.List;
  */
 public class PageDTO<T> {
 
-    private Long total;
-    private List<T> content;
+    @Nonnull
+    private final Long total;
+    @Nonnull
+    private final List<T> content;
 
-    private PageDTO(List<T> content, Long total) {
+    private PageDTO(@Nonnull List<T> content, @Nonnull Long total) {
         this.content = content;
         this.total = total;
     }
 
-    public static <T> PageDTO<T> of(List<T> content, Long total) {
+    @Nonnull
+    public static <T> PageDTO<T> of(@Nonnull List<T> content, @Nonnull Long total) {
         return new PageDTO<>(content, total);
     }
 
+    @Nonnull
     public Long getTotal() {
         return total;
     }
 
+    @Nonnull
     public List<T> getContent() {
         return content;
     }
-
-    // Setters
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public void setContent(List<T> content) {
-        this.content = content;
-    }
-
-    // Setters end
 
     @Override
     public String toString() {

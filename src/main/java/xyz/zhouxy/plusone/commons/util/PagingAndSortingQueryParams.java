@@ -47,6 +47,8 @@ public class PagingAndSortingQueryParams {
         this.sortableColNames = Arrays.asList(sortableColNames);
     }
 
+    // Getters
+
     public String getOrderBy() {
         return orderBy != null && sortableColNames.contains(orderBy) ? orderBy : null;
     }
@@ -62,6 +64,8 @@ public class PagingAndSortingQueryParams {
     public long getOffset() {
         return (getPageNum() - 1) * getSize();
     }
+
+    // Getters end
 
     // Setters
 
