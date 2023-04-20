@@ -88,7 +88,7 @@ public class Assert {
         Assert.isTrue(Objects.nonNull(value), errorMessageTemplate, args);
     }
 
-    // isEmpty
+    // isEmpty - Collection
     public static <T, E extends Throwable> void isEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
         Assert.isTrue((collection == null || collection.isEmpty()), e);
     }
@@ -101,7 +101,7 @@ public class Assert {
         Assert.isTrue((collection == null || collection.isEmpty()), errorMessageTemplate, args);
     }
 
-    // isNotEmpty
+    // isNotEmpty - Collection
     public static <T, E extends Throwable> void isNotEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
         Assert.isFalse((collection == null || collection.isEmpty()), e);
     }
@@ -112,6 +112,58 @@ public class Assert {
 
     public static <T> void isNotEmpty(@Nullable Collection<T> collection, String errorMessageTemplate, Object... args) {
         Assert.isFalse((collection == null || collection.isEmpty()), errorMessageTemplate, args);
+    }
+
+    // isEmpty - Array
+    public static <T, E extends Throwable> void isEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
+        Assert.isTrue((arr == null || arr.length == 0), e);
+    }
+
+    public static <T> void isEmpty(@Nullable T[] arr, String errorMessage) {
+        Assert.isTrue((arr == null || arr.length == 0), errorMessage);
+    }
+
+    public static <T> void isEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue((arr == null || arr.length == 0), errorMessageTemplate, args);
+    }
+
+    // isNotEmpty - Collection
+    public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
+        Assert.isFalse((arr == null || arr.length == 0), e);
+    }
+
+    public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessage) {
+        Assert.isFalse((arr == null || arr.length == 0), errorMessage);
+    }
+
+    public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isFalse((arr == null || arr.length == 0), errorMessageTemplate, args);
+    }
+
+    // isEmpty - Array
+    public static <E extends Throwable> void isEmpty(@Nullable String arr, Supplier<E> e) throws E {
+        Assert.isTrue((arr == null || arr.length() == 0), e);
+    }
+
+    public static void isEmpty(@Nullable String arr, String errorMessage) {
+        Assert.isTrue((arr == null || arr.length() == 0), errorMessage);
+    }
+
+    public static void isEmpty(@Nullable String arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue((arr == null || arr.length() == 0), errorMessageTemplate, args);
+    }
+
+    // isNotEmpty - Collection
+    public static <E extends Throwable> void isNotEmpty(@Nullable String arr, Supplier<E> e) throws E {
+        Assert.isFalse((arr == null || arr.length() == 0), e);
+    }
+
+    public static void isNotEmpty(@Nullable String arr, String errorMessage) {
+        Assert.isFalse((arr == null || arr.length() == 0), errorMessage);
+    }
+
+    public static void isNotEmpty(@Nullable String arr, String errorMessageTemplate, Object... args) {
+        Assert.isFalse((arr == null || arr.length() == 0), errorMessageTemplate, args);
     }
 
     // private consrtuctor
