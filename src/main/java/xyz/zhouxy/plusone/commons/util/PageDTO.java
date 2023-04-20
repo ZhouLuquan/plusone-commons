@@ -18,7 +18,7 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
 /**
  * 返回分页查询的结果
@@ -30,27 +30,25 @@ import javax.annotation.Nonnull;
  */
 public class PageDTO<T> {
 
-    @Nonnull
-    private final Long total;
-    @Nonnull
+    private final long total;
+
     private final List<T> content;
 
-    private PageDTO(@Nonnull List<T> content, @Nonnull Long total) {
+    private PageDTO(List<T> content, long total) {
+        Assert.isNotEmpty(content, "Content must not be null.");
         this.content = content;
         this.total = total;
     }
 
-    @Nonnull
-    public static <T> PageDTO<T> of(@Nonnull List<T> content, @Nonnull Long total) {
+    @StaticFactoryMethod(PageDTO.class)
+    public static <T> PageDTO<T> of(List<T> content, long total) {
         return new PageDTO<>(content, total);
     }
 
-    @Nonnull
-    public Long getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    @Nonnull
     public List<T> getContent() {
         return content;
     }

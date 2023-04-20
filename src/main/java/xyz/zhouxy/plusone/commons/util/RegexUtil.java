@@ -17,6 +17,8 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,31 +26,34 @@ import java.util.regex.Pattern;
 
 public class RegexUtil {
 
-    private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, @Nonnull Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
 
-    @Nonnull
     public static Pattern getPattern(final String regex) {
         Objects.requireNonNull(regex);
-        Pattern pattern = PATTERN_CACHE.get(regex);
-        if (pattern == null) {
-            pattern = Pattern.compile(regex);
-            PATTERN_CACHE.put(regex, pattern);
+        if (PATTERN_CACHE.containsKey(regex)) {
+            return PATTERN_CACHE.get(regex);
         }
-        return Objects.requireNonNull(pattern);
+        Pattern pattern = Pattern.compile(regex);
+        if (pattern == null) {
+            throw new IllegalArgumentException("Regex must not be null.");
+        }
+        PATTERN_CACHE.put(regex, pattern);
+        return pattern;
     }
 
-    public static boolean matches(CharSequence input, @Nonnull String regex) {
+    public static boolean matches(@Nullable CharSequence input, String regex) {
         return matches(input, getPattern(regex));
     }
 
-    public static boolean matches(CharSequence input, @Nonnull Pattern regex) {
-        return regex.matcher(input).matches();
+    public static boolean matches(@Nullable CharSequence input, Pattern pattern) {
+        Assert.notNull(pattern, "Pattern must not be null.");
+        return pattern.matcher(input).matches();
     }
 
-    public static boolean matchesOr(CharSequence input, String... regexes) {
+    public static boolean matchesOr(@Nullable CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, Objects.requireNonNull(regex));
+            isMatched = matches(input, regex);
             if (isMatched) {
                 return true;
             }
@@ -56,10 +61,10 @@ public class RegexUtil {
         return false;
     }
 
-    public static boolean matchesOr(CharSequence input, Pattern... patterns) {
+    public static boolean matchesOr(@Nullable CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, Objects.requireNonNull(pattern));
+            isMatched = matches(input, pattern);
             if (isMatched) {
                 return true;
             }
@@ -67,10 +72,10 @@ public class RegexUtil {
         return false;
     }
 
-    public static boolean matchesAnd(CharSequence input, String... regexes) {
+    public static boolean matchesAnd(@Nullable CharSequence input, String... regexes) {
         boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, Objects.requireNonNull(regex));
+            isMatched = matches(input, regex);
             if (!isMatched) {
                 return false;
             }
@@ -78,10 +83,10 @@ public class RegexUtil {
         return true;
     }
 
-    public static boolean matchesAnd(CharSequence input, Pattern... patterns) {
+    public static boolean matchesAnd(@Nullable CharSequence input, Pattern... patterns) {
         boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, Objects.requireNonNull(pattern));
+            isMatched = matches(input, pattern);
             if (!isMatched) {
                 return false;
             }

@@ -16,9 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import java.util.Objects;
+import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -40,13 +39,47 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E valueOf(@Nonnull Class<E> clazz, int ordinal) {
+    public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) {
+        Assert.notNull(clazz, "Clazz must not be null.");
         E[] values = clazz.getEnumConstants();
-        try {
-            return values[ordinal];
-        } catch (IndexOutOfBoundsException e) {
-            throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
+        Assert.isTrue((ordinal >= 0 && ordinal < values.length),
+                () -> new EnumConstantNotPresentException(clazz, Integer.toString(ordinal)));
+        return values[ordinal];
+    }
+
+    /**
+     * 通过 ordinal 获取枚举实例
+     *
+     * @param <E>          枚举的类型
+     * @param clazz        枚举的类型信息
+     * @param ordinal      数据库中对应的数值
+     * @param defaultValue 默认值
+     * @return 枚举对象
+     */
+    public static <E extends Enum<?>> E valueOf(Class<E> clazz, @Nullable Integer ordinal, E defaultValue) {
+        if (null == ordinal) {
+            return defaultValue;
         }
+        return valueOf(clazz, ordinal);
+    }
+
+    /**
+     * 通过 ordinal 获取枚举实例
+     *
+     * @param <E>          枚举的类型
+     * @param clazz        枚举的类型信息
+     * @param ordinal      数据库中对应的数值
+     * @param defaultValue 默认值
+     * @return 枚举对象
+     */
+    public static <E extends Enum<?>> E getValueOrDefault(
+            Class<E> clazz,
+            @Nullable Integer ordinal,
+            Supplier<E> defaultValue) {
+        if (null == ordinal) {
+            return defaultValue.get();
+        }
+        return valueOf(clazz, ordinal);
     }
 
     /**
@@ -57,14 +90,12 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E getValueOrDefault(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
-        E[] values = clazz.getEnumConstants();
-        try {
-            return Objects.nonNull(ordinal) ? values[ordinal] : values[0];
-        } catch (IndexOutOfBoundsException e) {
-            Objects.requireNonNull(ordinal);
-            throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
-        }
+    public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
+        return getValueOrDefault(clazz, ordinal, () -> {
+            Assert.notNull(clazz, "Clazz must not be null.");
+            E[] values = clazz.getEnumConstants();
+            return values[0];
+        });
     }
 
     /**
@@ -75,17 +106,13 @@ public final class EnumUtil {
      * @param ordinal 数据库中对应的数值
      * @return 枚举对象
      */
-    public static <E extends Enum<?>> E getValueNullable(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
-        E[] values = clazz.getEnumConstants();
-        try {
-            return Objects.nonNull(ordinal) ? values[ordinal] : null;
-        } catch (IndexOutOfBoundsException e) {
-            Objects.requireNonNull(ordinal);
-            throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
-        }
+    public static <E extends Enum<?>> E getValueNullable(Class<E> clazz, @Nullable Integer ordinal) {
+        return valueOf(clazz, ordinal, null);
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinal(@Nonnull Class<E> clazz, @Nonnull Integer ordinal) {
+    public static <E extends Enum<?>> Integer checkOrdinal(Class<E> clazz, Integer ordinal) {
+        Assert.notNull(clazz, "Clazz must not be null.");
+        Assert.notNull(ordinal, "Ordinal must not be null.");
         E[] values = clazz.getEnumConstants();
         if (ordinal >= 0 && ordinal < values.length) {
             return ordinal;
@@ -93,17 +120,22 @@ public final class EnumUtil {
         throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinalNullable(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
-        if (ordinal == null) {
-            return null;
-        }
-        return checkOrdinal(clazz, ordinal);
+    public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> clazz, @Nullable Integer ordinal) {
+        return checkOrdinalOrDefault(clazz, ordinal, null);
     }
 
-    public static <E extends Enum<?>> Integer checkOrdinalOrDefault(@Nonnull Class<E> clazz, @Nullable Integer ordinal) {
-        if (ordinal == null) {
-            return 0;
+    public static <E extends Enum<?>> Integer checkOrdinalOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
+        return checkOrdinalOrDefault(clazz, ordinal, 0);
+    }
+
+    @Nullable
+    public static <E extends Enum<?>> Integer checkOrdinalOrDefault(
+            Class<E> clazz,
+            @Nullable Integer ordinal,
+            @Nullable Integer defaultValue) {
+        if (ordinal != null) {
+            return checkOrdinal(clazz, ordinal);
         }
-        return checkOrdinal(clazz, ordinal);
+        return defaultValue;
     }
 }

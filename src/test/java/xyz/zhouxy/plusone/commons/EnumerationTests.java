@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import xyz.zhouxy.plusone.commons.util.Enumeration;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 class EnumerationTests {
@@ -31,7 +30,7 @@ class EnumerationTests {
 
 final class EntityStatus extends Enumeration<EntityStatus> {
 
-    private EntityStatus(int value, @Nonnull String name) {
+    private EntityStatus(int value, String name) {
         super(value, name);
     }
 
@@ -52,7 +51,7 @@ final class EntityStatus extends Enumeration<EntityStatus> {
 }
 
 final class Result extends Enumeration<Result> {
-    private Result(int id, @Nonnull String name) {
+    private Result(int id, String name) {
         super(id, name);
     }
 

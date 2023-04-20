@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 /**
@@ -29,12 +28,11 @@ import javax.annotation.Nonnull;
  */
 public abstract class Enumeration<T extends Enumeration<T>> implements Comparable<T> {
     protected final int id;
-    @Nonnull
     protected final String name;
 
-    protected Enumeration(final int id, @Nonnull final String name) {
+    protected Enumeration(final int id, final String name) {
         this.id = id;
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     public final int getId() {
@@ -73,25 +71,25 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     protected static final class ValueSet<T extends Enumeration<T>> {
-        private final Map<Integer, T> values = new ConcurrentHashMap<>();
-    
+        private final Map<Integer, @Nonnull T> values = new ConcurrentHashMap<>();
+
         @SafeVarargs
         public ValueSet(T... values) {
             for (T value : values) {
-                put(Objects.requireNonNull(value));
+                put(value);
             }
         }
 
-        private void put(@Nonnull final T value) {
-            this.values.put(value.getId(), value);
+        private void put(final T value) {
+            this.values.put(value.getId(), Objects.requireNonNull(value, "Value must not be null."));
         }
 
-        @CheckForNull
-        public T get(final int id) {
+        public T get(int id) {
+            Assert.isTrue(this.values.containsKey(id), "%s 对应的值不存在", id);
             return this.values.get(id);
         }
 
-        public Collection<T> getValues() {
+        public Collection<@Nonnull T> getValues() {
             return this.values.values();
         }
     }
