@@ -19,7 +19,6 @@ package xyz.zhouxy.plusone.commons.util;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -35,14 +34,12 @@ public class RestfulResult {
     public static final int SUCCESS_STATUS = 2000000;
     public static final int DEFAULT_ERROR_STATUS = 9999999;
 
-    @Nonnull
     private final Object status;
-    @Nonnull
     private final String message;
-    @Nullable
-    private final Object data;
 
-    private RestfulResult(@Nonnull final Object status, @Nonnull final String message) {
+    private final @Nullable Object data;
+
+    private RestfulResult(final Object status, final String message) {
         this(status, message, null);
     }
 
@@ -50,34 +47,35 @@ public class RestfulResult {
         return new RestfulResult(SUCCESS_STATUS, "操作成功");
     }
 
-    public static RestfulResult success(@Nonnull final String message) {
+    public static RestfulResult success(final String message) {
+        Assert.notNull(message, "Message must not be null.");
         return new RestfulResult(SUCCESS_STATUS, message);
     }
-
-    public static RestfulResult success(
-            @Nonnull final String message,
-            @Nullable final Object data) {
+    
+    public static RestfulResult success(final String message, @Nullable final Object data) {
+        Assert.notNull(message, "Message must not be null.");
         return new RestfulResult(SUCCESS_STATUS, message, data);
     }
-
+    
     public static RestfulResult error() {
         return new RestfulResult(DEFAULT_ERROR_STATUS, "未知错误");
     }
-
-    public static RestfulResult error(
-            @Nonnull final Object status,
-            @Nonnull final String message) {
+    
+    public static RestfulResult error(final Object status, final String message) {
+        Assert.notNull(status, "Status must not be null.");
+        Assert.notNull(message, "Message must not be null.");
         return new RestfulResult(status, message);
     }
 
-    public static RestfulResult error(
-            @Nonnull final Object status,
-            @Nonnull final String message,
-            @Nullable final Object data) {
+    public static RestfulResult error(final Object status, final String message, @Nullable final Object data) {
+        Assert.notNull(status, "Status must not be null.");
+        Assert.notNull(message, "Message must not be null.");
         return new RestfulResult(status, message, data);
     }
 
-    public static RestfulResult error(@Nonnull final Object status, @Nonnull final Throwable e) {
+    public static RestfulResult error(final Object status, final Throwable e) {
+        Assert.notNull(status, "Status must not be null.");
+        Assert.notNull(e, "Exception must not be null.");
         String msg = e.getMessage();
         if (msg == null) {
             msg = "";
@@ -85,26 +83,24 @@ public class RestfulResult {
         return new RestfulResult(status, msg);
     }
 
-    public static RestfulResult of(
-            final boolean isSuccess,
-            @Nonnull final Supplier<RestfulResult> success,
-            @Nonnull final Supplier<RestfulResult> error) {
+    public static RestfulResult of(final boolean isSuccess,
+            final Supplier<RestfulResult> success, final Supplier<RestfulResult> error) {
+        Assert.notNull(success, "Success supplier must not be null.");
+        Assert.notNull(error, "Error supplier must not be null.");
         return isSuccess ? success.get() : error.get();
     }
 
-    public static RestfulResult of(
-            @Nonnull final BooleanSupplier isSuccess,
-            @Nonnull final Supplier<RestfulResult> success,
-            @Nonnull final Supplier<RestfulResult> error) {
+    public static RestfulResult of(final BooleanSupplier isSuccess,
+            final Supplier<RestfulResult> success, final Supplier<RestfulResult> error) {
+        Assert.notNull(isSuccess, "Conditions for success must not be null.");
+        Assert.notNull(success, "Success supplier must not be null.");
+        Assert.notNull(error, "Error supplier must not be null.");
         return isSuccess.getAsBoolean() ? success.get() : error.get();
     }
 
     // Constructors
 
-    private RestfulResult(
-            @Nonnull final Object status,
-            @Nonnull final String message,
-            @Nullable final Object data) {
+    private RestfulResult(final Object status, final String message, @Nullable final Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -114,12 +110,10 @@ public class RestfulResult {
 
     // Getters
 
-    @Nonnull
     public Object getStatus() {
         return status;
     }
 
-    @Nonnull
     public String getMessage() {
         return message;
     }
