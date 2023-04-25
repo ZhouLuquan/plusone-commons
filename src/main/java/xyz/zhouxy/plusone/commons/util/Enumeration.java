@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
-
 /**
  * 枚举类
  */
@@ -71,7 +69,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     protected static final class ValueSet<T extends Enumeration<T>> {
-        private final Map<Integer, @Nonnull T> values = new ConcurrentHashMap<>();
+        private final Map<Integer, T> values = new ConcurrentHashMap<>();
 
         @SafeVarargs
         public ValueSet(T... values) {
@@ -89,7 +87,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
             return this.values.get(id);
         }
 
-        public Collection<@Nonnull T> getValues() {
+        public Collection<T> getValues() {
             return this.values.values();
         }
     }

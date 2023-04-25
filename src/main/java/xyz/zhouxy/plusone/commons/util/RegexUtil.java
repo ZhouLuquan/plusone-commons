@@ -16,7 +16,6 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Map;
@@ -26,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class RegexUtil {
 
-    private static final Map<String, @Nonnull Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
 
     public static Pattern getPattern(final String regex) {
         Objects.requireNonNull(regex);
@@ -34,9 +33,6 @@ public class RegexUtil {
             return PATTERN_CACHE.get(regex);
         }
         Pattern pattern = Pattern.compile(regex);
-        if (pattern == null) {
-            throw new IllegalArgumentException("Regex must not be null.");
-        }
         PATTERN_CACHE.put(regex, pattern);
         return pattern;
     }
@@ -47,14 +43,12 @@ public class RegexUtil {
 
     public static boolean matches(@Nullable CharSequence input, Pattern pattern) {
         Assert.notNull(pattern, "Pattern must not be null.");
-        return pattern.matcher(input).matches();
+        return input != null && pattern.matcher(input).matches();
     }
 
     public static boolean matchesOr(@Nullable CharSequence input, String... regexes) {
-        boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, regex);
-            if (isMatched) {
+            if (matches(input, regex)) {
                 return true;
             }
         }
@@ -62,10 +56,8 @@ public class RegexUtil {
     }
 
     public static boolean matchesOr(@Nullable CharSequence input, Pattern... patterns) {
-        boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, pattern);
-            if (isMatched) {
+            if (matches(input, pattern)) {
                 return true;
             }
         }
@@ -73,10 +65,8 @@ public class RegexUtil {
     }
 
     public static boolean matchesAnd(@Nullable CharSequence input, String... regexes) {
-        boolean isMatched;
         for (String regex : regexes) {
-            isMatched = matches(input, regex);
-            if (!isMatched) {
+            if (!matches(input, regex)) {
                 return false;
             }
         }
@@ -84,10 +74,8 @@ public class RegexUtil {
     }
 
     public static boolean matchesAnd(@Nullable CharSequence input, Pattern... patterns) {
-        boolean isMatched;
         for (Pattern pattern : patterns) {
-            isMatched = matches(input, pattern);
-            if (!isMatched) {
+            if (!matches(input, pattern)) {
                 return false;
             }
         }

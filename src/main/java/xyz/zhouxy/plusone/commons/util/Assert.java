@@ -166,7 +166,7 @@ public class Assert {
         Assert.isFalse((arr == null || arr.length() == 0), errorMessageTemplate, args);
     }
 
-    // private consrtuctor
+    // private constructor
     private Assert() {
         throw new IllegalStateException("Utility class");
     }

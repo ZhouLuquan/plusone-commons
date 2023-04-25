@@ -1,6 +1,6 @@
 package xyz.zhouxy.plusone.commons;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,8 @@ class EnumerationTests {
 
     @Test
     void testEnumeration() {
-        assertTrue(EntityStatus.AVAILABLE == EntityStatus.of(0));
-        assertTrue(Result.SUCCESSFUL == Result.of(1));
+        assertSame(EntityStatus.AVAILABLE, EntityStatus.of(0));
+        assertSame(Result.SUCCESSFUL, Result.of(1));
         Collection<Comparable<? extends Enumeration<?>>> enums = Lists.newArrayList();
         enums.addAll(EntityStatus.constants());
         enums.addAll(Result.constants());
