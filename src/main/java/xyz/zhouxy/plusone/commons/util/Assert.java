@@ -18,63 +18,85 @@ public class Assert {
     }
 
     public static void isTrue(@Nullable Boolean conditions, String errorMessage) {
-        Assert.isTrue(conditions, () -> new IllegalArgumentException(errorMessage));
+        if (!Boolean.TRUE.equals(conditions)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     public static void isTrue(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(conditions, String.format(errorMessageTemplate, args));
+        if (!Boolean.TRUE.equals(conditions)) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
+        }
     }
 
     // isFalse
     public static <E extends Throwable> void isFalse(@Nullable Boolean conditions, Supplier<E> e) throws E {
-        Assert.isTrue(Boolean.FALSE.equals(conditions), e);
+        if (!Boolean.FALSE.equals(conditions)) {
+            throw e.get();
+        }
     }
 
     public static void isFalse(@Nullable Boolean conditions, String errorMessage) {
-        Assert.isTrue(Boolean.FALSE.equals(conditions), () -> new IllegalArgumentException(errorMessage));
+        if (!Boolean.FALSE.equals(conditions)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     public static void isFalse(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(Boolean.FALSE.equals(conditions), String.format(errorMessageTemplate, args));
+        if (!Boolean.FALSE.equals(conditions)) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
+        }
     }
 
     // between - int
+    private static boolean between(int value, int min, int max) {
+        return value >= min && value < max;
+    }
+
     public static <E extends Throwable> void between(int value, int min, int max, Supplier<E> e) throws E {
-        Assert.isTrue((value >= min && value < max), e);
+        Assert.isTrue(between(value, min, max), e);
     }
 
     public static void between(int value, int min, int max, String errorMessage) {
-        Assert.isTrue((value >= min && value < max), errorMessage);
+        Assert.isTrue(between(value, min, max), errorMessage);
     }
 
     public static void between(int value, int min, int max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((value >= min && value < max), errorMessageTemplate, args);
+        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
     }
 
     // between - long
+    private static boolean between(long value, long min, long max) {
+        return value >= min && value < max;
+    }
+
     public static <E extends Throwable> void between(long value, long min, long max, Supplier<E> e) throws E {
-        Assert.isTrue((value >= min && value < max), e);
+        Assert.isTrue(between(value, min, max), e);
     }
 
     public static void between(long value, long min, long max, String errorMessage) {
-        Assert.isTrue((value >= min && value < max), errorMessage);
+        Assert.isTrue(between(value, min, max), errorMessage);
     }
 
     public static void between(long value, long min, long max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((value >= min && value < max), errorMessageTemplate, args);
+        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
     }
 
     // between - double
+    private static boolean between(double value, double min, double max) {
+        return value >= min && value < max;
+    }
+
     public static <E extends Throwable> void between(double value, double min, double max, Supplier<E> e) throws E {
-        Assert.isTrue((value >= min && value < max), e);
+        Assert.isTrue(between(value, min, max), e);
     }
 
     public static void between(double value, double min, double max, String errorMessage) {
-        Assert.isTrue((value >= min && value < max), errorMessage);
+        Assert.isTrue(between(value, min, max), errorMessage);
     }
 
     public static void between(double value, double min, double max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((value >= min && value < max), errorMessageTemplate, args);
+        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
     }
 
     // notNull
@@ -91,81 +113,97 @@ public class Assert {
     }
 
     // isEmpty - Collection
+    private static <T> boolean isEmpty(@Nullable Collection<T> collection) {
+        return collection == null || collection.isEmpty();
+    }
+
     public static <T, E extends Throwable> void isEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
-        Assert.isTrue((collection == null || collection.isEmpty()), e);
+        Assert.isTrue(isEmpty(collection), e);
     }
 
     public static <T> void isEmpty(@Nullable Collection<T> collection, String errorMessage) {
-        Assert.isTrue((collection == null || collection.isEmpty()), errorMessage);
+        Assert.isTrue(isEmpty(collection), errorMessage);
     }
 
     public static <T> void isEmpty(@Nullable Collection<T> collection, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((collection == null || collection.isEmpty()), errorMessageTemplate, args);
+        Assert.isTrue(isEmpty(collection), errorMessageTemplate, args);
     }
 
     // isNotEmpty - Collection
+    private static <T> boolean isNotEmpty(@Nullable Collection<T> collection) {
+        return collection != null && !collection.isEmpty();
+    }
+
     public static <T, E extends Throwable> void isNotEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
-        Assert.isFalse((collection == null || collection.isEmpty()), e);
+        Assert.isTrue(isNotEmpty(collection), e);
     }
 
     public static <T> void isNotEmpty(@Nullable Collection<T> collection, String errorMessage) {
-        Assert.isFalse((collection == null || collection.isEmpty()), errorMessage);
+        Assert.isTrue(isNotEmpty(collection), errorMessage);
     }
 
     public static <T> void isNotEmpty(@Nullable Collection<T> collection, String errorMessageTemplate, Object... args) {
-        Assert.isFalse((collection == null || collection.isEmpty()), errorMessageTemplate, args);
+        Assert.isTrue(isNotEmpty(collection), errorMessageTemplate, args);
     }
 
     // isEmpty - Array
+    private static <T> boolean isEmpty(@Nullable T[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
     public static <T, E extends Throwable> void isEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isTrue((arr == null || arr.length == 0), e);
+        Assert.isTrue(isEmpty(arr), e);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isTrue((arr == null || arr.length == 0), errorMessage);
+        Assert.isTrue(isEmpty(arr), errorMessage);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((arr == null || arr.length == 0), errorMessageTemplate, args);
+        Assert.isTrue(isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - Array
+    private static <T> boolean isNotEmpty(@Nullable T[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
     public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isFalse((arr == null || arr.length == 0), e);
+        Assert.isTrue(isNotEmpty(arr), e);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isFalse((arr == null || arr.length == 0), errorMessage);
+        Assert.isTrue(isNotEmpty(arr), errorMessage);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isFalse((arr == null || arr.length == 0), errorMessageTemplate, args);
+        Assert.isTrue(isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - String
     public static <E extends Throwable> void isEmpty(@Nullable String str, Supplier<E> e) throws E {
-        Assert.isTrue((str == null || str.isEmpty()), e);
+        Assert.isTrue(Strings.isNullOrEmpty(str), e);
     }
 
     public static void isEmpty(@Nullable String str, String errorMessage) {
-        Assert.isTrue((str == null || str.isEmpty()), errorMessage);
+        Assert.isTrue(Strings.isNullOrEmpty(str), errorMessage);
     }
 
     public static void isEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((str == null || str.isEmpty()), errorMessageTemplate, args);
+        Assert.isTrue(Strings.isNullOrEmpty(str), errorMessageTemplate, args);
     }
 
     // isNotEmpty - String
     public static <E extends Throwable> void isNotEmpty(@Nullable String str, Supplier<E> e) throws E {
-        Assert.isFalse(Strings.isNullOrEmpty(str), e);
+        Assert.isTrue(!Strings.isNullOrEmpty(str), e);
     }
 
     public static void isNotEmpty(@Nullable String str, String errorMessage) {
-        Assert.isFalse(Strings.isNullOrEmpty(str), errorMessage);
+        Assert.isTrue(!Strings.isNullOrEmpty(str), errorMessage);
     }
 
     public static void isNotEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
-        Assert.isFalse(Strings.isNullOrEmpty(str), errorMessageTemplate, args);
+        Assert.isTrue(!Strings.isNullOrEmpty(str), errorMessageTemplate, args);
     }
 
     // private constructor
