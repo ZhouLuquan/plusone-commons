@@ -17,11 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.Nonnull;
 
 /**
  * 枚举类
@@ -71,26 +70,25 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     protected static final class ValueSet<T extends Enumeration<T>> {
-        private final Map<Integer, @Nonnull T> values = new ConcurrentHashMap<>();
+        private final Map<Integer, T> valueMap;
 
         @SafeVarargs
         public ValueSet(T... values) {
+            Map<Integer, T> valueMap = new HashMap<>(values.length);
             for (T value : values) {
-                put(value);
+                Assert.notNull(value, "Value must not be null.");
+                valueMap.put(value.getId(), value);
             }
-        }
-
-        private void put(final T value) {
-            this.values.put(value.getId(), Objects.requireNonNull(value, "Value must not be null."));
+            this.valueMap = Collections.unmodifiableMap(valueMap);
         }
 
         public T get(int id) {
-            Assert.isTrue(this.values.containsKey(id), "%s 对应的值不存在", id);
-            return this.values.get(id);
+            Assert.isTrue(this.valueMap.containsKey(id), "%s 对应的值不存在", id);
+            return this.valueMap.get(id);
         }
 
-        public Collection<@Nonnull T> getValues() {
-            return this.values.values();
+        public Collection<T> getValues() {
+            return this.valueMap.values();
         }
     }
 }
