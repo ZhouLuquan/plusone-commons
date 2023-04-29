@@ -113,71 +113,56 @@ public class Assert {
     }
 
     // isEmpty - Collection
-    private static <T> boolean isEmpty(@Nullable Collection<T> collection) {
-        return collection == null || collection.isEmpty();
+    public static <E extends Throwable> void isEmpty(@Nullable Collection<?> collection, Supplier<E> e) throws E {
+        Assert.isTrue(MoreCollections.isEmpty(collection), e);
     }
 
-    public static <T, E extends Throwable> void isEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
-        Assert.isTrue(isEmpty(collection), e);
+    public static void isEmpty(@Nullable Collection<?> collection, String errorMessage) {
+        Assert.isTrue(MoreCollections.isEmpty(collection), errorMessage);
     }
 
-    public static <T> void isEmpty(@Nullable Collection<T> collection, String errorMessage) {
-        Assert.isTrue(isEmpty(collection), errorMessage);
-    }
-
-    public static <T> void isEmpty(@Nullable Collection<T> collection, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(isEmpty(collection), errorMessageTemplate, args);
+    public static void isEmpty(@Nullable Collection<?> collection, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreCollections.isEmpty(collection), errorMessageTemplate, args);
     }
 
     // isNotEmpty - Collection
-    private static <T> boolean isNotEmpty(@Nullable Collection<T> collection) {
-        return collection != null && !collection.isEmpty();
+    public static <E extends Throwable> void isNotEmpty(@Nullable Collection<?> collection, Supplier<E> e) throws E {
+        Assert.isTrue(MoreCollections.isNotEmpty(collection), e);
     }
 
-    public static <T, E extends Throwable> void isNotEmpty(@Nullable Collection<T> collection, Supplier<E> e) throws E {
-        Assert.isTrue(isNotEmpty(collection), e);
+    public static void isNotEmpty(@Nullable Collection<?> collection, String errorMessage) {
+        Assert.isTrue(MoreCollections.isNotEmpty(collection), errorMessage);
     }
 
-    public static <T> void isNotEmpty(@Nullable Collection<T> collection, String errorMessage) {
-        Assert.isTrue(isNotEmpty(collection), errorMessage);
-    }
-
-    public static <T> void isNotEmpty(@Nullable Collection<T> collection, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(isNotEmpty(collection), errorMessageTemplate, args);
+    public static void isNotEmpty(@Nullable Collection<?> collection, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreCollections.isNotEmpty(collection), errorMessageTemplate, args);
     }
 
     // isEmpty - Array
-    private static <T> boolean isEmpty(@Nullable T[] arr) {
-        return arr == null || arr.length == 0;
-    }
-
     public static <T, E extends Throwable> void isEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(isEmpty(arr), e);
+        Assert.isTrue(MoreArrays.isEmpty(arr), e);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isTrue(isEmpty(arr), errorMessage);
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(isEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - Array
-    private static <T> boolean isNotEmpty(@Nullable T[] arr) {
-        return arr != null && arr.length > 0;
-    }
-
+    // TODO int[] long[] double[]
     public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(isNotEmpty(arr), e);
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isTrue(isNotEmpty(arr), errorMessage);
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(isNotEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - String
