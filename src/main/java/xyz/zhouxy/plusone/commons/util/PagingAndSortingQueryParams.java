@@ -16,9 +16,13 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableSet;
+
+import xyz.zhouxy.plusone.commons.annotation.Overridable;
 
 /**
  * 分页排序查询参数
@@ -33,53 +37,71 @@ import java.util.List;
  */
 public class PagingAndSortingQueryParams {
 
-    protected String orderBy;
-    protected Integer size;
-    protected Long pageNum;
+    protected @Nullable String orderBy;
+    protected int size;
+    protected long pageNum;
 
-    private final List<String> sortableColNames;
+    private final Set<String> sortableColNames;
 
     public PagingAndSortingQueryParams() {
-        sortableColNames = Collections.emptyList();
+        sortableColNames = ImmutableSet.of();
     }
 
     public PagingAndSortingQueryParams(String... sortableColNames) {
-        this.sortableColNames = Arrays.asList(sortableColNames);
+        for (String colName : sortableColNames) {
+            Assert.hasText(colName, "Column name must has text.");
+        }
+        this.sortableColNames = ImmutableSet.copyOf(sortableColNames);
     }
 
     // Getters
 
-    public String getOrderBy() {
-        return orderBy != null && sortableColNames.contains(orderBy) ? orderBy : null;
+    @Nullable
+    public final String getOrderBy() {
+        return this.orderBy;
     }
 
-    public int getSize() {
-        return this.size != null ? this.size : 15;
+    public final int getSize() {
+        return this.size;
     }
 
-    public long getPageNum() {
-        return this.pageNum != null ? this.pageNum : 1;
+    public final long getPageNum() {
+        return this.pageNum;
     }
 
-    public long getOffset() {
-        return (getPageNum() - 1) * getSize();
+    public final long getOffset() {
+        return (this.pageNum - 1) * this.size;
     }
 
     // Getters end
 
     // Setters
 
-    public void setOrderBy(String orderBy) {
+    public final void setOrderBy(@Nullable String orderBy) {
+        if (orderBy != null) {
+            Assert.isTrue(this.sortableColNames.contains(orderBy),
+                    "The column name must be in the set of sortable columns.");
+        }
         this.orderBy = orderBy;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public final void setSize(@Nullable Integer size) {
+        this.size = size != null ? size : getDefaultSize();
     }
 
-    public void setPageNum(Long pageNum) {
-        this.pageNum = pageNum;
+    public final void setPageNum(@Nullable Long pageNum) {
+        this.pageNum = pageNum != null ? pageNum : getDefaultPageNum();
     }
 
     // Setters end
+
+    @Overridable
+    protected int getDefaultSize() {
+        return 15;
+    }
+
+    @Overridable
+    protected int getDefaultPageNum() {
+        return 1;
+    }
 }
