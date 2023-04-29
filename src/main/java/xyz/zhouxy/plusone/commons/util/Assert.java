@@ -9,31 +9,31 @@ import javax.annotation.Nullable;
 public class Assert {
 
     // isTrue
-    public static <E extends Throwable> void isTrue(boolean conditions, Supplier<E> e) throws E {
-        if (!conditions) {
+    public static <E extends Throwable> void isTrue(@Nullable Boolean conditions, Supplier<E> e) throws E {
+        if (!Boolean.TRUE.equals(conditions)) {
             throw e.get();
         }
     }
 
-    public static void isTrue(boolean conditions, String errorMessage) {
+    public static void isTrue(@Nullable Boolean conditions, String errorMessage) {
         Assert.isTrue(conditions, () -> new IllegalArgumentException(errorMessage));
     }
 
-    public static void isTrue(boolean conditions, String errorMessageTemplate, Object... args) {
+    public static void isTrue(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
         Assert.isTrue(conditions, String.format(errorMessageTemplate, args));
     }
 
     // isFalse
-    public static <E extends Throwable> void isFalse(boolean conditions, Supplier<E> e) throws E {
-        Assert.isTrue(!conditions, e);
+    public static <E extends Throwable> void isFalse(@Nullable Boolean conditions, Supplier<E> e) throws E {
+        Assert.isTrue(Boolean.FALSE.equals(conditions), e);
     }
 
-    public static void isFalse(boolean conditions, String errorMessage) {
-        Assert.isTrue(!conditions, () -> new IllegalArgumentException(errorMessage));
+    public static void isFalse(@Nullable Boolean conditions, String errorMessage) {
+        Assert.isTrue(Boolean.FALSE.equals(conditions), () -> new IllegalArgumentException(errorMessage));
     }
 
-    public static void isFalse(boolean conditions, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(!conditions, String.format(errorMessageTemplate, args));
+    public static void isFalse(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(Boolean.FALSE.equals(conditions), String.format(errorMessageTemplate, args));
     }
 
     // between - int
