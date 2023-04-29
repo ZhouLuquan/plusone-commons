@@ -206,6 +206,19 @@ public class Assert {
         Assert.isTrue(!Strings.isNullOrEmpty(str), errorMessageTemplate, args);
     }
 
+    // hasText - String
+    public static <E extends Throwable> void hasText(@Nullable String str, Supplier<E> e) throws E {
+        Assert.isTrue(MoreStrings.hasText(str), e);
+    }
+
+    public static void hasText(@Nullable String str, String errorMessage) {
+        Assert.isTrue(MoreStrings.hasText(str), errorMessage);
+    }
+
+    public static void hasText(@Nullable String str, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreStrings.hasText(str), errorMessageTemplate, args);
+    }
+
     // private constructor
     private Assert() {
         throw new IllegalStateException("Utility class");
