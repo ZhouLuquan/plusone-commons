@@ -40,6 +40,7 @@ import xyz.zhouxy.plusone.commons.annotation.Overridable;
  */
 public class PagingAndSortingQueryParams {
 
+    private static final int DEFAULT_PAGE_SIZE = 15;
     protected final List<String> orderBy = Lists.newLinkedList();
     protected int size;
     protected long pageNum;
@@ -96,18 +97,13 @@ public class PagingAndSortingQueryParams {
     }
 
     public final void setPageNum(@Nullable Long pageNum) {
-        this.pageNum = pageNum != null ? pageNum : getDefaultPageNum();
+        this.pageNum = pageNum != null ? pageNum : 1;
     }
 
     // Setters end
 
     @Overridable
     protected int getDefaultSize() {
-        return 15;
-    }
-
-    @Overridable
-    protected int getDefaultPageNum() {
-        return 1;
+        return DEFAULT_PAGE_SIZE;
     }
 }
