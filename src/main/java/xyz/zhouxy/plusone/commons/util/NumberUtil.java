@@ -36,7 +36,7 @@ public class NumberUtil {
     }
 
     public static long sum(final int... numbers) {
-        int result = 0;
+        long result = 0L;
         for (int number : numbers) {
             result += number;
         }
@@ -44,7 +44,7 @@ public class NumberUtil {
     }
 
     public static long sum(final long... numbers) {
-        long result = 0;
+        long result = 0L;
         for (long number : numbers) {
             result += number;
         }
@@ -52,15 +52,15 @@ public class NumberUtil {
     }
 
     public static double sum(final float... numbers) {
-        double result = 0;
-        for (double number : numbers) {
+        double result = 0.00;
+        for (float number : numbers) {
             result += number;
         }
         return result;
     }
 
     public static double sum(final double... numbers) {
-        double result = 0;
+        double result = 0.00;
         for (double number : numbers) {
             result += number;
         }
