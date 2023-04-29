@@ -16,11 +16,14 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 
 import xyz.zhouxy.plusone.commons.annotation.Overridable;
 
@@ -37,14 +40,14 @@ import xyz.zhouxy.plusone.commons.annotation.Overridable;
  */
 public class PagingAndSortingQueryParams {
 
-    protected @Nullable String orderBy;
+    protected final List<String> orderBy = Lists.newLinkedList();
     protected int size;
     protected long pageNum;
 
     private final Set<String> sortableColNames;
 
     public PagingAndSortingQueryParams() {
-        sortableColNames = ImmutableSet.of();
+        this.sortableColNames = ImmutableSet.of();
     }
 
     public PagingAndSortingQueryParams(String... sortableColNames) {
@@ -57,8 +60,8 @@ public class PagingAndSortingQueryParams {
     // Getters
 
     @Nullable
-    public final String getOrderBy() {
-        return this.orderBy;
+    public final List<String> getOrderBy() {
+        return ImmutableList.copyOf(this.orderBy);
     }
 
     public final int getSize() {
@@ -77,12 +80,15 @@ public class PagingAndSortingQueryParams {
 
     // Setters
 
-    public final void setOrderBy(@Nullable String orderBy) {
-        if (orderBy != null) {
-            Assert.isTrue(this.sortableColNames.contains(orderBy),
-                    "The column name must be in the set of sortable columns.");
+    public final void setOrderBy(@Nullable List<String> orderBy) {
+        this.orderBy.clear();
+        if (orderBy != null && !orderBy.isEmpty()) {
+            for (String colName : orderBy) {
+                Assert.isTrue(this.sortableColNames.contains(colName),
+                        "The column name must be in the set of sortable columns.");
+            }
+            this.orderBy.addAll(orderBy);
         }
-        this.orderBy = orderBy;
     }
 
     public final void setSize(@Nullable Integer size) {
