@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Strings;
+
 public class Assert {
 
     // isTrue
@@ -127,7 +129,7 @@ public class Assert {
         Assert.isTrue((arr == null || arr.length == 0), errorMessageTemplate, args);
     }
 
-    // isNotEmpty - Collection
+    // isNotEmpty - Array
     public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
         Assert.isFalse((arr == null || arr.length == 0), e);
     }
@@ -140,30 +142,30 @@ public class Assert {
         Assert.isFalse((arr == null || arr.length == 0), errorMessageTemplate, args);
     }
 
-    // isEmpty - Array
-    public static <E extends Throwable> void isEmpty(@Nullable String arr, Supplier<E> e) throws E {
-        Assert.isTrue((arr == null || arr.length() == 0), e);
+    // isEmpty - String
+    public static <E extends Throwable> void isEmpty(@Nullable String str, Supplier<E> e) throws E {
+        Assert.isTrue((str == null || str.isEmpty()), e);
     }
 
-    public static void isEmpty(@Nullable String arr, String errorMessage) {
-        Assert.isTrue((arr == null || arr.length() == 0), errorMessage);
+    public static void isEmpty(@Nullable String str, String errorMessage) {
+        Assert.isTrue((str == null || str.isEmpty()), errorMessage);
     }
 
-    public static void isEmpty(@Nullable String arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue((arr == null || arr.length() == 0), errorMessageTemplate, args);
+    public static void isEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
+        Assert.isTrue((str == null || str.isEmpty()), errorMessageTemplate, args);
     }
 
-    // isNotEmpty - Collection
-    public static <E extends Throwable> void isNotEmpty(@Nullable String arr, Supplier<E> e) throws E {
-        Assert.isFalse((arr == null || arr.length() == 0), e);
+    // isNotEmpty - String
+    public static <E extends Throwable> void isNotEmpty(@Nullable String str, Supplier<E> e) throws E {
+        Assert.isFalse(Strings.isNullOrEmpty(str), e);
     }
 
-    public static void isNotEmpty(@Nullable String arr, String errorMessage) {
-        Assert.isFalse((arr == null || arr.length() == 0), errorMessage);
+    public static void isNotEmpty(@Nullable String str, String errorMessage) {
+        Assert.isFalse(Strings.isNullOrEmpty(str), errorMessage);
     }
 
-    public static void isNotEmpty(@Nullable String arr, String errorMessageTemplate, Object... args) {
-        Assert.isFalse((arr == null || arr.length() == 0), errorMessageTemplate, args);
+    public static void isNotEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
+        Assert.isFalse(Strings.isNullOrEmpty(str), errorMessageTemplate, args);
     }
 
     // private constructor
