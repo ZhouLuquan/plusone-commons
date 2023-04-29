@@ -74,12 +74,12 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
 
         @SafeVarargs
         public ValueSet(T... values) {
-            Map<Integer, T> valueMap = new HashMap<>(values.length);
+            Map<Integer, T> temp = new HashMap<>(values.length);
             for (T value : values) {
                 Assert.notNull(value, "Value must not be null.");
-                valueMap.put(value.getId(), value);
+                temp.put(value.getId(), value);
             }
-            this.valueMap = Collections.unmodifiableMap(valueMap);
+            this.valueMap = Collections.unmodifiableMap(temp);
         }
 
         public T get(int id) {
