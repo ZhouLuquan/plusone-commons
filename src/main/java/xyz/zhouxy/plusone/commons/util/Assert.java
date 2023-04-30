@@ -11,39 +11,51 @@ import com.google.common.base.Strings;
 public class Assert {
 
     // isTrue
-    public static <E extends Throwable> void isTrue(@Nullable Boolean conditions, Supplier<E> e) throws E {
-        if (!Boolean.TRUE.equals(conditions)) {
+    public static <E extends Throwable> void isTrue(@Nullable Boolean condition, Supplier<E> e) throws E {
+        if (!Boolean.TRUE.equals(condition)) {
             throw e.get();
         }
     }
 
-    public static void isTrue(@Nullable Boolean conditions, String errorMessage) {
-        if (!Boolean.TRUE.equals(conditions)) {
+    public static void isTrue(@Nullable Boolean condition) {
+        if (!Boolean.TRUE.equals(condition)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static void isTrue(@Nullable Boolean condition, String errorMessage) {
+        if (!Boolean.TRUE.equals(condition)) {
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
-    public static void isTrue(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
-        if (!Boolean.TRUE.equals(conditions)) {
+    public static void isTrue(@Nullable Boolean condition, String errorMessageTemplate, Object... args) {
+        if (!Boolean.TRUE.equals(condition)) {
             throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
         }
     }
 
     // isFalse
-    public static <E extends Throwable> void isFalse(@Nullable Boolean conditions, Supplier<E> e) throws E {
-        if (!Boolean.FALSE.equals(conditions)) {
+    public static <E extends Throwable> void isFalse(@Nullable Boolean condition, Supplier<E> e) throws E {
+        if (!Boolean.FALSE.equals(condition)) {
             throw e.get();
         }
     }
 
-    public static void isFalse(@Nullable Boolean conditions, String errorMessage) {
-        if (!Boolean.FALSE.equals(conditions)) {
+    public static void isFalse(@Nullable Boolean condition) {
+        if (!Boolean.FALSE.equals(condition)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static void isFalse(@Nullable Boolean condition, String errorMessage) {
+        if (!Boolean.FALSE.equals(condition)) {
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
-    public static void isFalse(@Nullable Boolean conditions, String errorMessageTemplate, Object... args) {
-        if (!Boolean.FALSE.equals(conditions)) {
+    public static void isFalse(@Nullable Boolean condition, String errorMessageTemplate, Object... args) {
+        if (!Boolean.FALSE.equals(condition)) {
             throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
         }
     }
