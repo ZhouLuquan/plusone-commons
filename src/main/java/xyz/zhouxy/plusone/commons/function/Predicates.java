@@ -2,9 +2,13 @@ package xyz.zhouxy.plusone.commons.function;
 
 import java.util.function.Predicate;
 
-public class Predicates<T> {
+public class Predicates {
 
-    public final Predicate<T> of(Predicate<? super T> predicate) {
+    public static <T> Predicate<T> of(Predicate<? super T> predicate) {
         return predicate::test;
+    }
+
+    private Predicates() {
+        throw new IllegalStateException("Utility class");
     }
 }

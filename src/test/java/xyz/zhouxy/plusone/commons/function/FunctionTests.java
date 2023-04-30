@@ -1,5 +1,6 @@
 package xyz.zhouxy.plusone.commons.function;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,12 +12,8 @@ class FunctionTests {
     @Test
     void test() {
         String str = "";
-        Predicate<String> predicate = new Predicates<String>().of(this::nonNull)
-                .or(StringUtils::isNotBlank);
-        Assert.isTrue(predicate.test(str), "未通过");
-    }
-
-    boolean nonNull(Object obj) {
-        return obj != null;
+        Predicate<String> predicate = Predicates.<String>of(Objects::nonNull)
+                .and(StringUtils::isNotEmpty);
+        Assert.isFalse(predicate.test(str), "校验应是不通过");
     }
 }
