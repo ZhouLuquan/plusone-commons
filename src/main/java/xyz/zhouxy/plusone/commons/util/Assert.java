@@ -270,15 +270,21 @@ public class Assert {
 
     // hasText - String
     public static <E extends Throwable> void hasText(@Nullable String str, Supplier<E> e) throws E {
-        Assert.isTrue(MoreStrings.hasText(str), e);
+        if (!MoreStrings.hasText(str)) {
+            throw e.get();
+        }
     }
 
     public static void hasText(@Nullable String str, String errorMessage) {
-        Assert.isTrue(MoreStrings.hasText(str), errorMessage);
+        if (!MoreStrings.hasText(str)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     public static void hasText(@Nullable String str, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreStrings.hasText(str), errorMessageTemplate, args);
+        if (!MoreStrings.hasText(str)) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
+        }
     }
 
     // private constructor
