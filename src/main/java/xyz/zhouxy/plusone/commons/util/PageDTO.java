@@ -35,7 +35,7 @@ public class PageDTO<T> {
     private final List<T> content;
 
     private PageDTO(List<T> content, long total) {
-        Assert.isNotEmpty(content, "Content must not be null.");
+        Assert.notNull(content, "Content must not be null.");
         this.content = content;
         this.total = total;
     }
