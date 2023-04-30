@@ -151,8 +151,46 @@ public class Assert {
         Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
     }
 
+    // isEmpty - int[]
+    public static <E extends Throwable> void isEmpty(@Nullable int[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+    }
+
+    public static void isEmpty(@Nullable int[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+    }
+
+    public static void isEmpty(@Nullable int[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+    }
+
+    // isEmpty - long[]
+    public static <E extends Throwable> void isEmpty(@Nullable long[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+    }
+
+    public static void isEmpty(@Nullable long[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+    }
+
+    public static void isEmpty(@Nullable long[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+    }
+
+    // isEmpty - double[]
+    public static <E extends Throwable> void isEmpty(@Nullable double[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+    }
+
+    public static void isEmpty(@Nullable double[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+    }
+
+    public static void isEmpty(@Nullable double[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+    }
+
     // isNotEmpty - Array
-    // TODO int[] long[] double[]
     public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
         Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
     }
@@ -162,6 +200,45 @@ public class Assert {
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+    }
+
+    // isNotEmpty - int[]
+    public static <E extends Throwable> void isNotEmpty(@Nullable int[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+    }
+
+    public static void isNotEmpty(@Nullable int[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+    }
+
+    public static void isNotEmpty(@Nullable int[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+    }
+
+    // isNotEmpty - long[]
+    public static <E extends Throwable> void isNotEmpty(@Nullable long[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+    }
+
+    public static void isNotEmpty(@Nullable long[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+    }
+
+    public static void isNotEmpty(@Nullable long[] arr, String errorMessageTemplate, Object... args) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+    }
+
+    // isNotEmpty - double[]
+    public static <E extends Throwable> void isNotEmpty(@Nullable double[] arr, Supplier<E> e) throws E {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+    }
+
+    public static void isNotEmpty(@Nullable double[] arr, String errorMessage) {
+        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+    }
+
+    public static void isNotEmpty(@Nullable double[] arr, String errorMessageTemplate, Object... args) {
         Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
