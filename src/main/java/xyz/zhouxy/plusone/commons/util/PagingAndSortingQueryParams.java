@@ -60,7 +60,6 @@ public class PagingAndSortingQueryParams {
 
     // Getters
 
-    @Nullable
     public final List<String> getOrderBy() {
         return ImmutableList.copyOf(this.orderBy);
     }
