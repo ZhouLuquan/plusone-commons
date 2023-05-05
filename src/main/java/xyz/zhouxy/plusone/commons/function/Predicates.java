@@ -35,7 +35,7 @@ public class Predicates {
      * 将 lambda 表达式或者方法引用指明为对应类型的 {@link Predicate} 对象。
      * 如将 {@code Objects::nonNull} 明确地指定为 {@code Predicate&lt;String&gt;}，
      * 使之可以链式调用 {@link Predicate#and(Predicate)}、{@link Predicate#or(Predicate)}
-     * 等方法，连接其它 {@code Predicate<? super String>} 对象。
+     * 等方法，连接其它 {@code Predicate<? super T>} 对象。
      * 
      * <pre>
      * Predicate&lt;String&gt; predicate = Predicates.&lt;String&gt;of(Objects::nonNull)
