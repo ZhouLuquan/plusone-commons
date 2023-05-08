@@ -16,14 +16,13 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nullable;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 
 import xyz.zhouxy.plusone.commons.annotation.Overridable;
 
@@ -41,27 +40,28 @@ import xyz.zhouxy.plusone.commons.annotation.Overridable;
 public class PagingAndSortingQueryParams {
 
     private static final int DEFAULT_PAGE_SIZE = 15;
-    protected final List<String> orderBy = Lists.newLinkedList();
+    protected final List<String> orderBy = new LinkedList<>();
     protected int size;
     protected long pageNum;
 
     private final Set<String> sortableColNames;
 
     public PagingAndSortingQueryParams() {
-        this.sortableColNames = ImmutableSet.of();
+        this.sortableColNames = Collections.emptySet();
     }
 
     public PagingAndSortingQueryParams(String... sortableColNames) {
         for (String colName : sortableColNames) {
-            Assert.hasText(colName, "Column name must has text.");
+            Assert.isNotBlank(colName, "Column name must has text.");
         }
-        this.sortableColNames = ImmutableSet.copyOf(sortableColNames);
+        Set<String> sortableColNameSet = new HashSet<>(sortableColNames.length);
+        this.sortableColNames = Collections.unmodifiableSet(sortableColNameSet);
     }
 
     // Getters
 
     public final List<String> getOrderBy() {
-        return ImmutableList.copyOf(this.orderBy);
+        return Collections.unmodifiableList(this.orderBy);
     }
 
     public final int getSize() {

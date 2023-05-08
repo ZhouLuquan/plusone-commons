@@ -13,7 +13,7 @@ class FunctionTests {
     void test() {
         String str = "";
         Predicate<String> predicate = Predicates.<String>of(Objects::nonNull)
-                .and(StringUtils::isNotEmpty);
+                .and(StringUtils::isNotBlank);
         Assert.isFalse(predicate.test(str), "校验应是不通过");
     }
 }

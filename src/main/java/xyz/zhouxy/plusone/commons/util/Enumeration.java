@@ -17,10 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
@@ -32,7 +32,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     protected final String name;
 
     protected Enumeration(final int id, final String name) {
-        Assert.hasText(name, "Name of enumeration must has text.");
+        Assert.isNotBlank(name, "Name of enumeration must has text.");
         this.id = id;
         this.name = name;
     }
@@ -73,20 +73,20 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     }
 
     protected static final class ValueSet<T extends Enumeration<T>> {
-        private final ImmutableMap<Integer, T> valueMap;
+        private final Map<Integer, T> valueMap;
 
-        private ValueSet(ImmutableMap<Integer, T> valueMap) {
+        private ValueSet(Map<Integer, T> valueMap) {
             this.valueMap = valueMap;
         }
 
         @SafeVarargs
         @StaticFactoryMethod(ValueSet.class)
         public static <T extends Enumeration<T>> ValueSet<T> of(T... values) {
-            Builder<Integer, T> builder = ImmutableMap.builder();
+            Map<Integer, T> temp = new HashMap<>();
             for (T value : values) {
-                builder.put(value.getId(), value);
+                temp.put(value.getId(), value);
             }
-            return new ValueSet<>(builder.build());
+            return new ValueSet<>(Collections.unmodifiableMap(temp));
         }
 
         public T get(int id) {

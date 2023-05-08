@@ -33,7 +33,7 @@ public abstract class ValidatableStringRecord {
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
         Assert.notNull(pattern, "The pattern must not be null.");
-        Assert.hasText(value, "The value must be has text.");
+        Assert.isNotBlank(value, "The value must be has text.");
         Assert.isTrue(pattern.matcher(value).matches());
         this.value = value;
     }

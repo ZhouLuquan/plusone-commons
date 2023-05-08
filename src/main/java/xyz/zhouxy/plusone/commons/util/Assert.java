@@ -6,7 +6,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Strings;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class Assert {
 
@@ -152,149 +153,161 @@ public class Assert {
 
     // isEmpty - Array
     public static <T, E extends Throwable> void isEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), e);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessage);
     }
 
     public static <T> void isEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - int[]
     public static <E extends Throwable> void isEmpty(@Nullable int[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), e);
     }
 
     public static void isEmpty(@Nullable int[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessage);
     }
 
     public static void isEmpty(@Nullable int[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - long[]
     public static <E extends Throwable> void isEmpty(@Nullable long[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), e);
     }
 
     public static void isEmpty(@Nullable long[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessage);
     }
 
     public static void isEmpty(@Nullable long[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - double[]
     public static <E extends Throwable> void isEmpty(@Nullable double[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), e);
     }
 
     public static void isEmpty(@Nullable double[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessage);
     }
 
     public static void isEmpty(@Nullable double[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - Array
     public static <T, E extends Throwable> void isNotEmpty(@Nullable T[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), e);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessage);
     }
 
     public static <T> void isNotEmpty(@Nullable T[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - int[]
     public static <E extends Throwable> void isNotEmpty(@Nullable int[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), e);
     }
 
     public static void isNotEmpty(@Nullable int[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessage);
     }
 
     public static void isNotEmpty(@Nullable int[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - long[]
     public static <E extends Throwable> void isNotEmpty(@Nullable long[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), e);
     }
 
     public static void isNotEmpty(@Nullable long[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessage);
     }
 
     public static void isNotEmpty(@Nullable long[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isNotEmpty - double[]
     public static <E extends Throwable> void isNotEmpty(@Nullable double[] arr, Supplier<E> e) throws E {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), e);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), e);
     }
 
     public static void isNotEmpty(@Nullable double[] arr, String errorMessage) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessage);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessage);
     }
 
     public static void isNotEmpty(@Nullable double[] arr, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(MoreArrays.isNotEmpty(arr), errorMessageTemplate, args);
+        Assert.isTrue(ArrayUtils.isNotEmpty(arr), errorMessageTemplate, args);
     }
 
     // isEmpty - String
     public static <E extends Throwable> void isEmpty(@Nullable String str, Supplier<E> e) throws E {
-        Assert.isTrue(Strings.isNullOrEmpty(str), e);
-    }
-
-    public static void isEmpty(@Nullable String str, String errorMessage) {
-        Assert.isTrue(Strings.isNullOrEmpty(str), errorMessage);
-    }
-
-    public static void isEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(Strings.isNullOrEmpty(str), errorMessageTemplate, args);
-    }
-
-    // isNotEmpty - String
-    public static <E extends Throwable> void isNotEmpty(@Nullable String str, Supplier<E> e) throws E {
-        Assert.isTrue(!Strings.isNullOrEmpty(str), e);
-    }
-
-    public static void isNotEmpty(@Nullable String str, String errorMessage) {
-        Assert.isTrue(!Strings.isNullOrEmpty(str), errorMessage);
-    }
-
-    public static void isNotEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(!Strings.isNullOrEmpty(str), errorMessageTemplate, args);
-    }
-
-    // hasText - String
-    public static <E extends Throwable> void hasText(@Nullable String str, Supplier<E> e) throws E {
-        if (!MoreStrings.hasText(str)) {
+        if (!StringUtils.isEmpty(str)) {
             throw e.get();
         }
     }
 
-    public static void hasText(@Nullable String str, String errorMessage) {
-        if (!MoreStrings.hasText(str)) {
+    public static void isEmpty(@Nullable String str, String errorMessage) {
+        if (!StringUtils.isEmpty(str)) {
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
-    public static void hasText(@Nullable String str, String errorMessageTemplate, Object... args) {
-        if (!MoreStrings.hasText(str)) {
+    public static void isEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
+        if (!StringUtils.isEmpty(str)) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
+        }
+    }
+
+    // isNotEmpty - String
+    public static <E extends Throwable> void isNotEmpty(@Nullable String str, Supplier<E> e) throws E {
+        if (!StringUtils.isNotEmpty(str)) {
+            throw e.get();
+        }
+    }
+
+    public static void isNotEmpty(@Nullable String str, String errorMessage) {
+        if (!StringUtils.isNotEmpty(str)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void isNotEmpty(@Nullable String str, String errorMessageTemplate, Object... args) {
+        if (!StringUtils.isNotEmpty(str)) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
+        }
+    }
+
+    // isNotBlank - String
+    public static <E extends Throwable> void isNotBlank(@Nullable String str, Supplier<E> e) throws E {
+        if (!StringUtils.isNotBlank(str)) {
+            throw e.get();
+        }
+    }
+
+    public static void isNotBlank(@Nullable String str, String errorMessage) {
+        if (!StringUtils.isNotBlank(str)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void isNotBlank(@Nullable String str, String errorMessageTemplate, Object... args) {
+        if (!StringUtils.isNotBlank(str)) {
             throw new IllegalArgumentException(String.format(errorMessageTemplate, args));
         }
     }

@@ -2,13 +2,13 @@ package xyz.zhouxy.plusone.commons;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.zhouxy.plusone.commons.util.Enumeration;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 class EnumerationTests {
@@ -19,7 +19,7 @@ class EnumerationTests {
     void testEnumeration() {
         assertSame(EntityStatus.AVAILABLE, EntityStatus.of(0));
         assertSame(Result.SUCCESSFUL, Result.of(1));
-        Collection<Comparable<? extends Enumeration<?>>> enums = Lists.newArrayList();
+        Collection<Comparable<? extends Enumeration<?>>> enums = new ArrayList<>();
         enums.addAll(EntityStatus.constants());
         enums.addAll(Result.constants());
         for (Comparable<? extends Enumeration<?>> anEnum : enums) {
