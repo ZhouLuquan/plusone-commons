@@ -1,14 +1,11 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -19,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import xyz.zhouxy.plusone.commons.jdbc.DbRecord;
 import xyz.zhouxy.plusone.commons.jdbc.JdbcUtil;
 
 class JdbcUtilTests {
@@ -51,14 +49,10 @@ class JdbcUtilTests {
     @Test
     void testQuery() throws SQLException {
         Connection conn = this.dataSource.getConnection();
-        List<Map<String, Object>> ms = JdbcUtil.connect(conn).query(
+        List<DbRecord> rs = JdbcUtil.connect(conn).queryToRecordList(
                 "SELECT * FROM public.base_table WHERE id IN (?, ?, ?)", 501533, 501554, 544599);
-        assertNotNull(ms);
-        List<DbRecord> es = ms.stream()
-                .map(input -> new DbRecord().putAll(input))
-                .collect(Collectors.toList());
-        assertEquals(3, es.size());
-        for (DbRecord baseEntity : es) {
+        assertEquals(3, rs.size());
+        for (DbRecord baseEntity : rs) {
             log.info("id: {}", baseEntity.getValueAsLong("id"));
             assertNull(baseEntity.getValueAsString("updated_by"));
         }

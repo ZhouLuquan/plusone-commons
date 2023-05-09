@@ -19,7 +19,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.annotations.Beta;
 
-import xyz.zhouxy.plusone.commons.util.DbRecord;
 import xyz.zhouxy.plusone.commons.util.MoreCollections;
 
 @Beta

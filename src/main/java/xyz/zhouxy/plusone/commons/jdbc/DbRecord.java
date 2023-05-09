@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.jdbc;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +14,10 @@ import java.util.OptionalLong;
 import java.util.Set;
 
 import com.google.common.annotations.Beta;
+
+import xyz.zhouxy.plusone.commons.util.AbstractMapWrapper;
+import xyz.zhouxy.plusone.commons.util.Assert;
+import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
 @Beta
 public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
