@@ -36,9 +36,11 @@ public final class EnumUtil {
      *
      * @param <E>     枚举的类型
      * @param clazz   枚举的类型信息
-     * @param ordinal 数据库中对应的数值
+     * @param ordinal 序号
      * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
      */
+    @Deprecated
     public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) {
         Assert.notNull(clazz, "Clazz must not be null.");
         E[] values = clazz.getEnumConstants();
@@ -52,10 +54,12 @@ public final class EnumUtil {
      *
      * @param <E>          枚举的类型
      * @param clazz        枚举的类型信息
-     * @param ordinal      数据库中对应的数值
+     * @param ordinal      序号
      * @param defaultValue 默认值
      * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
      */
+    @Deprecated
     public static <E extends Enum<?>> E valueOf(Class<E> clazz, @Nullable Integer ordinal, E defaultValue) {
         if (null == ordinal) {
             return defaultValue;
@@ -68,10 +72,12 @@ public final class EnumUtil {
      *
      * @param <E>          枚举的类型
      * @param clazz        枚举的类型信息
-     * @param ordinal      数据库中对应的数值
+     * @param ordinal      序号
      * @param defaultValue 默认值
      * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
      */
+    @Deprecated
     public static <E extends Enum<?>> E getValueOrDefault(
             Class<E> clazz,
             @Nullable Integer ordinal,
@@ -87,9 +93,11 @@ public final class EnumUtil {
      *
      * @param <E>     枚举的类型
      * @param clazz   枚举的类型信息
-     * @param ordinal 数据库中对应的数值
+     * @param ordinal 序号
      * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
      */
+    @Deprecated
     public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
         return getValueOrDefault(clazz, ordinal, () -> {
             Assert.notNull(clazz, "Clazz must not be null.");
@@ -103,9 +111,11 @@ public final class EnumUtil {
      *
      * @param <E>     枚举的类型
      * @param clazz   枚举的类型信息
-     * @param ordinal 数据库中对应的数值
+     * @param ordinal 序号
      * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
      */
+    @Deprecated
     public static <E extends Enum<?>> E getValueNullable(Class<E> clazz, @Nullable Integer ordinal) {
         return valueOf(clazz, ordinal, null);
     }
@@ -120,15 +130,18 @@ public final class EnumUtil {
         throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
     }
 
+    @Deprecated
     public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> clazz, @Nullable Integer ordinal) {
         return checkOrdinalOrDefault(clazz, ordinal, null);
     }
 
+    @Deprecated
     public static <E extends Enum<?>> Integer checkOrdinalOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
         return checkOrdinalOrDefault(clazz, ordinal, 0);
     }
 
     @Nullable
+    @Deprecated
     public static <E extends Enum<?>> Integer checkOrdinalOrDefault(
             Class<E> clazz,
             @Nullable Integer ordinal,
