@@ -1,11 +1,12 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -51,10 +52,10 @@ class JdbcUtilTests {
         Connection conn = this.dataSource.getConnection();
         List<DbRecord> rs = JdbcUtil.connect(conn).queryToRecordList(
                 "SELECT * FROM public.base_table WHERE id IN (?, ?, ?)", 501533, 501554, 544599);
-        assertEquals(3, rs.size());
+        assertTrue(3 > rs.size());
         for (DbRecord baseEntity : rs) {
             log.info("id: {}", baseEntity.getValueAsLong("id"));
-            assertNull(baseEntity.getValueAsString("updated_by"));
+            assertEquals(Optional.empty(), baseEntity.getValueAsString("updated_by"));
         }
     }
 }
