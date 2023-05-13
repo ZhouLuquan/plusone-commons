@@ -29,12 +29,16 @@ public class RegexUtil {
 
     public static Pattern getPattern(final String regex) {
         Objects.requireNonNull(regex);
-        if (PATTERN_CACHE.containsKey(regex)) {
-            return PATTERN_CACHE.get(regex);
+        if (!PATTERN_CACHE.containsKey(regex)) {
+            synchronized (RegexUtil.class) {
+                if (!PATTERN_CACHE.containsKey(regex)) {
+                    Pattern pattern = Pattern.compile(regex);
+                    PATTERN_CACHE.put(regex, pattern);
+                    return pattern;
+                }
+            }
         }
-        Pattern pattern = Pattern.compile(regex);
-        PATTERN_CACHE.put(regex, pattern);
-        return pattern;
+        return PATTERN_CACHE.get(regex);
     }
 
     public static boolean matches(@Nullable CharSequence input, String regex) {
