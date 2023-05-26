@@ -35,24 +35,25 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.annotations.Beta;
 
-import xyz.zhouxy.plusone.commons.util.MoreCollections;
+import xyz.zhouxy.plusone.commons.util.Assert;
+import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
 @Beta
-public class JdbcUtil {
+public class SimpleJdbcTemplate {
 
-    public static JdbcExecutor connect(Connection conn) {
-        return new JdbcExecutor(conn);
+    public static JdbcExecutorBak connect(final Connection conn) {
+        return new JdbcExecutorBak(conn);
     }
 
-    private JdbcUtil() {
+    private SimpleJdbcTemplate() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static class JdbcExecutor {
+    public static class JdbcExecutorBak {
 
         private final Connection conn;
 
-        public JdbcExecutor(Connection conn) {
+        public JdbcExecutorBak(Connection conn) {
             this.conn = conn;
         }
 
@@ -74,6 +75,11 @@ public class JdbcUtil {
             }
         }
 
+        public <T> Optional<T> queryFirst(String sql, Object[] params, ResultMap<T> resultMap) throws SQLException {
+            List<T> list = query(sql, params, resultMap);
+            return (list.isEmpty()) ? Optional.empty() : Optional.ofNullable(list.get(0));
+        }
+
         public static final ResultMap<Map<String, Object>> mapResultMap = rs -> {
             Map<String, Object> result = new HashMap<>();
             ResultSetMetaData metaData = rs.getMetaData();
@@ -87,6 +93,10 @@ public class JdbcUtil {
 
         public List<Map<String, Object>> query(String sql, Object... params) throws SQLException {
             return query(sql, params, mapResultMap);
+        }
+
+        public Optional<Map<String, Object>> queryFirst(String sql, Object... params) throws SQLException {
+            return queryFirst(sql, params, mapResultMap);
         }
 
         public static final ResultMap<DbRecord> recordResultMap = rs -> {
@@ -104,26 +114,26 @@ public class JdbcUtil {
             return query(sql, params, recordResultMap);
         }
 
+        public Optional<DbRecord> queryFirstRecord(String sql, Object... params) throws SQLException {
+            return queryFirst(sql, params, recordResultMap);
+        }
+
         public Optional<String> queryToString(String sql, Object... params) throws SQLException {
-            List<String> result = query(sql, params, (ResultSet rs) -> rs.getString(1));
-            return MoreCollections.isNotEmpty(result) ? Optional.ofNullable(result.get(0)) : Optional.empty();
+            return queryFirst(sql, params, (ResultSet rs) -> rs.getString(1));
         }
 
         public OptionalInt queryToInt(String sql, Object... params) throws SQLException {
-            List<Integer> result = query(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).intValue());
-            Integer i = MoreCollections.isNotEmpty(result) ? result.get(0) : null;
-            return i != null ? OptionalInt.of(i) : OptionalInt.empty();
+            Optional<Integer> result = queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).intValue());
+            return OptionalUtil.toOptionalInt(result);
         }
 
         public OptionalLong queryToLong(String sql, Object... params) throws SQLException {
-            List<Long> result = query(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).longValue());
-            Long i = MoreCollections.isNotEmpty(result) ? result.get(0) : null;
-            return i != null ? OptionalLong.of(i) : OptionalLong.empty();
+            Optional<Long> result = queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).longValue());
+            return OptionalUtil.toOptionalLong(result);
         }
 
         public Optional<BigDecimal> queryToBigDecimal(String sql, Object... params) throws SQLException {
-            List<BigDecimal> result = query(sql, params, (ResultSet rs) -> rs.getBigDecimal(1));
-            return MoreCollections.isNotEmpty(result) ? Optional.ofNullable(result.get(0)) : Optional.empty();
+            return queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1));
         }
 
         public int update(String sql, Object... params) throws SQLException {
@@ -155,6 +165,26 @@ public class JdbcUtil {
                 }
                 return result;
             }
+        }
+
+        public void tx(final Tx tx) throws Exception {
+            Assert.notNull(tx, "Tx can not be null.");
+            try {
+                this.conn.setAutoCommit(false);
+                tx.execute();
+                conn.commit();
+                conn.setAutoCommit(true);
+            } catch (Exception e) {
+                conn.rollback();
+                conn.setAutoCommit(true);
+                throw e;
+            }
+        }
+
+        @FunctionalInterface
+        public static interface Tx {
+            @SuppressWarnings("all")
+            void execute() throws Exception;
         }
     }
 }
