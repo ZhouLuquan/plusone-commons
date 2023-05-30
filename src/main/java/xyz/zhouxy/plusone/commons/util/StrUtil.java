@@ -9,22 +9,22 @@ public class StrUtil {
             return src;
         }
         char[] result = new char[minLength];
-        Arrays.fill(result, c);
+        Arrays.fill(result, 0, minLength - src.length(), c);
         for (int i = 1; i <= src.length(); i++) {
             result[minLength - i] = src.charAt(src.length() - i);
         }
         return String.valueOf(result);
     }
 
-    public static String fillAfter(String src, int length, char c) {
-        if (src.length() >= length) {
+    public static String fillAfter(String src, int minLength, char c) {
+        if (src.length() >= minLength) {
             return src;
         }
-        char[] result = new char[length];
-        Arrays.fill(result, c);
+        char[] result = new char[minLength];
         for (int i = 0; i < src.length(); i++) {
             result[i] = src.charAt(i);
         }
+        Arrays.fill(result, src.length(), result.length, c);
         return String.valueOf(result);
     }
 
