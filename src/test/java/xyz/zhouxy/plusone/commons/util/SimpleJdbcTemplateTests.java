@@ -97,12 +97,12 @@ class SimpleJdbcTemplateTests {
         final String sql = "INSERT INTO test_table(id, created_by, create_time, updated_by, update_time, status) VALUES(?, ?, ?, ?, ?, ?)";
         final List<Object[]> params = recordList.stream()
                 .map(r -> new Object[] {
-                        r.getValueAsString("id").orElse(null),
-                        r.getValueAsString("created_by").orElse(null),
-                        r.getValueAsString("create_time").orElse(null),
-                        r.getValueAsString("updated_by").orElse(null),
-                        r.getValueAsString("update_time").orElse(null),
-                        r.getValueAsString("status").orElse(null)
+                        OptionalUtil.orElseNull(r.getValueAsString("id")),
+                        OptionalUtil.orElseNull(r.getValueAsString("created_by")),
+                        OptionalUtil.orElseNull(r.getValueAsString("create_time")),
+                        OptionalUtil.orElseNull(r.getValueAsString("updated_by")),
+                        OptionalUtil.orElseNull(r.getValueAsString("update_time")),
+                        OptionalUtil.orElseNull(r.getValueAsString("status"))
                 })
                 .collect(Collectors.toList());
         try (Connection conn = this.dataSource.getConnection()) {

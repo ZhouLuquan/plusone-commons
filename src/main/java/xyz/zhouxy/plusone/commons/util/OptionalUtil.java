@@ -23,6 +23,8 @@ import java.util.OptionalLong;
 
 import javax.annotation.Nullable;
 
+import com.google.common.annotations.Beta;
+
 /**
  * OptionalUtil
  *
@@ -117,6 +119,19 @@ public class OptionalUtil {
      */
     public static OptionalDouble toOptionalDouble(Optional<Double> objectOptional) {
         return optionalOf(objectOptional.orElse(null));
+    }
+
+    /**
+     * return the value of the optional object if present,
+     * otherwise {@code null}.
+     * 
+     * @param <T>         the class of the value
+     * @param optionalObj {@link Optional} object, which must be non-null.
+     * @return the value of the optional object if present, otherwise {@code null}.
+     */
+    @Beta
+    public static <T> T orElseNull(Optional<T> optionalObj) {
+        return optionalObj.orElse(null);
     }
 
     private OptionalUtil() {
