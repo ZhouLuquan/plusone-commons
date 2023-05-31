@@ -18,27 +18,19 @@ package xyz.zhouxy.plusone.commons.util;
 
 import javax.annotation.Nullable;
 
+import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
+
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 public class RegexUtil {
 
-    private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, Pattern> PATTERN_CACHE = new SafeConcurrentHashMap<>();
 
     public static Pattern getPattern(final String regex) {
         Objects.requireNonNull(regex);
-        if (!PATTERN_CACHE.containsKey(regex)) {
-            synchronized (RegexUtil.class) {
-                if (!PATTERN_CACHE.containsKey(regex)) {
-                    Pattern pattern = Pattern.compile(regex);
-                    PATTERN_CACHE.put(regex, pattern);
-                    return pattern;
-                }
-            }
-        }
-        return PATTERN_CACHE.get(regex);
+        return PATTERN_CACHE.computeIfAbsent(regex, Pattern::compile);
     }
 
     public static boolean matches(@Nullable CharSequence input, String regex) {
