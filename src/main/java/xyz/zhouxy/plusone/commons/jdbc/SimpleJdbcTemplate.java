@@ -167,7 +167,7 @@ public class SimpleJdbcTemplate {
             }
         }
 
-        public void tx(final Tx tx) throws Exception {
+        public void tx(final IAtom tx) throws Exception {
             Assert.notNull(tx, "Tx can not be null.");
             try {
                 this.conn.setAutoCommit(false);
@@ -182,7 +182,7 @@ public class SimpleJdbcTemplate {
         }
 
         @FunctionalInterface
-        public static interface Tx {
+        public static interface IAtom {
             @SuppressWarnings("all")
             void execute() throws Exception;
         }
