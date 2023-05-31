@@ -60,7 +60,16 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return getSelf();
     }
 
-    public final Optional<V> get(K key) {
+    /**
+     * 获取 {@code map} 中的值。如果 {@code key} 不存在，则抛出异常。
+     * 将 {@code value}（可为 {@code null}）装进 {@link Optional} 中后返回。
+     * <i>为了这碟醋包的这盘饺子。</i>
+     *
+     * @param key 键
+     * @return 可缺失的值
+     * @throws IllegalArgumentException key 不存在时抛出。
+     */
+    public Optional<V> get(K key) {
         if (this.map.containsKey(key)) {
             return Optional.ofNullable(this.map.get(key));
         }
@@ -112,6 +121,19 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return this.map.remove(key);
     }
 
+    public final V putIfAbsent(K key, V value) {
+        return this.map.putIfAbsent(key, value);
+    }
+
+    public final V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
+        V v = this.map.get(key);
+        if (null == v) {
+            this.map.putIfAbsent(key, mappingFunction.apply(key));
+            v = this.map.get(key);
+        }
+        return v;
+    }
+
     public final Map<K, V> exportMap() {
         return this.map;
     }
@@ -121,4 +143,46 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     }
 
     protected abstract T getSelf();
+
+    protected abstract static class Builder<K, V> {
+        protected final Map<K, V> map;
+        protected Consumer<K> keyChecker;
+        protected Consumer<V> valueChecker;
+
+        protected Builder(Map<K, V> map) {
+            this.map = map;
+        }
+
+        public Builder<K, V> keyChecker(@Nullable Consumer<K> keyChecker) {
+            this.keyChecker = keyChecker;
+            return this;
+        }
+
+        public Builder<K, V> valueChecker(@Nullable Consumer<V> valueChecker) {
+            this.valueChecker = valueChecker;
+            return this;
+        }
+
+        public Builder<K, V> put(K key, V value) {
+            if (this.keyChecker != null) {
+                this.keyChecker.accept(key);
+            }
+            if (this.valueChecker != null) {
+                this.valueChecker.accept(value);
+            }
+            this.map.put(key, value);
+            return this;
+        }
+
+        public Builder<K, V> putAll(Map<? extends K, ? extends V> m) {
+            for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
+                put(entry.getKey(), entry.getValue());
+            }
+            return this;
+        }
+
+        public abstract MapWrapper<K, V> build();
+
+        public abstract MapWrapper<K, V> buildUnmodifiableMap();
+    }
 }
