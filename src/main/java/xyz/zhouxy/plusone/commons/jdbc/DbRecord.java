@@ -47,31 +47,31 @@ public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
     }
 
     public Optional<String> getValueAsString(String key) {
-        return this.<String>getAndConvert(key);
+        return this.getAndConvert(key);
     }
 
     public <T> List<T> getValueAsList(String key) {
         return this.<Collection<T>>getAndConvert(key)
-                .<List<T>>map(l -> (l instanceof List) ? (List<T>) l : new ArrayList<>(l))
-                .orElse(Collections.<T>emptyList());
+                .map(l -> (l instanceof List) ? (List<T>) l : new ArrayList<>(l))
+                .orElse(Collections.emptyList());
     }
 
     public <T> Set<T> getValueAsSet(String key) {
         return this.<Collection<T>>getAndConvert(key)
-                .<Set<T>>map(l -> (l instanceof Set) ? (Set<T>) l : new HashSet<>(l))
+                .map(l -> (l instanceof Set) ? (Set<T>) l : new HashSet<>(l))
                 .orElse(Collections.<T>emptySet());
     }
 
     public OptionalInt getValueAsInt(String key) {
-        return OptionalUtil.toOptionalInt(this.<Integer>getAndConvert(key));
+        return OptionalUtil.toOptionalInt(this.getAndConvert(key));
     }
 
     public OptionalLong getValueAsLong(String key) {
-        return OptionalUtil.toOptionalLong(this.<Long>getAndConvert(key));
+        return OptionalUtil.toOptionalLong(this.getAndConvert(key));
     }
 
     public OptionalDouble getValueAsDouble(String key) {
-        return OptionalUtil.toOptionalDouble(this.<Double>getAndConvert(key));
+        return OptionalUtil.toOptionalDouble(this.getAndConvert(key));
     }
 
     @Override
