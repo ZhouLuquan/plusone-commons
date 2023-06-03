@@ -37,7 +37,7 @@ class DateTimeUtilTests {
 
     @Test
     void testToJodaDateTime() {
-        DateTime jodaDateTime = DateTimeUtil.toJodaDateTime(Instant.now(), ZoneId.of("null"));
+        DateTime jodaDateTime = DateTimeUtil.toJodaDateTime(Instant.now(), ZoneId.of("+08:00"));
         log.info("jodaDateTime: {}", jodaDateTime);
     }
 
