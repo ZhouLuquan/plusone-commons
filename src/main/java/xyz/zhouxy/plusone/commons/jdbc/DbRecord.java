@@ -78,4 +78,9 @@ public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
     protected DbRecord getSelf() {
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "xyz.zhouxy.plusone.commons.jdbc.DbRecord@" + super.toString();
+    }
 }

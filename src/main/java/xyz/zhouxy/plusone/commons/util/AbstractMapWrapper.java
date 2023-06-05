@@ -144,6 +144,11 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
 
     protected abstract T getSelf();
 
+    @Override
+    public String toString() {
+        return this.map.toString();
+    }
+
     protected abstract static class Builder<K, V> {
         protected final Map<K, V> map;
         protected Consumer<K> keyChecker;
