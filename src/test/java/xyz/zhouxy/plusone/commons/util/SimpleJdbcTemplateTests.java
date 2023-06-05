@@ -1,7 +1,9 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static xyz.zhouxy.plusone.commons.jdbc.SQL.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,13 +55,19 @@ class SimpleJdbcTemplateTests {
     @Test
     void testQuery() throws SQLException {
         try (Connection conn = this.dataSource.getConnection()) {
+            Object[] params = MoreArrays.asObjectArray("501533", "501554", "544599");
+            String sql = newSql()
+                    .SELECT("*")
+                    .FROM("test_table")
+                    .WHERE(NOT_IN("id", params))
+                    .toString();
+            log.info(sql);
             List<DbRecord> rs = SimpleJdbcTemplate.connect(conn)
-                    .queryToRecordList(
-                            "SELECT * FROM public.base_table WHERE id IN (?, ?, ?)",
-                            501533, 501554, 544599);
-            assertTrue(3 > rs.size());
+                    .queryToRecordList(sql, params);
+            assertNotNull(rs);
             for (DbRecord baseEntity : rs) {
-                log.info("id: {}", baseEntity.getValueAsLong("id"));
+                // log.info("id: {}", baseEntity.getValueAsString("id"));
+                log.info(baseEntity.toString());
                 assertEquals(Optional.empty(), baseEntity.getValueAsString("updated_by"));
             }
         }
