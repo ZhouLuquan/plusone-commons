@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTimeZone;
 
 public class DateTimeUtil {
 
@@ -233,13 +232,21 @@ public class DateTimeUtil {
     }
 
     // ====================
+    // toJodaInstant
+
     public static org.joda.time.Instant toJodaInstant(java.time.Instant instant) {
         return new org.joda.time.Instant(instant.toEpochMilli());
     }
-    
+
     public static org.joda.time.Instant toJodaInstant(java.time.ZonedDateTime zonedDateTime) {
-        return new org.joda.time.Instant(zonedDateTime.toInstant().toEpochMilli());
+        return toJodaInstant(zonedDateTime.toInstant());
     }
+
+    public static org.joda.time.Instant toJodaInstant(java.time.LocalDateTime localDateTime, java.time.ZoneId zone) {
+        return toJodaInstant(java.time.ZonedDateTime.of(localDateTime, zone));
+    }
+
+    // toJavaInstant
 
     public static java.time.Instant toJavaInstant(org.joda.time.Instant instant) {
         return toInstant(instant.getMillis());
@@ -249,31 +256,68 @@ public class DateTimeUtil {
         return toInstant(dateTime.getMillis());
     }
 
+    public static java.time.Instant toJavaInstant(
+            org.joda.time.LocalDateTime localDateTime,
+            org.joda.time.DateTimeZone zone) {
+        return toJavaInstant(localDateTime.toDateTime(zone));
+    }
+
+    // toJodaDateTime
+
     public static org.joda.time.DateTime toJodaDateTime(java.time.ZonedDateTime zonedDateTime) {
         org.joda.time.DateTimeZone zone = org.joda.time.DateTimeZone.forID(zonedDateTime.getZone().getId());
         return toJodaInstant(zonedDateTime.toInstant()).toDateTime(zone);
     }
 
-    public static org.joda.time.DateTime toJodaDateTime(java.time.Instant instant, ZoneId zone) {
+    public static org.joda.time.DateTime toJodaDateTime(
+            java.time.LocalDateTime localDateTime,
+            java.time.ZoneId zone) {
+        org.joda.time.DateTimeZone dateTimeZone = org.joda.time.DateTimeZone.forID(zone.getId());
+        return toJodaInstant(ZonedDateTime.of(localDateTime, zone).toInstant()).toDateTime(dateTimeZone);
+    }
+
+    public static org.joda.time.DateTime toJodaDateTime(
+            java.time.Instant instant,
+            java.time.ZoneId zone) {
         org.joda.time.DateTimeZone dateTimeZone = org.joda.time.DateTimeZone.forID(zone.getId());
         return toJodaInstant(instant).toDateTime(dateTimeZone);
     }
 
+    // toZonedDateTime
+
     public static java.time.ZonedDateTime toZonedDateTime(org.joda.time.DateTime dateTime) {
-        ZoneId zone = dateTime.getZone().toTimeZone().toZoneId();
+        java.time.ZoneId zone = dateTime.getZone().toTimeZone().toZoneId();
         return toJavaInstant(dateTime.toInstant()).atZone(zone);
+    }
+
+    public static java.time.ZonedDateTime toZonedDateTime(
+            org.joda.time.LocalDateTime localDateTime,
+            org.joda.time.DateTimeZone dateTimeZone) {
+                java.time.ZoneId zone = dateTimeZone.toTimeZone().toZoneId();
+        return toJavaInstant(localDateTime, dateTimeZone).atZone(zone);
     }
 
     public static java.time.ZonedDateTime toZonedDateTime(
             org.joda.time.Instant instant,
             org.joda.time.DateTimeZone dateTimeZone) {
-        ZoneId zone = dateTimeZone.toTimeZone().toZoneId();
+        java.time.ZoneId zone = dateTimeZone.toTimeZone().toZoneId();
         return toJavaInstant(instant).atZone(zone);
     }
 
+    // toJodaLocalDateTime
+
     public static org.joda.time.LocalDateTime toJodaLocalDateTime(java.time.LocalDateTime localDateTime) {
-        long instant = toInstant(localDateTime, ZoneId.systemDefault()).toEpochMilli();
-        return new org.joda.time.LocalDateTime(instant, DateTimeZone.getDefault());
+        return toJodaInstant(localDateTime, ZoneId.systemDefault())
+                .toDateTime(org.joda.time.DateTimeZone.getDefault())
+                .toLocalDateTime();
+    }
+
+    // toJavaLocalDateTime
+
+    public static java.time.LocalDateTime toJavaLocalDateTime(org.joda.time.LocalDateTime localDateTime) {
+        return toJavaInstant(localDateTime, org.joda.time.DateTimeZone.getDefault())
+                .atZone(java.time.ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     private DateTimeUtil() {
