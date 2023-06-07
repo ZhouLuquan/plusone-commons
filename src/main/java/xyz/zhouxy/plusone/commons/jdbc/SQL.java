@@ -16,8 +16,6 @@
 
 package xyz.zhouxy.plusone.commons.jdbc;
 
-import java.util.Collection;
-
 import org.apache.ibatis.jdbc.AbstractSQL;
 
 import com.google.common.annotations.Beta;
@@ -26,68 +24,16 @@ import com.google.common.annotations.Beta;
  * @author ZhouXY
  */
 @Beta
-public class SQL extends AbstractSQL<SQL> {
+public abstract class SQL<T> extends AbstractSQL<T> {
 
-    @Override
-    public SQL getSelf() {
-        return this;
+    public static JdbcSql newJdbcSql() {
+        return new JdbcSql();
     }
 
-    public static SQL newSql() {
-        return new SQL();
-    }
-
-    public SQL WHERE(boolean condition, String sqlConditions) {
+    public T WHERE(boolean condition, String sqlConditions) {
         if (condition) {
             return WHERE(sqlConditions);
         }
         return getSelf();
-    }
-
-    public static String IN(String col, Collection<?> c) {
-        return IN(col, c.size());
-    }
-
-    public static <T> String IN(String col, T[] c) {
-        return IN(col, c.length);
-    }
-
-    private static String IN(String col, int length) {
-        return new StringBuilder()
-                .append(col)
-                .append(" IN (")
-                .append(buildQuestionsList(length))
-                .append(')')
-                .toString();
-    }
-
-    public static String NOT_IN(String col, Collection<?> c) {
-        return NOT_IN(col, c.size());
-    }
-
-    public static <T> String NOT_IN(String col, T[] c) {
-        return NOT_IN(col, c.length);
-    }
-
-    private static String NOT_IN(String col, int length) {
-        return new StringBuilder()
-                .append(col)
-                .append(" NOT IN (")
-                .append(buildQuestionsList(length))
-                .append(')')
-                .toString();
-    }
-
-    private static String buildQuestionsList(int times) {
-        char[] arr = new char[times * 3 - 2];
-        int i = 0;
-        for (int t = 1; t <= times; t++) {
-            arr[i++] = '?';
-            if (t < times) {
-                arr[i++] = ',';
-                arr[i++] = ' ';
-            }
-        }
-        return String.valueOf(arr);
     }
 }

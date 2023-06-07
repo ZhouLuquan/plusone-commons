@@ -3,7 +3,7 @@ package xyz.zhouxy.plusone.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static xyz.zhouxy.plusone.commons.jdbc.SQL.*;
+import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +27,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import xyz.zhouxy.plusone.commons.jdbc.DbRecord;
+import xyz.zhouxy.plusone.commons.jdbc.SQL;
 import xyz.zhouxy.plusone.commons.jdbc.SimpleJdbcTemplate;
 
 class SimpleJdbcTemplateTests {
@@ -56,7 +57,7 @@ class SimpleJdbcTemplateTests {
     void testQuery() throws SQLException {
         try (Connection conn = this.dataSource.getConnection()) {
             Object[] params = SimpleJdbcTemplate.buildParams("501533", "501554", "544599");
-            String sql = newSql()
+            String sql = SQL.newJdbcSql()
                     .SELECT("*")
                     .FROM("test_table")
                     .WHERE(NOT_IN("id", params))
