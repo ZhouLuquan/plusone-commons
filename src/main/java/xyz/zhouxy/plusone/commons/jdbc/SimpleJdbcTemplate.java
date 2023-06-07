@@ -23,13 +23,17 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -43,6 +47,59 @@ public class SimpleJdbcTemplate {
 
     public static JdbcExecutorBak connect(final Connection conn) {
         return new JdbcExecutorBak(conn);
+    }
+
+    public static Object[] buildParams(final Object... params) {
+        return Arrays.stream(params)
+                .map(p -> {
+                    if (p instanceof Optional) {
+                        return OptionalUtil.orElseNull((Optional<?>) p);
+                    }
+                    if (p instanceof OptionalInt) {
+                        OptionalInt _p = ((OptionalInt) p);
+                        return _p.isPresent() ? _p.getAsInt() : null;
+                    }
+                    if (p instanceof OptionalLong) {
+                        OptionalLong _p = ((OptionalLong) p);
+                        return _p.isPresent() ? _p.getAsLong() : null;
+                    }
+                    if (p instanceof OptionalDouble) {
+                        OptionalDouble _p = ((OptionalDouble) p);
+                        return _p.isPresent() ? _p.getAsDouble() : null;
+                    }
+                    return p;
+                })
+                .toArray();
+    }
+
+    public static <T> List<Object[]> buildBatchParams(final Collection<T> c, Function<T, Object[]> function) {
+        return c.stream().map(function).collect(Collectors.toList());
+    }
+
+    public static String paramsToString(Object[] params) {
+        return Arrays.toString(params);
+    }
+
+    public static String paramsToString(final Collection<Object[]> params) {
+        if (params == null) {
+            return "null";
+        }
+        if (params.isEmpty()) {
+            return "[]";
+        }
+        int iMax = params.size() - 1;
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        int i = 0;
+        for (Object[] p : params) {
+            b.append(Arrays.toString(p));
+            if (i == iMax) {
+                return b.append(']').toString();
+            }
+            b.append(',');
+            i++;
+        }
+        return b.append(']').toString();
     }
 
     private SimpleJdbcTemplate() {

@@ -55,7 +55,7 @@ class SimpleJdbcTemplateTests {
     @Test
     void testQuery() throws SQLException {
         try (Connection conn = this.dataSource.getConnection()) {
-            Object[] params = MoreArrays.asObjectArray("501533", "501554", "544599");
+            Object[] params = SimpleJdbcTemplate.buildParams("501533", "501554", "544599");
             String sql = newSql()
                     .SELECT("*")
                     .FROM("test_table")
@@ -103,16 +103,16 @@ class SimpleJdbcTemplateTests {
         }
 
         final String sql = "INSERT INTO test_table(id, created_by, create_time, updated_by, update_time, status) VALUES(?, ?, ?, ?, ?, ?)";
-        final List<Object[]> params = recordList.stream()
-                .map(r -> new Object[] {
-                        OptionalUtil.orElseNull(r.getValueAsString("id")),
-                        OptionalUtil.orElseNull(r.getValueAsString("created_by")),
-                        OptionalUtil.orElseNull(r.getValueAsString("create_time")),
-                        OptionalUtil.orElseNull(r.getValueAsString("updated_by")),
-                        OptionalUtil.orElseNull(r.getValueAsString("update_time")),
-                        OptionalUtil.orElseNull(r.getValueAsString("status"))
-                })
-                .collect(Collectors.toList());
+        final List<Object[]> params = SimpleJdbcTemplate.buildBatchParams(
+                recordList,
+                r -> SimpleJdbcTemplate.buildParams(
+                        r.getValueAsString("id"),
+                        r.getValueAsString("created_by"),
+                        r.getValueAsString("create_time"),
+                        r.getValueAsString("updated_by"),
+                        r.getValueAsString("update_time"),
+                        r.getValueAsString("status")));
+        log.info("params: {}", SimpleJdbcTemplate.paramsToString(params));
         try (Connection conn = this.dataSource.getConnection()) {
             SimpleJdbcTemplate.connect(conn).tx(() -> {
                 SimpleJdbcTemplate.connect(conn).batchUpdate(sql, params, 20);
