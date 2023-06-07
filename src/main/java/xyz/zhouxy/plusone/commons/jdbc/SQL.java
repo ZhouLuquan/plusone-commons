@@ -80,7 +80,8 @@ public class SQL extends AbstractSQL<SQL> {
 
     private static String buildQuestionsList(int times) {
         char[] arr = new char[times * 3 - 2];
-        for (int t = 1, i = 0; t <= times; t++) {
+        int i = 0;
+        for (int t = 1; t <= times; t++) {
             arr[i++] = '?';
             if (t < times) {
                 arr[i++] = ',';
