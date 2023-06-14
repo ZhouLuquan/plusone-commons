@@ -30,10 +30,18 @@ public abstract class SQL<T> extends AbstractSQL<T> {
         return new JdbcSql();
     }
 
-    public T WHERE(boolean condition, String sqlConditions) {
+    public static MyBatisSql newMyBatisSql(boolean withScript) {
+        return new MyBatisSql(withScript);
+    }
+
+    public T WHERE(boolean condition, String sqlCondition) {
         if (condition) {
-            return WHERE(sqlConditions);
+            return WHERE(sqlCondition);
         }
         return getSelf();
+    }
+
+    public T WHERE(boolean condition, String ifSqlCondition, String elseSqlCondition) {
+        return WHERE(condition ? ifSqlCondition : elseSqlCondition);
     }
 }

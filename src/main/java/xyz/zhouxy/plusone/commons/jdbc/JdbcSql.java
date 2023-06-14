@@ -8,6 +8,10 @@ public class JdbcSql extends SQL<JdbcSql> {
         super();
     }
 
+    public static JdbcSql newSql() {
+        return new JdbcSql();
+    }
+
     @Override
     public JdbcSql getSelf() {
         return this;
