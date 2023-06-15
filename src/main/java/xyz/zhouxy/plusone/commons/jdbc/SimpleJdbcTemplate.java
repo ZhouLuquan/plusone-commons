@@ -118,7 +118,6 @@ public class SimpleJdbcTemplate {
             try (PreparedStatement stmt = this.conn.prepareStatement(sql)) {
                 if (params != null && params.length > 0) {
                     for (int i = 0; i < params.length; i++) {
-                        // TODO 【优化】 参考 Spring JDBC 的 StatementCreatorUtils.setValue 方法，调用 PreparedStatement 不同的 setXxx 方法。
                         stmt.setObject(i + 1, params[i]);
                     }
                 }
@@ -198,7 +197,6 @@ public class SimpleJdbcTemplate {
             try (PreparedStatement stmt = this.conn.prepareStatement(sql)) {
                 if (params != null && params.length > 0) {
                     for (int i = 0; i < params.length; i++) {
-                        // TODO 【优化】 参考 Spring JDBC 的 StatementCreatorUtils.setValue 方法，调用 PreparedStatement 不同的 setXxx 方法。
                         stmt.setObject(i + 1, params[i]);
                     }
                 }
@@ -213,7 +211,6 @@ public class SimpleJdbcTemplate {
                 for (Object[] ps : params) {
                     i++;
                     for (int j = 0; j < ps.length; j++) {
-                        // TODO 【优化】 参考 Spring JDBC 的 StatementCreatorUtils.setValue 方法，调用 PreparedStatement 不同的 setXxx 方法。
                         stmt.setObject(j + 1, ps[j]);
                     }
                     stmt.addBatch();
