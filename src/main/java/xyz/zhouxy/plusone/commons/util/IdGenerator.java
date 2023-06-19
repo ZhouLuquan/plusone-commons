@@ -31,11 +31,22 @@ public class IdGenerator {
                 digits(uuid.getLeastSignificantBits(), 12));
     }
 
+    /** Returns val represented by the specified number of hex digits. */
+    private static String digits(long val, int digits) {
+        long hi = 1L << (digits * 4);
+        return Long.toHexString(hi | (val & (hi - 1))).substring(1);
+    }
+
     // ===== SnowflakeId =====
 
     private static final Table<Long, Long, SnowflakeIdGenerator> snowflakePool = HashBasedTable.create();
 
     public static long nextSnowflakeId(long workerId, long datacenterId) {
+        SnowflakeIdGenerator generator = getSnowflakeIdGenerator(workerId, datacenterId);
+        return generator.nextId();
+    }
+
+    public static SnowflakeIdGenerator getSnowflakeIdGenerator(long workerId, long datacenterId) {
         SnowflakeIdGenerator generator = snowflakePool.get(workerId, datacenterId);
         if (generator == null) {
             synchronized (IdGenerator.class) {
@@ -46,13 +57,7 @@ public class IdGenerator {
                 }
             }
         }
-        return generator.nextId();
-    }
-
-    /** Returns val represented by the specified number of hex digits. */
-    private static String digits(long val, int digits) {
-        long hi = 1L << (digits * 4);
-        return Long.toHexString(hi | (val & (hi - 1))).substring(1);
+        return generator;
     }
 
     private IdGenerator() {
