@@ -35,11 +35,11 @@ import java.util.OptionalLong;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.annotations.Beta;
+import com.google.common.collect.Lists;
 
 import xyz.zhouxy.plusone.commons.util.Assert;
+import xyz.zhouxy.plusone.commons.util.MoreArrays;
 import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
 @Beta
@@ -180,13 +180,18 @@ public class SimpleJdbcTemplate {
         }
 
         public OptionalInt queryToInt(String sql, Object... params) throws SQLException {
-            Optional<Integer> result = queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).intValue());
+            Optional<Integer> result = queryFirst(sql, params, (ResultSet rs) -> rs.getInt(1));
             return OptionalUtil.toOptionalInt(result);
         }
 
         public OptionalLong queryToLong(String sql, Object... params) throws SQLException {
-            Optional<Long> result = queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1).longValue());
+            Optional<Long> result = queryFirst(sql, params, (ResultSet rs) -> rs.getLong(1));
             return OptionalUtil.toOptionalLong(result);
+        }
+
+        public OptionalDouble queryToDouble(String sql, Object... params) throws SQLException {
+            Optional<Double> result = queryFirst(sql, params, (ResultSet rs) -> rs.getDouble(1));
+            return OptionalUtil.toOptionalDouble(result);
         }
 
         public Optional<BigDecimal> queryToBigDecimal(String sql, Object... params) throws SQLException {
@@ -205,7 +210,10 @@ public class SimpleJdbcTemplate {
         }
 
         public int[] batchUpdate(String sql, Collection<Object[]> params, int batchSize) throws SQLException {
-            int[] result = {};
+            int executeCount = params.size() / batchSize;
+            executeCount = (params.size() % batchSize == 0) ? executeCount : (executeCount + 1);
+            List<int[]> result = Lists.newArrayListWithCapacity(executeCount);
+            
             try (PreparedStatement stmt = this.conn.prepareStatement(sql)) {
                 int i = 0;
                 for (Object[] ps : params) {
@@ -216,11 +224,11 @@ public class SimpleJdbcTemplate {
                     stmt.addBatch();
                     if (i % batchSize == 0 || i >= params.size()) {
                         int[] n = stmt.executeBatch();
-                        result = ArrayUtils.addAll(result, n);
+                        result.add(n);
                         stmt.clearBatch();
                     }
                 }
-                return result;
+                return MoreArrays.concatIntArray(result);
             }
         }
 
