@@ -45,8 +45,8 @@ import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 @Beta
 public class SimpleJdbcTemplate {
 
-    public static JdbcExecutorBak connect(final Connection conn) {
-        return new JdbcExecutorBak(conn);
+    public static JdbcExecutor connect(final Connection conn) {
+        return new JdbcExecutor(conn);
     }
 
     public static Object[] buildParams(final Object... params) {
@@ -106,11 +106,11 @@ public class SimpleJdbcTemplate {
         throw new IllegalStateException("Utility class");
     }
 
-    public static class JdbcExecutorBak {
+    public static class JdbcExecutor {
 
         private final Connection conn;
 
-        public JdbcExecutorBak(Connection conn) {
+        public JdbcExecutor(Connection conn) {
             this.conn = conn;
         }
 
