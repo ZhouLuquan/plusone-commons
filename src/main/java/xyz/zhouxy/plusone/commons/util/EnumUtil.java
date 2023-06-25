@@ -130,18 +130,41 @@ public final class EnumUtil {
         throw new EnumConstantNotPresentException(clazz, Integer.toString(ordinal));
     }
 
-    @Deprecated
+    /**
+     * 校验枚举的 ordinal。
+     * 
+     * @param <E>     枚举类型
+     * @param clazz   枚举类型
+     * @param ordinal The ordinal
+     * @return The ordinal
+     */
+    @Nullable
     public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> clazz, @Nullable Integer ordinal) {
         return checkOrdinalOrDefault(clazz, ordinal, null);
     }
 
-    @Deprecated
+    /**
+     * 校验枚举的 ordinal，如果 ordinal 为 {@code null}，则返回 {@code 0}。
+     * 
+     * @param <E>     枚举类型
+     * @param clazz   枚举类型
+     * @param ordinal The ordinal
+     * @return The ordinal
+     */
+    @Nullable
     public static <E extends Enum<?>> Integer checkOrdinalOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
         return checkOrdinalOrDefault(clazz, ordinal, 0);
     }
 
+    /**
+     * 校验枚举的 ordinal，如果 ordinal 为 {@code null}，则返回 {@code defaultValue}。
+     * 
+     * @param <E>     枚举类型
+     * @param clazz   枚举类型
+     * @param ordinal The ordinal
+     * @return The ordinal
+     */
     @Nullable
-    @Deprecated
     public static <E extends Enum<?>> Integer checkOrdinalOrDefault(
             Class<E> clazz,
             @Nullable Integer ordinal,
