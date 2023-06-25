@@ -232,11 +232,11 @@ public class SimpleJdbcTemplate {
             }
         }
 
-        public void tx(final IAtom tx) throws Exception {
-            Assert.notNull(tx, "Tx can not be null.");
+        public <T extends Exception> void tx(final IAtom<T> atom) throws SQLException, T {
+            Assert.notNull(atom, "Tx can not be null.");
             try {
                 this.conn.setAutoCommit(false);
-                tx.execute();
+                atom.execute();
                 conn.commit();
                 conn.setAutoCommit(true);
             } catch (Exception e) {
@@ -247,9 +247,9 @@ public class SimpleJdbcTemplate {
         }
 
         @FunctionalInterface
-        public static interface IAtom {
+        public static interface IAtom<T extends Exception> {
             @SuppressWarnings("all")
-            void execute() throws Exception;
+            void execute() throws SQLException, T;
         }
     }
 }

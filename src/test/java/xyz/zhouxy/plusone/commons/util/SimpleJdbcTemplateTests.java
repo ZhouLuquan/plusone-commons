@@ -2,18 +2,13 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.*;
+import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.NOT_IN;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -21,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
-import com.google.common.io.Files;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -75,58 +68,19 @@ class SimpleJdbcTemplateTests {
     }
 
     @Test
-    void testSaveTxt() throws IOException, SQLException {
-        File file = new File("C:\\Users\\zhouxy\\Desktop", "Untitled-1.txt");
-        assertTrue(file.exists());
-        List<String> recordStrList = Files.readLines(file, StandardCharsets.UTF_8);
-        if (MoreCollections.isEmpty(recordStrList)) {
-            log.info("file is empty.");
-            return;
-        }
-
-        List<DbRecord> recordList = new ArrayList<>(recordStrList.size());
-        for (String rStr : recordStrList) {
-            List<String> props = Splitter.on("|").splitToList(rStr)
-                    .stream()
-                    .map(s -> {
-                        if (s == null) {
-                            return null;
-                        }
-                        s = s.trim();
-                        return ("".equals(s) || "null".equals(s) || "NULL".equals(s)) ? null : s;
-                    })
-                    .collect(Collectors.toList());
-            DbRecord r = new DbRecord();
-            for (int i = 0; i < cStruct.length; i++) {
-                r.put(cStruct[i], props.get(i));
-            }
-            recordList.add(r);
-        }
-
-        final String sql = "INSERT INTO test_table(id, created_by, create_time, updated_by, update_time, status) VALUES(?, ?, ?, ?, ?, ?)";
-        final List<Object[]> params = SimpleJdbcTemplate.buildBatchParams(
-                recordList,
-                r -> SimpleJdbcTemplate.buildParams(
-                        r.getValueAsString("id"),
-                        r.getValueAsString("created_by"),
-                        r.getValueAsString("create_time"),
-                        r.getValueAsString("updated_by"),
-                        r.getValueAsString("update_time"),
-                        r.getValueAsString("status")));
-        log.info("params: {}", SimpleJdbcTemplate.paramsToString(params));
-        try (Connection conn = this.dataSource.getConnection()) {
-            SimpleJdbcTemplate.connect(conn).tx(() -> {
-                SimpleJdbcTemplate.connect(conn).batchUpdate(sql, params, 20);
-
-                File targetFile = new File("C:\\Users\\zhouxy\\Desktop\\done", file.getName());
-                boolean moveSucceeded = file.renameTo(targetFile);
-                if (!moveSucceeded) {
-                    throw new IOException("文件移动失败：" + file.getName());
-                }
-            });
+    void testTransaction() {
+        try (Connection conn = dataSource.getConnection()) {
+            SimpleJdbcTemplate.connect(conn)
+                .tx(() -> {
+                    SimpleJdbcTemplate.connect(conn)
+                        .update("INSERT INTO base_table (created_by, create_time, status) VALUES (?, now(), 0)", 585757);
+                    Optional<Map<String,Object>> first = SimpleJdbcTemplate.connect(conn)
+                        .queryFirst("SELECT * FROM base_table WHERE created_by = ?", 585757);
+                    log.info("first: {}", first);
+                    throw new NullPointerException();
+                });
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 }
