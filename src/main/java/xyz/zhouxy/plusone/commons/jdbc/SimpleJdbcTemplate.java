@@ -233,7 +233,7 @@ public class SimpleJdbcTemplate {
         }
 
         public <T extends Exception> void tx(final IAtom<T> atom) throws SQLException, T {
-            Assert.notNull(atom, "Tx can not be null.");
+            Assert.notNull(atom, "Atom can not be null.");
             try {
                 this.conn.setAutoCommit(false);
                 atom.execute();
