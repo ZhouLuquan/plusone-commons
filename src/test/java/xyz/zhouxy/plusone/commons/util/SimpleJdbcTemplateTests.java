@@ -2,7 +2,7 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.NOT_IN;
+import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.IN;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,7 +53,7 @@ class SimpleJdbcTemplateTests {
             String sql = SQL.newJdbcSql()
                     .SELECT("*")
                     .FROM("test_table")
-                    .WHERE(NOT_IN("id", params))
+                    .WHERE(IN("id", params))
                     .toString();
             log.info(sql);
             List<DbRecord> rs = SimpleJdbcTemplate.connect(conn)
