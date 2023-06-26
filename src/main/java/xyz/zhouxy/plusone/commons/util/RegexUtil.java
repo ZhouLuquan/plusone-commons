@@ -16,13 +16,16 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
+
+import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
 /**
  * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用（最多缓存 256 个）。
@@ -34,7 +37,7 @@ public final class RegexUtil {
 
     private static final int DEFAULT_CACHE_INITIAL_CAPACITY = 64;
     private static final int MAX_CACHE_SIZE = 256;
-    private static final ConcurrentHashMap<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>(
+    private static final Map<String, Pattern> PATTERN_CACHE = new SafeConcurrentHashMap<>(
             DEFAULT_CACHE_INITIAL_CAPACITY);
 
     /**
@@ -77,15 +80,13 @@ public final class RegexUtil {
      * 
      * @param patterns     正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
-     * @return Pattern 实例数组
+     * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns, final boolean cachePattern) {
         Preconditions.checkNotNull(patterns, "The patterns can not be null.");
-        final Pattern[] result = new Pattern[patterns.length];
-        for (int i = 0; i < patterns.length; i++) {
-            result[i] = getPattern(patterns[i], cachePattern);
-        }
-        return result;
+        return Arrays.stream(patterns)
+                .map(pattern -> getPattern(pattern, cachePattern))
+                .toArray(Pattern[]::new);
     }
 
     /**
@@ -96,11 +97,9 @@ public final class RegexUtil {
      */
     public static Pattern[] getPatterns(final String[] patterns) {
         Preconditions.checkNotNull(patterns, "The patterns can not be null.");
-        final Pattern[] result = new Pattern[patterns.length];
-        for (int i = 0; i < patterns.length; i++) {
-            result[i] = getPattern(patterns[i]);
-        }
-        return result;
+        return Arrays.stream(patterns)
+                .map(RegexUtil::getPattern)
+                .toArray(Pattern[]::new);
     }
 
     /**
