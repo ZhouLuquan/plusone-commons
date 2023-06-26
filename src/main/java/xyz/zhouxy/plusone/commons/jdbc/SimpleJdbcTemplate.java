@@ -51,23 +51,23 @@ public class SimpleJdbcTemplate {
 
     public static Object[] buildParams(final Object... params) {
         return Arrays.stream(params)
-                .map(p -> {
-                    if (p instanceof Optional) {
-                        return OptionalUtil.orElseNull((Optional<?>) p);
+                .map(param -> {
+                    if (param instanceof Optional) {
+                        return OptionalUtil.orElseNull((Optional<?>) param);
                     }
-                    if (p instanceof OptionalInt) {
-                        OptionalInt _p = ((OptionalInt) p);
-                        return _p.isPresent() ? _p.getAsInt() : null;
+                    if (param instanceof OptionalInt) {
+                        OptionalInt p = ((OptionalInt) param);
+                        return p.isPresent() ? p.getAsInt() : null;
                     }
-                    if (p instanceof OptionalLong) {
-                        OptionalLong _p = ((OptionalLong) p);
-                        return _p.isPresent() ? _p.getAsLong() : null;
+                    if (param instanceof OptionalLong) {
+                        OptionalLong p = ((OptionalLong) param);
+                        return p.isPresent() ? p.getAsLong() : null;
                     }
-                    if (p instanceof OptionalDouble) {
-                        OptionalDouble _p = ((OptionalDouble) p);
-                        return _p.isPresent() ? _p.getAsDouble() : null;
+                    if (param instanceof OptionalDouble) {
+                        OptionalDouble p = ((OptionalDouble) param);
+                        return p.isPresent() ? p.getAsDouble() : null;
                     }
-                    return p;
+                    return param;
                 })
                 .toArray();
     }
