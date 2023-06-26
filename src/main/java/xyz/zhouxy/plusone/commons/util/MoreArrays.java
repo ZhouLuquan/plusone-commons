@@ -36,9 +36,8 @@ public class MoreArrays {
         float[] result = new float[length];
         int i = 0;
         for (float[] arr : arrays) {
-            for (float item : arr) {
-                result[i++] = item;
-            }
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i = arr.length;
         }
         return result;
     }
@@ -51,9 +50,8 @@ public class MoreArrays {
         double[] result = new double[length];
         int i = 0;
         for (double[] arr : arrays) {
-            for (double item : arr) {
-                result[i++] = item;
-            }
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i = arr.length;
         }
         return result;
     }
@@ -66,9 +64,8 @@ public class MoreArrays {
         byte[] result = new byte[length];
         int i = 0;
         for (byte[] arr : arrays) {
-            for (byte item : arr) {
-                result[i++] = item;
-            }
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i = arr.length;
         }
         return result;
     }
@@ -81,9 +78,8 @@ public class MoreArrays {
         long[] result = new long[length];
         int i = 0;
         for (long[] arr : arrays) {
-            for (long item : arr) {
-                result[i++] = item;
-            }
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i = arr.length;
         }
         return result;
     }
@@ -96,9 +92,8 @@ public class MoreArrays {
         int[] result = new int[length];
         int i = 0;
         for (int[] arr : arrays) {
-            for (int item : arr) {
-                result[i++] = item;
-            }
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i = arr.length;
         }
         return result;
     }
