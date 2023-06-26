@@ -21,11 +21,13 @@ package xyz.zhouxy.plusone.commons.util;
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
-public class NumberUtil {
+public class Numbers {
 
-    private NumberUtil() {
+    private Numbers() {
         throw new IllegalStateException("Utility class");
     }
+
+    // sum
 
     public static int sum(final short... numbers) {
         int result = 0;
@@ -65,5 +67,27 @@ public class NumberUtil {
             result += number;
         }
         return result;
+    }
+
+    // between
+
+    public static boolean between(short value, short min, short max) {
+        return value >= min && value < max;
+    }
+
+    public static boolean between(int value, int min, int max) {
+        return value >= min && value < max;
+    }
+
+    public static boolean between(long value, long min, long max) {
+        return value >= min && value < max;
+    }
+
+    public static boolean between(float value, float min, float max) {
+        return value >= min && value < max;
+    }
+
+    public static boolean between(double value, double min, double max) {
+        return value >= min && value < max;
     }
 }
