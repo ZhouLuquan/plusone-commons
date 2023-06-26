@@ -6,6 +6,8 @@ import java.util.function.Function;
 
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
 
+    private static final long serialVersionUID = 4352954948768449595L;
+
     /**
      * Creates a new, empty map with the default initial table size (16).
      */
@@ -75,6 +77,7 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
         super(initialCapacity, loadFactor, concurrencyLevel);
     }
 
+    /** {@inheritDoc} */
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         V v = get(key);
