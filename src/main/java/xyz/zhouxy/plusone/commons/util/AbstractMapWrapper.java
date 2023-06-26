@@ -70,10 +70,25 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
      * @throws IllegalArgumentException key 不存在时抛出。
      */
     public Optional<V> get(K key) {
-        if (this.map.containsKey(key)) {
-            return Optional.ofNullable(this.map.get(key));
+        if (!this.map.containsKey(key)) {
+            throw new IllegalArgumentException("Key does not exist");
         }
-        throw new IllegalArgumentException("Key does not exist");
+        return Optional.ofNullable(this.map.get(key));
+    }
+
+    /**
+     * 获取 {@code map} 中的值。如果 {@code key} 不存在，则抛出异常。
+     *
+     * @param key 键
+     * @return 值
+     * @throws IllegalArgumentException key 不存在时抛出。
+     */
+    @Nullable
+    public V getOrNull(K key) {
+        if (!this.map.containsKey(key)) {
+            throw new IllegalArgumentException("Key does not exist");
+        }
+        return this.map.get(key);
     }
 
     @SuppressWarnings("unchecked")
@@ -149,7 +164,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return this.map.toString();
     }
 
-    protected abstract static class Builder<K, V> {
+    protected abstract static class Builder<K, V, T extends AbstractMapWrapper<K, V, T>> {
         protected final Map<K, V> map;
         protected Consumer<K> keyChecker;
         protected Consumer<V> valueChecker;
@@ -158,17 +173,17 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
             this.map = map;
         }
 
-        public Builder<K, V> keyChecker(@Nullable Consumer<K> keyChecker) {
+        public Builder<K, V, T> keyChecker(@Nullable Consumer<K> keyChecker) {
             this.keyChecker = keyChecker;
             return this;
         }
 
-        public Builder<K, V> valueChecker(@Nullable Consumer<V> valueChecker) {
+        public Builder<K, V, T> valueChecker(@Nullable Consumer<V> valueChecker) {
             this.valueChecker = valueChecker;
             return this;
         }
 
-        public Builder<K, V> put(K key, V value) {
+        public Builder<K, V, T> put(K key, V value) {
             if (this.keyChecker != null) {
                 this.keyChecker.accept(key);
             }
@@ -179,15 +194,15 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
             return this;
         }
 
-        public Builder<K, V> putAll(Map<? extends K, ? extends V> m) {
+        public Builder<K, V, T> putAll(Map<? extends K, ? extends V> m) {
             for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
                 put(entry.getKey(), entry.getValue());
             }
             return this;
         }
 
-        public abstract MapWrapper<K, V> build();
+        public abstract T build();
 
-        public abstract MapWrapper<K, V> buildUnmodifiableMap();
+        public abstract T buildUnmodifiableMap();
     }
 }
