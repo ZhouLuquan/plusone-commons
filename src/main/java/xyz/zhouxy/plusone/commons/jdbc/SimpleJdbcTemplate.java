@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +36,14 @@ import java.util.OptionalLong;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.annotations.Beta;
 import com.google.common.collect.Lists;
 
 import xyz.zhouxy.plusone.commons.util.Assert;
 import xyz.zhouxy.plusone.commons.util.MoreArrays;
+import xyz.zhouxy.plusone.commons.util.MoreCollections;
 import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
 @Beta
@@ -47,33 +51,6 @@ public class SimpleJdbcTemplate {
 
     public static JdbcExecutor connect(final Connection conn) {
         return new JdbcExecutor(conn);
-    }
-
-    public static Object[] buildParams(final Object... params) {
-        return Arrays.stream(params)
-                .map(param -> {
-                    if (param instanceof Optional) {
-                        return OptionalUtil.orElseNull((Optional<?>) param);
-                    }
-                    if (param instanceof OptionalInt) {
-                        OptionalInt p = ((OptionalInt) param);
-                        return p.isPresent() ? p.getAsInt() : null;
-                    }
-                    if (param instanceof OptionalLong) {
-                        OptionalLong p = ((OptionalLong) param);
-                        return p.isPresent() ? p.getAsLong() : null;
-                    }
-                    if (param instanceof OptionalDouble) {
-                        OptionalDouble p = ((OptionalDouble) param);
-                        return p.isPresent() ? p.getAsDouble() : null;
-                    }
-                    return param;
-                })
-                .toArray();
-    }
-
-    public static <T> List<Object[]> buildBatchParams(final Collection<T> c, Function<T, Object[]> function) {
-        return c.stream().map(function).collect(Collectors.toList());
     }
 
     public static String paramsToString(Object[] params) {
@@ -213,7 +190,7 @@ public class SimpleJdbcTemplate {
             int executeCount = params.size() / batchSize;
             executeCount = (params.size() % batchSize == 0) ? executeCount : (executeCount + 1);
             List<int[]> result = Lists.newArrayListWithCapacity(executeCount);
-            
+
             try (PreparedStatement stmt = this.conn.prepareStatement(sql)) {
                 int i = 0;
                 for (Object[] ps : params) {
@@ -250,6 +227,45 @@ public class SimpleJdbcTemplate {
         public static interface IAtom<T extends Exception> {
             @SuppressWarnings("all")
             void execute() throws SQLException, T;
+        }
+    }
+
+    public static class ParamBuilder {
+
+        public static Object[] buildParams(final Object... params) {
+            if (ArrayUtils.isEmpty(params)) {
+                return ArrayUtils.EMPTY_OBJECT_ARRAY;
+            }
+            return Arrays.stream(params)
+                    .map(param -> {
+                        if (param instanceof Optional) {
+                            return OptionalUtil.orElseNull((Optional<?>) param);
+                        }
+                        if (param instanceof OptionalInt) {
+                            return OptionalUtil.toInteger(((OptionalInt) param));
+                        }
+                        if (param instanceof OptionalLong) {
+                            return OptionalUtil.toLong(((OptionalLong) param));
+                        }
+                        if (param instanceof OptionalDouble) {
+                            return OptionalUtil.toDouble(((OptionalDouble) param));
+                        }
+                        return param;
+                    })
+                    .toArray();
+        }
+
+        public static <T> List<Object[]> buildBatchParams(final Collection<T> c, final Function<T, Object[]> function) {
+            Assert.notNull(c, "The collection can not be null.");
+            Assert.notNull(function, "The function can not be null.");
+            if (MoreCollections.isEmpty(c)) {
+                return Collections.emptyList();
+            }
+            return c.stream().map(function).collect(Collectors.toList());
+        }
+
+        private ParamBuilder() {
+            throw new IllegalStateException("Utility class");
         }
     }
 }
