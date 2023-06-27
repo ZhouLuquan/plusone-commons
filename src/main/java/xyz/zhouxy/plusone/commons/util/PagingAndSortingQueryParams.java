@@ -51,10 +51,11 @@ public class PagingAndSortingQueryParams {
     }
 
     public PagingAndSortingQueryParams(String... sortableColNames) {
+        Set<String> sortableColNameSet = new HashSet<>(sortableColNames.length);
         for (String colName : sortableColNames) {
             Assert.isNotBlank(colName, "Column name must has text.");
+            sortableColNameSet.add(colName);
         }
-        Set<String> sortableColNameSet = new HashSet<>(sortableColNames.length);
         this.sortableColNames = Collections.unmodifiableSet(sortableColNameSet);
     }
 
