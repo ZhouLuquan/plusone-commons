@@ -60,7 +60,7 @@ public class MoreCollections {
         return toConcurrentHashMap(c, keyGenerator, c.size());
     }
 
-    public static <K, V> TreeMap<K, V> toTreeMap(Iterable<V> c, Function<? super V, K> keyGenerator) {
+    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap(Iterable<V> c, Function<? super V, K> keyGenerator) {
         TreeMap<K, V> map = new TreeMap<>();
         fillIntoEmptyMap(map, c, keyGenerator);
         return map;
@@ -106,7 +106,7 @@ public class MoreCollections {
         return toConcurrentHashMap(c, keyGenerator, c.length);
     }
 
-    public static <K, V> TreeMap<K, V> toTreeMap(V[] c, Function<? super V, K> keyGenerator) {
+    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap(V[] c, Function<? super V, K> keyGenerator) {
         TreeMap<K, V> map = new TreeMap<>();
         fillIntoEmptyMap(map, c, keyGenerator);
         return map;
