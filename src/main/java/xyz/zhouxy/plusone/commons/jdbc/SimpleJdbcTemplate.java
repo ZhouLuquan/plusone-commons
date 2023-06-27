@@ -213,7 +213,7 @@ public class SimpleJdbcTemplate {
             int executeCount = params.size() / batchSize;
             executeCount = (params.size() % batchSize == 0) ? executeCount : (executeCount + 1);
             List<int[]> result = Lists.newArrayListWithCapacity(executeCount);
-            
+
             try (PreparedStatement stmt = this.conn.prepareStatement(sql)) {
                 int i = 0;
                 for (Object[] ps : params) {
@@ -247,7 +247,7 @@ public class SimpleJdbcTemplate {
         }
 
         @FunctionalInterface
-        public static interface IAtom<T extends Exception> {
+        public interface IAtom<T extends Exception> {
             @SuppressWarnings("all")
             void execute() throws SQLException, T;
         }

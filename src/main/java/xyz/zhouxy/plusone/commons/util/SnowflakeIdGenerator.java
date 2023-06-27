@@ -42,10 +42,10 @@ public class SnowflakeIdGenerator {
     private static final long SEQUENCE_MASK = -1L ^ (-1L << SEQUENCE_BITS);
 
     /** 工作机器 ID (0~31) */
-    private long workerId;
+    private final long workerId;
 
     /** 数据中心 ID (0~31) */
-    private long datacenterId;
+    private final long datacenterId;
 
     /** 毫秒内序列 (0~4095) */
     private long sequence = 0L;
@@ -78,7 +78,6 @@ public class SnowflakeIdGenerator {
      * 获得下一个ID (该方法是线程安全的)
      * 
      * @return SnowflakeId
-     * @throws InterruptedException
      */
     public synchronized long nextId() {
         long timestamp = timeGen();

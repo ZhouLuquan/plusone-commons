@@ -55,16 +55,16 @@ public class OptionalUtil {
     }
 
     /**
-     * 将 {@code Optional<Integer>} 转为 {@link OptionalInt}。
+     * 将 {@code Optional<Integer>} 对象转为 {@link OptionalInt} 对象。
      * <p>
      * {@code Optional<Integer>} 将整数包装了两次，改为使用 {@link OptionalInt} 包装其中的整数数据。
      * </p>
      * 
-     * @param value 包装对象
+     * @param optionalObj {@code Optional<Integer>} 对象
      * @return {@link OptionalInt} 实例
      */
-    public static OptionalInt toOptionalInt(Optional<Integer> objectOptional) {
-        return optionalOf(objectOptional.orElse(null));
+    public static OptionalInt toOptionalInt(Optional<Integer> optionalObj) {
+        return optionalOf(optionalObj.orElse(null));
     }
 
     /**
@@ -87,11 +87,11 @@ public class OptionalUtil {
      * {@code Optional<Long>} 将整数包装了两次，改为使用 {@link OptionalLong} 包装其中的整数数据。
      * </p>
      * 
-     * @param value 包装对象
+     * @param optionalObj 包装对象
      * @return {@link OptionalLong} 实例
      */
-    public static OptionalLong toOptionalLong(Optional<Long> objectOptional) {
-        return optionalOf(objectOptional.orElse(null));
+    public static OptionalLong toOptionalLong(Optional<Long> optionalObj) {
+        return optionalOf(optionalObj.orElse(null));
     }
 
     /**
@@ -114,11 +114,11 @@ public class OptionalUtil {
      * {@code Optional<Double>} 将整数包装了两次，改为使用 {@link OptionalDouble} 包装其中的整数数据。
      * </p>
      * 
-     * @param value 包装对象
+     * @param optionalObj 包装对象
      * @return {@link OptionalDouble} 实例
      */
-    public static OptionalDouble toOptionalDouble(Optional<Double> objectOptional) {
-        return optionalOf(objectOptional.orElse(null));
+    public static OptionalDouble toOptionalDouble(Optional<Double> optionalObj) {
+        return optionalOf(optionalObj.orElse(null));
     }
 
     /**

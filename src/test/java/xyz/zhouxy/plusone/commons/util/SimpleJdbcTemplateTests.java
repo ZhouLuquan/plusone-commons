@@ -27,7 +27,7 @@ class SimpleJdbcTemplateTests {
 
     private static final Logger log = LoggerFactory.getLogger(SimpleJdbcTemplateTests.class);
 
-    DataSource dataSource;
+    final DataSource dataSource;
 
     String[] cStruct = {
             "id",
