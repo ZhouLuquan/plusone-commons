@@ -78,54 +78,45 @@ public class Assert {
     }
 
     // between - int
-    private static boolean between(int value, int min, int max) {
-        return value >= min && value < max;
-    }
 
     public static <E extends Throwable> void between(int value, int min, int max, Supplier<E> e) throws E {
-        Assert.isTrue(between(value, min, max), e);
+        Assert.isTrue(Numbers.between(value, min, max), e);
     }
 
     public static void between(int value, int min, int max, String errorMessage) {
-        Assert.isTrue(between(value, min, max), errorMessage);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessage);
     }
 
     public static void between(int value, int min, int max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessageTemplate, args);
     }
 
     // between - long
-    private static boolean between(long value, long min, long max) {
-        return value >= min && value < max;
-    }
 
     public static <E extends Throwable> void between(long value, long min, long max, Supplier<E> e) throws E {
-        Assert.isTrue(between(value, min, max), e);
+        Assert.isTrue(Numbers.between(value, min, max), e);
     }
 
     public static void between(long value, long min, long max, String errorMessage) {
-        Assert.isTrue(between(value, min, max), errorMessage);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessage);
     }
 
     public static void between(long value, long min, long max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessageTemplate, args);
     }
 
     // between - double
-    private static boolean between(double value, double min, double max) {
-        return value >= min && value < max;
-    }
 
     public static <E extends Throwable> void between(double value, double min, double max, Supplier<E> e) throws E {
-        Assert.isTrue(between(value, min, max), e);
+        Assert.isTrue(Numbers.between(value, min, max), e);
     }
 
     public static void between(double value, double min, double max, String errorMessage) {
-        Assert.isTrue(between(value, min, max), errorMessage);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessage);
     }
 
     public static void between(double value, double min, double max, String errorMessageTemplate, Object... args) {
-        Assert.isTrue(between(value, min, max), errorMessageTemplate, args);
+        Assert.isTrue(Numbers.between(value, min, max), errorMessageTemplate, args);
     }
 
     // notNull

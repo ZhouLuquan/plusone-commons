@@ -61,7 +61,7 @@ public final class MapWrapper<K, V> extends AbstractMapWrapper<K, V, MapWrapper<
         return new Builder<>(new TreeMap<>(comparator));
     }
 
-    public static final class Builder<K, V> extends AbstractMapWrapper.Builder<K, V> {
+    public static final class Builder<K, V> extends AbstractMapWrapper.Builder<K, V, MapWrapper<K, V>> {
 
         private Builder(Map<K, V> map) {
             super(map);

@@ -134,6 +134,21 @@ public class OptionalUtil {
         return optionalObj.orElse(null);
     }
 
+    @Beta
+    public static Integer toInteger(OptionalInt optionalObj) {
+        return optionalObj.isPresent() ? optionalObj.getAsInt() : null;
+    }
+
+    @Beta
+    public static Long toLong(OptionalLong optionalObj) {
+        return optionalObj.isPresent() ? optionalObj.getAsLong() : null;
+    }
+
+    @Beta
+    public static Double toDouble(OptionalDouble optionalObj) {
+        return optionalObj.isPresent() ? optionalObj.getAsDouble() : null;
+    }
+
     private OptionalUtil() {
         throw new IllegalStateException("Utility class");
     }

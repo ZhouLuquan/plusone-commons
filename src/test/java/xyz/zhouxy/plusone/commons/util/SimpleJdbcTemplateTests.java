@@ -3,6 +3,7 @@ package xyz.zhouxy.plusone.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static xyz.zhouxy.plusone.commons.jdbc.JdbcSql.IN;
+import static xyz.zhouxy.plusone.commons.jdbc.SimpleJdbcTemplate.ParamBuilder.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ class SimpleJdbcTemplateTests {
     @Test
     void testQuery() throws SQLException {
         try (Connection conn = this.dataSource.getConnection()) {
-            Object[] params = SimpleJdbcTemplate.buildParams("501533", "501554", "544599");
+            Object[] params = buildParams("501533", "501554", "544599");
             String sql = SQL.newJdbcSql()
                     .SELECT("*")
                     .FROM("test_table")

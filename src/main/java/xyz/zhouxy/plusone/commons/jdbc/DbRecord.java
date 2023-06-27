@@ -39,11 +39,11 @@ import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
 
     public DbRecord() {
-        super(new HashMap<>(), k -> Assert.isNotBlank(k, "Key can not be null."), null);
+        super(new HashMap<>(), k -> Assert.isNotBlank(k, "Key must has text."), null);
     }
 
     public DbRecord(Map<String, Object> map) {
-        super(map, k -> Assert.isNotBlank(k, "Key can not be null."), null);
+        super(map, k -> Assert.isNotBlank(k, "Key must has text."), null);
     }
 
     public Optional<String> getValueAsString(String key) {
