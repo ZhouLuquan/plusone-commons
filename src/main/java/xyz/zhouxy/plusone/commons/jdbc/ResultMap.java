@@ -24,5 +24,5 @@ import com.google.common.annotations.Beta;
 @Beta
 @FunctionalInterface
 public interface ResultMap<T> {
-    T map(ResultSet rs) throws SQLException;
+    T map(ResultSet rs, int rowNumber) throws SQLException;
 }
