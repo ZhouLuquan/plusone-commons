@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.collection;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -164,7 +164,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return this.map.toString();
     }
 
-    protected abstract static class Builder<K, V, T extends AbstractMapWrapper<K, V, T>> {
+    public abstract static class Builder<K, V, T extends AbstractMapWrapper<K, V, T>> {
         protected final Map<K, V> map;
         protected Consumer<K> keyChecker;
         protected Consumer<V> valueChecker;
