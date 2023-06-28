@@ -59,7 +59,7 @@ public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
     public <T> Set<T> getValueAsSet(String key) {
         return this.<Collection<T>>getAndConvert(key)
                 .map(l -> (l instanceof Set) ? (Set<T>) l : new HashSet<>(l))
-                .orElse(Collections.<T>emptySet());
+                .orElse(Collections.emptySet());
     }
 
     public OptionalInt getValueAsInt(String key) {

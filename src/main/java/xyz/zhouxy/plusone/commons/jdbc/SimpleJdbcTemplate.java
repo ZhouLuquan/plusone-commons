@@ -100,8 +100,9 @@ public class SimpleJdbcTemplate {
                 }
                 try (ResultSet rs = stmt.executeQuery()) {
                     List<T> result = new ArrayList<>();
+                    int rowNumber = 0;
                     while (rs.next()) {
-                        T e = resultMap.map(rs);
+                        T e = resultMap.map(rs, rowNumber++);
                         result.add(e);
                     }
                     return result;
@@ -114,7 +115,7 @@ public class SimpleJdbcTemplate {
             return (list.isEmpty()) ? Optional.empty() : Optional.ofNullable(list.get(0));
         }
 
-        public static final ResultMap<Map<String, Object>> mapResultMap = rs -> {
+        public static final ResultMap<Map<String, Object>> mapResultMap = (rs, rowNumber) -> {
             Map<String, Object> result = new HashMap<>();
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -133,7 +134,7 @@ public class SimpleJdbcTemplate {
             return queryFirst(sql, params, mapResultMap);
         }
 
-        public static final ResultMap<DbRecord> recordResultMap = rs -> {
+        public static final ResultMap<DbRecord> recordResultMap = (rs, rowNumber) -> {
             DbRecord result = new DbRecord();
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -153,26 +154,26 @@ public class SimpleJdbcTemplate {
         }
 
         public Optional<String> queryToString(String sql, Object... params) throws SQLException {
-            return queryFirst(sql, params, (ResultSet rs) -> rs.getString(1));
+            return queryFirst(sql, params, (ResultSet rs, int rowNumber) -> rs.getString(1));
         }
 
         public OptionalInt queryToInt(String sql, Object... params) throws SQLException {
-            Optional<Integer> result = queryFirst(sql, params, (ResultSet rs) -> rs.getInt(1));
+            Optional<Integer> result = queryFirst(sql, params, (ResultSet rs, int rowNumber) -> rs.getInt(1));
             return OptionalUtil.toOptionalInt(result);
         }
 
         public OptionalLong queryToLong(String sql, Object... params) throws SQLException {
-            Optional<Long> result = queryFirst(sql, params, (ResultSet rs) -> rs.getLong(1));
+            Optional<Long> result = queryFirst(sql, params, (ResultSet rs, int rowNumber) -> rs.getLong(1));
             return OptionalUtil.toOptionalLong(result);
         }
 
         public OptionalDouble queryToDouble(String sql, Object... params) throws SQLException {
-            Optional<Double> result = queryFirst(sql, params, (ResultSet rs) -> rs.getDouble(1));
+            Optional<Double> result = queryFirst(sql, params, (ResultSet rs, int rowNumber) -> rs.getDouble(1));
             return OptionalUtil.toOptionalDouble(result);
         }
 
         public Optional<BigDecimal> queryToBigDecimal(String sql, Object... params) throws SQLException {
-            return queryFirst(sql, params, (ResultSet rs) -> rs.getBigDecimal(1));
+            return queryFirst(sql, params, (ResultSet rs, int rowNumber) -> rs.getBigDecimal(1));
         }
 
         public int update(String sql, Object... params) throws SQLException {
@@ -224,7 +225,7 @@ public class SimpleJdbcTemplate {
         }
 
         @FunctionalInterface
-        public static interface IAtom<T extends Exception> {
+        public interface IAtom<T extends Exception> {
             @SuppressWarnings("all")
             void execute() throws SQLException, T;
         }

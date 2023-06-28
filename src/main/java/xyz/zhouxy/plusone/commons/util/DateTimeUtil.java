@@ -9,33 +9,22 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.StringUtils;
+import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
 import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
 public class DateTimeUtil {
 
-    private static final MapWrapper<String, DateTimeFormatter> DATE_TIME_FORMATTER_CHCHE = MapWrapper
-            .<String, DateTimeFormatter>wrapHashMap()
-            .keyChecker(StringUtils::isNotBlank)
-            .valueChecker(Objects::nonNull)
+    private static final MapWrapper<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = MapWrapper
+            .<String, DateTimeFormatter>wrap(new SafeConcurrentHashMap<>())
+            .keyChecker(pattern -> Assert.isNotBlank(pattern, "The pattern could not be blank."))
+            .valueChecker(formatter -> Assert.notNull(formatter, "The formatter could not be null."))
             .build();
 
     public static DateTimeFormatter getDateTimeFormatter(String pattern) {
-        if (!DATE_TIME_FORMATTER_CHCHE.containsKey(pattern)) {
-            synchronized (DateTimeUtil.class) {
-                if (!DATE_TIME_FORMATTER_CHCHE.containsKey(pattern)) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    DATE_TIME_FORMATTER_CHCHE.put(pattern, formatter);
-                    return formatter;
-                }
-            }
-        }
-        return DATE_TIME_FORMATTER_CHCHE.get(pattern)
-                .orElseThrow(() -> new IllegalStateException("Formatter does not exist."));
+        return DATE_TIME_FORMATTER_CACHE.computeIfAbsent(pattern, DateTimeFormatter::ofPattern);
     }
 
     public static String toString(String pattern, ZonedDateTime dateTime) {
@@ -126,7 +115,7 @@ public class DateTimeUtil {
      * 只是不同时区的表示。
      * </p>
      * 
-     * @param dateTime {@link Date} 对象
+     * @param timeMillis 时间戳
      * @param zone     时区
      * @return 带时区信息的地区时间
      */
@@ -191,7 +180,7 @@ public class DateTimeUtil {
     /**
      * 获取时间戳在指定时区的地区时间。
      * 
-     * @param dateTime {@link Date} 对象
+     * @param timeMillis 时间戳
      * @param zone     时区
      * @return 地区时间
      */

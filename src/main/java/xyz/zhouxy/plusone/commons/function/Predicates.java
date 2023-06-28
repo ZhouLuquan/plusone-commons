@@ -42,9 +42,9 @@ public class Predicates {
      *         .and(StringUtils::isNotEmpty);
      * </pre>
      * 
-     * @param <T>
-     * @param predicate
-     * @return
+     * @param <T>       目标类型
+     * @param predicate 原 {@link Predicate} 实例
+     * @return 包装的 {@link Predicate} 实例
      */
     public static <T> Predicate<T> of(Predicate<? super T> predicate) {
         return predicate::test;

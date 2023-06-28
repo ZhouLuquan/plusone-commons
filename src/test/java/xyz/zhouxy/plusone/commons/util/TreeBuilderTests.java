@@ -31,7 +31,7 @@ class TreeBuilderTests {
                 MenuItem.of("C", "C2", "二级菜单C2", "/c/c2"),
                 MenuItem.of("C", "C3", "二级菜单C3", "/c/c3")
         );
-        List<Menu> menuTree = new TreeBuilder<Menu, String>(
+        List<Menu> menuTree = new TreeBuilder<>(
                 menus,
                 Menu::getMenuCode,
                 Menu::getParentMenuCode,

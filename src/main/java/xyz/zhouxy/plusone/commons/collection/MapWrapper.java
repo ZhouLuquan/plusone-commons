@@ -49,7 +49,7 @@ public final class MapWrapper<K, V> extends AbstractMapWrapper<K, V, MapWrapper<
         return new Builder<>(new HashMap<>(initialCapacity, loadFactor));
     }
 
-    public static <K, V> Builder<K, V> wrapTreeMap() {
+    public static <K extends Comparable<? super K>, V> Builder<K, V> wrapTreeMap() {
         return new Builder<>(new TreeMap<>());
     }
 
