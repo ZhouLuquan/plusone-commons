@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import xyz.zhouxy.plusone.commons.util.Assert;
+import xyz.zhouxy.plusone.commons.util.RegexUtil;
 
 /**
  * 带校验的字符串值对象
@@ -34,7 +35,7 @@ public abstract class ValidatableStringRecord {
     protected ValidatableStringRecord(String value, Pattern pattern) {
         Assert.notNull(pattern, "The pattern must not be null.");
         Assert.isNotBlank(value, "The value must be has text.");
-        Assert.isTrue(pattern.matcher(value).matches());
+        Assert.isTrue(RegexUtil.matches(value, pattern));
         this.value = value;
     }
 
