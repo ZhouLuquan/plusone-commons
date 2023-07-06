@@ -20,7 +20,7 @@ import com.google.common.collect.Table;
  * </p>
  * 
  * <pre>
- * new SynchronizedTable<>(HashBasedTable.create())
+ * SynchronizedTable.of(HashBasedTable.create())
  * </pre>
  * 
  * <p>
