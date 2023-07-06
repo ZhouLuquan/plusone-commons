@@ -11,7 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.joda.time.DateTimeZone;
+
 import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
+
+import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
 public class DateTimeUtil {
 
@@ -114,7 +118,7 @@ public class DateTimeUtil {
      * </p>
      * 
      * @param timeMillis 时间戳
-     * @param zone     时区
+     * @param zone       时区
      * @return 带时区信息的地区时间
      */
     public static ZonedDateTime toZonedDateTime(long timeMillis, ZoneId zone) {
@@ -179,7 +183,7 @@ public class DateTimeUtil {
      * 获取时间戳在指定时区的地区时间。
      * 
      * @param timeMillis 时间戳
-     * @param zone     时区
+     * @param zone       时区
      * @return 地区时间
      */
     public static LocalDateTime toLocalDateTime(long timeMillis, ZoneId zone) {
@@ -221,6 +225,7 @@ public class DateTimeUtil {
     }
 
     // ====================
+
     // toJodaInstant
 
     public static org.joda.time.Instant toJodaInstant(java.time.Instant instant) {
@@ -261,14 +266,14 @@ public class DateTimeUtil {
     public static org.joda.time.DateTime toJodaDateTime(
             java.time.LocalDateTime localDateTime,
             java.time.ZoneId zone) {
-        org.joda.time.DateTimeZone dateTimeZone = org.joda.time.DateTimeZone.forID(zone.getId());
+        org.joda.time.DateTimeZone dateTimeZone = toJodaTime(zone);
         return toJodaInstant(ZonedDateTime.of(localDateTime, zone).toInstant()).toDateTime(dateTimeZone);
     }
 
     public static org.joda.time.DateTime toJodaDateTime(
             java.time.Instant instant,
             java.time.ZoneId zone) {
-        org.joda.time.DateTimeZone dateTimeZone = org.joda.time.DateTimeZone.forID(zone.getId());
+        org.joda.time.DateTimeZone dateTimeZone = toJodaTime(zone);
         return toJodaInstant(instant).toDateTime(dateTimeZone);
     }
 
@@ -282,31 +287,39 @@ public class DateTimeUtil {
     public static java.time.ZonedDateTime toZonedDateTime(
             org.joda.time.LocalDateTime localDateTime,
             org.joda.time.DateTimeZone dateTimeZone) {
-                java.time.ZoneId zone = dateTimeZone.toTimeZone().toZoneId();
+        java.time.ZoneId zone = toJavaZone(dateTimeZone);
         return toJavaInstant(localDateTime, dateTimeZone).atZone(zone);
     }
 
     public static java.time.ZonedDateTime toZonedDateTime(
             org.joda.time.Instant instant,
             org.joda.time.DateTimeZone dateTimeZone) {
-        java.time.ZoneId zone = dateTimeZone.toTimeZone().toZoneId();
+        java.time.ZoneId zone = toJavaZone(dateTimeZone);
         return toJavaInstant(instant).atZone(zone);
     }
 
     // toJodaLocalDateTime
 
     public static org.joda.time.LocalDateTime toJodaLocalDateTime(java.time.LocalDateTime localDateTime) {
-        return toJodaInstant(localDateTime, ZoneId.systemDefault())
-                .toDateTime(org.joda.time.DateTimeZone.getDefault())
-                .toLocalDateTime();
+        java.time.ZoneId javaZone = java.time.ZoneId.systemDefault();
+        org.joda.time.DateTimeZone jodaZone = toJodaTime(javaZone);
+        return toJodaInstant(localDateTime, javaZone).toDateTime(jodaZone).toLocalDateTime();
     }
 
     // toJavaLocalDateTime
 
     public static java.time.LocalDateTime toJavaLocalDateTime(org.joda.time.LocalDateTime localDateTime) {
-        return toJavaInstant(localDateTime, org.joda.time.DateTimeZone.getDefault())
-                .atZone(java.time.ZoneId.systemDefault())
-                .toLocalDateTime();
+        org.joda.time.DateTimeZone jodaZone = org.joda.time.DateTimeZone.getDefault();
+        java.time.ZoneId javaZone = toJavaZone(jodaZone);
+        return toJavaInstant(localDateTime, jodaZone).atZone(javaZone).toLocalDateTime();
+    }
+
+    public static java.time.ZoneId toJavaZone(org.joda.time.DateTimeZone jodaZone) {
+        return jodaZone.toTimeZone().toZoneId();
+    }
+
+    public static DateTimeZone toJodaTime(java.time.ZoneId zone) {
+        return org.joda.time.DateTimeZone.forID(zone.getId());
     }
 
     private DateTimeUtil() {

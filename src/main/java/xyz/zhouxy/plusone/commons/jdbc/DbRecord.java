@@ -31,7 +31,7 @@ import java.util.Set;
 
 import com.google.common.annotations.Beta;
 
-import xyz.zhouxy.plusone.commons.util.AbstractMapWrapper;
+import xyz.zhouxy.plusone.commons.collection.AbstractMapWrapper;
 import xyz.zhouxy.plusone.commons.util.Assert;
 import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
