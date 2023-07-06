@@ -16,6 +16,11 @@
 
 package xyz.zhouxy.plusone.commons.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 标识该方法是可覆写的。
  * <p>该注解用于提醒、强调父类虽然有默认实现，但子类可以根据自己的需要覆写。</p>
@@ -23,5 +28,7 @@ package xyz.zhouxy.plusone.commons.annotation;
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  * @since 0.1.0
  */
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
 public @interface Overridable {
 }
