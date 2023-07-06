@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+import javax.annotation.concurrent.ThreadSafe;
+
+@ThreadSafe
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
 
     private static final long serialVersionUID = 4352954948768449595L;
