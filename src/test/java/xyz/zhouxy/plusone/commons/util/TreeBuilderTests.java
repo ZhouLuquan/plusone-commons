@@ -35,7 +35,7 @@ class TreeBuilderTests {
                 menus,
                 Menu::getMenuCode,
                 Menu::getParentMenuCode,
-                Menu::addChild)
+                MenuList::addChild)
                 .buildTree();
         log.info("menuTree: {}", menuTree);
     }
@@ -64,8 +64,6 @@ abstract class Menu {
     public String getTitle() {
         return title;
     }
-
-    public abstract void addChild(Menu child);
 }
 
 @ToString(callSuper = true)
@@ -88,12 +86,6 @@ class MenuItem extends Menu {
 
     public String getUrl() {
         return url;
-    }
-
-    @Override
-    @Deprecated
-    public void addChild(Menu child) {
-        throw new UnsupportedOperationException("Unimplemented method 'addChild'");
     }
 }
 
@@ -126,7 +118,6 @@ class MenuList extends Menu {
         return instance;
     }
 
-    @Override
     public void addChild(Menu child) {
         if (this.children == null) {
             this.children = Lists.newArrayList();

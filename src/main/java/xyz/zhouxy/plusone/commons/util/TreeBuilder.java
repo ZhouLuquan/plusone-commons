@@ -8,14 +8,14 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class TreeBuilder<T, TIdentity> {
+public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     private final Collection<T> nodes;
     private final Function<T, TIdentity> identityGetter;
     private final Function<T, Optional<TIdentity>> parentIdentityGetter;
-    private final BiConsumer<T, T> addChildrenMethod;
+    private final BiConsumer<TSubTree, T> addChildrenMethod;
 
     public TreeBuilder(Collection<T> nodes, Function<T, TIdentity> identityGetter,
-            Function<T, Optional<TIdentity>> parentIdentityGetter, BiConsumer<T, T> addChildren) {
+            Function<T, Optional<TIdentity>> parentIdentityGetter, BiConsumer<TSubTree, T> addChildren) {
         this.nodes = nodes;
         this.identityGetter = identityGetter;
         this.parentIdentityGetter = parentIdentityGetter;
@@ -30,7 +30,8 @@ public class TreeBuilder<T, TIdentity> {
         for (T node : this.nodes) {
             Optional<TIdentity> parentIdentity = parentIdentityGetter.apply(node);
             if (parentIdentity.isPresent() && identityNodeMap.containsKey(parentIdentity.get())) {
-                T parentNode = identityNodeMap.get(parentIdentity.get());
+                @SuppressWarnings("all")
+                TSubTree parentNode = (TSubTree) identityNodeMap.get(parentIdentity.get());
                 addChildrenMethod.accept(parentNode, node);
             }
         }
