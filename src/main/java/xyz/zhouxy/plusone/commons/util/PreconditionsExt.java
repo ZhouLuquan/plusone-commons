@@ -18,9 +18,16 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.function.Supplier;
 
+/**
+ * Guava Preconditions 的扩展。
+ * 
+ * @author ZhouXY
+ * 
+ * @see com.google.common.base.Preconditions
+ */
 public class PreconditionsExt {
 
-    public static <E extends Throwable> void isTrue(boolean condition, Supplier<E> e) throws E {
+    public static <E extends Throwable> void check(boolean condition, Supplier<E> e) throws E {
         if (!condition) {
             throw e.get();
         }
