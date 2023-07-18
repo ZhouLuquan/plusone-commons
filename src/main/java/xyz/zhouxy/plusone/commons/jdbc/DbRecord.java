@@ -29,21 +29,23 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.annotations.Beta;
+import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.collection.AbstractMapWrapper;
-import xyz.zhouxy.plusone.commons.util.Assert;
 import xyz.zhouxy.plusone.commons.util.OptionalUtil;
 
 @Beta
 public class DbRecord extends AbstractMapWrapper<String, Object, DbRecord> {
 
     public DbRecord() {
-        super(new HashMap<>(), k -> Assert.isNotBlank(k, "Key must has text."), null);
+        super(new HashMap<>(), k -> Preconditions.checkArgument(StringUtils.isNotBlank(k), "Key must has text."), null);
     }
 
     public DbRecord(Map<String, Object> map) {
-        super(map, k -> Assert.isNotBlank(k, "Key must has text."), null);
+        super(map, k -> Preconditions.checkArgument(StringUtils.isNotBlank(k), "Key must has text."), null);
     }
 
     public Optional<String> getValueAsString(String key) {

@@ -18,9 +18,11 @@ package xyz.zhouxy.plusone.commons.domain;
 
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import org.apache.commons.lang3.StringUtils;
 
-import xyz.zhouxy.plusone.commons.util.Assert;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.Preconditions;
+
 import xyz.zhouxy.plusone.commons.util.RegexUtil;
 
 /**
@@ -33,9 +35,9 @@ public abstract class ValidatableStringRecord {
     private final String value;
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
-        Assert.notNull(pattern, "The pattern must not be null.");
-        Assert.isNotBlank(value, "The value must be has text.");
-        Assert.isTrue(RegexUtil.matches(value, pattern));
+        Preconditions.checkNotNull(pattern, "The pattern must not be null.");
+        Preconditions.checkArgument(StringUtils.isNotBlank(value), "The value must be has text.");
+        Preconditions.checkArgument(RegexUtil.matches(value, pattern));
         this.value = value;
     }
 

@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.List;
 
+import com.google.common.base.Preconditions;
+
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
 /**
@@ -35,7 +37,7 @@ public class PageDTO<T> {
     private final List<T> content;
 
     private PageDTO(List<T> content, long total) {
-        Assert.notNull(content, "Content must not be null.");
+        Preconditions.checkNotNull(content, "Content must not be null.");
         this.content = content;
         this.total = total;
     }

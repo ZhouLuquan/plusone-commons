@@ -11,7 +11,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTimeZone;
+
+import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
@@ -21,8 +24,8 @@ public class DateTimeUtil {
 
     private static final MapWrapper<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = MapWrapper
             .<String, DateTimeFormatter>wrap(new SafeConcurrentHashMap<>())
-            .keyChecker(pattern -> Assert.isNotBlank(pattern, "The pattern could not be blank."))
-            .valueChecker(formatter -> Assert.notNull(formatter, "The formatter could not be null."))
+            .keyChecker(pattern -> Preconditions.checkArgument(StringUtils.isNotBlank(pattern), "The pattern could not be blank."))
+            .valueChecker(formatter -> Preconditions.checkNotNull(formatter, "The formatter could not be null."))
             .build();
 
     public static DateTimeFormatter getDateTimeFormatter(String pattern) {

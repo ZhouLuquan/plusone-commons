@@ -39,9 +39,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.annotations.Beta;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
-import xyz.zhouxy.plusone.commons.util.Assert;
 import xyz.zhouxy.plusone.commons.util.MoreArrays;
 import xyz.zhouxy.plusone.commons.util.MoreCollections;
 import xyz.zhouxy.plusone.commons.util.OptionalUtil;
@@ -211,7 +211,7 @@ public class SimpleJdbcTemplate {
         }
 
         public <T extends Exception> void tx(final IAtom<T> atom) throws SQLException, T {
-            Assert.notNull(atom, "Atom can not be null.");
+            Preconditions.checkNotNull(atom, "Atom can not be null.");
             try {
                 this.conn.setAutoCommit(false);
                 atom.execute();
@@ -257,8 +257,8 @@ public class SimpleJdbcTemplate {
         }
 
         public static <T> List<Object[]> buildBatchParams(final Collection<T> c, final Function<T, Object[]> function) {
-            Assert.notNull(c, "The collection can not be null.");
-            Assert.notNull(function, "The function can not be null.");
+            Preconditions.checkNotNull(c, "The collection can not be null.");
+            Preconditions.checkNotNull(function, "The function can not be null.");
             if (MoreCollections.isEmpty(c)) {
                 return Collections.emptyList();
             }

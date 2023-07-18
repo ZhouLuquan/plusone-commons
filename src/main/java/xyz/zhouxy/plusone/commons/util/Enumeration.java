@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Preconditions;
+
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
 /**
@@ -32,7 +36,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
     protected final String name;
 
     protected Enumeration(final int id, final String name) {
-        Assert.isNotBlank(name, "Name of enumeration must has text.");
+        Preconditions.checkArgument(StringUtils.isNotBlank(name), "Name of enumeration must has text.");
         this.id = id;
         this.name = name;
     }
@@ -90,7 +94,7 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
         }
 
         public T get(int id) {
-            Assert.isTrue(this.valueMap.containsKey(id), "%s 对应的值不存在", id);
+            Preconditions.checkArgument(this.valueMap.containsKey(id), "%s 对应的值不存在", id);
             return this.valueMap.get(id);
         }
 

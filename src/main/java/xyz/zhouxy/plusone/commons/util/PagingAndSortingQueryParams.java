@@ -24,6 +24,10 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Preconditions;
+
 import xyz.zhouxy.plusone.commons.annotation.Overridable;
 
 /**
@@ -53,7 +57,7 @@ public class PagingAndSortingQueryParams {
     public PagingAndSortingQueryParams(String... sortableColNames) {
         Set<String> sortableColNameSet = new HashSet<>(sortableColNames.length);
         for (String colName : sortableColNames) {
-            Assert.isNotBlank(colName, "Column name must has text.");
+            Preconditions.checkArgument(StringUtils.isNotBlank(colName), "Column name must has text.");
             sortableColNameSet.add(colName);
         }
         this.sortableColNames = Collections.unmodifiableSet(sortableColNameSet);
@@ -85,7 +89,7 @@ public class PagingAndSortingQueryParams {
         this.orderBy.clear();
         if (orderBy != null && !orderBy.isEmpty()) {
             for (String colName : orderBy) {
-                Assert.isTrue(this.sortableColNames.contains(colName),
+                Preconditions.checkArgument(this.sortableColNames.contains(colName),
                         "The column name must be in the set of sortable columns.");
             }
             this.orderBy.addAll(orderBy);

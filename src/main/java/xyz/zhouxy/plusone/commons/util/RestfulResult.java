@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.base.Preconditions;
 
 /**
  * 对返回给前端的数据进行封装
@@ -48,12 +49,12 @@ public class RestfulResult {
     }
 
     public static RestfulResult success(final String message) {
-        Assert.notNull(message, "Message must not be null.");
+        Preconditions.checkNotNull(message, "Message must not be null.");
         return new RestfulResult(SUCCESS_STATUS, message);
     }
     
     public static RestfulResult success(final String message, @Nullable final Object data) {
-        Assert.notNull(message, "Message must not be null.");
+        Preconditions.checkNotNull(message, "Message must not be null.");
         return new RestfulResult(SUCCESS_STATUS, message, data);
     }
     
@@ -62,20 +63,20 @@ public class RestfulResult {
     }
     
     public static RestfulResult error(final Object status, final String message) {
-        Assert.notNull(status, "Status must not be null.");
-        Assert.notNull(message, "Message must not be null.");
+        Preconditions.checkNotNull(status, "Status must not be null.");
+        Preconditions.checkNotNull(message, "Message must not be null.");
         return new RestfulResult(status, message);
     }
 
     public static RestfulResult error(final Object status, final String message, @Nullable final Object data) {
-        Assert.notNull(status, "Status must not be null.");
-        Assert.notNull(message, "Message must not be null.");
+        Preconditions.checkNotNull(status, "Status must not be null.");
+        Preconditions.checkNotNull(message, "Message must not be null.");
         return new RestfulResult(status, message, data);
     }
 
     public static RestfulResult error(final Object status, final Throwable e) {
-        Assert.notNull(status, "Status must not be null.");
-        Assert.notNull(e, "Exception must not be null.");
+        Preconditions.checkNotNull(status, "Status must not be null.");
+        Preconditions.checkNotNull(e, "Exception must not be null.");
         String msg = e.getMessage();
         if (msg == null) {
             msg = "";
@@ -85,16 +86,16 @@ public class RestfulResult {
 
     public static RestfulResult of(final boolean isSuccess,
             final Supplier<RestfulResult> success, final Supplier<RestfulResult> error) {
-        Assert.notNull(success, "Success supplier must not be null.");
-        Assert.notNull(error, "Error supplier must not be null.");
+        Preconditions.checkNotNull(success, "Success supplier must not be null.");
+        Preconditions.checkNotNull(error, "Error supplier must not be null.");
         return isSuccess ? success.get() : error.get();
     }
 
     public static RestfulResult of(final BooleanSupplier isSuccess,
             final Supplier<RestfulResult> success, final Supplier<RestfulResult> error) {
-        Assert.notNull(isSuccess, "Conditions for success must not be null.");
-        Assert.notNull(success, "Success supplier must not be null.");
-        Assert.notNull(error, "Error supplier must not be null.");
+        Preconditions.checkNotNull(isSuccess, "Conditions for success must not be null.");
+        Preconditions.checkNotNull(success, "Success supplier must not be null.");
+        Preconditions.checkNotNull(error, "Error supplier must not be null.");
         return isSuccess.getAsBoolean() ? success.get() : error.get();
     }
 

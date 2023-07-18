@@ -20,6 +20,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Preconditions;
+
 /**
  * 枚举工具类
  *
@@ -42,9 +44,9 @@ public final class EnumUtil {
      */
     @Deprecated
     public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) {
-        Assert.notNull(clazz, "Clazz must not be null.");
+        Preconditions.checkNotNull(clazz, "Clazz must not be null.");
         E[] values = clazz.getEnumConstants();
-        Assert.isTrue((ordinal >= 0 && ordinal < values.length),
+        PreconditionsExt.isTrue((ordinal >= 0 && ordinal < values.length),
                 () -> new EnumConstantNotPresentException(clazz, Integer.toString(ordinal)));
         return values[ordinal];
     }
@@ -100,7 +102,7 @@ public final class EnumUtil {
     @Deprecated
     public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
         return getValueOrDefault(clazz, ordinal, () -> {
-            Assert.notNull(clazz, "Clazz must not be null.");
+            Preconditions.checkNotNull(clazz, "Clazz must not be null.");
             E[] values = clazz.getEnumConstants();
             return values[0];
         });
@@ -121,8 +123,8 @@ public final class EnumUtil {
     }
 
     public static <E extends Enum<?>> Integer checkOrdinal(Class<E> clazz, Integer ordinal) {
-        Assert.notNull(clazz, "Clazz must not be null.");
-        Assert.notNull(ordinal, "Ordinal must not be null.");
+        Preconditions.checkNotNull(clazz, "Clazz must not be null.");
+        Preconditions.checkNotNull(ordinal, "Ordinal must not be null.");
         E[] values = clazz.getEnumConstants();
         if (ordinal >= 0 && ordinal < values.length) {
             return ordinal;
