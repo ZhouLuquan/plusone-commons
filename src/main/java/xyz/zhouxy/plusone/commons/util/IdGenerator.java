@@ -49,7 +49,8 @@ public class IdGenerator {
     public static SnowflakeIdGenerator getSnowflakeIdGenerator(long workerId, long datacenterId) {
         SnowflakeIdGenerator generator = snowflakePool.get(workerId, datacenterId);
         if (generator == null) {
-            synchronized (IdGenerator.class) {
+            // 其它地方需注意，对 snowflakePool 的操作，也都锁 snowflakePool 对象。
+            synchronized (snowflakePool) {
                 generator = snowflakePool.get(workerId, datacenterId);
                 if (generator == null) {
                     generator = new SnowflakeIdGenerator(workerId, datacenterId);
