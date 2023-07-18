@@ -136,7 +136,7 @@ public final class RegexUtil {
      * @param patterns 正则
      * @return 判断结果
      */
-    public static boolean matchOne(@Nullable final CharSequence input, final Pattern[] patterns) {
+    public static boolean matchesOne(@Nullable final CharSequence input, final Pattern[] patterns) {
         Preconditions.checkNotNull(patterns, "The patterns can not be null.");
         if (input == null) {
             return false;
@@ -156,7 +156,7 @@ public final class RegexUtil {
      * @param patterns 正则
      * @return 判断结果
      */
-    public static boolean matchAll(@Nullable final CharSequence input, final Pattern[] patterns) {
+    public static boolean matchesAll(@Nullable final CharSequence input, final Pattern[] patterns) {
         Preconditions.checkNotNull(patterns, "The patterns can not be null.");
         if (input == null) {
             return false;
@@ -201,10 +201,10 @@ public final class RegexUtil {
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return 判断结果
      */
-    public static boolean matchOne(@Nullable final CharSequence input, final String[] patterns,
+    public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
         final Pattern[] patternSet = getPatterns(patterns, cachePattern);
-        return matchOne(input, patternSet);
+        return matchesOne(input, patternSet);
     }
 
     /**
@@ -214,9 +214,9 @@ public final class RegexUtil {
      * @param patterns 正则表达式
      * @return 判断结果
      */
-    public static boolean matchOne(@Nullable final CharSequence input, final String[] patterns) {
+    public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns) {
         final Pattern[] patternSet = getPatterns(patterns);
-        return matchOne(input, patternSet);
+        return matchesOne(input, patternSet);
     }
 
     /**
@@ -227,10 +227,10 @@ public final class RegexUtil {
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return 判断结果
      */
-    public static boolean matchAll(@Nullable final CharSequence input, final String[] patterns,
+    public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
         final Pattern[] patternSet = getPatterns(patterns, cachePattern);
-        return matchAll(input, patternSet);
+        return matchesAll(input, patternSet);
     }
 
     /**
@@ -240,9 +240,9 @@ public final class RegexUtil {
      * @param patterns 正则表达式
      * @return 判断结果
      */
-    public static boolean matchAll(@Nullable final CharSequence input, final String[] patterns) {
+    public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns) {
         final Pattern[] patternSet = getPatterns(patterns);
-        return matchAll(input, patternSet);
+        return matchesAll(input, patternSet);
     }
 
     /**
