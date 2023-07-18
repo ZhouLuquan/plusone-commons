@@ -17,7 +17,6 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +26,7 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 
 import xyz.zhouxy.plusone.commons.annotation.Overridable;
 
@@ -44,23 +44,22 @@ import xyz.zhouxy.plusone.commons.annotation.Overridable;
 public class PagingAndSortingQueryParams {
 
     private static final int DEFAULT_PAGE_SIZE = 15;
-    protected final List<String> orderBy = new LinkedList<>();
-    protected int size;
-    protected long pageNum;
 
-    private final Set<String> sortableColNames;
+    private int size;
+    private long pageNum;
+    private final List<String> orderBy = new LinkedList<>();
+
+    private final Set<String> sortableProperties;
 
     public PagingAndSortingQueryParams() {
-        this.sortableColNames = Collections.emptySet();
+        this.sortableProperties = Collections.emptySet();
     }
 
-    public PagingAndSortingQueryParams(String... sortableColNames) {
-        Set<String> sortableColNameSet = new HashSet<>(sortableColNames.length);
-        for (String colName : sortableColNames) {
-            Preconditions.checkArgument(StringUtils.isNotBlank(colName), "Column name must has text.");
-            sortableColNameSet.add(colName);
+    public PagingAndSortingQueryParams(String... sortableProperties) {
+        for (String p : sortableProperties) {
+            Preconditions.checkArgument(StringUtils.isNotBlank(p), "Property name must not be blank.");
         }
-        this.sortableColNames = Collections.unmodifiableSet(sortableColNameSet);
+        this.sortableProperties = ImmutableSet.<String>builder().add(sortableProperties).build();
     }
 
     // Getters
@@ -85,14 +84,14 @@ public class PagingAndSortingQueryParams {
 
     // Setters
 
-    public final void setOrderBy(@Nullable List<String> orderBy) {
+    public final void setOrderBy(@Nullable List<String> properties) {
         this.orderBy.clear();
-        if (orderBy != null && !orderBy.isEmpty()) {
-            for (String colName : orderBy) {
-                Preconditions.checkArgument(this.sortableColNames.contains(colName),
-                        "The column name must be in the set of sortable columns.");
+        if (properties != null && !properties.isEmpty()) {
+            for (String colName : properties) {
+                Preconditions.checkArgument(this.sortableProperties.contains(colName),
+                        "The property name must be in the set of sortable properties.");
             }
-            this.orderBy.addAll(orderBy);
+            this.orderBy.addAll(properties);
         }
     }
 
@@ -101,7 +100,7 @@ public class PagingAndSortingQueryParams {
     }
 
     public final void setPageNum(@Nullable Long pageNum) {
-        this.pageNum = pageNum != null ? pageNum : 1;
+        this.pageNum = pageNum != null ? pageNum : 1L;
     }
 
     // Setters end
@@ -109,5 +108,11 @@ public class PagingAndSortingQueryParams {
     @Overridable
     protected int getDefaultSize() {
         return DEFAULT_PAGE_SIZE;
+    }
+
+    @Override
+    public String toString() {
+        return "PagingAndSortingQueryParams [size=" + size + ", pageNum=" + pageNum + ", orderBy=" + orderBy
+                + ", sortableProperties=" + sortableProperties + "]";
     }
 }
