@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.jdbc;
+package xyz.zhouxy.plusone.commons.sql;
 
 import java.util.Collection;
 

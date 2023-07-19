@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.jdbc;
+package xyz.zhouxy.plusone.commons.sql;
 
 import org.apache.ibatis.jdbc.AbstractSQL;
 
