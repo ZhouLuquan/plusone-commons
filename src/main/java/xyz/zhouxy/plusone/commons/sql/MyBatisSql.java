@@ -26,40 +26,32 @@ public class MyBatisSql extends SQL<MyBatisSql> {
     }
 
     public static String IN(String col, String paramName) {
-        return new StringBuilder(" ")
-                .append(col)
-                .append(" IN")
-                .append(buildQuestionsList(col, paramName))
-                .toString();
+        return " " + col + " IN" + buildQuestionsList(col, paramName);
     }
 
     public static String NOT_IN(String col, String paramName) {
-        return new StringBuilder()
-                .append(col)
-                .append(" NOT IN")
-                .append(buildQuestionsList(col, paramName))
-                .toString();
+        return col + " NOT IN" + buildQuestionsList(col, paramName);
     }
 
     private static String buildQuestionsList(String col, String paramName) {
-        return new StringBuilder()
-                .append("<foreach item=\"")
-                .append(col)
-                .append("\" index=\"index\" collection=\"")
-                .append(paramName)
-                .append("\" open=\"(\" separator=\",\" close=\")\">")
-                .append("#{")
-                .append(col)
-                .append("}</foreach>")
-                .toString();
+        final String format = "<foreach" +
+                " item=\"%s\"" +
+                " index=\"index\"" +
+                " collection=\"%s\"" +
+                " open=\"(\"" +
+                " separator=\",\"" +
+                " close=\")\"" +
+                ">" +
+                "#{%s}" +
+                "</foreach>";
+        return String.format(format, col, paramName, col);
     }
 
     @Override
     public String toString() {
-        String str = super.toString();
         if (withScript) {
-            str = "<script>\n" + str + "\n</script>";
+            return "<script>\n" + super.toString() + "\n</script>";
         }
-        return str;
+        return super.toString();
     }
 }

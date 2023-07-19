@@ -26,12 +26,7 @@ public class JdbcSql extends SQL<JdbcSql> {
     }
 
     private static String IN(String col, int length) {
-        return new StringBuilder()
-                .append(col)
-                .append(" IN (")
-                .append(buildQuestionsList(length))
-                .append(')')
-                .toString();
+        return col + " IN (" + String.valueOf(buildQuestionsList(length)) + ')';
     }
 
     public static String NOT_IN(String col, Collection<?> c) {
@@ -43,12 +38,7 @@ public class JdbcSql extends SQL<JdbcSql> {
     }
 
     private static String NOT_IN(String col, int length) {
-        return new StringBuilder()
-                .append(col)
-                .append(" NOT IN (")
-                .append(buildQuestionsList(length))
-                .append(')')
-                .toString();
+        return col + " NOT IN (" + String.valueOf(buildQuestionsList(length)) + ')';
     }
 
     private static char[] buildQuestionsList(int times) {
