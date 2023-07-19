@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.exception;
 
+import xyz.zhouxy.plusone.commons.base.IWithIntCode;
+
 /**
  * 带错误码的异常。
  *
