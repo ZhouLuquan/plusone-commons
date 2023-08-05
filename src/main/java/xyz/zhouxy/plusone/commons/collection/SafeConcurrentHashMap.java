@@ -1,10 +1,13 @@
 package xyz.zhouxy.plusone.commons.collection;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import javax.annotation.concurrent.ThreadSafe;
+
+import xyz.zhouxy.plusone.commons.base.JRE;
 
 @ThreadSafe
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
@@ -83,11 +86,27 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
     /** {@inheritDoc} */
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        V v = get(key);
-        if (null == v) {
-            putIfAbsent(key, mappingFunction.apply(key));
-            v = get(key);
+        Objects.requireNonNull(mappingFunction);
+        if (JRE.isJava8()) {
+            V v = get(key);
+            if (null == v) {
+                // this bug fix methods maybe cause `mappingFunction.apply` multiple calls.
+                v = mappingFunction.apply(key);
+                if (null == v) {
+                    return null;
+                }
+                final V res = putIfAbsent(key, v);
+                if (null != res) {
+                    // if pre value present, means other thread put value already,
+                    // and putIfAbsent not effect
+                    // return exist value
+                    return res;
+                }
+                // if pre value is null, means putIfAbsent effected, return current value
+            }
+            return v;
+        } else {
+            return computeIfAbsent(key, mappingFunction);
         }
-        return v;
     }
 }
