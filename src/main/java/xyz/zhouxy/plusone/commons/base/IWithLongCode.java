@@ -23,6 +23,6 @@ package xyz.zhouxy.plusone.commons.base;
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
-public interface IWithIntCode {
-    int getCode();
+public interface IWithLongCode {
+    long getCode();
 }

@@ -1,14 +1,30 @@
+/*
+ * Copyright 2022-2023 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package xyz.zhouxy.plusone.commons.collection;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import javax.annotation.concurrent.ThreadSafe;
 
-import xyz.zhouxy.plusone.commons.base.JRE;
+import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
 
+// TODO 添加文档注释
 @ThreadSafe
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
 
@@ -86,27 +102,6 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
     /** {@inheritDoc} */
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        Objects.requireNonNull(mappingFunction);
-        if (JRE.isJava8()) {
-            V v = get(key);
-            if (null == v) {
-                // this bug fix methods maybe cause `mappingFunction.apply` multiple calls.
-                v = mappingFunction.apply(key);
-                if (null == v) {
-                    return null;
-                }
-                final V res = putIfAbsent(key, v);
-                if (null != res) {
-                    // if pre value present, means other thread put value already,
-                    // and putIfAbsent not effect
-                    // return exist value
-                    return res;
-                }
-                // if pre value is null, means putIfAbsent effected, return current value
-            }
-            return v;
-        } else {
-            return computeIfAbsent(key, mappingFunction);
-        }
+        return ConcurrentHashMapUtil.computIfAbsent(this, key, mappingFunction);
     }
 }

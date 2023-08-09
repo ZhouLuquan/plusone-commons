@@ -22,12 +22,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.google.common.annotations.Beta;
+
+import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
 
 @Beta
 public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V, T>> {
@@ -141,12 +144,12 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     }
 
     public final V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        V v = this.map.get(key);
-        if (null == v) {
-            this.map.putIfAbsent(key, mappingFunction.apply(key));
-            v = this.map.get(key);
+        if (this.map instanceof ConcurrentHashMap) {
+            return ConcurrentHashMapUtil.computIfAbsent(
+                (ConcurrentHashMap<K, V>) this.map, key, mappingFunction);
+        } else {
+            return this.map.computeIfAbsent(key, mappingFunction);
         }
-        return v;
     }
 
     public final Map<K, V> exportMap() {

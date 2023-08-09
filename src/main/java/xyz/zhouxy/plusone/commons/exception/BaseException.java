@@ -45,7 +45,7 @@ public abstract class BaseException extends RuntimeException implements IWithInt
     }
 
     @Override
-    public int getCode() {
+    public final int getCode() {
         return this.code;
     }
 }
