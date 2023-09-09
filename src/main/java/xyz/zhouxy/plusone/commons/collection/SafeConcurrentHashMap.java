@@ -102,6 +102,6 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
     /** {@inheritDoc} */
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        return ConcurrentHashMapUtil.computIfAbsent(this, key, mappingFunction);
+        return ConcurrentHashMapUtil.computeIfAbsent(this, key, mappingFunction);
     }
 }

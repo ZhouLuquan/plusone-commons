@@ -145,7 +145,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
 
     public final V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         if (this.map instanceof ConcurrentHashMap) {
-            return ConcurrentHashMapUtil.computIfAbsent(
+            return ConcurrentHashMapUtil.computeIfAbsent(
                 (ConcurrentHashMap<K, V>) this.map, key, mappingFunction);
         } else {
             return this.map.computeIfAbsent(key, mappingFunction);

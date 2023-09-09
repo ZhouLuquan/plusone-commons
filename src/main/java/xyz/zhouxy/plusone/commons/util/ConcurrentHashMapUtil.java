@@ -24,7 +24,7 @@ import xyz.zhouxy.plusone.commons.base.JRE;
 
 public class ConcurrentHashMapUtil { // TODO 添加文档注释
 
-    public static <K, V> V computIfAbsent(ConcurrentHashMap<K, V> map, final K key, final Function<? super K, ? extends V> mappingFunction) {
+    public static <K, V> V computeIfAbsent(ConcurrentHashMap<K, V> map, final K key, final Function<? super K, ? extends V> mappingFunction) {
         if (JRE.isJava8()) {
             Objects.requireNonNull(mappingFunction);
             V v = map.get(key);
