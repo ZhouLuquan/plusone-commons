@@ -16,36 +16,43 @@
 
 package xyz.zhouxy.plusone.commons.exception;
 
-import xyz.zhouxy.plusone.commons.base.IWithIntCode;
+import xyz.zhouxy.plusone.commons.base.IWithCode;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * 带错误码的异常。
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
-public abstract class BaseException extends RuntimeException implements IWithIntCode {
+public abstract class BaseException
+        extends RuntimeException
+        implements IWithCode<String> {
 
     private static final long serialVersionUID = -2546365325001947203L;
 
-    private final int code;
+    @Nonnull
+    private final String code;
 
-    protected BaseException(int code, String msg) {
+    protected BaseException(String code, String msg) {
         super(msg);
-        this.code = code;
+        this.code = Objects.requireNonNull(code);
     }
 
-    protected BaseException(int code, Throwable cause) {
+    protected BaseException(String code, Throwable cause) {
         super(cause);
-        this.code = code;
+        this.code = Objects.requireNonNull(code);
     }
 
-    protected BaseException(int code, String msg, Throwable cause) {
+    protected BaseException(String code, String msg, Throwable cause) {
         super(msg, cause);
-        this.code = code;
+        this.code = Objects.requireNonNull(code);
     }
 
+    @Nonnull
     @Override
-    public final int getCode() {
+    public final String getCode() {
         return this.code;
     }
 }
