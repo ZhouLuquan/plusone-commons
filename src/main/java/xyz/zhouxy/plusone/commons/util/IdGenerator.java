@@ -1,10 +1,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.annotations.Beta;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 
 @Beta
 public class IdGenerator {
@@ -39,26 +39,15 @@ public class IdGenerator {
 
     // ===== SnowflakeId =====
 
-    private static final Table<Long, Long, SnowflakeIdGenerator> snowflakePool = HashBasedTable.create();
+    private static final Map<Long, IdWorker> snowflakePool = new ConcurrentHashMap<>();
 
-    public static long nextSnowflakeId(long workerId, long datacenterId) {
-        SnowflakeIdGenerator generator = getSnowflakeIdGenerator(workerId, datacenterId);
+    public static long nextSnowflakeId(long workerId) {
+        IdWorker generator = getSnowflakeIdGenerator(workerId);
         return generator.nextId();
     }
 
-    public static SnowflakeIdGenerator getSnowflakeIdGenerator(long workerId, long datacenterId) {
-        SnowflakeIdGenerator generator = snowflakePool.get(workerId, datacenterId);
-        if (generator == null) {
-            // 其它地方需注意，对 snowflakePool 的操作，也都锁 snowflakePool 对象。
-            synchronized (snowflakePool) {
-                generator = snowflakePool.get(workerId, datacenterId);
-                if (generator == null) {
-                    generator = new SnowflakeIdGenerator(workerId, datacenterId);
-                    snowflakePool.put(workerId, datacenterId, generator);
-                }
-            }
-        }
-        return generator;
+    public static IdWorker getSnowflakeIdGenerator(long workerId) {
+        return snowflakePool.computeIfAbsent(workerId, wid -> new IdWorker(workerId));
     }
 
     private IdGenerator() {
