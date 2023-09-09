@@ -1,17 +1,17 @@
 package xyz.zhouxy.plusone.commons.util;
 
 /**
- * 普通结果
+ * 自定义结果
  *
  * @author zhouxy
  */
-final class OrdinaryResult extends UnifiedResponse {
+final class CustomResult extends UnifiedResponse {
 
-    OrdinaryResult(Object status, String message) {
+    CustomResult(Object status, String message) {
         super(status, message);
     }
 
-    OrdinaryResult(Object status, String message, Object data) {
+    CustomResult(Object status, String message, Object data) {
         super(status, message, data);
     }
 

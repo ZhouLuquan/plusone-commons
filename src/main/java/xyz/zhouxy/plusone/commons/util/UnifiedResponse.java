@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import xyz.zhouxy.plusone.commons.annotation.UnsupportedOperation;
 import xyz.zhouxy.plusone.commons.base.IWithCode;
 
 import java.util.HashMap;
@@ -77,22 +78,22 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     }
 
     public static UnifiedResponse of(Object status, String message) {
-        return new OrdinaryResult(status, message);
+        return new CustomResult(status, message);
     }
 
     public static UnifiedResponse of(Object status, String message, Object data) {
-        return new OrdinaryResult(status, message, data);
+        return new CustomResult(status, message, data);
     }
 
     public static UnifiedResponse of(final boolean isSuccess,
-            final Supplier<SuccessResult> success, final Supplier<ErrorResult> error) {
+            final Supplier<UnifiedResponse> success, final Supplier<UnifiedResponse> error) {
         Preconditions.checkNotNull(success, "Success supplier must not be null.");
         Preconditions.checkNotNull(error, "Error supplier must not be null.");
         return isSuccess ? success.get() : error.get();
     }
 
     public static UnifiedResponse of(final BooleanSupplier isSuccess,
-            final Supplier<SuccessResult> success, final Supplier<ErrorResult> error) {
+            final Supplier<UnifiedResponse> success, final Supplier<UnifiedResponse> error) {
         Preconditions.checkNotNull(isSuccess, "Conditions for success must not be null.");
         Preconditions.checkNotNull(success, "Success supplier must not be null.");
         Preconditions.checkNotNull(error, "Error supplier must not be null.");
@@ -130,6 +131,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object put(String key, Object value) {
@@ -139,6 +141,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public void putAll(Map<? extends String, ?> m) {
@@ -148,6 +151,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object remove(Object key) {
@@ -157,6 +161,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public void clear() {
@@ -166,6 +171,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object putIfAbsent(String key, Object value) {
@@ -175,6 +181,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public boolean remove(Object key, Object value) {
@@ -184,6 +191,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public boolean replace(String key, Object oldValue, Object newValue) {
@@ -193,6 +201,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object replace(String key, Object value) {
@@ -202,6 +211,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object computeIfAbsent(String key, Function<? super String, ?> mappingFunction) {
@@ -211,6 +221,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object computeIfPresent(String key, BiFunction<? super String, ? super Object, ?> remappingFunction) {
@@ -220,6 +231,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object compute(String key, BiFunction<? super String, ? super Object, ?> remappingFunction) {
@@ -229,6 +241,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public Object merge(String key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
@@ -238,6 +251,7 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     /**
      * @deprecated Unsupported operation.
      */
+    @UnsupportedOperation
     @Deprecated
     @Override
     public void replaceAll(BiFunction<? super String, ? super Object, ?> function) {
