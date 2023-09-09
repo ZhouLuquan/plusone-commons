@@ -24,24 +24,29 @@ import xyz.zhouxy.plusone.commons.base.JRE;
 
 public class ConcurrentHashMapUtil { // TODO 添加文档注释
 
-    public static <K, V> V computeIfAbsent(ConcurrentHashMap<K, V> map, final K key, final Function<? super K, ? extends V> mappingFunction) {
-        if (JRE.isJava8()) {
-            Objects.requireNonNull(mappingFunction);
-            V v = map.get(key);
+    public static <K, V> V computeIfAbsent(ConcurrentHashMap<K, V> map, final K key,
+            final Function<? super K, ? extends V> mappingFunction) {
+
+        return JRE.isJava8()
+                ? computeIfAbsentForJava8(map, key, mappingFunction)
+                : map.computeIfAbsent(key, mappingFunction);
+    }
+
+    public static <K, V> V computeIfAbsentForJava8(ConcurrentHashMap<K, V> map, final K key,
+            final Function<? super K, ? extends V> mappingFunction) {
+        Objects.requireNonNull(mappingFunction);
+        V v = map.get(key);
+        if (null == v) {
+            v = mappingFunction.apply(key);
             if (null == v) {
-                v = mappingFunction.apply(key);
-                if (null == v) {
-                    return null;
-                }
-                final V res = map.putIfAbsent(key, v);
-                if (null != res) {
-                    return res;
-                }
+                return null;
             }
-            return v;
-        } else {
-            return map.computeIfAbsent(key, mappingFunction);
+            final V res = map.putIfAbsent(key, v);
+            if (null != res) {
+                return res;
+            }
         }
+        return v;
     }
 
     private ConcurrentHashMapUtil() {
