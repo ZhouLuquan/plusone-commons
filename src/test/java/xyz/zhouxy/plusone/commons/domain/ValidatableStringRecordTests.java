@@ -10,6 +10,11 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.annotation.ValueObject;
 import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 class ValidatableStringRecordTests {
 
     private static final Logger log = LoggerFactory.getLogger(ValidatableStringRecordTests.class);
@@ -21,6 +26,16 @@ class ValidatableStringRecordTests {
         String usernameStr = username.value();
         assertNotNull(usernameStr);
         log.info("usernameStr: {}", usernameStr);
+
+        List<Username> usernames = Arrays.asList(
+                Username.of("ZhouXY108"),
+                Username.of("code_108"),
+                Username.of("Luquan"),
+                Username.of("Code108")
+        );
+        log.info("{}", Collections.max(usernames));
+        log.info("{}", Collections.max(usernames,
+                Comparator.<Username, String>comparing(o -> o.value().toLowerCase())));
     }
 }
 

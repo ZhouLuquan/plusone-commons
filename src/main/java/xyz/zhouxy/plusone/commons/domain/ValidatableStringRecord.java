@@ -31,7 +31,8 @@ import xyz.zhouxy.plusone.commons.util.RegexUtil;
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  * @since 0.1.0
  */
-public abstract class ValidatableStringRecord {
+public abstract class ValidatableStringRecord
+        implements Comparable<ValidatableStringRecord> {
     private final String value;
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
@@ -49,6 +50,11 @@ public abstract class ValidatableStringRecord {
     @JsonValue
     public final String value() {
         return this.value;
+    }
+
+    @Override
+    public int compareTo(ValidatableStringRecord o) {
+        return this.value.compareTo(o.value);
     }
 
     @Override
