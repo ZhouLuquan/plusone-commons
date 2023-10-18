@@ -26,26 +26,26 @@ import java.util.Objects;
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
-public abstract class BaseException
-        extends Exception
+public abstract class BaseRuntimeException
+        extends RuntimeException
         implements IWithCode<String> {
 
-    private static final long serialVersionUID = -2546365325001947203L;
+    private static final long serialVersionUID = -6345888403567792664L;
 
     @Nonnull
     private final String code;
 
-    protected BaseException(String code, String msg) {
+    protected BaseRuntimeException(String code, String msg) {
         super(msg);
         this.code = Objects.requireNonNull(code);
     }
 
-    protected BaseException(String code, Throwable cause) {
+    protected BaseRuntimeException(String code, Throwable cause) {
         super(cause);
         this.code = Objects.requireNonNull(code);
     }
 
-    protected BaseException(String code, String msg, Throwable cause) {
+    protected BaseRuntimeException(String code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = Objects.requireNonNull(code);
     }
