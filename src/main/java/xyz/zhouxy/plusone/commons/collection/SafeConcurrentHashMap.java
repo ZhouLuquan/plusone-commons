@@ -22,9 +22,21 @@ import java.util.function.Function;
 
 import javax.annotation.concurrent.ThreadSafe;
 
+import xyz.zhouxy.plusone.commons.base.JRE;
 import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
 
-// TODO 添加文档注释
+/**
+ * SafeConcurrentHashMap
+ *
+ * <p>
+ * Java 8 的 {@link ConcurrentHashMap#computeIfAbsent(Object, Function)} 方法有 bug，
+ * 使用 Java 8 时，可使用这个类进行替换。
+ * 
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ * @see ConcurrentHashMap
+ * @see ConcurrentHashMapUtil#computeIfAbsentForJava8(ConcurrentHashMap, Object, Function)
+ */
 @ThreadSafe
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
 
@@ -102,6 +114,8 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
     /** {@inheritDoc} */
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        return ConcurrentHashMapUtil.computeIfAbsentForJava8(this, key, mappingFunction);
+        return JRE.isJava8()
+                ? ConcurrentHashMapUtil.computeIfAbsentForJava8(this, key, mappingFunction)
+                : super.computeIfAbsent(key, mappingFunction);
     }
 }

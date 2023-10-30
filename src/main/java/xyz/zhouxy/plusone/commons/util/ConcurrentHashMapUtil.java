@@ -21,12 +21,28 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import xyz.zhouxy.plusone.commons.base.JRE;
+import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
-public class ConcurrentHashMapUtil { // TODO 添加文档注释
+/**
+ * ConcurrentHashMapUtil
+ *
+ * <p>
+ * Java 8 的 {@link ConcurrentHashMap#computeIfAbsent(Object, Function)} 方法有 bug，
+ * 可使用这个工具类的 {@link computeIfAbsentForJava8} 进行替换。
+ *
+ * <p>
+ * <b>NOTE: 方法来自Dubbo，见：issues#2349</b>
+ * 
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ * @see ConcurrentHashMap
+ * @see SafeConcurrentHashMap
+ */
+public class ConcurrentHashMapUtil {
 
     public static <K, V> V computeIfAbsent(ConcurrentHashMap<K, V> map, final K key,
             final Function<? super K, ? extends V> mappingFunction) {
-
+        Objects.requireNonNull(map, "map");
         return JRE.isJava8()
                 ? computeIfAbsentForJava8(map, key, mappingFunction)
                 : map.computeIfAbsent(key, mappingFunction);
@@ -34,6 +50,7 @@ public class ConcurrentHashMapUtil { // TODO 添加文档注释
 
     public static <K, V> V computeIfAbsentForJava8(ConcurrentHashMap<K, V> map, final K key,
             final Function<? super K, ? extends V> mappingFunction) {
+        Objects.requireNonNull(key);
         Objects.requireNonNull(mappingFunction);
         V v = map.get(key);
         if (null == v) {
