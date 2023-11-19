@@ -26,14 +26,14 @@ public class MyBatisSql extends SQL<MyBatisSql> {
     }
 
     public static String IN(String col, String paramName) {
-        return " " + col + " IN" + buildQuestionsList(col, paramName);
+        return " " + col + " IN" + buildForeach(col, paramName);
     }
 
     public static String NOT_IN(String col, String paramName) {
-        return col + " NOT IN" + buildQuestionsList(col, paramName);
+        return col + " NOT IN" + buildForeach(col, paramName);
     }
 
-    private static String buildQuestionsList(String col, String paramName) {
+    private static String buildForeach(String col, String paramName) {
         final String format = "<foreach" +
                 " item=\"%s\"" +
                 " index=\"index\"" +
