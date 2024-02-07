@@ -79,21 +79,6 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return Optional.ofNullable(this.map.get(key));
     }
 
-    /**
-     * 获取 {@code map} 中的值。如果 {@code key} 不存在，则抛出异常。
-     *
-     * @param key 键
-     * @return 值
-     * @throws IllegalArgumentException key 不存在时抛出。
-     */
-    @Nullable
-    public V getOrNull(K key) {
-        if (!this.map.containsKey(key)) {
-            throw new IllegalArgumentException("Key does not exist");
-        }
-        return this.map.get(key);
-    }
-
     @SuppressWarnings("unchecked")
     public final <R> Optional<R> getAndConvert(K key) {
         return get(key).map(v -> (R) v);
