@@ -1,5 +1,6 @@
 package xyz.zhouxy.plusone.commons.collection;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class CollectionTools {
 
     // Collection -> Map
 
-    public static <K, V> HashMap<K, V> toHashMap(
+    public static <K, V> HashMap<K, V> toHashMap( // NOSONAR return implementation
             Iterable<V> c,
             Function<? super V, K> keyGenerator,
             int initialCapacity) {
@@ -44,7 +45,7 @@ public class CollectionTools {
         return map;
     }
 
-    public static <K, V> HashMap<K, V> toHashMap(
+    public static <K, V> HashMap<K, V> toHashMap( // NOSONAR return implementation
             Collection<V> c,
             Function<? super V, K> keyGenerator) {
         return toHashMap(c, keyGenerator, c.size());
@@ -65,7 +66,7 @@ public class CollectionTools {
         return toConcurrentHashMap(c, keyGenerator, c.size());
     }
 
-    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap(
+    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap( // NOSONAR return implementation
             Iterable<V> c,
             Function<? super V, K> keyGenerator) {
         TreeMap<K, V> map = new TreeMap<>();
@@ -73,7 +74,7 @@ public class CollectionTools {
         return map;
     }
 
-    public static <K, V> TreeMap<K, V> toTreeMap(
+    public static <K, V> TreeMap<K, V> toTreeMap( // NOSONAR return implementation
             Iterable<V> c,
             Function<? super V, K> keyGenerator,
             Comparator<? super K> keycComparator) {
@@ -93,6 +94,61 @@ public class CollectionTools {
         for (V v : c) {
             map.put(keyGenerator.apply(v), v);
         }
+    }
+
+    // array -> map
+
+    public static <K, V> HashMap<K, V> toHashMap( // NOSONAR return implementation
+            V[] c,
+            Function<? super V, K> keyGenerator,
+            int initialCapacity) {
+        HashMap<K, V> map = new HashMap<>(initialCapacity);
+        fillIntoEmptyMap(map, c, keyGenerator);
+        return map;
+    }
+
+    public static <K, V> HashMap<K, V> toHashMap( // NOSONAR return implementation
+            V[] c,
+            Function<? super V, K> keyGenerator) {
+        return toHashMap(c, keyGenerator, c.length);
+    }
+
+    public static <K, V> SafeConcurrentHashMap<K, V> toConcurrentHashMap(
+            V[] c,
+            Function<? super V, K> keyGenerator,
+            int initialCapacity) {
+        SafeConcurrentHashMap<K, V> map = new SafeConcurrentHashMap<>(initialCapacity);
+        fillIntoEmptyMap(map, c, keyGenerator);
+        return map;
+    }
+
+    public static <K, V> SafeConcurrentHashMap<K, V> toConcurrentHashMap(
+            V[] c,
+            Function<? super V, K> keyGenerator) {
+        return toConcurrentHashMap(c, keyGenerator, c.length);
+    }
+
+    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap( // NOSONAR return implementation
+            V[] c,
+            Function<? super V, K> keyGenerator) {
+        TreeMap<K, V> map = new TreeMap<>();
+        fillIntoEmptyMap(map, c, keyGenerator);
+        return map;
+    }
+
+    public static <K, V> TreeMap<K, V> toTreeMap( // NOSONAR return implementation
+            V[] c,
+            Function<? super V, K> keyGenerator,
+            Comparator<? super K> keyComparator) {
+        TreeMap<K, V> map = new TreeMap<>(keyComparator);
+        fillIntoEmptyMap(map, c, keyGenerator);
+        return map;
+    }
+
+    public static <K, V> void fillIntoEmptyMap(
+            Map<K, ? super V> map, V[] c,
+            Function<? super V, K> keyGenerator) {
+        fillIntoEmptyMap(map, Arrays.asList(c), keyGenerator);
     }
 
     private CollectionTools() {
