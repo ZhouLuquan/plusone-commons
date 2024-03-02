@@ -8,8 +8,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import xyz.zhouxy.plusone.commons.collection.CollectionTools;
-
 public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     private final Function<T, TIdentity> identityGetter;
     private final Function<T, Optional<TIdentity>> parentIdentityGetter;
@@ -23,7 +21,8 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     }
 
     public List<T> buildTree(Collection<T> nodes) {
-        Map<TIdentity, T> identityNodeMap = CollectionTools.toHashMap(nodes, identityGetter);
+        Map<TIdentity, T> identityNodeMap = nodes.stream()
+                .collect(Collectors.toMap(identityGetter, Function.identity(), (n1, n2) -> n1));
         List<T> result = nodes.stream()
                 .filter(node -> !this.parentIdentityGetter.apply(node).isPresent())
                 .collect(Collectors.toList());
