@@ -11,32 +11,29 @@ import java.util.stream.Collectors;
 import xyz.zhouxy.plusone.commons.collection.CollectionTools;
 
 public class TreeBuilder<T, TSubTree extends T, TIdentity> {
-    private final Collection<T> nodes;
     private final Function<T, TIdentity> identityGetter;
     private final Function<T, Optional<TIdentity>> parentIdentityGetter;
-    private final BiConsumer<TSubTree, T> addChildrenMethod;
+    private final BiConsumer<TSubTree, T> addChildMethod;
 
-    public TreeBuilder(Collection<T> nodes, Function<T, TIdentity> identityGetter,
-            Function<T, Optional<TIdentity>> parentIdentityGetter, BiConsumer<TSubTree, T> addChildren) {
-        this.nodes = nodes;
+    public TreeBuilder(Function<T, TIdentity> identityGetter, Function<T, Optional<TIdentity>> parentIdentityGetter,
+            BiConsumer<TSubTree, T> addChild) {
         this.identityGetter = identityGetter;
         this.parentIdentityGetter = parentIdentityGetter;
-        this.addChildrenMethod = addChildren;
+        this.addChildMethod = addChild;
     }
 
-    public List<T> buildTree() {
+    public List<T> buildTree(Collection<T> nodes) {
         Map<TIdentity, T> identityNodeMap = CollectionTools.toHashMap(nodes, identityGetter);
-        List<T> result = this.nodes.stream()
+        List<T> result = nodes.stream()
                 .filter(node -> !this.parentIdentityGetter.apply(node).isPresent())
                 .collect(Collectors.toList());
-        for (T node : this.nodes) {
-            Optional<TIdentity> parentIdentity = parentIdentityGetter.apply(node);
-            if (parentIdentity.isPresent() && identityNodeMap.containsKey(parentIdentity.get())) {
-                @SuppressWarnings("all")
-                TSubTree parentNode = (TSubTree) identityNodeMap.get(parentIdentity.get());
-                addChildrenMethod.accept(parentNode, node);
+        nodes.forEach(node -> parentIdentityGetter.apply(node).ifPresent(parentIdentity -> {
+            if (identityNodeMap.containsKey(parentIdentity)) {
+                @SuppressWarnings("unchecked")
+                TSubTree parentNode = (TSubTree) identityNodeMap.get(parentIdentity);
+                addChildMethod.accept(parentNode, node);
             }
-        }
+        }));
         return result;
     }
 }
