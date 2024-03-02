@@ -1,5 +1,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
+import javax.annotation.Nullable;
+
 /**
  * 自定义结果
  *
@@ -7,11 +9,11 @@ package xyz.zhouxy.plusone.commons.util;
  */
 final class CustomResult extends UnifiedResponse {
 
-    CustomResult(Object status, String message) {
+    CustomResult(Object status, @Nullable String message) {
         super(status, message);
     }
 
-    CustomResult(Object status, String message, Object data) {
+    CustomResult(Object status, @Nullable String message, @Nullable Object data) {
         super(status, message, data);
     }
 

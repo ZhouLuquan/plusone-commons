@@ -27,6 +27,8 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -45,27 +47,27 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
         return new SuccessResult();
     }
 
-    public static UnifiedResponse success(String message) {
+    public static UnifiedResponse success(@Nullable String message) {
         return new SuccessResult(message);
     }
 
-    public static UnifiedResponse success(String message, Object data) {
+    public static UnifiedResponse success(@Nullable String message, @Nullable Object data) {
         return new SuccessResult(message, data);
     }
 
-    public static UnifiedResponse error(String message) {
+    public static UnifiedResponse error(@Nullable String message) {
         return new ErrorResult(message);
     }
 
-    public static UnifiedResponse error(String message, Object data) {
+    public static UnifiedResponse error(@Nullable String message, @Nullable Object data) {
         return new ErrorResult(message, data);
     }
 
-    public static UnifiedResponse error(Object status, String message) {
+    public static UnifiedResponse error(Object status, @Nullable String message) {
         return new ErrorResult(status, message);
     }
 
-    public static UnifiedResponse error(Object status, String message, Object data) {
+    public static UnifiedResponse error(Object status, @Nullable String message, @Nullable Object data) {
         return new ErrorResult(status, message, data);
     }
 
@@ -77,11 +79,11 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
         return new ErrorResult(e);
     }
 
-    public static UnifiedResponse of(Object status, String message) {
+    public static UnifiedResponse of(Object status, @Nullable String message) {
         return new CustomResult(status, message);
     }
 
-    public static UnifiedResponse of(Object status, String message, Object data) {
+    public static UnifiedResponse of(Object status, @Nullable String message, @Nullable Object data) {
         return new CustomResult(status, message, data);
     }
 
@@ -100,12 +102,12 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
         return isSuccess.getAsBoolean() ? success.get() : error.get();
     }
 
-    protected UnifiedResponse(Object status, String message) {
+    protected UnifiedResponse(Object status, @Nullable String message) {
         setStatus(status);
         setMessage(message);
     }
 
-    protected UnifiedResponse(Object status, String message, Object data) {
+    protected UnifiedResponse(Object status, @Nullable String message, @Nullable Object data) {
         setStatus(status);
         setMessage(message);
         setData(data);
@@ -120,12 +122,14 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
         }
     }
 
-    private void setData(Object data) {
-        super.put(DATA_KEY, Objects.requireNonNull(data));
+    private void setData(@Nullable Object data) {
+        if (data != null) {
+            super.put(DATA_KEY, data);
+        }
     }
 
-    private void setMessage(String message) {
-        super.put(MESSAGE_KEY, Objects.requireNonNull(message));
+    private void setMessage(@Nullable String message) {
+        super.put(MESSAGE_KEY, message);
     }
 
     /**

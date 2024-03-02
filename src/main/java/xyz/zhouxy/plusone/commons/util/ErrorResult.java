@@ -1,6 +1,8 @@
 package xyz.zhouxy.plusone.commons.util;
 
-import com.google.common.base.Strings;
+import java.util.Objects;
+
+import javax.annotation.Nullable;
 
 import xyz.zhouxy.plusone.commons.base.IWithCode;
 
@@ -12,28 +14,28 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
 final class ErrorResult extends UnifiedResponse {
     private static final String DEFAULT_ERR_STATUS = "9999999";
 
-    ErrorResult(String message) {
+    ErrorResult(@Nullable String message) {
         super(DEFAULT_ERR_STATUS, message);
     }
 
-    ErrorResult(String message, Object data) {
+    ErrorResult(@Nullable String message, @Nullable Object data) {
         super(DEFAULT_ERR_STATUS, message, data);
     }
 
-    ErrorResult(Object status, String message) {
+    ErrorResult(Object status, @Nullable String message) {
         super(status, message);
     }
 
-    ErrorResult(Object status, String message, Object data) {
+    ErrorResult(Object status, @Nullable String message, @Nullable Object data) {
         super(status, message, data);
     }
 
     ErrorResult(Object status, Throwable e) {
-        super(status, Strings.nullToEmpty(e.getMessage()));
+        super(status, Objects.requireNonNull(e).getMessage());
     }
 
     <E extends Throwable & IWithCode<?>> ErrorResult(E e) {
-        super(e.getCode(), Strings.nullToEmpty(e.getMessage()));
+        super(Objects.requireNonNull(e).getCode(), Objects.requireNonNull(e).getMessage());
     }
 
     private static final long serialVersionUID = -1680792957826923092L;

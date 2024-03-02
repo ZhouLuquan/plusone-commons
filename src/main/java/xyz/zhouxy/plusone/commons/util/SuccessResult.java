@@ -1,5 +1,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
+import javax.annotation.Nullable;
+
 /**
  * 成功结果
  *
@@ -13,11 +15,11 @@ final class SuccessResult extends UnifiedResponse {
         super(SUCCESS_STATUS, DEFAULT_SUCCESS_MSG);
     }
 
-    SuccessResult(String message) {
+    SuccessResult(@Nullable String message) {
         super(SUCCESS_STATUS, message);
     }
 
-    SuccessResult(String message, Object data) {
+    SuccessResult(@Nullable String message, @Nullable Object data) {
         super(SUCCESS_STATUS, message, data);
     }
 
