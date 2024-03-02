@@ -6,6 +6,8 @@ import com.google.common.collect.Table;
 import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 import xyz.zhouxy.plusone.commons.annotation.WriterMethod;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;
 import java.util.Map;
@@ -31,43 +33,44 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108/">ZhouXY</a>
  * @see Table
  * @see ImmutableTable
+ * @see ReentrantReadWriteLock
  * @since 0.1.0-SNAPSHOT
  */
 @Beta
 @ThreadSafe
-public class LockedTable<R, C, V> implements Table<R, C, V> {
+public class ReadWriteLockedTable<R, C, V> implements Table<R, C, V> {
 
     private final Table<R, C, V> table;
 
     private final ReentrantReadWriteLock.ReadLock readLock;
     private final ReentrantReadWriteLock.WriteLock writeLock;
 
-    private LockedTable(Table<R, C, V> table, boolean fair) {
+    private ReadWriteLockedTable(Table<R, C, V> table, boolean fair) {
         this.table = Objects.requireNonNull(table);
         ReentrantReadWriteLock rwl = new ReentrantReadWriteLock(fair);
         this.readLock = rwl.readLock();
         this.writeLock = rwl.writeLock();
     }
 
-    public static <R, C, V> LockedTable<R, C, V> of(Table<R, C, V> table) {
-        if (table instanceof LockedTable) {
-            return (LockedTable<R, C, V>) table;
+    public static <R, C, V> ReadWriteLockedTable<R, C, V> of(Table<R, C, V> table) {
+        if (table instanceof ReadWriteLockedTable) {
+            return (ReadWriteLockedTable<R, C, V>) table;
         } else {
-            return new LockedTable<>(table, false);
+            return new ReadWriteLockedTable<>(table, false);
         }
     }
 
-    public static <R, C, V> LockedTable<R, C, V> of(Table<R, C, V> table, boolean fair) {
-        if (table instanceof LockedTable) {
-            return (LockedTable<R, C, V>) table;
+    public static <R, C, V> ReadWriteLockedTable<R, C, V> of(Table<R, C, V> table, boolean fair) {
+        if (table instanceof ReadWriteLockedTable) {
+            return (ReadWriteLockedTable<R, C, V>) table;
         } else {
-            return new LockedTable<>(table, fair);
+            return new ReadWriteLockedTable<>(table, fair);
         }
     }
 
     @Override
     @ReaderMethod
-    public boolean contains(Object rowKey, Object columnKey) {
+    public boolean contains(@CheckForNull @Nonnull Object rowKey, @CheckForNull @Nonnull Object columnKey) {
         readLock.lock();
         try {
             return this.table.contains(rowKey, columnKey);
@@ -78,7 +81,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public boolean containsRow(Object rowKey) {
+    public boolean containsRow(@CheckForNull @Nonnull Object rowKey) {
         readLock.lock();
         try {
             return this.table.containsRow(rowKey);
@@ -89,7 +92,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public boolean containsColumn(Object columnKey) {
+    public boolean containsColumn(@CheckForNull @Nonnull Object columnKey) {
         readLock.lock();
         try {
             return this.table.containsColumn(columnKey);
@@ -100,7 +103,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public boolean containsValue(Object value) {
+    public boolean containsValue(@CheckForNull @Nonnull Object value) {
         readLock.lock();
         try {
             return this.table.containsValue(value);
@@ -111,7 +114,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public V get(Object rowKey, Object columnKey) {
+    public V get(@CheckForNull @Nonnull Object rowKey, @CheckForNull @Nonnull Object columnKey) {
         readLock.lock();
         try {
             return this.table.get(rowKey, columnKey);
@@ -155,7 +158,9 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @WriterMethod
-    public V put(R rowKey, C columnKey, V value) {
+    public V put(@CheckForNull @Nonnull R rowKey,
+            @CheckForNull @Nonnull C columnKey,
+            @CheckForNull @Nonnull V value) {
         writeLock.lock();
         try {
             return this.table.put(rowKey, columnKey, value);
@@ -166,7 +171,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @WriterMethod
-    public void putAll(Table<? extends R, ? extends C, ? extends V> table) {
+    public void putAll(@Nonnull Table<? extends R, ? extends C, ? extends V> table) {
         writeLock.lock();
         try {
             this.table.putAll(table);
@@ -177,7 +182,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @WriterMethod
-    public V remove(Object rowKey, Object columnKey) {
+    public V remove(@CheckForNull @Nonnull Object rowKey, @CheckForNull @Nonnull Object columnKey) {
         writeLock.lock();
         try {
             return this.table.remove(rowKey, columnKey);
@@ -188,7 +193,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public Map<C, V> row(R rowKey) {
+    public Map<C, V> row(@CheckForNull @Nonnull R rowKey) {
         readLock.lock();
         try {
             return this.table.row(rowKey);
@@ -199,7 +204,7 @@ public class LockedTable<R, C, V> implements Table<R, C, V> {
 
     @Override
     @ReaderMethod
-    public Map<R, V> column(C columnKey) {
+    public Map<R, V> column(@CheckForNull @Nonnull C columnKey) {
         readLock.lock();
         try {
             return this.table.column(columnKey);
