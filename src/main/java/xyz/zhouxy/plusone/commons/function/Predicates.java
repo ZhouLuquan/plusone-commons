@@ -43,11 +43,11 @@ public class Predicates {
      * </pre>
      * 
      * @param <T>       目标类型
-     * @param predicate 原 {@link Predicate} 实例
-     * @return 包装的 {@link Predicate} 实例
+     * @param predicate Lambda 表达式
+     * @return 传入的表达式自动成为 {@link Predicate} 实例
      */
-    public static <T> Predicate<T> of(Predicate<? super T> predicate) {
-        return predicate::test;
+    public static <T> Predicate<T> of(Predicate<T> predicate) {
+        return predicate;
     }
 
     private Predicates() {
