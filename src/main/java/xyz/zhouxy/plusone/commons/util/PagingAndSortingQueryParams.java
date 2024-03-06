@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
-import xyz.zhouxy.plusone.commons.annotation.Overridable;
+import xyz.zhouxy.plusone.commons.annotation.Virtual;
 
 /**
  * 分页排序查询参数
@@ -105,7 +105,7 @@ public class PagingAndSortingQueryParams {
 
     // Setters end
 
-    @Overridable
+    @Virtual
     protected int getDefaultSize() {
         return DEFAULT_PAGE_SIZE;
     }

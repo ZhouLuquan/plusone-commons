@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 标识该方法是可覆写的。
+ * 标识该方法是可虚方法。
  * <p>该注解用于提醒、强调父类虽然有默认实现，但子类可以根据自己的需要覆写。</p>
  * 
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
@@ -30,5 +30,5 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)
-public @interface Overridable {
+public @interface Virtual {
 }
