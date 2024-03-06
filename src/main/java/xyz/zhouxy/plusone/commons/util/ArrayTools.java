@@ -17,22 +17,13 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.google.common.annotations.Beta;
-
-import xyz.zhouxy.plusone.commons.collection.CollectionTools;
-import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
 @Beta
 public class ArrayTools {
@@ -184,61 +175,6 @@ public class ArrayTools {
             Collections.addAll(result, arr);
         }
         return result;
-    }
-
-    // array -> map
-
-    public static <K, V> HashMap<K, V> toHashMap(
-            V[] c,
-            Function<? super V, K> keyGenerator,
-            int initialCapacity) {
-        HashMap<K, V> map = new HashMap<>(initialCapacity);
-        fillIntoEmptyMap(map, c, keyGenerator);
-        return map;
-    }
-
-    public static <K, V> HashMap<K, V> toHashMap(
-            V[] c,
-            Function<? super V, K> keyGenerator) {
-        return toHashMap(c, keyGenerator, c.length);
-    }
-
-    public static <K, V> SafeConcurrentHashMap<K, V> toConcurrentHashMap(
-            V[] c,
-            Function<? super V, K> keyGenerator,
-            int initialCapacity) {
-        SafeConcurrentHashMap<K, V> map = new SafeConcurrentHashMap<>(initialCapacity);
-        fillIntoEmptyMap(map, c, keyGenerator);
-        return map;
-    }
-
-    public static <K, V> SafeConcurrentHashMap<K, V> toConcurrentHashMap(
-            V[] c,
-            Function<? super V, K> keyGenerator) {
-        return toConcurrentHashMap(c, keyGenerator, c.length);
-    }
-
-    public static <K extends Comparable<? super K>, V> TreeMap<K, V> toTreeMap(
-            V[] c,
-            Function<? super V, K> keyGenerator) {
-        TreeMap<K, V> map = new TreeMap<>();
-        fillIntoEmptyMap(map, c, keyGenerator);
-        return map;
-    }
-
-    public static <K, V> TreeMap<K, V> toTreeMap(
-            V[] c,
-            Function<? super V, K> keyGenerator,
-            Comparator<? super K> keyComparator) {
-        TreeMap<K, V> map = new TreeMap<>(keyComparator);
-        fillIntoEmptyMap(map, c, keyGenerator);
-        return map;
-    }
-
-    public static <K, V> void fillIntoEmptyMap(
-            Map<K, ? super V> map, V[] c,
-            Function<? super V, K> keyGenerator) {
-        CollectionTools.fillIntoEmptyMap(map, Arrays.asList(c), keyGenerator);
     }
 
     private ArrayTools() {
