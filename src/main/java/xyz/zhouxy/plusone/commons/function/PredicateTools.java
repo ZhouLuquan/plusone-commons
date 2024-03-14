@@ -29,7 +29,7 @@ import java.util.function.Predicate;
  * @since 0.1.0
  * @see Predicate
  */
-public class Predicates {
+public class PredicateTools {
 
     /**
      * 将 lambda 表达式或者方法引用指明为对应类型的 {@link Predicate} 对象。
@@ -38,7 +38,7 @@ public class Predicates {
      * 等方法，连接其它 {@code Predicate<? super T>} 对象。
      * 
      * <pre>
-     * Predicate&lt;String&gt; predicate = Predicates.&lt;String&gt;of(Objects::nonNull)
+     * Predicate&lt;String&gt; predicate = PredicateTools.&lt;String&gt;from(Objects::nonNull)
      *         .and(StringUtils::isNotEmpty);
      * </pre>
      * 
@@ -46,11 +46,11 @@ public class Predicates {
      * @param predicate Lambda 表达式
      * @return 传入的表达式自动成为 {@link Predicate} 实例
      */
-    public static <T> Predicate<T> of(Predicate<T> predicate) {
+    public static <T> Predicate<T> from(Predicate<T> predicate) {
         return predicate;
     }
 
-    private Predicates() {
+    private PredicateTools() {
         throw new IllegalStateException("Utility class");
     }
 }
