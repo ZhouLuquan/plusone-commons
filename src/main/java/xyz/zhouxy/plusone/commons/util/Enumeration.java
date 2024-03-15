@@ -16,11 +16,13 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -86,15 +88,13 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
         @SafeVarargs
         @StaticFactoryMethod(ValueSet.class)
         public static <T extends Enumeration<T>> ValueSet<T> of(T... values) {
-            Map<Integer, T> temp = new HashMap<>();
-            for (T value : values) {
-                temp.put(value.getId(), value);
-            }
+            Map<Integer, T> temp = Arrays.stream(values)
+                    .collect(Collectors.toMap(Enumeration::getId, Function.identity(), (a, b) -> b));
             return new ValueSet<>(Collections.unmodifiableMap(temp));
         }
 
         public T get(int id) {
-            Preconditions.checkArgument(this.valueMap.containsKey(id), "%s 对应的值不存在", id);
+            Preconditions.checkArgument(this.valueMap.containsKey(id), "[%s] 对应的值不存在", id);
             return this.valueMap.get(id);
         }
 
