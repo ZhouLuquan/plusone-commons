@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.base;
 
+import java.util.Objects;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -28,4 +30,8 @@ import javax.annotation.Nonnull;
 public interface IWithCode<T> {
     @Nonnull
     T getCode();
+
+    default boolean equalsCode(T code) {
+        return Objects.equals(getCode(), code);
+    }
 }

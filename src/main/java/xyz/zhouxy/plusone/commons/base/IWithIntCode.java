@@ -25,4 +25,8 @@ package xyz.zhouxy.plusone.commons.base;
  */
 public interface IWithIntCode {
     int getCode();
+
+    default boolean equalsCode(int code) {
+        return getCode() == code;
+    }
 }

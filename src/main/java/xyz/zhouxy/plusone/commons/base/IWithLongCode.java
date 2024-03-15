@@ -25,4 +25,8 @@ package xyz.zhouxy.plusone.commons.base;
  */
 public interface IWithLongCode {
     long getCode();
+
+    default boolean equalsCode(long code) {
+        return getCode() == code;
+    }
 }
