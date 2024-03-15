@@ -24,7 +24,7 @@ class RefTests {
     }
 
     void apply(Ref<String> strRef) {
-        strRef.apply(str -> "Hello " + str);
+        strRef.transform(str -> "Hello " + str);
     }
 
     @Test

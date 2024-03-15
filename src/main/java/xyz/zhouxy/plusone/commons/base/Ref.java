@@ -1,6 +1,7 @@
 package xyz.zhouxy.plusone.commons.base;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 import com.google.common.annotations.Beta;
@@ -9,6 +10,10 @@ import com.google.common.annotations.Beta;
 public final class Ref<T> {
 
     private T value;
+
+    public Ref() {
+        this.value = null;
+    }
 
     public Ref(T value) {
         this.value = value;
@@ -22,8 +27,20 @@ public final class Ref<T> {
         this.value = value;
     }
 
-    public void apply(UnaryOperator<T> operator) {
+    public void transform(UnaryOperator<T> operator) {
         this.value = operator.apply(this.value);
+    }
+
+    public boolean isNull() {
+        return this.value == null;
+    }
+
+    public boolean isNotNull() {
+        return this.value != null;
+    }
+
+    public void execute(Consumer<T> consumer) {
+        consumer.accept(value);
     }
 
     @Override
