@@ -43,6 +43,8 @@ import xyz.zhouxy.plusone.commons.annotation.Virtual;
  */
 public class PagingAndSortingQueryParams {
 
+    // TODO 【优化】 优化该工具，使之支持分别按照多个不同列的递增或递减排序。
+
     private static final int DEFAULT_PAGE_SIZE = 15;
 
     private int size;
@@ -96,7 +98,7 @@ public class PagingAndSortingQueryParams {
     }
 
     public final void setSize(@Nullable Integer size) {
-        this.size = size != null ? size : getDefaultSize();
+        this.size = size != null ? size : defaultSizeInternal();
     }
 
     public final void setPageNum(@Nullable Long pageNum) {
@@ -106,7 +108,7 @@ public class PagingAndSortingQueryParams {
     // Setters end
 
     @Virtual
-    protected int getDefaultSize() {
+    protected int defaultSizeInternal() {
         return DEFAULT_PAGE_SIZE;
     }
 
