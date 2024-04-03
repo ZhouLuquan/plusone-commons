@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.annotation;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -27,6 +28,7 @@ import java.lang.annotation.Target;
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  * @since 0.1.0
  */
+@Inherited
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValueObject {
