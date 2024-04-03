@@ -20,7 +20,7 @@ import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
 import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
-public class DateTimeUtil {
+public class DateTimeTools {
 
     private static final MapWrapper<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = MapWrapper
             .<String, DateTimeFormatter>wrap(new SafeConcurrentHashMap<>())
@@ -325,7 +325,7 @@ public class DateTimeUtil {
         return org.joda.time.DateTimeZone.forID(zone.getId());
     }
 
-    private DateTimeUtil() {
+    private DateTimeTools() {
         throw new IllegalStateException("Utility class");
     }
 }

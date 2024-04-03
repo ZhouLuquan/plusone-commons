@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.Preconditions;
 
-import xyz.zhouxy.plusone.commons.util.RegexUtil;
+import xyz.zhouxy.plusone.commons.util.RegexTools;
 
 /**
  * 带校验的字符串值对象
@@ -38,7 +38,7 @@ public abstract class ValidatableStringRecord
     protected ValidatableStringRecord(String value, Pattern pattern) {
         Preconditions.checkNotNull(pattern, "The pattern must not be null.");
         Preconditions.checkArgument(StringUtils.isNotBlank(value), "The value must be has text.");
-        Preconditions.checkArgument(RegexUtil.matches(value, pattern));
+        Preconditions.checkArgument(RegexTools.matches(value, pattern));
         this.value = value;
     }
 

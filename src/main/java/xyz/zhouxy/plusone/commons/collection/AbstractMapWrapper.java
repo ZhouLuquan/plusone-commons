@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.annotations.Beta;
 
-import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
+import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapTools;
 
 @Beta
 public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V, T>> {
@@ -130,7 +130,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
 
     public final V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         if (this.map instanceof ConcurrentHashMap) {
-            return ConcurrentHashMapUtil.computeIfAbsent(
+            return ConcurrentHashMapTools.computeIfAbsent(
                 (ConcurrentHashMap<K, V>) this.map, key, mappingFunction);
         } else {
             return this.map.computeIfAbsent(key, mappingFunction);

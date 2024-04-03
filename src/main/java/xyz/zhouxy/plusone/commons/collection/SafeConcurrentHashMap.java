@@ -23,7 +23,7 @@ import java.util.function.Function;
 import javax.annotation.concurrent.ThreadSafe;
 
 import xyz.zhouxy.plusone.commons.base.JRE;
-import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
+import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapTools;
 
 /**
  * SafeConcurrentHashMap
@@ -35,7 +35,7 @@ import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapUtil;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0
  * @see ConcurrentHashMap
- * @see ConcurrentHashMapUtil#computeIfAbsentForJava8(ConcurrentHashMap, Object, Function)
+ * @see ConcurrentHashMapTools#computeIfAbsentForJava8(ConcurrentHashMap, Object, Function)
  */
 @ThreadSafe
 public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
@@ -115,7 +115,7 @@ public class SafeConcurrentHashMap<K, V> extends ConcurrentHashMap<K, V> {
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         return JRE.isJava8()
-                ? ConcurrentHashMapUtil.computeIfAbsentForJava8(this, key, mappingFunction)
+                ? ConcurrentHashMapTools.computeIfAbsentForJava8(this, key, mappingFunction)
                 : super.computeIfAbsent(key, mappingFunction);
     }
 }

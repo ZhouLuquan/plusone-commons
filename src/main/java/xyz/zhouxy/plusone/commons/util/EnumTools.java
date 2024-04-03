@@ -27,9 +27,9 @@ import com.google.common.base.Preconditions;
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */
-public final class EnumUtil {
+public final class EnumTools {
 
-    private EnumUtil() {
+    private EnumTools() {
         throw new IllegalStateException("Utility class");
     }
 

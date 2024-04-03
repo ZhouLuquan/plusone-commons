@@ -24,7 +24,7 @@ import xyz.zhouxy.plusone.commons.base.JRE;
 import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 
 /**
- * ConcurrentHashMapUtil
+ * ConcurrentHashMapTools
  *
  * <p>
  * Java 8 的 {@link ConcurrentHashMap#computeIfAbsent(Object, Function)} 方法有 bug，
@@ -38,9 +38,10 @@ import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
  * @see ConcurrentHashMap
  * @see SafeConcurrentHashMap
  */
-public class ConcurrentHashMapUtil {
+public class ConcurrentHashMapTools {
 
-    public static <K, V> V computeIfAbsent(ConcurrentHashMap<K, V> map, final K key,
+    public static <K, V> V computeIfAbsent(
+            ConcurrentHashMap<K, V> map, final K key, // NOSONAR
             final Function<? super K, ? extends V> mappingFunction) {
         Objects.requireNonNull(map, "map");
         return JRE.isJava8()
@@ -48,7 +49,8 @@ public class ConcurrentHashMapUtil {
                 : map.computeIfAbsent(key, mappingFunction);
     }
 
-    public static <K, V> V computeIfAbsentForJava8(ConcurrentHashMap<K, V> map, final K key,
+    public static <K, V> V computeIfAbsentForJava8(
+            ConcurrentHashMap<K, V> map, final K key, // NOSONAR
             final Function<? super K, ? extends V> mappingFunction) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(mappingFunction);
@@ -66,7 +68,7 @@ public class ConcurrentHashMapUtil {
         return v;
     }
 
-    private ConcurrentHashMapUtil() {
+    private ConcurrentHashMapTools() {
         throw new IllegalStateException("Utility class");
     }
 }

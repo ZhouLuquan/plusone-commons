@@ -2,8 +2,8 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.security.SecureRandom;
 
-public final class RandomUtil {
-    private RandomUtil() {
+public final class RandomTools {
+    private RandomTools() {
         throw new IllegalStateException("Utility class");
     }
 

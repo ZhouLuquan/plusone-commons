@@ -38,7 +38,7 @@ import com.google.common.annotations.Beta;
  * @see OptionalLong
  * @see OptionalDouble
  */
-public class OptionalUtil {
+public class OptionalTools {
 
     /**
      * 将包装类 {@link Integer} 转为 {@link OptionalInt}（not null）。
@@ -149,7 +149,7 @@ public class OptionalUtil {
         return optionalObj.isPresent() ? optionalObj.getAsDouble() : null;
     }
 
-    private OptionalUtil() {
+    private OptionalTools() {
         throw new IllegalStateException("Utility class");
     }
 }

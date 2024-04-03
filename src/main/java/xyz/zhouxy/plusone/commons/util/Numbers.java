@@ -17,7 +17,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
 /**
- * NumberUtil
+ * Numbers
  *
  * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
  */

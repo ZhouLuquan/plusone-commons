@@ -35,7 +35,7 @@ import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
  * @author ZhouXY
  *
  */
-public final class RegexUtil {
+public final class RegexTools {
 
     private static final int DEFAULT_CACHE_INITIAL_CAPACITY = 64;
     private static final int MAX_CACHE_SIZE = 256;
@@ -330,7 +330,7 @@ public final class RegexUtil {
     @Nonnull
     private static Pattern[] getAndCachePatternsInternal(@Nonnull final String[] patterns) {
         return Arrays.stream(patterns)
-                .map(RegexUtil::getAndCachePatternInternal)
+                .map(RegexTools::getAndCachePatternInternal)
                 .toArray(Pattern[]::new);
     }
 
@@ -344,7 +344,7 @@ public final class RegexUtil {
     @Nonnull
     private static Pattern[] getPatternsInternal(@Nonnull final String[] patterns) {
         return Arrays.stream(patterns)
-                .map(RegexUtil::getPatternInternal)
+                .map(RegexTools::getPatternInternal)
                 .toArray(Pattern[]::new);
     }
 
@@ -389,7 +389,7 @@ public final class RegexUtil {
         return Arrays.stream(array).allMatch(Objects::nonNull);
     }
 
-    private RegexUtil() {
+    private RegexTools() {
         // 不允许实例化
         throw new IllegalStateException("Utility class");
     }
