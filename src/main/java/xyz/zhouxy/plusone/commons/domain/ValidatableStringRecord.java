@@ -16,11 +16,11 @@
 
 package xyz.zhouxy.plusone.commons.domain;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.util.RegexTools;
@@ -37,7 +37,7 @@ public abstract class ValidatableStringRecord
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
         Preconditions.checkNotNull(pattern, "The pattern must not be null.");
-        Preconditions.checkArgument(StringUtils.isNotBlank(value), "The value must be has text.");
+        Preconditions.checkNotNull(StringUtils.isNotBlank(value), "The value must not be null.");
         Preconditions.checkArgument(RegexTools.matches(value, pattern));
         this.value = value;
     }
@@ -47,7 +47,6 @@ public abstract class ValidatableStringRecord
      * 
      * @return 字符串（不为空）
      */
-    @JsonValue
     public final String value() {
         return this.value;
     }
@@ -55,6 +54,23 @@ public abstract class ValidatableStringRecord
     @Override
     public int compareTo(ValidatableStringRecord o) {
         return this.value.compareTo(o.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ValidatableStringRecord other = (ValidatableStringRecord) obj;
+        return Objects.equals(value, other.value);
     }
 
     @Override

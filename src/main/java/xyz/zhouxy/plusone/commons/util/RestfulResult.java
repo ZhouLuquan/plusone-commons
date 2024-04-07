@@ -21,7 +21,6 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.Preconditions;
 
 /**
@@ -31,7 +30,6 @@ import com.google.common.base.Preconditions;
  * @deprecated 已被 {@link UnifiedResponse} 代替。
  */
 @Deprecated
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestfulResult {
 
     public static final int SUCCESS_STATUS = 2000000;
