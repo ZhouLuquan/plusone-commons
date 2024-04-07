@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * 带错误码的异常。
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public abstract class BaseRuntimeException
         extends RuntimeException

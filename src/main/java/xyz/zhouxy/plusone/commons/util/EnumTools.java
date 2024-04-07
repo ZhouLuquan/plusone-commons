@@ -25,7 +25,7 @@ import com.google.common.base.Preconditions;
 /**
  * 枚举工具类
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public final class EnumTools {
 

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * 标识该方法是可虚方法。
  * <p>该注解用于提醒、强调父类虽然有默认实现，但子类可以根据自己的需要覆写。</p>
  * 
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 0.1.0
  */
 @Target(ElementType.METHOD)

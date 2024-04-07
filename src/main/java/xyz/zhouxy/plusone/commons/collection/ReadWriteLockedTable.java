@@ -30,7 +30,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * <b>NOTE: 如果 {@link Table} 不需要更改，请使用 {@link ImmutableTable}</b>
  * </p>
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108/">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @see Table
  * @see ImmutableTable
  * @see ReentrantReadWriteLock

@@ -27,7 +27,7 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
  *
  * @param <T> 内容列表的元素类型
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @see PagingAndSortingQueryParams
  */
 public class PageDTO<T> {

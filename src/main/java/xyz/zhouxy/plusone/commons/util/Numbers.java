@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.util;
 /**
  * Numbers
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class Numbers {
 

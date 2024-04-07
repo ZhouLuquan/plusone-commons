@@ -27,7 +27,7 @@ import com.google.common.base.Preconditions;
 /**
  * 对返回给前端的数据进行封装
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @deprecated 已被 {@link UnifiedResponse} 代替。
  */
 @Deprecated

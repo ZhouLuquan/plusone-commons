@@ -31,7 +31,7 @@ import com.google.common.annotations.Beta;
  * <p>
  * 提供一些 Optional 相关的方法
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 0.1.0
  * @see Optional
  * @see OptionalInt
