@@ -19,14 +19,16 @@ package xyz.zhouxy.plusone.commons.util;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableMap;
 
 import xyz.zhouxy.plusone.commons.annotation.Virtual;
 
@@ -38,35 +40,36 @@ import xyz.zhouxy.plusone.commons.annotation.Virtual;
  * 提供 {@code getOffset} 方法计算 SQL 语句中 {@code offset} 的值。
  * </p>
  *
- * @author <a href="https://gitee.com/zhouxy108">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @see PageDTO
  */
 public class PagingAndSortingQueryParams {
 
-    // TODO 【优化】 优化该工具，使之支持分别按照多个不同列的递增或递减排序。
+    // TODO 【优化】 进一步优化 API
 
     private static final int DEFAULT_PAGE_SIZE = 15;
 
     private int size;
     private long pageNum;
-    private final List<String> orderBy = new LinkedList<>();
+    private final List<SortableProperty> orderBy = new LinkedList<>();
 
-    private final Set<String> sortableProperties;
+    private static final Pattern orderByStrPattern = Pattern.compile("^[a-zA-Z]\\w+-(desc|asc|DESC|ASC)$");
 
-    public PagingAndSortingQueryParams() {
-        this.sortableProperties = Collections.emptySet();
-    }
+    private final Map<String, String> sortableProperties;
 
-    public PagingAndSortingQueryParams(String... sortableProperties) {
-        for (String p : sortableProperties) {
-            Preconditions.checkArgument(StringUtils.isNotBlank(p), "Property name must not be blank.");
+    public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
+        Preconditions.checkArgument(sortableProperties != null && !sortableProperties.isEmpty(),
+                "Sortable properties can not be empty.");
+        for (Entry<String, String> p : sortableProperties.entrySet()) {
+            Preconditions.checkArgument(StringUtils.isNotBlank(p.getKey()) && StringUtils.isNotBlank(p.getValue()),
+                    "Property name must not be blank.");
         }
-        this.sortableProperties = ImmutableSet.<String>builder().add(sortableProperties).build();
+        this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
     }
 
     // Getters
 
-    public final List<String> getOrderBy() {
+    public final List<SortableProperty> getOrderBy() {
         return Collections.unmodifiableList(this.orderBy);
     }
 
@@ -86,14 +89,12 @@ public class PagingAndSortingQueryParams {
 
     // Setters
 
-    public final void setOrderBy(@Nullable List<String> properties) {
+    public final void setOrderBy(@Nullable List<String> orderByStrList) {
         this.orderBy.clear();
-        if (properties != null && !properties.isEmpty()) {
-            for (String colName : properties) {
-                Preconditions.checkArgument(this.sortableProperties.contains(colName),
-                        "The property name must be in the set of sortable properties.");
-            }
-            this.orderBy.addAll(properties);
+        if (orderByStrList != null) {
+            orderByStrList.stream()
+                    .map(this::generateSortableProperty)
+                    .forEach(this.orderBy::add);
         }
     }
 
@@ -114,7 +115,49 @@ public class PagingAndSortingQueryParams {
 
     @Override
     public String toString() {
-        return "PagingAndSortingQueryParams [size=" + size + ", pageNum=" + pageNum + ", orderBy=" + orderBy
+        return "PagingAndSortingQueryParams ["
+                + "size=" + size
+                + ", pageNum=" + pageNum
+                + ", offset=" + getOffset()
+                + ", orderBy=" + orderBy
                 + ", sortableProperties=" + sortableProperties + "]";
+    }
+
+    private SortableProperty generateSortableProperty(String orderByStr) {
+        Preconditions.checkArgument(orderByStrPattern.matcher(orderByStr).matches());
+        String[] propertyNameAndOrderType = orderByStr.split("-");
+        Preconditions.checkArgument(propertyNameAndOrderType.length == 2);
+
+        String propertyName = propertyNameAndOrderType[0];
+        Preconditions.checkArgument(sortableProperties.containsKey(propertyName),
+                "The property name must be in the set of sortable properties.");
+        String columnName = sortableProperties.get(propertyName);
+        String orderType = propertyNameAndOrderType[1];
+        return new SortableProperty(propertyName, columnName, orderType);
+    }
+
+    public static final class SortableProperty {
+        private final String propertyName;
+        private final String columnName;
+        private final String orderType;
+
+        private SortableProperty(String propertyName, String columnName, String orderType) {
+            this.propertyName = propertyName;
+            this.columnName = columnName;
+            Preconditions.checkArgument("ASC".equalsIgnoreCase(orderType) || "DESC".equalsIgnoreCase(orderType));
+            this.orderType = orderType.toUpperCase();
+        }
+
+        public String getPropertyName() {
+            return propertyName;
+        }
+
+        public String getColumnName() {
+            return columnName;
+        }
+
+        public String getOrderType() {
+            return orderType;
+        }
     }
 }
