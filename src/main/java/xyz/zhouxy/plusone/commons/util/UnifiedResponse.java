@@ -16,32 +16,27 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import xyz.zhouxy.plusone.commons.annotation.UnsupportedOperation;
-import xyz.zhouxy.plusone.commons.base.IWithCode;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
+import xyz.zhouxy.plusone.commons.base.IWithCode;
+
 /**
  * 统一结果，对返回给前端的数据进行封装。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
-public abstract class UnifiedResponse extends HashMap<String, Object> {
-    private static final long serialVersionUID = -6198220274571286031L;
+public abstract class UnifiedResponse {
 
-    private static final String STATUS_KEY = "status";
-    private static final String MESSAGE_KEY = "message";
-    private static final String DATA_KEY = "data";
+    private Object status;
+    private String message;
+
+    private @Nullable Object data;
 
     public static UnifiedResponse success() {
         return new SuccessResult();
@@ -88,18 +83,18 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     }
 
     public static UnifiedResponse of(final boolean isSuccess,
-            final Supplier<UnifiedResponse> success, final Supplier<UnifiedResponse> error) {
-        Preconditions.checkNotNull(success, "Success supplier must not be null.");
-        Preconditions.checkNotNull(error, "Error supplier must not be null.");
-        return isSuccess ? success.get() : error.get();
+            final Supplier<SuccessResult> successResult, final Supplier<ErrorResult> errorResult) {
+        Preconditions.checkNotNull(successResult, "Success supplier must not be null.");
+        Preconditions.checkNotNull(errorResult, "Error supplier must not be null.");
+        return isSuccess ? successResult.get() : errorResult.get();
     }
 
     public static UnifiedResponse of(final BooleanSupplier isSuccess,
-            final Supplier<UnifiedResponse> success, final Supplier<UnifiedResponse> error) {
+            final Supplier<SuccessResult> successResult, final Supplier<ErrorResult> errorResult) {
         Preconditions.checkNotNull(isSuccess, "Conditions for success must not be null.");
-        Preconditions.checkNotNull(success, "Success supplier must not be null.");
-        Preconditions.checkNotNull(error, "Error supplier must not be null.");
-        return isSuccess.getAsBoolean() ? success.get() : error.get();
+        Preconditions.checkNotNull(successResult, "Success supplier must not be null.");
+        Preconditions.checkNotNull(errorResult, "Error supplier must not be null.");
+        return isSuccess.getAsBoolean() ? successResult.get() : errorResult.get();
     }
 
     protected UnifiedResponse(Object status, @Nullable String message) {
@@ -114,151 +109,111 @@ public abstract class UnifiedResponse extends HashMap<String, Object> {
     }
 
     private void setStatus(Object status) {
-        Objects.requireNonNull(status);
-        if (status instanceof String) {
-            super.put(STATUS_KEY, status);
-        } else {
-            super.put(STATUS_KEY, status.toString());
-        }
-    }
-
-    private void setData(@Nullable Object data) {
-        if (data != null) {
-            super.put(DATA_KEY, data);
-        }
+        this.status = Objects.requireNonNull(status);
     }
 
     private void setMessage(@Nullable String message) {
-        super.put(MESSAGE_KEY, message);
+        this.message = message == null ? "" : message;
+    }
+
+    private void setData(@Nullable Object data) {
+        this.data = data;
+    }
+
+    // Constructors end
+
+    // Getters
+
+    public Object getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    @Nullable
+    public Object getData() {
+        return data;
+    }
+
+    // Getters end
+
+    @Override
+    public String toString() {
+        return String.format("{status: %s, message: \"%s\", data: %s}",
+                transValue(this.status), this.message, transValue(this.data));
+    }
+
+    private static String transValue(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof String) {
+            return "\"" + value + "\"";
+        }
+        return String.valueOf(value);
+    }
+
+    protected static class SuccessResult extends UnifiedResponse {
+        public static final String SUCCESS_STATUS = "2000000";
+
+        private static final String DEFAULT_SUCCESS_MSG = "SUCCESS";
+
+        SuccessResult() {
+            super(SUCCESS_STATUS, DEFAULT_SUCCESS_MSG);
+        }
+
+        SuccessResult(@Nullable String message) {
+            super(SUCCESS_STATUS, message);
+        }
+
+        SuccessResult(@Nullable String message, @Nullable Object data) {
+            super(SUCCESS_STATUS, message, data);
+        }
+    }
+
+    protected static class ErrorResult extends UnifiedResponse {
+        public static final String DEFAULT_ERROR_STATUS = "9999999";
+
+        ErrorResult(@Nullable String message) {
+            super(DEFAULT_ERROR_STATUS, message);
+        }
+
+        ErrorResult(@Nullable String message, @Nullable Object data) {
+            super(DEFAULT_ERROR_STATUS, message, data);
+        }
+
+        ErrorResult(Object status, @Nullable String message) {
+            super(status, message);
+        }
+
+        ErrorResult(Object status, @Nullable String message, @Nullable Object data) {
+            super(status, message, data);
+        }
+
+        ErrorResult(Object status, Throwable e) {
+            super(status, Objects.requireNonNull(e).getMessage());
+        }
+
+        <E extends Throwable & IWithCode<?>> ErrorResult(E e) {
+            super(e.getCode(), e.getMessage());
+        }
     }
 
     /**
-     * @deprecated Unsupported operation.
+     * 自定义结果
+     *
+     * @author zhouxy
      */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object put(String key, Object value) {
-        throw new UnsupportedOperationException();
-    }
+    protected static class CustomResult extends UnifiedResponse {
 
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public void putAll(Map<? extends String, ?> m) {
-        throw new UnsupportedOperationException();
-    }
+        CustomResult(Object status, @Nullable String message) {
+            super(status, message);
+        }
 
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object remove(Object key) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public void clear() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object putIfAbsent(String key, Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public boolean remove(Object key, Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public boolean replace(String key, Object oldValue, Object newValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object replace(String key, Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object computeIfAbsent(String key, Function<? super String, ?> mappingFunction) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object computeIfPresent(String key, BiFunction<? super String, ? super Object, ?> remappingFunction) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object compute(String key, BiFunction<? super String, ? super Object, ?> remappingFunction) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public Object merge(String key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated Unsupported operation.
-     */
-    @UnsupportedOperation
-    @Deprecated
-    @Override
-    public void replaceAll(BiFunction<? super String, ? super Object, ?> function) {
-        throw new UnsupportedOperationException();
+        CustomResult(Object status, @Nullable String message, @Nullable Object data) {
+            super(status, message, data);
+        }
     }
 }
