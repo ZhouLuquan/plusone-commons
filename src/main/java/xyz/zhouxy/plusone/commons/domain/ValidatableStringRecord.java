@@ -19,8 +19,6 @@ package xyz.zhouxy.plusone.commons.domain;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.util.RegexTools;
@@ -37,7 +35,7 @@ public abstract class ValidatableStringRecord
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
         Preconditions.checkNotNull(pattern, "The pattern must not be null.");
-        Preconditions.checkNotNull(StringUtils.isNotBlank(value), "The value must not be null.");
+        Preconditions.checkNotNull(value, "The value must not be null.");
         Preconditions.checkArgument(RegexTools.matches(value, pattern));
         this.value = value;
     }
