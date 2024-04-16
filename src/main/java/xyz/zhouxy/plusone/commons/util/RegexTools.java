@@ -291,7 +291,6 @@ public final class RegexTools {
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static Pattern getAndCachePatternInternal(@Nonnull final String pattern) {
         if (PATTERN_CACHE.size() < MAX_CACHE_SIZE) {
@@ -310,7 +309,6 @@ public final class RegexTools {
      * @param pattern 正则表达式
      * @return {@link Pattern} 实例
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static Pattern getPatternInternal(@Nonnull final String pattern) {
         Pattern result = PATTERN_CACHE.get(pattern);
@@ -326,7 +324,6 @@ public final class RegexTools {
      * @param patterns 正则表达式
      * @return {@link Pattern} 实例数组
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static Pattern[] getAndCachePatternsInternal(@Nonnull final String[] patterns) {
         return Arrays.stream(patterns)
@@ -340,7 +337,6 @@ public final class RegexTools {
      * @param patterns 正则表达式
      * @return {@link Pattern} 实例数组
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static Pattern[] getPatternsInternal(@Nonnull final String[] patterns) {
         return Arrays.stream(patterns)
@@ -359,26 +355,24 @@ public final class RegexTools {
         return input != null && pattern.matcher(input).matches();
     }
 
-    @SuppressWarnings("null")
     private static boolean matchesOneInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
         if (input == null) {
             return false;
         }
         for (Pattern pattern : patterns) {
-            if (matchesInternal(input, pattern)) {
+            if (matchesInternal(input, Objects.requireNonNull(pattern))) {
                 return true;
             }
         }
         return false;
     }
 
-    @SuppressWarnings("null")
-    private static boolean matchesAllInternal(final CharSequence input, final Pattern[] patterns) {
+    private static boolean matchesAllInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
         if (input == null) {
             return false;
         }
         for (Pattern pattern : patterns) {
-            if (!matchesInternal(input, pattern)) {
+            if (!matchesInternal(input, Objects.requireNonNull(pattern))) {
                 return false;
             }
         }
