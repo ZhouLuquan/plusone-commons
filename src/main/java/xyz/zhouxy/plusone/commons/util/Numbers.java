@@ -16,16 +16,14 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.math.BigDecimal;
+
 /**
  * Numbers
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class Numbers {
-
-    private Numbers() {
-        throw new IllegalStateException("Utility class");
-    }
 
     // sum
 
@@ -69,6 +67,14 @@ public class Numbers {
         return result;
     }
 
+    public static BigDecimal sum(final BigDecimal... numbers) {
+        BigDecimal result = BigDecimals.of("0.00");
+        for (BigDecimal number : numbers) {
+            result = result.add(number);
+        }
+        return result;
+    }
+
     // between
 
     public static boolean between(short value, short min, short max) {
@@ -89,5 +95,13 @@ public class Numbers {
 
     public static boolean between(double value, double min, double max) {
         return value >= min && value < max;
+    }
+
+    public static boolean between(BigDecimal value, BigDecimal min, BigDecimal max) {
+        return BigDecimals.ge(value, min) && BigDecimals.lt(value, max);
+    }
+
+    private Numbers() {
+        throw new IllegalStateException("Utility class");
     }
 }

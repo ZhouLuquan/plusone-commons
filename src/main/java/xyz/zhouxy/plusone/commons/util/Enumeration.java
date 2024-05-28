@@ -85,9 +85,8 @@ public abstract class Enumeration<T extends Enumeration<T>> implements Comparabl
             this.valueMap = valueMap;
         }
 
-        @SafeVarargs
         @StaticFactoryMethod(ValueSet.class)
-        public static <T extends Enumeration<T>> ValueSet<T> of(T... values) {
+        public static <T extends Enumeration<T>> ValueSet<T> of(T[] values) {
             Map<Integer, T> temp = Arrays.stream(values)
                     .collect(Collectors.toMap(Enumeration::getId, Function.identity()));
             return new ValueSet<>(Collections.unmodifiableMap(temp));

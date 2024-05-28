@@ -38,7 +38,7 @@ final class EntityStatus extends Enumeration<EntityStatus> {
     public static final EntityStatus AVAILABLE = new EntityStatus(0, "正常");
     public static final EntityStatus DISABLED = new EntityStatus(1, "禁用");
 
-    private static final ValueSet<EntityStatus> VALUE_SET = ValueSet.of(AVAILABLE, DISABLED);
+    private static final ValueSet<EntityStatus> VALUE_SET = ValueSet.of(new EntityStatus[] { AVAILABLE, DISABLED });
 
     public static EntityStatus of(int value) {
         return VALUE_SET.get(value);
@@ -57,7 +57,7 @@ final class Result extends Enumeration<Result> {
     public static final Result SUCCESSFUL = new Result(1, "成功");
     public static final Result FAILURE = new Result(0, "失败");
 
-    private static final ValueSet<Result> VALUE_SET = ValueSet.of(SUCCESSFUL, FAILURE);
+    private static final ValueSet<Result> VALUE_SET = ValueSet.of(new Result[] { SUCCESSFUL, FAILURE });
 
     public static Result of(int id) {
         return VALUE_SET.get(id);
