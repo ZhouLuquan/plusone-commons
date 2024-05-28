@@ -124,10 +124,8 @@ class MenuList extends Menu {
     }
 
     static MenuList of(String parentMenuCode, String menuCode, String title, Iterable<Menu> children, int orderNum) {
-        MenuList instance = of(parentMenuCode, menuCode, title, orderNum);
-        for (Menu child : children) {
-            instance.addChild(child);
-        }
+        final MenuList instance = of(parentMenuCode, menuCode, title, orderNum);
+        children.forEach(instance::addChild);
         return instance;
     }
 

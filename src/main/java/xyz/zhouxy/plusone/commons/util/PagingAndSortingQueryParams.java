@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
@@ -60,10 +59,9 @@ public class PagingAndSortingQueryParams {
     public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
         Preconditions.checkArgument(sortableProperties != null && !sortableProperties.isEmpty(),
                 "Sortable properties can not be empty.");
-        for (Entry<String, String> p : sortableProperties.entrySet()) {
-            Preconditions.checkArgument(StringUtils.isNotBlank(p.getKey()) && StringUtils.isNotBlank(p.getValue()),
-                    "Property name must not be blank.");
-        }
+        sortableProperties.forEach((k, v) -> 
+                Preconditions.checkArgument(StringUtils.isNotBlank(k) && StringUtils.isNotBlank(v),
+                "Property name must not be blank."));
         this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
     }
 
