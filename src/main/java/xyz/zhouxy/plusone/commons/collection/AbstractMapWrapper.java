@@ -57,9 +57,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     }
 
     public final T putAll(Map<? extends K, ? extends V> m) {
-        for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
-            put(entry.getKey(), entry.getValue());
-        }
+        m.forEach(this::put);
         return getSelf();
     }
 
@@ -183,9 +181,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         }
 
         public Builder<K, V, T> putAll(Map<? extends K, ? extends V> m) {
-            for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
-                put(entry.getKey(), entry.getValue());
-            }
+            m.forEach(this::put);
             return this;
         }
 

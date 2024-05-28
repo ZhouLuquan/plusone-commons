@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 import com.google.common.base.Preconditions;
@@ -37,17 +38,13 @@ public class PreconditionsExt {
 
     public static <T, E extends Throwable> void checkAllNotNull(Iterable<T> values) throws E {
         Preconditions.checkNotNull(values);
-        for (T item : values) {
-            Preconditions.checkNotNull(item);
-        }
+        values.forEach(Preconditions::checkNotNull);
     }
 
     @SafeVarargs
     public static <T, E extends Throwable> void checkAllNotNull(T... values) throws E {
         Preconditions.checkNotNull(values);
-        for (T item : values) {
-            Preconditions.checkNotNull(item);
-        }
+        Arrays.stream(values).forEach(Preconditions::checkNotNull);
     }
 
     private PreconditionsExt() {
