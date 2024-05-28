@@ -30,74 +30,74 @@ public class ArrayTools {
 
     // isNullOrEmpty
 
-    public static <T> boolean isNullOrEmpty(T[] arr) {
+    public static <T> boolean isNullOrEmpty(@Nullable T[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNullOrEmpty - float
-    public static boolean isNullOrEmpty(float[] arr) {
+    public static boolean isNullOrEmpty(@Nullable float[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNullOrEmpty - double
-    public static boolean isNullOrEmpty(double[] arr) {
+    public static boolean isNullOrEmpty(@Nullable double[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNullOrEmpty - byte
-    public static boolean isNullOrEmpty(byte[] arr) {
+    public static boolean isNullOrEmpty(@Nullable byte[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNullOrEmpty - long
-    public static boolean isNullOrEmpty(long[] arr) {
+    public static boolean isNullOrEmpty(@Nullable long[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNullOrEmpty - int
-    public static boolean isNullOrEmpty(int[] arr) {
+    public static boolean isNullOrEmpty(@Nullable int[] arr) {
         return arr == null || arr.length == 0;
     }
 
     // isNotEmpty
 
-    public static <T> boolean isNotEmpty(T[] arr) {
+    public static <T> boolean isNotEmpty(@Nullable T[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // isNotEmpty - float
-    public static boolean isNotEmpty(float[] arr) {
+    public static boolean isNotEmpty(@Nullable float[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // isNotEmpty - double
-    public static boolean isNotEmpty(double[] arr) {
+    public static boolean isNotEmpty(@Nullable double[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // isNotEmpty - byte
-    public static boolean isNotEmpty(byte[] arr) {
+    public static boolean isNotEmpty(@Nullable byte[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // isNotEmpty - long
-    public static boolean isNotEmpty(long[] arr) {
+    public static boolean isNotEmpty(@Nullable long[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // isNotEmpty - int
-    public static boolean isNotEmpty(int[] arr) {
+    public static boolean isNotEmpty(@Nullable int[] arr) {
         return arr != null && arr.length > 0;
     }
 
     // concat
 
-    public static float[] concatFloatArray(Collection<float[]> arrays) {
-        int length = 0;
-        for (float[] arr : arrays) {
-            length += arr.length;
+    public static float[] concatFloatArray(@Nullable Collection<float[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new float[0];
         }
-        float[] result = new float[length];
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final float[] result = new float[length];
         int i = 0;
         for (float[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
@@ -106,12 +106,12 @@ public class ArrayTools {
         return result;
     }
 
-    public static double[] concatDoubleArray(Collection<double[]> arrays) {
-        int length = 0;
-        for (double[] arr : arrays) {
-            length += arr.length;
+    public static double[] concatDoubleArray(@Nullable Collection<double[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new double[0];
         }
-        double[] result = new double[length];
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final double[] result = new double[length];
         int i = 0;
         for (double[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
@@ -120,12 +120,12 @@ public class ArrayTools {
         return result;
     }
 
-    public static byte[] concatByteArray(Collection<byte[]> arrays) {
-        int length = 0;
-        for (byte[] arr : arrays) {
-            length += arr.length;
+    public static byte[] concatByteArray(@Nullable Collection<byte[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new byte[0];
         }
-        byte[] result = new byte[length];
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final byte[] result = new byte[length];
         int i = 0;
         for (byte[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
@@ -134,12 +134,12 @@ public class ArrayTools {
         return result;
     }
 
-    public static long[] concatLongArray(Collection<long[]> arrays) {
-        int length = 0;
-        for (long[] arr : arrays) {
-            length += arr.length;
+    public static long[] concatLongArray(@Nullable Collection<long[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new long[0];
         }
-        long[] result = new long[length];
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final long[] result = new long[length];
         int i = 0;
         for (long[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
@@ -148,12 +148,12 @@ public class ArrayTools {
         return result;
     }
 
-    public static int[] concatIntArray(Collection<int[]> arrays) {
-        int length = 0;
-        for (int[] arr : arrays) {
-            length += arr.length;
+    public static int[] concatIntArray(@Nullable Collection<int[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new int[0];
         }
-        int[] result = new int[length];
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final int[] result = new int[length];
         int i = 0;
         for (int[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
@@ -166,10 +166,7 @@ public class ArrayTools {
         if (arrays == null || arrays.isEmpty()) {
             return Collections.emptyList();
         }
-        int length = 0;
-        for (T[] arr : arrays) {
-            length += arr.length;
-        }
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
         final List<T> result = new ArrayList<>(length);
         for (T[] arr : arrays) {
             Collections.addAll(result, arr);
