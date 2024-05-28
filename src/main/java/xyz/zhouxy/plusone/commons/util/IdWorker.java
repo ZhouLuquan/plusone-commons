@@ -1,28 +1,30 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package xyz.zhouxy.plusone.commons.util;
 
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * IdWorker from Seata.
- *
- * @author funkye
- * @author selfishlover
- */
+import xyz.zhouxy.plusone.commons.exception.NoAvailableMacFoundException;
+
+
 public class IdWorker {
 
     /**
@@ -74,8 +76,9 @@ public class IdWorker {
 
     /**
      * instantiate an IdWorker using given workerId
+     * @param workerId if null, then will auto assign one
      */
-    public IdWorker(long workerId) {
+    public IdWorker(Long workerId) {
         initTimestampAndSequence();
         initWorkerId(workerId);
     }
@@ -93,7 +96,10 @@ public class IdWorker {
      * init workerId
      * @param workerId if null, then auto generate one
      */
-    private void initWorkerId(long workerId) {
+    private void initWorkerId(Long workerId) {
+        if (workerId == null) {
+            workerId = generateWorkerId();
+        }
         if (workerId > MAX_WORKER_ID || workerId < 0) {
             String message = String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID);
             throw new IllegalArgumentException(message);
@@ -127,8 +133,7 @@ public class IdWorker {
         if (current >= newest) {
             try {
                 Thread.sleep(5);
-            } catch (InterruptedException ignore) {
-                // don't care
+            } catch (InterruptedException ignore) { // NOSONAR don't care
             }
         }
     }
@@ -138,5 +143,46 @@ public class IdWorker {
      */
     private long getNewestTimestamp() {
         return System.currentTimeMillis() - TWEPOCH;
+    }
+
+    /**
+     * auto generate workerId, try using mac first, if failed, then randomly generate one
+     * @return workerId
+     */
+    private static long generateWorkerId() {
+        try {
+            return generateWorkerIdBaseOnMac();
+        } catch (Exception e) {
+            return generateRandomWorkerId();
+        }
+    }
+
+    /**
+     * use lowest 10 bit of available MAC as workerId
+     * @return workerId
+     * @throws SocketException 
+     * @throws Exception when there is no available mac found
+     */
+    private static long generateWorkerIdBaseOnMac() throws SocketException, NoAvailableMacFoundException {
+        Enumeration<NetworkInterface> all = NetworkInterface.getNetworkInterfaces();
+        while (all.hasMoreElements()) {
+            NetworkInterface networkInterface = all.nextElement();
+            boolean isLoopback = networkInterface.isLoopback();
+            boolean isVirtual = networkInterface.isVirtual();
+            byte[] mac = networkInterface.getHardwareAddress();
+            if (isLoopback || isVirtual || mac == null) {
+                continue;
+            }
+            return ((mac[4] & 0B11) << 8) | (mac[5] & 0xFF);
+        }
+        throw new NoAvailableMacFoundException();
+    }
+
+    /**
+     * randomly generate one as workerId
+     * @return workerId
+     */
+    private static long generateRandomWorkerId() {
+        return ThreadLocalRandom.current().nextInt(MAX_WORKER_ID + 1);
     }
 }
