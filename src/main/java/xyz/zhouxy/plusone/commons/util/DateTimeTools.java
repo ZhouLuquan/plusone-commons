@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -323,6 +324,34 @@ public class DateTimeTools {
 
     public static DateTimeZone toJodaTime(java.time.ZoneId zone) {
         return org.joda.time.DateTimeZone.forID(zone.getId());
+    }
+
+    // getQuarter
+
+    @SuppressWarnings("deprecation")
+    public static int getQuarter(Date date) {
+        return getQuarterInternal(date.getMonth() + 1);
+    }
+
+    public static int getQuarter(Calendar date) {
+        return getQuarterInternal(date.get(Calendar.MONTH) + 1);
+    }
+
+    public static int getQuarter(Month month) {
+        return getQuarterInternal(month.getValue());
+    }
+
+    public static int getQuarter(LocalDate date) {
+        return getQuarterInternal(date.getMonthValue());
+    }
+
+    /**
+     * 获取季度
+     * @param monthValue 1~12
+     * @return 季度。1~4
+     */
+    private static int getQuarterInternal(int monthValue) {
+        return (monthValue - 1) / 3 + 1;
     }
 
     private DateTimeTools() {
