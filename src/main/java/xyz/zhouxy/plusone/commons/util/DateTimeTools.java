@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTimeZone;
 
 import com.google.common.base.Preconditions;
 
@@ -104,7 +103,7 @@ public class DateTimeTools {
      * @deprecated 使用 {@link ZonedDateTime#toInstant()}
      */
     @Deprecated
-    public static Instant toInstant(ZonedDateTime zonedDateTime) {
+    public static Instant toInstant(ZonedDateTime zonedDateTime) { // NOSONAR
         return zonedDateTime.toInstant();
     }
 
@@ -177,7 +176,7 @@ public class DateTimeTools {
      * @deprecated 使用 {@link ZonedDateTime#of(LocalDateTime, ZoneId)}
      */
     @Deprecated
-    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) {
+    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) { // NOSONAR
         return ZonedDateTime.of(localDateTime, zone);
     }
 
@@ -322,7 +321,7 @@ public class DateTimeTools {
         return jodaZone.toTimeZone().toZoneId();
     }
 
-    public static DateTimeZone toJodaTime(java.time.ZoneId zone) {
+    public static org.joda.time.DateTimeZone toJodaTime(java.time.ZoneId zone) {
         return org.joda.time.DateTimeZone.forID(zone.getId());
     }
 
