@@ -54,13 +54,14 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     /**
      * 将节点构建成树。
      * <p>
-     * <b>注意，该方法会直接操作 nodes 列表中的节点，并没有做深拷贝，
+     * <b>！！注意：该方法会直接操作 nodes 列表中的节点，并没有做深拷贝，
      * 注意避免 nodes 中的元素产生变化所带来的意料之外的影响。</b>
      * 
      * @param nodes      平铺的节点列表
      * @param comparator 用于节点的排序。
      *                   若为 {@code null}，则使用 {@link #defaultComparator}；
      *                   若 {@link #defaultComparator} 也为 {@code null}，则不排序。
+     *                   <b>仅影响调用 addChild 的顺序，如果操作对象本身对应的控制了子节点的顺序，无法影响其相关逻辑。</b>
      */
     public List<T> buildTree(Collection<T> nodes, @Nullable Comparator<? super T> comparator) {
         Preconditions.checkNotNull(nodes);
