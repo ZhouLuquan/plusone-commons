@@ -2,6 +2,10 @@ package xyz.zhouxy.plusone.commons.domain;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import cn.hutool.core.util.ObjectUtil;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +14,7 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.annotation.ValueObject;
 import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,12 +40,46 @@ class ValidatableStringRecordTests {
         );
         log.info("{}", Collections.max(usernames));
         log.info("{}", Collections.max(usernames,
-                Comparator.<Username, String>comparing(o -> o.value().toLowerCase())));
+                Comparator.comparing(o -> o.value().toLowerCase())));
+    }
+
+    @Test
+    void testSerial() {
+        User obj = new User(Username.of("zhouxy"), Email.of("zhouxy@outlook.com"));
+        User snapshot = ObjectUtil.clone(obj);
+        obj.setUsername(Username.of("ZhouXY108"));
+        log.info("snapshot: {}", snapshot);
+        log.info("obj: {}", obj);
+    }
+}
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+class User implements Serializable {
+    private static final long serialVersionUID = 3549288698636099823L;
+    Username username;
+    Email email;
+}
+
+@ValueObject
+class Email extends ValidatableStringRecord {
+    private static final long serialVersionUID = -2092385577843676401L;
+
+    private Email(String value) {
+        super(value, PatternConsts.EMAIL);
+    }
+
+    @StaticFactoryMethod(Email.class)
+    public static Email of(String value) {
+        return new Email(value);
     }
 }
 
 @ValueObject
 class Username extends ValidatableStringRecord {
+    private static final long serialVersionUID = -7105647514140482394L;
+
     private Username(String username) {
         super(username, PatternConsts.USERNAME);
     }

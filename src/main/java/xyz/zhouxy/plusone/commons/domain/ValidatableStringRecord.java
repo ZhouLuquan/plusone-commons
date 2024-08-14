@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,7 @@ import xyz.zhouxy.plusone.commons.util.RegexTools;
  * @since 0.1.0
  */
 public abstract class ValidatableStringRecord
-        implements Comparable<ValidatableStringRecord> {
+        implements Comparable<ValidatableStringRecord>, Serializable {
     private final String value;
 
     protected ValidatableStringRecord(String value, Pattern pattern) {
@@ -75,4 +76,6 @@ public abstract class ValidatableStringRecord
     public String toString() {
         return this.value();
     }
+
+    private static final long serialVersionUID = -8365241662025469652L;
 }
