@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.model.dto;
 
 import java.util.List;
 
@@ -30,21 +30,21 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @see PagingAndSortingQueryParams
  */
-public class PageDTO<T> {
+public class PageResult<T> {
 
     private final long total;
 
     private final List<T> content;
 
-    private PageDTO(List<T> content, long total) {
+    private PageResult(List<T> content, long total) {
         Preconditions.checkNotNull(content, "Content must not be null.");
         this.content = content;
         this.total = total;
     }
 
-    @StaticFactoryMethod(PageDTO.class)
-    public static <T> PageDTO<T> of(List<T> content, long total) {
-        return new PageDTO<>(content, total);
+    @StaticFactoryMethod(PageResult.class)
+    public static <T> PageResult<T> of(List<T> content, long total) {
+        return new PageResult<>(content, total);
     }
 
     public long getTotal() {

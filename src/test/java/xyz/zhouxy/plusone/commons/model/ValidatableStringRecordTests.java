@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.domain;
+package xyz.zhouxy.plusone.commons.model;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

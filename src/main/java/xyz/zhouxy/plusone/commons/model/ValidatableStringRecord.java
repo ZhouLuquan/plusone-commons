@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.domain;
+package xyz.zhouxy.plusone.commons.model;
 
 import java.io.Serializable;
 import java.util.Objects;

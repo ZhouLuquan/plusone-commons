@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.model.dto;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
