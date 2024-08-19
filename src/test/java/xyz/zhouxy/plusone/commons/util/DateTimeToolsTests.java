@@ -76,4 +76,13 @@ class DateTimeToolsTests {
         log.info(DateTimeTools.toJavaInstant(instant).toString());
         log.info(DateTimeTools.toZonedDateTime(instant, org.joda.time.DateTimeZone.forID("America/New_York")).toString());
     }
+
+    @Test
+    void testToJodaInstant() {
+        java.time.Instant javaInstant = java.time.Instant.now();
+        log.info("javaInstant: {}", javaInstant);
+
+        org.joda.time.Instant jodaInstant = DateTimeTools.toJodaInstant(javaInstant);
+        log.info("jodaInstant: {}", jodaInstant);
+    }
 }

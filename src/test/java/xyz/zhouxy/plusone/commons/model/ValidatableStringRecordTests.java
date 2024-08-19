@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 class ValidatableStringRecordTests {
 
@@ -39,8 +40,8 @@ class ValidatableStringRecordTests {
                 Username.of("Code108")
         );
         log.info("{}", Collections.max(usernames));
-        log.info("{}", Collections.max(usernames,
-                Comparator.comparing(o -> o.value().toLowerCase())));
+        Function<Username, String> compare = o -> o.value().toLowerCase();
+        log.info("{}", Collections.max(usernames, Comparator.comparing(compare)));
     }
 
     @Test
