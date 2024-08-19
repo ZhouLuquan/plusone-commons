@@ -17,7 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
-
+import xyz.zhouxy.plusone.commons.base.Quarter;
+import xyz.zhouxy.plusone.commons.base.YearQuarter;
 import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
 public class DateTimeTools {
@@ -156,6 +157,10 @@ public class DateTimeTools {
      */
     public static ZonedDateTime toZonedDateTime(Date dateTime, TimeZone timeZone) {
         return ZonedDateTime.ofInstant(dateTime.toInstant(), timeZone.toZoneId());
+    }
+
+    public static ZonedDateTime toZonedDateTime(Calendar calendar) {
+        return calendar.toInstant().atZone(calendar.getTimeZone().toZoneId());
     }
 
     public static ZonedDateTime toZonedDateTime(Calendar calendar, ZoneId zone) {
@@ -327,30 +332,20 @@ public class DateTimeTools {
 
     // getQuarter
 
-    @SuppressWarnings("deprecation")
-    public static int getQuarter(Date date) {
-        return getQuarterInternal(date.getMonth() + 1);
+    public static YearQuarter getQuarter(Date date) {
+        return YearQuarter.of(date);
     }
 
-    public static int getQuarter(Calendar date) {
-        return getQuarterInternal(date.get(Calendar.MONTH) + 1);
+    public static YearQuarter getQuarter(Calendar date) {
+        return YearQuarter.of(date);
     }
 
-    public static int getQuarter(Month month) {
-        return getQuarterInternal(month.getValue());
+    public static Quarter getQuarter(Month month) {
+        return Quarter.fromMonth(month);
     }
 
-    public static int getQuarter(LocalDate date) {
-        return getQuarterInternal(date.getMonthValue());
-    }
-
-    /**
-     * 获取季度
-     * @param monthValue 1~12
-     * @return 季度。1~4
-     */
-    private static int getQuarterInternal(int monthValue) {
-        return (monthValue - 1) / 3 + 1;
+    public static YearQuarter getQuarter(LocalDate date) {
+        return YearQuarter.of(date);
     }
 
     private DateTimeTools() {

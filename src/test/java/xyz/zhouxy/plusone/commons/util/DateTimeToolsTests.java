@@ -1,8 +1,11 @@
 package xyz.zhouxy.plusone.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -14,38 +17,56 @@ class DateTimeToolsTests {
 
     @Test
     void testLocalNowStr() {
-        log.info(DateTimeTools.nowStr("yyyy/MM/dd HH:mm:ss.SSS"));
+        String nowStr = DateTimeTools.nowStr("yyyy/MM/dd HH:mm:ss.SSS");
+        log.info(nowStr);
+        assertEquals(23, nowStr.length());
     }
 
     @Test
     void testToJoda() {
-        LocalDateTime now = LocalDateTime.now();
-        log.info("now: {}", now);
-        org.joda.time.LocalDateTime now2 = DateTimeTools.toJodaLocalDateTime(now);
-        log.info("now2: {}", now2);
+        LocalDateTime dt = LocalDateTime.of(2008, 8, 8, 20, 18, 59, 108000000);
+        log.info("src: {}", dt);
+        org.joda.time.LocalDateTime dt2 = DateTimeTools.toJodaLocalDateTime(dt);
+        log.info("result: {}", dt2);
+        org.joda.time.format.DateTimeFormatter f = org.joda.time.format.DateTimeFormat
+                .forPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        assertEquals("2008-08-08 20:18:59.108", f.print(dt2));
     }
 
     @Test
     void testToInstant() {
-        Instant now = DateTimeTools.toInstant(System.currentTimeMillis());
-        String str = DateTimeTools.toString("yy-M-d HH:mm:ss.SSS", now);
+        ZonedDateTime dt = ZonedDateTime.of(2008, 1, 8, 10, 23, 50, 108000000, ZoneId.systemDefault());
+        Instant instant = DateTimeTools.toInstant(dt.toInstant().toEpochMilli());
+        String str = DateTimeTools.toString("yy-M-d HH:mm:ss.SSS", instant);
         log.info(str);
+        assertEquals("08-1-8 10:23:50.108", str);
     }
 
     @Test
     void testToJodaDateTime() {
-        Instant now = Instant.now();
-        org.joda.time.DateTime jodaDateTime = DateTimeTools.toJodaDateTime(now, ZoneId.of("+08:00"));
+        ZonedDateTime dt = ZonedDateTime.of(2008, 1, 8, 10, 23, 50, 108000000, ZoneId.systemDefault());
+        Instant instant = DateTimeTools.toInstant(dt.toInstant().toEpochMilli());
+        
+        org.joda.time.format.DateTimeFormatter f = org.joda.time.format.DateTimeFormat
+                .forPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        org.joda.time.DateTime jodaDateTime = DateTimeTools.toJodaDateTime(instant, ZoneId.of("+08:00"));
         log.info("jodaDateTime: {}", jodaDateTime);
-        jodaDateTime = DateTimeTools.toJodaDateTime(now, ZoneId.of("+02:00"));
+        assertEquals("2008-01-08 10:23:50.108", f.print(jodaDateTime));
+        
+        
+        jodaDateTime = DateTimeTools.toJodaDateTime(instant, ZoneId.of("+02:00"));
         log.info("jodaDateTime: {}", jodaDateTime);
+        assertEquals("2008-01-08 04:23:50.108", f.print(jodaDateTime));
     }
 
     @Test
     void test() {
         java.time.Instant now = java.time.Instant.now();
         org.joda.time.DateTime jodaDateTime = DateTimeTools.toJodaDateTime(now, ZoneId.of("America/New_York"));
-        org.joda.time.format.DateTimeFormatter formatter = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        org.joda.time.format.DateTimeFormatter formatter = 
+                org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS");
         log.info(formatter.print(jodaDateTime));
         log.info(jodaDateTime.getZone().toString());
         log.info(jodaDateTime.toString());
