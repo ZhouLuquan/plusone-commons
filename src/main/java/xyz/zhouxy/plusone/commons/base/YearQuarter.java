@@ -5,16 +5,29 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * 表示年份与季度
+ * 
+ * @author zhouxy
+ */
 public final class YearQuarter {
+
+    /** 年份 */
     private final int year;
+    /** 季度 */
     private final Quarter quarter;
+    /** 季度开始日期 */
     private final LocalDate startDate;
+    /** 季度结束日期 */
     private final LocalDate lastDate;
 
-    private YearQuarter(int year, Quarter quarter) {
+    private YearQuarter(int year, @Nonnull Quarter quarter) {
         Preconditions.checkNotNull(quarter, "Quarter can not be null.");
         this.year = year;
         this.quarter = quarter;
@@ -22,15 +35,34 @@ public final class YearQuarter {
         this.lastDate = quarter.getLastMonthDay().atYear(year);
     }
 
-    public static YearQuarter of(int year, Quarter quarter) {
+    /**
+     * 根据指定年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param year 年份
+     * @param quarter 季度
+     * @return {@link YearQuarter} 实例
+     */
+    public static YearQuarter of(int year, @Nonnull Quarter quarter) {
         return new YearQuarter(year, quarter);
     }
 
-    public static YearQuarter of(LocalDate date) {
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param date 日期
+     * @return {@link YearQuarter} 实例
+     */
+    public static YearQuarter of(@Nonnull LocalDate date) {
         return new YearQuarter(date.getYear(), Quarter.fromMonth(date.getMonth()));
     }
 
-    public static YearQuarter of(Date date) {
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param date 日期
+     * @return {@link YearQuarter} 实例
+     */
+    public static YearQuarter of(@Nonnull Date date) {
         @SuppressWarnings("deprecation")
         final int year = date.getYear() + 1900;
         @SuppressWarnings("deprecation")
@@ -38,13 +70,27 @@ public final class YearQuarter {
         return of(year, Quarter.fromMonth(month));
     }
 
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param date 日期
+     * @return {@link YearQuarter} 实例
+     */
     public static YearQuarter of(Calendar date) {
         return of(date.get(Calendar.YEAR), Quarter.fromMonth(date.get(Calendar.MONTH) + 1));
     }
 
+    /**
+     * 根据指定年月，判断其所在的年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param yearMonth 年月
+     * @return {@link YearQuarter} 实例
+     */
     public static YearQuarter of(YearMonth yearMonth) {
         return of(yearMonth.getYear(), Quarter.fromMonth(yearMonth.getMonth()));
     }
+
+    // Getters
 
     public int getYear() {
         return year;
@@ -76,5 +122,38 @@ public final class YearQuarter {
 
     public LocalDate getLastDate() {
         return lastDate;
+    }
+
+    // Getters end
+
+    // hashCode & equals
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, quarter);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        YearQuarter other = (YearQuarter) obj;
+        return year == other.year && quarter == other.quarter;
+    }
+
+    // toString
+
+    /**
+     * 返回 {@link YearQuarter} 的字符串表示形式，如 "Q3 2024"
+     * 
+     * @return {@link YearQuarter} 的字符串表示形式
+     */
+    @Override
+    public String toString() {
+        return this.quarter.getDisplayName() + " " + this.year;
     }
 }
