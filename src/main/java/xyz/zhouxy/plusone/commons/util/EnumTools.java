@@ -43,7 +43,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) {
+    public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) { // NOSONAR 该方法弃用，但不删掉
         Preconditions.checkNotNull(clazz, "Clazz must not be null.");
         E[] values = clazz.getEnumConstants();
         PreconditionsExt.check((ordinal >= 0 && ordinal < values.length),
@@ -62,7 +62,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E valueOf(Class<E> clazz, @Nullable Integer ordinal, E defaultValue) {
+    public static <E extends Enum<?>> E valueOf(Class<E> clazz, @Nullable Integer ordinal, E defaultValue) { // NOSONAR 该方法弃用，但不删掉
         if (null == ordinal) {
             return defaultValue;
         }
@@ -80,7 +80,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E getValueOrDefault(
+    public static <E extends Enum<?>> E getValueOrDefault( // NOSONAR 该方法弃用，但不删掉
             Class<E> clazz,
             @Nullable Integer ordinal,
             Supplier<E> defaultValue) {
@@ -100,7 +100,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, @Nullable Integer ordinal) {
+    public static <E extends Enum<?>> E getValueOrDefault(Class<E> clazz, @Nullable Integer ordinal) { // NOSONAR 该方法弃用，但不删掉
         return getValueOrDefault(clazz, ordinal, () -> {
             Preconditions.checkNotNull(clazz, "Clazz must not be null.");
             E[] values = clazz.getEnumConstants();
@@ -118,7 +118,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E getValueNullable(Class<E> clazz, @Nullable Integer ordinal) {
+    public static <E extends Enum<?>> E getValueNullable(Class<E> clazz, @Nullable Integer ordinal) { // NOSONAR 该方法弃用，但不删掉
         return valueOf(clazz, ordinal, null);
     }
 
