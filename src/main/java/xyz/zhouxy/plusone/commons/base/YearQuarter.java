@@ -1,5 +1,6 @@
 package xyz.zhouxy.plusone.commons.base;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -16,7 +17,8 @@ import com.google.common.base.Preconditions;
  * 
  * @author zhouxy
  */
-public final class YearQuarter {
+public final class YearQuarter implements Comparable<YearQuarter>, Serializable {
+    private static final long serialVersionUID = 3804145964419489753L;
 
     /** 年份 */
     private final int year;
@@ -151,6 +153,25 @@ public final class YearQuarter {
             return false;
         YearQuarter other = (YearQuarter) obj;
         return year == other.year && quarter == other.quarter;
+    }
+
+    // compareTo
+
+    @Override
+    public int compareTo(YearQuarter other) {
+        int cmp = (this.year - other.year);
+        if (cmp == 0) {
+            cmp = (this.quarter.compareTo(other.quarter));
+        }
+        return cmp;
+    }
+
+    public boolean isBefore(YearQuarter other) {
+        return this.compareTo(other) < 0;
+    }
+
+    public boolean isAfter(YearQuarter other) {
+        return this.compareTo(other) > 0;
     }
 
     // toString
