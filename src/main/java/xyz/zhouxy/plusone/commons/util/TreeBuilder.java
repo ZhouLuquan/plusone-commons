@@ -88,7 +88,8 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
 
         final Map<TIdentity, T> identityNodeMap = allNodes.stream()
                 .collect(Collectors.toMap(identityGetter, Function.identity(), (n1, n2) -> n1));
-        final List<T> result = allNodes.stream()
+        // 根节点
+        final List<T> rootNodes = allNodes.stream()
                 .filter(node -> !this.parentIdentityGetter.apply(node).isPresent())
                 .collect(Collectors.toList());
         allNodes.forEach(node -> parentIdentityGetter.apply(node).ifPresent(parentIdentity -> {
@@ -98,6 +99,6 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
                 addChildMethod.accept(parentNode, node);
             }
         }));
-        return result;
+        return rootNodes;
     }
 }
