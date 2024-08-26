@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.base;
+package xyz.zhouxy.plusone.commons.time;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,15 +27,15 @@ class QuarterTests {
 
         // ==========
 
-        int startMonthValue = quarter.firstMonthValue();
-        log.info("startMonthValue: {}", startMonthValue);
-        assertEquals(1, startMonthValue);
+        int firstMonthValue = quarter.firstMonthValue();
+        log.info("firstMonthValue: {}", firstMonthValue);
+        assertEquals(1, firstMonthValue);
 
-        Month startMonth = quarter.firstMonth();
-        log.info("startMonth: {}", startMonth);
-        assertEquals(Month.JANUARY, startMonth);
+        Month firstMonth = quarter.firstMonth();
+        log.info("firstMonth: {}", firstMonth);
+        assertEquals(Month.JANUARY, firstMonth);
 
-        assertEquals(startMonthValue, startMonth.getValue());
+        assertEquals(firstMonthValue, firstMonth.getValue());
 
         // ==========
 
@@ -51,9 +51,9 @@ class QuarterTests {
 
         // ==========
 
-        MonthDay startMonthDay = quarter.firstMonthDay();
-        log.info("startMonthDay: {}", startMonthDay);
-        assertEquals(startMonthDay, MonthDay.of(1, 1));
+        MonthDay firstMonthDay = quarter.firstMonthDay();
+        log.info("firstMonthDay: {}", firstMonthDay);
+        assertEquals(firstMonthDay, MonthDay.of(1, 1));
 
         MonthDay lastMonthDay = quarter.lastMonthDay();
         log.info("lastMonthDay: {}", lastMonthDay);
@@ -74,15 +74,15 @@ class QuarterTests {
 
         // ==========
 
-        int startMonthValue = quarter.firstMonthValue();
-        log.info("startMonthValue: {}", startMonthValue);
-        assertEquals(4, startMonthValue);
+        int firstMonthValue = quarter.firstMonthValue();
+        log.info("firstMonthValue: {}", firstMonthValue);
+        assertEquals(4, firstMonthValue);
 
-        Month startMonth = quarter.firstMonth();
-        log.info("startMonth: {}", startMonth);
-        assertEquals(Month.APRIL, startMonth);
+        Month firstMonth = quarter.firstMonth();
+        log.info("firstMonth: {}", firstMonth);
+        assertEquals(Month.APRIL, firstMonth);
 
-        assertEquals(startMonthValue, startMonth.getValue());
+        assertEquals(firstMonthValue, firstMonth.getValue());
 
         // ==========
 
@@ -98,9 +98,9 @@ class QuarterTests {
 
         // ==========
 
-        MonthDay startMonthDay = quarter.firstMonthDay();
-        log.info("startMonthDay: {}", startMonthDay);
-        assertEquals(startMonthDay, MonthDay.of(4, 1));
+        MonthDay firstMonthDay = quarter.firstMonthDay();
+        log.info("firstMonthDay: {}", firstMonthDay);
+        assertEquals(firstMonthDay, MonthDay.of(4, 1));
 
         MonthDay lastMonthDay = quarter.lastMonthDay();
         log.info("lastMonthDay: {}", lastMonthDay);
@@ -121,15 +121,15 @@ class QuarterTests {
 
         // ==========
 
-        int startMonthValue = quarter.firstMonthValue();
-        log.info("startMonthValue: {}", startMonthValue);
-        assertEquals(7, startMonthValue);
+        int firstMonthValue = quarter.firstMonthValue();
+        log.info("firstMonthValue: {}", firstMonthValue);
+        assertEquals(7, firstMonthValue);
 
-        Month startMonth = quarter.firstMonth();
-        log.info("startMonth: {}", startMonth);
-        assertEquals(Month.JULY, startMonth);
+        Month firstMonth = quarter.firstMonth();
+        log.info("firstMonth: {}", firstMonth);
+        assertEquals(Month.JULY, firstMonth);
 
-        assertEquals(startMonthValue, startMonth.getValue());
+        assertEquals(firstMonthValue, firstMonth.getValue());
 
         // ==========
 
@@ -145,9 +145,9 @@ class QuarterTests {
 
         // ==========
 
-        MonthDay startMonthDay = quarter.firstMonthDay();
-        log.info("startMonthDay: {}", startMonthDay);
-        assertEquals(startMonthDay, MonthDay.of(7, 1));
+        MonthDay firstMonthDay = quarter.firstMonthDay();
+        log.info("firstMonthDay: {}", firstMonthDay);
+        assertEquals(firstMonthDay, MonthDay.of(7, 1));
 
         MonthDay lastMonthDay = quarter.lastMonthDay();
         log.info("lastMonthDay: {}", lastMonthDay);
@@ -168,15 +168,15 @@ class QuarterTests {
 
         // ==========
 
-        int startMonthValue = quarter.firstMonthValue();
-        log.info("startMonthValue: {}", startMonthValue);
-        assertEquals(10, startMonthValue);
+        int firstMonthValue = quarter.firstMonthValue();
+        log.info("firstMonthValue: {}", firstMonthValue);
+        assertEquals(10, firstMonthValue);
 
-        Month startMonth = quarter.firstMonth();
-        log.info("startMonth: {}", startMonth);
-        assertEquals(Month.OCTOBER, startMonth);
+        Month firstMonth = quarter.firstMonth();
+        log.info("firstMonth: {}", firstMonth);
+        assertEquals(Month.OCTOBER, firstMonth);
 
-        assertEquals(startMonthValue, startMonth.getValue());
+        assertEquals(firstMonthValue, firstMonth.getValue());
 
         // ==========
 
@@ -191,12 +191,37 @@ class QuarterTests {
 
         // ==========
 
-        MonthDay startMonthDay = quarter.firstMonthDay();
-        log.info("startMonthDay: {}", startMonthDay);
-        assertEquals(startMonthDay, MonthDay.of(10, 1));
+        MonthDay firstMonthDay = quarter.firstMonthDay();
+        log.info("firstMonthDay: {}", firstMonthDay);
+        assertEquals(firstMonthDay, MonthDay.of(10, 1));
 
         MonthDay lastMonthDay = quarter.lastMonthDay();
         log.info("lastMonthDay: {}", lastMonthDay);
         assertEquals(lastMonthDay, MonthDay.of(12, 31));
+    }
+
+    @Test
+    void testFirstDayOfYear() {
+        int firstDayOfYear;
+        
+        firstDayOfYear = Quarter.Q1.firstDayOfYear(true);
+        assertEquals(1, firstDayOfYear);
+        firstDayOfYear = Quarter.Q1.firstDayOfYear(false);
+        assertEquals(1, firstDayOfYear);
+
+        firstDayOfYear = Quarter.Q2.firstDayOfYear(true);
+        assertEquals(1 + (31 + 29 + 31), firstDayOfYear);
+        firstDayOfYear = Quarter.Q2.firstDayOfYear(false);
+        assertEquals(1 + (31 + 28 + 31), firstDayOfYear);
+
+        firstDayOfYear = Quarter.Q3.firstDayOfYear(true);
+        assertEquals(1 + (31 + 29 + 31) + (30 + 31 + 30), firstDayOfYear);
+        firstDayOfYear = Quarter.Q3.firstDayOfYear(false);
+        assertEquals(1 + (31 + 28 + 31) + (30 + 31 + 30), firstDayOfYear);
+
+        firstDayOfYear = Quarter.Q4.firstDayOfYear(true);
+        assertEquals(1 + (31 + 29 + 31) + (30 + 31 + 30) + (31 + 30 + 31), firstDayOfYear);
+        firstDayOfYear = Quarter.Q4.firstDayOfYear(false);
+        assertEquals(1 + (31 + 28 + 31) + (30 + 31 + 30) + (31 + 30 + 31), firstDayOfYear);
     }
 }

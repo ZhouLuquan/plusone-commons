@@ -18,8 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
-import xyz.zhouxy.plusone.commons.base.Quarter;
-import xyz.zhouxy.plusone.commons.base.YearQuarter;
+import xyz.zhouxy.plusone.commons.time.Quarter;
+import xyz.zhouxy.plusone.commons.time.YearQuarter;
 import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
 /**

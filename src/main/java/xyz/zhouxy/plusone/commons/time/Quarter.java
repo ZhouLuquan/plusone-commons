@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.base;
+package xyz.zhouxy.plusone.commons.time;
 
 import java.time.Month;
 import java.time.MonthDay;
@@ -27,14 +27,10 @@ public enum Quarter {
     private final int value;
 
     /** 季度开始月份 */
-    private final Month firstMonth;
-    /** 季度开始日期 */
-    private final MonthDay firstMonthDay;
+    private final int firstMonth;
 
     /** 季度结束月份 */
-    private final Month lastMonth;
-    /** 季度结束日期 */
-    private final MonthDay lastMonthDay;
+    private final int lastMonth;
 
     /** 常量值 */
     private static final Quarter[] ENUMS = Quarter.values();
@@ -45,14 +41,8 @@ public enum Quarter {
     Quarter(int value) {
         this.value = value;
 
-        final int lastMonthValue = value * 3;
-        final int firstMonthValue = lastMonthValue - 2;
-
-        this.firstMonth = Month.of(firstMonthValue);
-        this.firstMonthDay = MonthDay.of(this.firstMonth, 1);
-        this.lastMonth = Month.of(lastMonthValue);
-        // 季度的最后一个月不可能是 2 月
-        this.lastMonthDay = MonthDay.of(this.lastMonth, this.lastMonth.maxLength());
+        this.lastMonth = value * 3;
+        this.firstMonth = this.lastMonth - 2;
     }
 
     /**
@@ -110,31 +100,33 @@ public enum Quarter {
     }
 
     public Month firstMonth() {
-        return firstMonth;
+        return Month.of(firstMonth);
     }
 
     public int firstMonthValue() {
-        return firstMonth.getValue();
+        return firstMonth;
     }
 
     public Month lastMonth() {
-        return lastMonth;
+        return Month.of(lastMonth);
     }
 
     public int lastMonthValue() {
-        return lastMonth.getValue();
+        return lastMonth;
     }
 
     public MonthDay firstMonthDay() {
-        return firstMonthDay;
+        return MonthDay.of(this.firstMonth, 1);
     }
 
     public MonthDay lastMonthDay() {
-        return lastMonthDay;
+        // 季度的最后一个月不可能是 2 月
+        final Month month = lastMonth();
+        return MonthDay.of(month, month.maxLength());
     }
 
     public int firstDayOfYear(boolean leapYear) {
-        return this.firstMonth.firstDayOfYear(leapYear);
+        return Month.of(this.firstMonth).firstDayOfYear(leapYear);
     }
 
     // Getters end

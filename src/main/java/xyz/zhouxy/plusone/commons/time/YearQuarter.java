@@ -1,4 +1,4 @@
-package xyz.zhouxy.plusone.commons.base;
+package xyz.zhouxy.plusone.commons.time;
 
 import java.io.Serializable;
 import java.time.LocalDate;
