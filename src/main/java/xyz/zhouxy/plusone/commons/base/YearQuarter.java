@@ -23,7 +23,7 @@ public final class YearQuarter {
     /** 季度 */
     private final Quarter quarter;
     /** 季度开始日期 */
-    private final LocalDate startDate;
+    private final LocalDate firstDate;
     /** 季度结束日期 */
     private final LocalDate lastDate;
 
@@ -31,8 +31,8 @@ public final class YearQuarter {
         Preconditions.checkNotNull(quarter, "Quarter can not be null.");
         this.year = year;
         this.quarter = quarter;
-        this.startDate = quarter.getStartMonthDay().atYear(year);
-        this.lastDate = quarter.getLastMonthDay().atYear(year);
+        this.firstDate = quarter.firstMonthDay().atYear(year);
+        this.lastDate = quarter.lastMonthDay().atYear(year);
     }
 
     /**
@@ -100,27 +100,35 @@ public final class YearQuarter {
         return quarter;
     }
 
-    public Month getStartMonth() {
-        return this.quarter.getStartMonth();
+    public YearMonth firstYearMonth() {
+        return YearMonth.of(this.year, this.quarter.firstMonth());
     }
 
-    public int getStartMonthValue() {
-        return this.quarter.getStartMonthValue();
+    public Month firstMonth() {
+        return this.quarter.firstMonth();
     }
 
-    public Month getLastMonth() {
-        return this.quarter.getLastMonth();
+    public int firstMonthValue() {
+        return this.quarter.firstMonthValue();
     }
 
-    public int getLastMonthValue() {
-        return this.quarter.getLastMonthValue();
+    public YearMonth lastYearMonth() {
+        return YearMonth.of(this.year, this.quarter.lastMonth());
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public Month lastMonth() {
+        return this.quarter.lastMonth();
     }
 
-    public LocalDate getLastDate() {
+    public int lastMonthValue() {
+        return this.quarter.lastMonthValue();
+    }
+
+    public LocalDate firstDate() {
+        return firstDate;
+    }
+
+    public LocalDate lastDate() {
         return lastDate;
     }
 
@@ -154,6 +162,6 @@ public final class YearQuarter {
      */
     @Override
     public String toString() {
-        return this.quarter.getDisplayName() + " " + this.year;
+        return this.quarter.name() + " " + this.year;
     }
 }

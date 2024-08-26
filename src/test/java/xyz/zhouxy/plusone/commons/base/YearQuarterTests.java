@@ -42,13 +42,13 @@ public class YearQuarterTests {
                 Quarter quarter = Quarter.of(qrtr);
                 YearQuarter yearQuarter = YearQuarter.of(year, quarter);
 
-                LocalDate expectedStartDate = quarter.getStartMonthDay().atYear(year);
+                LocalDate expectedStartDate = quarter.firstMonthDay().atYear(year);
                 log.info("{} - expectedStartDate: {}", yearQuarter, expectedStartDate);
-                LocalDate expectedEndDate = quarter.getLastMonthDay().atYear(year);
+                LocalDate expectedEndDate = quarter.lastMonthDay().atYear(year);
                 log.info("{} - expectedEndDate: {}", yearQuarter, expectedEndDate);
                 
-                assertEquals(expectedStartDate, yearQuarter.getStartDate());
-                assertEquals(expectedEndDate, yearQuarter.getLastDate());
+                assertEquals(expectedStartDate, yearQuarter.firstDate());
+                assertEquals(expectedEndDate, yearQuarter.lastDate());
             }
         }
     }

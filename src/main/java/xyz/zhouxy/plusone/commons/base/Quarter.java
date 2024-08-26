@@ -14,45 +14,45 @@ import xyz.zhouxy.plusone.commons.util.Numbers;
  */
 public enum Quarter {
     /** 第一季度 */
-    Q1(1, "Q1"),
+    Q1(1),
     /** 第二季度 */
-    Q2(2, "Q2"),
+    Q2(2),
     /** 第三季度 */
-    Q3(3, "Q3"),
+    Q3(3),
     /** 第四季度 */
-    Q4(4, "Q4"),
+    Q4(4),
     ;
 
     /** 季度值 (1/2/3/4) */
     private final int value;
-    /** 季度名称 */
-    private final String displayName;
 
     /** 季度开始月份 */
-    private final int startMonthValue;
+    private final Month firstMonth;
     /** 季度开始日期 */
-    private final MonthDay startMonthDay;
+    private final MonthDay firstMonthDay;
 
     /** 季度结束月份 */
-    private final int lastMonthValue;
+    private final Month lastMonth;
     /** 季度结束日期 */
     private final MonthDay lastMonthDay;
 
+    /** 常量值 */
+    private static final Quarter[] ENUMS = Quarter.values();
+
     /**
      * @param value 季度值 (1/2/3/4)
-     * @param str   季度名称
      */
-    Quarter(int value, String str) {
+    Quarter(int value) {
         this.value = value;
-        this.displayName = str;
 
-        final int lastMonth = value * 3;
-        final int startMonth = lastMonth - 2;
+        final int lastMonthValue = value * 3;
+        final int firstMonthValue = lastMonthValue - 2;
 
-        this.startMonthValue = startMonth;
-        this.startMonthDay = MonthDay.of(startMonth, 1);
-        this.lastMonthValue = lastMonth;
-        this.lastMonthDay = MonthDay.of(lastMonth, (value == 1 || value == 4) ? 31 : 30);
+        this.firstMonth = Month.of(firstMonthValue);
+        this.firstMonthDay = MonthDay.of(this.firstMonth, 1);
+        this.lastMonth = Month.of(lastMonthValue);
+        // 季度的最后一个月不可能是 2 月
+        this.lastMonthDay = MonthDay.of(this.lastMonth, this.lastMonth.maxLength());
     }
 
     /**
@@ -97,40 +97,10 @@ public enum Quarter {
      * @throws IllegalArgumentException 如果季度值不在有效范围内（1到4），将抛出异常
      */
     public static Quarter of(int value) {
-        switch (value) {
-            case 1:
-                return Q1;
-            case 2:
-                return Q2;
-            case 3:
-                return Q3;
-            case 4:
-                return Q4;
-            default:
-                throw new EnumConstantNotPresentException(Quarter.class, Integer.toString(value));
+        if (value < 1 || value > 4) {
+            throw new IllegalArgumentException("Invalid value for Quarter: " + value);
         }
-    }
-
-    /**
-     * 根据给定的季度名称返回对应的季度
-     * 
-     * @param str 季度名称
-     * @return 对应的季度
-     * @throws IllegalArgumentException 如果季度名称不在有效范围内（Q1/Q2/Q3/Q4），将抛出异常
-     */
-    public static Quarter of(String str) {
-        switch (str) {
-            case "Q1":
-                return Q1;
-            case "Q2":
-                return Q2;
-            case "Q3":
-                return Q3;
-            case "Q4":
-                return Q4;
-            default:
-                throw new EnumConstantNotPresentException(Quarter.class, str);
-        }
+        return ENUMS[value - 1];
     }
 
     // Getters
@@ -139,32 +109,32 @@ public enum Quarter {
         return value;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public Month firstMonth() {
+        return firstMonth;
     }
 
-    public Month getStartMonth() {
-        return Month.of(startMonthValue);
+    public int firstMonthValue() {
+        return firstMonth.getValue();
     }
 
-    public int getStartMonthValue() {
-        return startMonthValue;
+    public Month lastMonth() {
+        return lastMonth;
     }
 
-    public Month getLastMonth() {
-        return Month.of(lastMonthValue);
+    public int lastMonthValue() {
+        return lastMonth.getValue();
     }
 
-    public int getLastMonthValue() {
-        return lastMonthValue;
+    public MonthDay firstMonthDay() {
+        return firstMonthDay;
     }
 
-    public MonthDay getStartMonthDay() {
-        return startMonthDay;
-    }
-
-    public MonthDay getLastMonthDay() {
+    public MonthDay lastMonthDay() {
         return lastMonthDay;
+    }
+
+    public int firstDayOfYear(boolean leapYear) {
+        return this.firstMonth.firstDayOfYear(leapYear);
     }
 
     // Getters end
