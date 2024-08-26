@@ -6,6 +6,10 @@ import cn.hutool.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.apache.commons.lang3.builder.DiffBuilder;
+import org.apache.commons.lang3.builder.DiffResult;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +41,7 @@ class ValidatableStringRecordTests {
                 Username.of("ZhouXY108"),
                 Username.of("code_108"),
                 Username.of("Luquan"),
-                Username.of("Code108")
-        );
+                Username.of("Code108"));
         log.info("{}", Collections.max(usernames));
         Function<Username, String> compare = o -> o.value().toLowerCase();
         log.info("{}", Collections.max(usernames, Comparator.comparing(compare)));
@@ -51,6 +54,9 @@ class ValidatableStringRecordTests {
         obj.setUsername(Username.of("ZhouXY108"));
         log.info("snapshot: {}", snapshot);
         log.info("obj: {}", obj);
+
+        DiffResult<User> userDiffResult = User.Diff.diff(snapshot, obj);
+        log.info("userDiffResult: {}", userDiffResult);
     }
 }
 
@@ -61,6 +67,19 @@ class User implements Serializable {
     private static final long serialVersionUID = 3549288698636099823L;
     Username username;
     Email email;
+
+    static class Diff {
+        public static DiffResult<User> diff(User left, User right) {
+            return DiffBuilder.<User>builder()
+                    .setLeft(left)
+                    .setRight(right)
+                    .setStyle(ToStringStyle.JSON_STYLE)
+                    .build()
+                    .append("username", left.username, right.username)
+                    .append("email", left.email, right.email)
+                    .build();
+        }
+    }
 }
 
 @ValueObject
