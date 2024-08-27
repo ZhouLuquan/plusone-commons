@@ -16,8 +16,6 @@
 
 package xyz.zhouxy.plusone.commons.exception;
 
-import xyz.zhouxy.plusone.commons.base.IWithCode;
-
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
@@ -26,33 +24,30 @@ import java.util.Objects;
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
-public abstract class BaseRuntimeException
-        extends RuntimeException
-        implements IWithCode<String> {
+public abstract class BaseRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = -6345888403567792664L;
 
     @Nonnull
-    private final String code;
+    private final String type;
 
-    protected BaseRuntimeException(String code, String msg) {
+    protected BaseRuntimeException(String type, String msg) {
         super(msg);
-        this.code = Objects.requireNonNull(code);
+        this.type = Objects.requireNonNull(type);
     }
 
-    protected BaseRuntimeException(String code, Throwable cause) {
+    protected BaseRuntimeException(String type, Throwable cause) {
         super(cause);
-        this.code = Objects.requireNonNull(code);
+        this.type = Objects.requireNonNull(type);
     }
 
-    protected BaseRuntimeException(String code, String msg, Throwable cause) {
+    protected BaseRuntimeException(String type, String msg, Throwable cause) {
         super(msg, cause);
-        this.code = Objects.requireNonNull(code);
+        this.type = Objects.requireNonNull(type);
     }
 
     @Nonnull
-    @Override
-    public final String getCode() {
-        return this.code;
+    public final String getType() {
+        return this.type;
     }
 }

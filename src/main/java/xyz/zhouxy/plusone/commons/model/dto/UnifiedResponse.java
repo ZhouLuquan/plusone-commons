@@ -24,8 +24,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
-import xyz.zhouxy.plusone.commons.base.IWithCode;
-
 /**
  * 统一结果，对返回给前端的数据进行封装。
  *
@@ -68,10 +66,6 @@ public abstract class UnifiedResponse {
 
     public static UnifiedResponse error(Object status, Throwable e) {
         return new ErrorResult(status, e);
-    }
-
-    public static <E extends Throwable & IWithCode<?>> UnifiedResponse error(E e) {
-        return new ErrorResult(e);
     }
 
     public static UnifiedResponse of(Object status, @Nullable String message) {
@@ -194,10 +188,6 @@ public abstract class UnifiedResponse {
 
         ErrorResult(Object status, Throwable e) {
             super(status, Objects.requireNonNull(e).getMessage());
-        }
-
-        <E extends Throwable & IWithCode<?>> ErrorResult(E e) {
-            super(e.getCode(), e.getMessage());
         }
     }
 
