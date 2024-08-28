@@ -203,7 +203,7 @@ class QuarterTests {
     @Test
     void testFirstDayOfYear() {
         int firstDayOfYear;
-        
+
         firstDayOfYear = Quarter.Q1.firstDayOfYear(true);
         assertEquals(1, firstDayOfYear);
         firstDayOfYear = Quarter.Q1.firstDayOfYear(false);

@@ -5,6 +5,7 @@ import java.time.MonthDay;
 
 import com.google.common.base.Preconditions;
 
+import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.util.Numbers;
 
 /**
@@ -45,6 +46,8 @@ public enum Quarter {
         this.firstMonth = this.lastMonth - 2;
     }
 
+    // StaticFactoryMethods
+
     /**
      * 根据给定的月份值返回对应的季度
      * 
@@ -52,6 +55,7 @@ public enum Quarter {
      * @return 对应的季度
      * @throws IllegalArgumentException 如果月份值不在有效范围内（1到12），将抛出异常
      */
+    @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(int monthValue) {
         Preconditions.checkArgument(Numbers.between(monthValue, 1, 13), "Invalid value for MonthOfYear: " + monthValue);
         return of(computeQuarterValueInternal(monthValue));
@@ -63,6 +67,7 @@ public enum Quarter {
      * @param month 月份
      * @return 对应的季度
      */
+    @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(Month month) {
         final int monthValue = month.getValue();
         return of(computeQuarterValueInternal(monthValue));
@@ -86,12 +91,28 @@ public enum Quarter {
      * @return 对应的季度
      * @throws IllegalArgumentException 如果季度值不在有效范围内（1到4），将抛出异常
      */
+    @StaticFactoryMethod(Quarter.class)
     public static Quarter of(int value) {
         if (value < 1 || value > 4) {
             throw new IllegalArgumentException("Invalid value for Quarter: " + value);
         }
         return ENUMS[value - 1];
     }
+
+    // StaticFactoryMethods end
+
+    // computs
+
+    public Quarter plus(long quarters) { // TODO 单元测试
+        final int amount = (int) ((quarters % 4) + 4);
+        return ENUMS[(ordinal() + amount) % 4];
+    }
+
+    public Quarter minus(long quarters) { // TODO 单元测试
+        return plus(-(quarters % 4));
+    }
+
+    // computs end
 
     // Getters
 
