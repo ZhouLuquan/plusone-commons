@@ -1,9 +1,9 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import org.junit.jupiter.api.Test;
-import xyz.zhouxy.plusone.commons.exception.BaseException;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,33 +22,35 @@ class PreconditionsExtTests {
             Object[] array = null;
             PreconditionsExt.checkAllNotNull(array);
         });
+        Object obj = new Object();
+        assertNotNull(obj);
         assertThrows(NullPointerException.class,
-                () -> PreconditionsExt.checkAllNotNull(new Object[]{new Object(), null}));
+                () -> PreconditionsExt.checkAllNotNull(new Object[]{obj, null}));
         assertThrows(NullPointerException.class,
-                () -> PreconditionsExt.checkAllNotNull(new Object(), null));
+                () -> PreconditionsExt.checkAllNotNull(obj, null));
+        List<Object> list = Arrays.asList(obj, null);
+        assertNotNull(list);
         assertThrows(NullPointerException.class,
-                () -> PreconditionsExt.checkAllNotNull(Arrays.asList(new Object(), null)));
+                () -> PreconditionsExt.checkAllNotNull(list));
 
-        PreconditionsExt.checkAllNotNull(new Object[]{new Object(), "Test"});
-        PreconditionsExt.checkAllNotNull(new Object(), "Test");
-        PreconditionsExt.checkAllNotNull(Arrays.asList(new Object(), "Test"));
+        PreconditionsExt.checkAllNotNull(new Object[]{obj, "Test"});
+        PreconditionsExt.checkAllNotNull(obj, "Test");
+        PreconditionsExt.checkAllNotNull(Arrays.asList(obj, "Test"));
     }
 }
 
-class TestException extends BaseException {
+class TestException extends Exception {
     private static final long serialVersionUID = -8808661764734834820L;
 
-    private static final String ERR_CODE = "TEST";
-
     protected TestException(String msg) {
-        super(ERR_CODE, msg);
+        super(msg);
     }
 
     protected TestException(Throwable cause) {
-        super(ERR_CODE, cause);
+        super(cause);
     }
 
     protected TestException(String msg, Throwable cause) {
-        super(ERR_CODE, msg, cause);
+        super(msg, cause);
     }
 }

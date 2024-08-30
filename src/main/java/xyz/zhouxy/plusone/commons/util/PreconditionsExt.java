@@ -19,6 +19,8 @@ package xyz.zhouxy.plusone.commons.util;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -30,7 +32,7 @@ import com.google.common.base.Preconditions;
  */
 public class PreconditionsExt {
 
-    public static <E extends Throwable> void check(boolean condition, Supplier<E> e) throws E {
+    public static <E extends Throwable> void check(boolean condition, @Nonnull Supplier<E> e) throws E {
         if (!condition) {
             throw e.get();
         }
