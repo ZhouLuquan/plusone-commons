@@ -1,6 +1,8 @@
 package xyz.zhouxy.plusone.commons.exception;
 
 public class NoAvailableMacFoundException extends Exception {
+    private static final long serialVersionUID = 152827098461071551L;
+
     public NoAvailableMacFoundException() {
         super();
     }
