@@ -5,14 +5,14 @@ import java.io.ObjectStreamClass;
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.zhouxy.plusone.commons.exception.BaseRuntimeException;
+import xyz.zhouxy.plusone.commons.exception.NoAvailableMacFoundException;
 
 @Slf4j
 class SerialTests {
 
     @Test
     void testSerialVersionUID() {
-        long uid = getSerialVersionUID(BaseRuntimeException.class);
+        long uid = getSerialVersionUID(NoAvailableMacFoundException.class);
         log.info("\n    private static final long serialVersionUID = {}L;", uid);
     }
 
