@@ -161,7 +161,7 @@ public class IdWorker {
      * use lowest 10 bit of available MAC as workerId
      * @return workerId
      * @throws SocketException 
-     * @throws Exception when there is no available mac found
+     * @throws NoAvailableMacFoundException when there is no available mac found
      */
     private static long generateWorkerIdBaseOnMac() throws SocketException, NoAvailableMacFoundException {
         Enumeration<NetworkInterface> all = NetworkInterface.getNetworkInterfaces();
