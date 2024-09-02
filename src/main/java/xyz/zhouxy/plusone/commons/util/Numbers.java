@@ -18,6 +18,12 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.math.BigDecimal;
 
+import javax.annotation.Nonnull;
+
+import com.google.common.base.Preconditions;
+
+import xyz.zhouxy.plusone.commons.math.IntervalType;
+
 /**
  * Numbers
  *
@@ -77,28 +83,93 @@ public class Numbers {
 
     // between
 
-    public static boolean between(short value, short min, short max) {
-        return value >= min && value < max;
+    public static boolean between(int value, int min, int max) {
+        return between(value, min, max, IntervalType.CLOSED_OPEN);
     }
 
-    public static boolean between(int value, int min, int max) {
-        return value >= min && value < max;
+    public static boolean between(int value, int min, int max, IntervalType intervalType) {
+        final IntervalType intervalTypeToUse = intervalType != null
+                ? intervalType
+                : IntervalType.CLOSED_OPEN;
+        switch (intervalTypeToUse) {
+            case OPEN:
+                return min < value && value < max;
+            case CLOSED:
+                return min <= value && value <= max;
+            case OPEN_CLOSED:
+                return min < value && value <= max;
+            case CLOSED_OPEN:
+            default:
+                return min <= value && value < max;
+        }
     }
 
     public static boolean between(long value, long min, long max) {
-        return value >= min && value < max;
+        return between(value, min, max, IntervalType.CLOSED_OPEN);
     }
 
-    public static boolean between(float value, float min, float max) {
-        return value >= min && value < max;
+    public static boolean between(long value, long min, long max, IntervalType intervalType) {
+        final IntervalType intervalTypeToUse = intervalType != null
+                ? intervalType
+                : IntervalType.CLOSED_OPEN;
+        switch (intervalTypeToUse) {
+            case OPEN:
+                return min < value && value < max;
+            case CLOSED:
+                return min <= value && value <= max;
+            case OPEN_CLOSED:
+                return min < value && value <= max;
+            case CLOSED_OPEN:
+            default:
+                return min <= value && value < max;
+        }
     }
 
     public static boolean between(double value, double min, double max) {
-        return value >= min && value < max;
+        return between(value, min, max, IntervalType.CLOSED_OPEN);
     }
 
-    public static boolean between(BigDecimal value, BigDecimal min, BigDecimal max) {
-        return BigDecimals.ge(value, min) && BigDecimals.lt(value, max);
+    public static boolean between(double value, double min, double max, IntervalType intervalType) {
+        final IntervalType intervalTypeToUse = intervalType != null
+                ? intervalType
+                : IntervalType.CLOSED_OPEN;
+        switch (intervalTypeToUse) {
+            case OPEN:
+                return min < value && value < max;
+            case CLOSED:
+                return min <= value && value <= max;
+            case OPEN_CLOSED:
+                return min < value && value <= max;
+            case CLOSED_OPEN:
+            default:
+                return min <= value && value < max;
+        }
+    }
+
+    public static <T extends Comparable<T>> boolean between(@Nonnull T value, T min, T max) {
+        return between(value, min, max, IntervalType.CLOSED_OPEN);
+    }
+
+    public static <T extends Comparable<T>> boolean between(@Nonnull T value, T min, T max, IntervalType intervalType) {
+        Preconditions.checkArgument(value != null, "The value to valid connot be null.");
+        IntervalType intervalTypeToUse = intervalType != null
+                ? intervalType
+                : IntervalType.CLOSED_OPEN;
+        switch (intervalTypeToUse) {
+            case OPEN:
+                return (min == null || min.compareTo(value) < 0)
+                        && (max == null || value.compareTo(max) < 0);
+            case CLOSED:
+                return (min == null || min.compareTo(value) <= 0)
+                        && (max == null || value.compareTo(max) <= 0);
+            case OPEN_CLOSED:
+                return (min == null || min.compareTo(value) < 0)
+                        && (max == null || value.compareTo(max) <= 0);
+            case CLOSED_OPEN:
+            default:
+                return (min == null || min.compareTo(value) <= 0)
+                        && (max == null || value.compareTo(max) < 0);
+        }
     }
 
     private Numbers() {
