@@ -31,20 +31,23 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     /** 季度结束日期 */
     private final LocalDate lastDate;
 
-    private YearQuarter(int year, int quarter) {
-        Preconditions.checkNotNull(quarter, "Quarter can not be null.");
-        this.year = year;
-        this.quarter = Quarter.of(quarter);
-        this.firstDate = this.quarter.firstMonthDay().atYear(year);
-        this.lastDate = this.quarter.lastMonthDay().atYear(year);
-    }
-
     private YearQuarter(int year, @Nonnull Quarter quarter) {
         Preconditions.checkNotNull(quarter, "Quarter can not be null.");
         this.year = year;
         this.quarter = quarter;
         this.firstDate = quarter.firstMonthDay().atYear(year);
         this.lastDate = quarter.lastMonthDay().atYear(year);
+    }
+
+    /**
+     * 根据指定年份与季度，创建 {@link YearQuarter} 实例
+     * 
+     * @param year 年份
+     * @param quarter 季度
+     * @return {@link YearQuarter} 实例
+     */
+    public static YearQuarter of(int year, int quarter) {
+        return of(year, Quarter.of(quarter));
     }
 
     /**
@@ -65,7 +68,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @return {@link YearQuarter} 实例
      */
     public static YearQuarter of(@Nonnull LocalDate date) {
-        return new YearQuarter(date.getYear(), Quarter.fromMonth(date.getMonth()));
+        return of(date.getYear(), Quarter.fromMonth(date.getMonth()));
     }
 
     /**
@@ -202,7 +205,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     public int compareTo(YearQuarter other) {
         int cmp = (this.year - other.year);
         if (cmp == 0) {
-            cmp = (this.quarter.compareTo(other.quarter));
+            cmp = this.quarter.compareTo(other.quarter);
         }
         return cmp;
     }
