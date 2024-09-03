@@ -11,6 +11,7 @@ import xyz.zhouxy.plusone.commons.util.Enumeration;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@SuppressWarnings("deprecation")
 class EnumerationTests {
 
     private static final Logger log = LoggerFactory.getLogger(EnumerationTests.class);
@@ -28,6 +29,7 @@ class EnumerationTests {
     }
 }
 
+@SuppressWarnings("deprecation")
 final class EntityStatus extends Enumeration<EntityStatus> {
 
     private EntityStatus(int value, String name) {
@@ -49,6 +51,7 @@ final class EntityStatus extends Enumeration<EntityStatus> {
     }
 }
 
+@SuppressWarnings("deprecation")
 final class Result extends Enumeration<Result> {
     private Result(int id, String name) {
         super(id, name);
