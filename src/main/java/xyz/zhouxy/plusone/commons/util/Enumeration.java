@@ -32,8 +32,15 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
 /**
  * 枚举类
+ *
+ * 参考 <a href="https://lostechies.com/jimmybogard/2008/08/12/enumeration-classes/">Enumeration classes</a>
+ *
+ * @deprecated 设计 Enumeration 的灵感来自于 .net 社区，因为 C# 的枚举不带行为。
+ * 但 Java 的枚举可以带行为，故大多数情况下不需要这种设计。
  */
-public abstract class Enumeration<T extends Enumeration<T>> implements Comparable<T> {
+@Deprecated
+public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移除
+        implements Comparable<T> {
     protected final int id;
     protected final String name;
 
