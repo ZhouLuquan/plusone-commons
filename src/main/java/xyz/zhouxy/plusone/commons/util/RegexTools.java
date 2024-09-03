@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +50,8 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern, final boolean cachePattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
-        return cachePattern ? getAndCachePatternInternal(pattern) : getPatternInternal(pattern);
+        Preconditions.checkNotNull(pattern);
+        return cachePattern ? cacheAndGetPatternInternal(pattern) : getPatternInternal(pattern);
     }
 
     /**
@@ -61,7 +61,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(pattern);
         return getPatternInternal(pattern);
     }
 
@@ -73,10 +73,10 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns, final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         return cachePattern
-                ? getAndCachePatternsInternal(patterns)
+                ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
     }
 
@@ -87,8 +87,8 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         return getPatternsInternal(patterns);
     }
 
@@ -116,7 +116,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final Pattern pattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(pattern);
         return matchesInternal(input, pattern);
     }
 
@@ -128,8 +128,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final Pattern[] patterns) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         return matchesOneInternal(input, patterns);
     }
 
@@ -141,8 +141,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final Pattern[] patterns) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         return matchesAllInternal(input, patterns);
     }
 
@@ -156,9 +156,9 @@ public final class RegexTools {
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(pattern);
         Pattern p = cachePattern
-                ? getAndCachePatternInternal(pattern)
+                ? cacheAndGetPatternInternal(pattern)
                 : getPatternInternal(pattern);
         return matchesInternal(input, p);
     }
@@ -171,7 +171,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(pattern);
         return matchesInternal(input, getPatternInternal(pattern));
     }
 
@@ -185,10 +185,10 @@ public final class RegexTools {
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = cachePattern
-                ? getAndCachePatternsInternal(patterns)
+                ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
         return matchesOneInternal(input, patternSet);
     }
@@ -201,8 +201,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesOneInternal(input, patternSet);
     }
@@ -217,10 +217,10 @@ public final class RegexTools {
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = cachePattern
-                ? getAndCachePatternsInternal(patterns)
+                ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
         return matchesAllInternal(input, patternSet);
     }
@@ -233,8 +233,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns) {
-        Preconditions.checkNotNull(patterns, "Patterns can not be null.");
-        Preconditions.checkArgument(allNotNull(patterns), "The pattern can not be null.");
+        Preconditions.checkNotNull(patterns);
+        Preconditions.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesAllInternal(input, patternSet);
     }
@@ -247,8 +247,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final Pattern pattern) {
-        Preconditions.checkNotNull(input, "The input can not be null.");
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(input);
+        Preconditions.checkNotNull(pattern);
         return pattern.matcher(input);
     }
 
@@ -261,10 +261,10 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern, boolean cachePattern) {
-        Preconditions.checkNotNull(input, "The input can not be null.");
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(input);
+        Preconditions.checkNotNull(pattern);
         final Pattern p = cachePattern
-                ? getAndCachePatternInternal(pattern)
+                ? cacheAndGetPatternInternal(pattern)
                 : getPatternInternal(pattern);
         return p.matcher(input);
     }
@@ -277,8 +277,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern) {
-        Preconditions.checkNotNull(input, "The input can not be null.");
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
+        Preconditions.checkNotNull(input);
+        Preconditions.checkNotNull(pattern);
         return getPatternInternal(pattern).matcher(input);
     }
 
@@ -292,7 +292,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     @Nonnull
-    private static Pattern getAndCachePatternInternal(@Nonnull final String pattern) {
+    private static Pattern cacheAndGetPatternInternal(@Nonnull final String pattern) {
         if (PATTERN_CACHE.size() < MAX_CACHE_SIZE) {
             return PATTERN_CACHE.computeIfAbsent(pattern, Pattern::compile);
         }
@@ -325,9 +325,9 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     @Nonnull
-    private static Pattern[] getAndCachePatternsInternal(@Nonnull final String[] patterns) {
+    private static Pattern[] cacheAndGetPatternsInternal(@Nonnull final String[] patterns) {
         return Arrays.stream(patterns)
-                .map(RegexTools::getAndCachePatternInternal)
+                .map(RegexTools::cacheAndGetPatternInternal)
                 .toArray(Pattern[]::new);
     }
 
@@ -356,27 +356,15 @@ public final class RegexTools {
     }
 
     private static boolean matchesOneInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
-        if (input == null) {
-            return false;
-        }
-        for (Pattern pattern : patterns) {
-            if (matchesInternal(input, Objects.requireNonNull(pattern))) {
-                return true;
-            }
-        }
-        return false;
+        return input != null
+                && Arrays.stream(patterns)
+                        .anyMatch(pattern -> pattern.matcher(input).matches());
     }
 
     private static boolean matchesAllInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
-        if (input == null) {
-            return false;
-        }
-        for (Pattern pattern : patterns) {
-            if (!matchesInternal(input, Objects.requireNonNull(pattern))) {
-                return false;
-            }
-        }
-        return true;
+        return input != null
+                && Arrays.stream(patterns)
+                        .allMatch(pattern -> pattern.matcher(input).matches());
     }
 
     private static <T> boolean allNotNull(T[] array) {
