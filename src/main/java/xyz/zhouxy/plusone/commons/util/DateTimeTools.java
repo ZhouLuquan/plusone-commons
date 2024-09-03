@@ -13,14 +13,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.annotation.Nonnull;
 
-import com.google.common.base.Preconditions;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
-import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
 import xyz.zhouxy.plusone.commons.time.Quarter;
 import xyz.zhouxy.plusone.commons.time.YearQuarter;
-import xyz.zhouxy.plusone.commons.collection.MapWrapper;
 
 /**
  * 日期时间工具类
@@ -32,11 +32,14 @@ public class DateTimeTools {
     /**
      * 缓存时间格式化器
      */
-    private static final MapWrapper<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = MapWrapper
-            .<String, DateTimeFormatter>wrap(new SafeConcurrentHashMap<>())
-            .keyChecker(pattern -> Preconditions.checkArgument(StringUtils.isNotBlank(pattern), "The pattern could not be blank."))
-            .valueChecker(formatter -> Preconditions.checkNotNull(formatter, "The formatter could not be null."))
-            .build();
+    private static final LoadingCache<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = CacheBuilder.newBuilder()
+            .maximumSize(20)
+            .build(new CacheLoader<String, DateTimeFormatter>() {
+                @Override
+                public DateTimeFormatter load(@Nonnull String pattern) throws Exception {
+                    return DateTimeFormatter.ofPattern(pattern);
+                }
+            });
 
     /**
      * 获取时间格式化器
@@ -45,7 +48,7 @@ public class DateTimeTools {
      * @return 时间格式化器
      */
     public static DateTimeFormatter getDateTimeFormatter(String pattern) {
-        return DATE_TIME_FORMATTER_CACHE.computeIfAbsent(pattern, DateTimeFormatter::ofPattern);
+        return DATE_TIME_FORMATTER_CACHE.getUnchecked(pattern);
     }
 
     /**
