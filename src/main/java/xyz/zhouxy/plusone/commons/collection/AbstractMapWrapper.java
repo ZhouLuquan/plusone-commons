@@ -123,15 +123,31 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     }
 
     public final V putIfAbsent(K key, V value) {
+        if (this.keyChecker != null) {
+            this.keyChecker.accept(key);
+        }
+        if (this.valueChecker != null) {
+            this.valueChecker.accept(value);
+        }
         return this.map.putIfAbsent(key, value);
     }
 
     public final V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
+        if (this.keyChecker != null) {
+            this.keyChecker.accept(key);
+        }
+        Function<? super K, ? extends V> func = (K k) -> {
+            V value = mappingFunction.apply(k);
+            if (this.valueChecker != null) {
+                this.valueChecker.accept(value);
+            }
+            return value;
+        };
         if (this.map instanceof ConcurrentHashMap) {
             return ConcurrentHashMapTools.computeIfAbsent(
-                (ConcurrentHashMap<K, V>) this.map, key, mappingFunction);
+                    (ConcurrentHashMap<K, V>) this.map, key, func);
         } else {
-            return this.map.computeIfAbsent(key, mappingFunction);
+            return this.map.computeIfAbsent(key, func);
         }
     }
 
@@ -139,7 +155,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
         return this.map;
     }
 
-    public final Map<K, V> exportUnmodifiableMapMap() {
+    public final Map<K, V> exportUnmodifiableMap() {
         return Collections.unmodifiableMap(this.map);
     }
 
