@@ -180,7 +180,7 @@ public class ArrayTools {
         int i = 0;
         for (float[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
-            i = arr.length;
+            i += arr.length;
         }
         return result;
     }
@@ -200,7 +200,7 @@ public class ArrayTools {
         int i = 0;
         for (double[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
-            i = arr.length;
+            i += arr.length;
         }
         return result;
     }
@@ -220,7 +220,7 @@ public class ArrayTools {
         int i = 0;
         for (byte[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
-            i = arr.length;
+            i += arr.length;
         }
         return result;
     }
@@ -240,7 +240,7 @@ public class ArrayTools {
         int i = 0;
         for (long[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
-            i = arr.length;
+            i += arr.length;
         }
         return result;
     }
@@ -260,7 +260,7 @@ public class ArrayTools {
         int i = 0;
         for (int[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
-            i = arr.length;
+            i += arr.length;
         }
         return result;
     }
