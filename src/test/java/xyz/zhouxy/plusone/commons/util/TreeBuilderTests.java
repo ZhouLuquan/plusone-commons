@@ -1,7 +1,9 @@
 package xyz.zhouxy.plusone.commons.util;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.ToString;
 
 class TreeBuilderTests {
@@ -37,11 +40,15 @@ class TreeBuilderTests {
                 /**//**/MenuItem.of("C1", "C1002", "三级菜单C1002", "/c/c1/c1002", 2),
                 /**/MenuItem.of("C", "C2", "二级菜单C2", "/c/c2", 1));
 
-        List<Menu> menuTreeSortedByOrderNum = treeBuilder.buildTree(menus);
+        List<Menu> clonedMenus;
+
+        clonedMenus = menus.stream().map(m -> ObjectUtil.clone(m)).collect(Collectors.toList());
+        List<Menu> menuTreeSortedByOrderNum = treeBuilder.buildTree(clonedMenus);
         log.info("menuTreeSortedByOrderNum: {}", new Gson().toJson(menuTreeSortedByOrderNum));
 
+        clonedMenus = menus.stream().map(m -> ObjectUtil.clone(m)).collect(Collectors.toList());
         List<Menu> menuTreeSortedByMenuCode = treeBuilder.buildTree(
-                menus,
+                clonedMenus,
                 (a, b) -> a.getMenuCode().compareTo(b.getMenuCode())
         );
         log.info("menuTreeSortedByMenuCode: {}", new Gson().toJson(menuTreeSortedByMenuCode));
@@ -49,7 +56,7 @@ class TreeBuilderTests {
 }
 
 @ToString
-abstract class Menu {
+abstract class Menu implements Serializable {
     protected final String parentMenuCode;
     protected final String menuCode;
     protected final String title;
@@ -77,6 +84,8 @@ abstract class Menu {
     public int getOrderNum() {
         return orderNum;
     }
+
+    private static final long serialVersionUID = 20240917181424L;
 }
 
 @ToString(callSuper = true)
@@ -100,6 +109,8 @@ class MenuItem extends Menu {
     public String getUrl() {
         return url;
     }
+
+    private static final long serialVersionUID = 20240917181910L;
 }
 
 @ToString(callSuper = true)
@@ -135,4 +146,6 @@ class MenuList extends Menu {
         }
         this.children.add(child);
     }
+
+    private static final long serialVersionUID = 20240917181917L;
 }

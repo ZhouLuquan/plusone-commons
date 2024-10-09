@@ -24,8 +24,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.base.Preconditions;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
@@ -45,7 +43,7 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
     protected final String name;
 
     protected Enumeration(final int id, final String name) {
-        Preconditions.checkArgument(StringUtils.isNotBlank(name), "Name of enumeration must has text.");
+        Preconditions.checkArgument(StringTools.isNotBlank(name), "Name of enumeration must has text.");
         this.id = id;
         this.name = name;
     }

@@ -17,8 +17,7 @@
 
 package xyz.zhouxy.plusone.commons.base;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
+import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
  * JRE version
@@ -35,21 +34,28 @@ public class JRE {
 
     private static int getJre() {
         String version = System.getProperty("java.version");
-        boolean isBlank = StringUtils.isBlank(version);
-        if (!isBlank && version.startsWith("1.8")) {
+        boolean isNotBlank = StringTools.isNotBlank(version);
+        if (isNotBlank && version.startsWith("1.8")) {
             return JAVA_8;
         }
         // if JRE version is 9 or above, we can get version from
         // java.lang.Runtime.version()
         try {
-            Object javaRunTimeVersion = MethodUtils.invokeMethod(Runtime.getRuntime(), "version");
-            return (int) MethodUtils.invokeMethod(javaRunTimeVersion, "major");
+            return getMajorVersion(version);
         } catch (Exception e) {
-            // Can't determine current JRE version (maybe java.version is null),
             // assuming that JRE version is 8.
         }
         // default java 8
         return JAVA_8;
+    }
+
+    private static int getMajorVersion(String version) {
+        if (version.startsWith("1.")) {
+            return Integer.parseInt(version.substring(2, 3));
+        } else {
+            int dotIndex = version.indexOf(".");
+            return (dotIndex != -1) ? Integer.parseInt(version.substring(0, dotIndex)) : Integer.parseInt(version);
+        }
     }
 
     private JRE() {

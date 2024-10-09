@@ -23,12 +23,11 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 import xyz.zhouxy.plusone.commons.annotation.Virtual;
+import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
  * 分页排序查询参数
@@ -57,7 +56,7 @@ public class PagingAndSortingQueryParams {
         Preconditions.checkArgument(sortableProperties != null && !sortableProperties.isEmpty(),
                 "Sortable properties can not be empty.");
         sortableProperties.forEach((k, v) ->
-                Preconditions.checkArgument(StringUtils.isNotBlank(k) && StringUtils.isNotBlank(v),
+                Preconditions.checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
                 "Property name must not be blank."));
         this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
     }
