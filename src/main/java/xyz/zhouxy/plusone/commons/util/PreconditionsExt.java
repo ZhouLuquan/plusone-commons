@@ -32,7 +32,7 @@ import com.google.common.base.Preconditions;
  */
 public class PreconditionsExt {
 
-    public static <E extends Throwable> void check(boolean condition, @Nonnull Supplier<E> e) throws E {
+    public static <E extends Throwable> void checkCondition(boolean condition, @Nonnull Supplier<E> e) throws E {
         if (!condition) {
             throw e.get();
         }

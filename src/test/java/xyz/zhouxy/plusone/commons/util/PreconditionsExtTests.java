@@ -2,17 +2,20 @@ package xyz.zhouxy.plusone.commons.util;
 
 import org.junit.jupiter.api.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class PreconditionsExtTests {
 
     @Test
     void testCheck() {
         assertThrows(TestException.class, () -> {
-            PreconditionsExt.check(false, () -> new TestException("Test error message."));
+            PreconditionsExt.checkCondition(false, () -> new TestException("Test error message."));
         });
     }
 
@@ -25,7 +28,7 @@ class PreconditionsExtTests {
         Object obj = new Object();
         assertNotNull(obj);
         assertThrows(NullPointerException.class,
-                () -> PreconditionsExt.checkAllNotNull(new Object[]{obj, null}));
+                () -> PreconditionsExt.checkAllNotNull(new Object[] { obj, null }));
         assertThrows(NullPointerException.class,
                 () -> PreconditionsExt.checkAllNotNull(obj, null));
         List<Object> list = Arrays.asList(obj, null);
@@ -33,7 +36,7 @@ class PreconditionsExtTests {
         assertThrows(NullPointerException.class,
                 () -> PreconditionsExt.checkAllNotNull(list));
 
-        PreconditionsExt.checkAllNotNull(new Object[]{obj, "Test"});
+        PreconditionsExt.checkAllNotNull(new Object[] { obj, "Test" });
         PreconditionsExt.checkAllNotNull(obj, "Test");
         PreconditionsExt.checkAllNotNull(Arrays.asList(obj, "Test"));
     }
