@@ -21,11 +21,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.annotations.Beta;
-
-@Beta
 public class ArrayTools {
 
     // isNullOrEmpty
@@ -161,6 +159,33 @@ public class ArrayTools {
      */
     public static boolean isNotEmpty(@Nullable int[] arr) {
         return arr != null && arr.length > 0;
+    }
+
+    // isAllElementsNotNull
+
+    /**
+     * 判断数组的所有元素是否都不为空：
+     * <ol>
+     * <li><b>数组为 {@code null}</b>：抛出异常，因为传入 {@code null} 通常被视为编程错误。
+     * <li><b>数组不为 {@code null} 但长度为 0</b>：在这种情况下，通常认为数组中的所有元素都不为 {@code null}，因此返回 {@code null}。
+     * <li><b>数组中有至少一个元素为 {@code null}</b>：返回 {@code false}。
+     * <li><b>数组中所有元素都不为 {@code null}</b>：返回 {@code true}。
+     * </ol>
+     * 
+     * @param <T> 数组元素的类型
+     * @param arr 待检查的数组。不为 {@code null}
+     * @return 如果数组的所有元素都不为 {@code null}，则返回  {@code true}；否则返回  {@code false}
+     * 
+     * @throws IllegalArgumentException 当参数为空时抛出
+     */
+    public static <T> boolean isAllElementsNotNull(@Nonnull final T[] arr) {
+        AssertTools.checkParameter(arr != null, "The array cannot be null.");
+        for (T element : arr) {
+            if (element == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // concat
