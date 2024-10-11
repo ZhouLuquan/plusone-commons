@@ -18,11 +18,13 @@ package xyz.zhouxy.plusone.commons.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Supplier;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.common.base.Preconditions;
+import javax.annotation.Nonnull;
 
-import xyz.zhouxy.plusone.commons.util.RegexTools;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 带校验的字符串值对象
@@ -32,12 +34,27 @@ import xyz.zhouxy.plusone.commons.util.RegexTools;
  */
 public abstract class ValidatableStringRecord
         implements Comparable<ValidatableStringRecord>, Serializable {
+
+    @Nonnull
     private final String value;
 
-    protected ValidatableStringRecord(String value, Pattern pattern) {
-        Preconditions.checkNotNull(pattern, "The pattern must not be null.");
-        Preconditions.checkNotNull(value, "The value must not be null.");
-        Preconditions.checkArgument(RegexTools.matches(value, pattern));
+    private final transient Matcher matcher;
+
+    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern) {
+        this(value, pattern, "Invalid value");
+    }
+
+    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern,
+            @Nonnull Supplier<String> errorMessageSupplier) {
+        this(value, pattern, errorMessageSupplier.get());
+    }
+
+    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern,
+            @Nonnull String errorMessage) {
+        AssertTools.checkArgumentNotNull(value, "The value cannot be null.");
+        AssertTools.checkArgumentNotNull(pattern, "The pattern cannot be null.");
+        this.matcher = pattern.matcher(value);
+        AssertTools.checkArgument(this.matcher.matches(), errorMessage);
         this.value = value;
     }
 
@@ -75,6 +92,10 @@ public abstract class ValidatableStringRecord
     @Override
     public String toString() {
         return this.value();
+    }
+
+    protected final Matcher getMatcher() {
+        return matcher;
     }
 
     private static final long serialVersionUID = -8365241662025469652L;
