@@ -3,6 +3,7 @@ package xyz.zhouxy.plusone.commons.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
@@ -37,6 +38,53 @@ public class BigDecimals {
 
     public static BigDecimal of(final String val) {
         return (StringTools.isNotBlank(val)) ? new BigDecimal(val) : ZERO;
+    }
+
+    /**
+     * 默认除法运算精度
+     */
+    private static final int DEFAULT_STR_SCALE = 2;
+
+    private static final RoundingMode DEFAULT_STR_ROUNDING_MODE = RoundingMode.HALF_UP;
+
+    /**
+     * 使用四舍五入（{@link RoundingMode#HALF_UP}），保留两位小数，转为字符串。
+     */
+    public static String toPlainString(@Nonnull BigDecimal value) {
+        AssertTools.checkParameterNotNull("value", value);
+        return toPlainStringInternal(value, DEFAULT_STR_SCALE, DEFAULT_STR_ROUNDING_MODE);
+    }
+
+    /**
+     * 使用四舍五入（{@link RoundingMode#HALF_UP}），保留指定位的小数，转为字符串。
+     */
+    public static String toPlainString(@Nonnull BigDecimal value, int scale) {
+        AssertTools.checkParameterNotNull("value", value);
+        return toPlainStringInternal(value, scale, DEFAULT_STR_ROUNDING_MODE);
+    }
+
+    /**
+     * 使用指定 {@link RoundingMode}，保留两位小数，转为字符串。
+     */
+    public static String toPlainString(@Nonnull BigDecimal value, @Nonnull RoundingMode roundingMode) {
+        AssertTools.checkParameterNotNull("value", value);
+        AssertTools.checkParameterNotNull("rounding mode", roundingMode);
+        return toPlainStringInternal(value, DEFAULT_STR_SCALE, roundingMode);
+    }
+
+    /**
+     * 使用指定 {@link RoundingMode}，保留指定位的小数，转为字符串。
+     */
+    public static String toPlainString(@Nonnull BigDecimal value,
+            int scale, @Nonnull RoundingMode roundingMode) {
+        AssertTools.checkParameterNotNull("value", value);
+        AssertTools.checkParameterNotNull("rounding mode", roundingMode);
+        return toPlainStringInternal(value, scale, roundingMode);
+    }
+
+    private static String toPlainStringInternal(@Nonnull BigDecimal value,
+            int scale, @Nonnull RoundingMode roundingMode) {
+        return value.setScale(scale, roundingMode).toPlainString();
     }
 
     /**
