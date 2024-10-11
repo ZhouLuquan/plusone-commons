@@ -179,7 +179,7 @@ public class ArrayTools {
      * @throws IllegalArgumentException 当参数为空时抛出
      */
     public static <T> boolean isAllElementsNotNull(@Nonnull final T[] arr) {
-        AssertTools.checkParameter(arr != null, "The array cannot be null.");
+        AssertTools.checkArgument(arr != null, "The array cannot be null.");
         for (T element : arr) {
             if (element == null) {
                 return false;

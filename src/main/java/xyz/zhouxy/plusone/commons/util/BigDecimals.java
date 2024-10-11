@@ -51,7 +51,7 @@ public class BigDecimals {
      * 使用四舍五入（{@link RoundingMode#HALF_UP}），保留两位小数，转为字符串。
      */
     public static String toPlainString(@Nonnull BigDecimal value) {
-        AssertTools.checkParameterNotNull("value", value);
+        AssertTools.checkArgumentNotNull(value, "The argument \"value\" cannot be null.");
         return toPlainStringInternal(value, DEFAULT_STR_SCALE, DEFAULT_STR_ROUNDING_MODE);
     }
 
@@ -59,7 +59,7 @@ public class BigDecimals {
      * 使用四舍五入（{@link RoundingMode#HALF_UP}），保留指定位的小数，转为字符串。
      */
     public static String toPlainString(@Nonnull BigDecimal value, int scale) {
-        AssertTools.checkParameterNotNull("value", value);
+        AssertTools.checkArgumentNotNull(value, "The argument \"value\" cannot be null.");
         return toPlainStringInternal(value, scale, DEFAULT_STR_ROUNDING_MODE);
     }
 
@@ -67,8 +67,8 @@ public class BigDecimals {
      * 使用指定 {@link RoundingMode}，保留两位小数，转为字符串。
      */
     public static String toPlainString(@Nonnull BigDecimal value, @Nonnull RoundingMode roundingMode) {
-        AssertTools.checkParameterNotNull("value", value);
-        AssertTools.checkParameterNotNull("rounding mode", roundingMode);
+        AssertTools.checkArgumentNotNull(value, "The argument \"value\" cannot be null.");
+        AssertTools.checkArgumentNotNull(roundingMode, "The argument \"rounding mode\" cannot be null.");
         return toPlainStringInternal(value, DEFAULT_STR_SCALE, roundingMode);
     }
 
@@ -77,8 +77,8 @@ public class BigDecimals {
      */
     public static String toPlainString(@Nonnull BigDecimal value,
             int scale, @Nonnull RoundingMode roundingMode) {
-        AssertTools.checkParameterNotNull("value", value);
-        AssertTools.checkParameterNotNull("rounding mode", roundingMode);
+        AssertTools.checkArgumentNotNull(value, "The argument \"value\" cannot be null.");
+        AssertTools.checkArgumentNotNull(roundingMode, "The argument \"rounding mode\" cannot be null.");
         return toPlainStringInternal(value, scale, roundingMode);
     }
 

@@ -29,25 +29,32 @@ import javax.annotation.Nonnull;
  */
 public class AssertTools {
 
-    public static <T> void checkParameterNotNull(String paramName, T value) {
-        checkCondition(value != null,
-                () -> new IllegalArgumentException(String.format("The parameter \"%s\" cannot be null.", paramName)));
+    public static <T> void checkArgumentNotNull(T obj) {
+        checkCondition(obj != null, () -> new IllegalArgumentException("The argument cannot be null."));
     }
 
-    public static <T> void checkParameterNotNull(T obj, String errMsg) {
+    public static <T> void checkArgumentNotNull(T obj, String errMsg) {
         checkCondition(obj != null, () -> new IllegalArgumentException(errMsg));
     }
 
-    public static <T> void checkParameterNotNull(T obj, String format, Object... args) {
+    public static <T> void checkArgumentNotNull(T obj, String format, Object... args) {
         checkCondition(obj != null, () -> new IllegalArgumentException(String.format(format, args)));
     }
 
-    public static void checkParameter(boolean condition, String errMsg) {
+    public static void checkArgument(boolean condition) {
+        checkCondition(condition, IllegalArgumentException::new);
+    }
+
+    public static void checkArgument(boolean condition, String errMsg) {
         checkCondition(condition, () -> new IllegalArgumentException(errMsg));
     }
 
-    public static void checkParameter(boolean condition, String format, Object... args) {
+    public static void checkArgument(boolean condition, String format, Object... args) {
         checkCondition(condition, () -> new IllegalArgumentException(String.format(format, args)));
+    }
+
+    public static void checkState(boolean condition) {
+        checkCondition(condition, IllegalStateException::new);
     }
 
     public static void checkState(boolean condition, String errMsg) {
