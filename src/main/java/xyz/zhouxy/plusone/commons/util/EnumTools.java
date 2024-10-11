@@ -46,7 +46,7 @@ public final class EnumTools {
     public static <E extends Enum<?>> E valueOf(Class<E> clazz, int ordinal) { // NOSONAR 该方法弃用，但不删掉
         Preconditions.checkNotNull(clazz, "Clazz must not be null.");
         E[] values = clazz.getEnumConstants();
-        PreconditionsExt.checkCondition((ordinal >= 0 && ordinal < values.length),
+        AssertTools.checkCondition((ordinal >= 0 && ordinal < values.length),
                 () -> new EnumConstantNotPresentException(clazz, Integer.toString(ordinal)));
         return values[ordinal];
     }
