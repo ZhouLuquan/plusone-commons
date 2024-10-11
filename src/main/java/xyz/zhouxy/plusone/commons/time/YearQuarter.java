@@ -237,12 +237,12 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     // toString
 
     /**
-     * 返回 {@link YearQuarter} 的字符串表示形式，如 "Q3 2024"
+     * 返回 {@link YearQuarter} 的字符串表示形式，如 "2024 Q3"
      * 
      * @return {@link YearQuarter} 的字符串表示形式
      */
     @Override
     public String toString() {
-        return this.quarter.name() + " " + this.year;
+        return this.year + " " + this.quarter.name();
     }
 }
