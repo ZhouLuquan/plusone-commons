@@ -26,6 +26,13 @@ import javax.annotation.Nullable;
 
 public class ArrayTools {
 
+    // empty arrays
+    public static final char[] EMPTY_CHAR_ARRAY = {};
+    public static final int[] EMPTY_INTEGER_ARRAY = {};
+    public static final long[] EMPTY_LONG_ARRAY = {};
+    public static final float[] EMPTY_FLOAT_ARRAY = {};
+    public static final double[] EMPTY_DOUBLE_ARRAY = {};
+
     // isNullOrEmpty
 
     /**
@@ -313,6 +320,159 @@ public class ArrayTools {
 
         // 返回连接后的列表
         return result;
+    }
+
+    // fill - char
+
+    public static void fill(char[] a, char... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(char[] a, String values) {
+        fill(a, 0, a.length, values != null ? values.toCharArray() : EMPTY_CHAR_ARRAY);
+    }
+
+    public static void fill(char[] a, int fromIndex, int toIndex, char... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - long
+
+    public static void fill(long[] a, long... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(long[] a, int fromIndex, int toIndex, long... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - float
+
+    public static void fill(float[] a, float... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(float[] a, int fromIndex, int toIndex, float... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - double
+
+    public static void fill(double[] a, double... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(double[] a, int fromIndex, int toIndex, double... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - T
+
+    public static <T> void fill(@Nonnull T[] a, T[] values) {
+        fillInternal(a, 0, a.length, values);
+    }
+
+    public static <T> void fill(@Nonnull T[] a, int fromIndex, int toIndex, T[] values) {
+        fillInternal(a, fromIndex, toIndex, values);
+    }
+    
+    private static <T> void fillInternal(@Nonnull T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values == null || values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
     }
 
     private ArrayTools() {
