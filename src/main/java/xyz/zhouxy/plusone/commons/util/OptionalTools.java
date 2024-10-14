@@ -64,7 +64,7 @@ public class OptionalTools {
      * @return {@link OptionalInt} 实例
      */
     public static OptionalInt toOptionalInt(Optional<Integer> optionalObj) {
-        return optionalOf(optionalObj.orElse(null));
+        return optionalObj.isPresent() ? OptionalInt.of(optionalObj.get()) : OptionalInt.empty();
     }
 
     /**
@@ -91,7 +91,7 @@ public class OptionalTools {
      * @return {@link OptionalLong} 实例
      */
     public static OptionalLong toOptionalLong(Optional<Long> optionalObj) {
-        return optionalOf(optionalObj.orElse(null));
+        return optionalObj.isPresent() ? OptionalLong.of(optionalObj.get()) : OptionalLong.empty();
     }
 
     /**
@@ -118,7 +118,7 @@ public class OptionalTools {
      * @return {@link OptionalDouble} 实例
      */
     public static OptionalDouble toOptionalDouble(Optional<Double> optionalObj) {
-        return optionalOf(optionalObj.orElse(null));
+        return optionalObj.isPresent() ? OptionalDouble.of(optionalObj.get()) : OptionalDouble.empty();
     }
 
     /**
