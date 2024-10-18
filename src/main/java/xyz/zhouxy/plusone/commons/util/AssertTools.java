@@ -24,21 +24,34 @@ import javax.annotation.Nonnull;
  * 断言工具
  * 
  * <p>
- * 不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
  * 本工具类基本仅对表达式进行判断，并在表达式为 {@code false} 时抛出对应异常。
+ * 不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
+ * </p>
+ * 
+ * <pre>
+ * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
+ * AssertTools.checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
+ * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles), () -> new InvalidInputException("The roles cannot be empty."));
+ * </pre>
+ * 
+ * @author ZhouXY
  */
 public class AssertTools {
 
-    public static <T> void checkArgumentNotNull(T obj) {
-        checkCondition(obj != null, () -> new IllegalArgumentException("The argument cannot be null."));
+    public static <T> void checkArgumentNotNull(T argument) {
+        checkCondition(argument != null, () -> new IllegalArgumentException("The argument cannot be null."));
     }
 
-    public static <T> void checkArgumentNotNull(T obj, String errMsg) {
-        checkCondition(obj != null, () -> new IllegalArgumentException(errMsg));
+    public static <T> void checkArgumentNotNull(T argument, String errMsg) {
+        checkCondition(argument != null, () -> new IllegalArgumentException(errMsg));
     }
 
-    public static <T> void checkArgumentNotNull(T obj, String format, Object... args) {
-        checkCondition(obj != null, () -> new IllegalArgumentException(String.format(format, args)));
+    public static <T> void checkArgumentNotNull(T argument, Supplier<String> messageSupplier) {
+        checkCondition(argument != null, () -> new IllegalArgumentException(messageSupplier.get()));
+    }
+
+    public static <T> void checkArgumentNotNull(T argument, String format, Object... args) {
+        checkCondition(argument != null, () -> new IllegalArgumentException(String.format(format, args)));
     }
 
     public static void checkArgument(boolean condition) {
@@ -47,6 +60,10 @@ public class AssertTools {
 
     public static void checkArgument(boolean condition, String errMsg) {
         checkCondition(condition, () -> new IllegalArgumentException(errMsg));
+    }
+
+    public static void checkArgument(boolean condition, Supplier<String> messageSupplier) {
+        checkCondition(condition, () -> new IllegalArgumentException(messageSupplier.get()));
     }
 
     public static void checkArgument(boolean condition, String format, Object... args) {
@@ -59,6 +76,10 @@ public class AssertTools {
 
     public static void checkState(boolean condition, String errMsg) {
         checkCondition(condition, () -> new IllegalStateException(errMsg));
+    }
+
+    public static void checkState(boolean condition, Supplier<String> messageSupplier) {
+        checkCondition(condition, () -> new IllegalStateException(messageSupplier.get()));
     }
 
     public static void checkState(boolean condition, String format, Object... args) {
