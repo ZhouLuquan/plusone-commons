@@ -44,7 +44,7 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
     /** 出生日期 */
     private final LocalDate birthDate;
 
-    public static final Pattern PATTERN = Pattern.compile("^(((\\d{2})\\d{2})\\d{2})(\\d{8})\\d{2}(\\d)(\\d|X|x)$");
+    public static final Pattern PATTERN = Pattern.compile("^(((\\d{2})\\d{2})\\d{2})(\\d{8})\\d{2}(\\d)([\\dXx])$");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     private Chinese2ndGenIDCardNumber(String idNumber) {
