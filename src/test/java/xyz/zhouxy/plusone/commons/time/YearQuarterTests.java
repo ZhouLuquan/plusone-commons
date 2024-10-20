@@ -21,7 +21,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 
@@ -44,7 +43,7 @@ public class YearQuarterTests {
 
         assertEquals(expected, actual);
 
-        assertEquals("Q1 2023", actual.toString());
+        assertEquals("2023 Q1", actual.toString());
     }
 
     @Test
