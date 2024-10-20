@@ -40,15 +40,15 @@ public class IdGenerator {
     }
 
     public static String toSimpleString(UUID uuid) {
-        return (digits(uuid.getMostSignificantBits() >> 32, 8) +
-                digits(uuid.getMostSignificantBits() >> 16, 4) +
-                digits(uuid.getMostSignificantBits(), 4) +
-                digits(uuid.getLeastSignificantBits() >> 48, 4) +
-                digits(uuid.getLeastSignificantBits(), 12));
+        return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
+                uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
+                uuidDigits(uuid.getMostSignificantBits(), 4) +
+                uuidDigits(uuid.getLeastSignificantBits() >> 48, 4) +
+                uuidDigits(uuid.getLeastSignificantBits(), 12));
     }
 
     /** Returns val represented by the specified number of hex digits. */
-    private static String digits(long val, int digits) {
+    private static String uuidDigits(long val, int digits) {
         long hi = 1L << (digits * 4);
         return Long.toHexString(hi | (val & (hi - 1))).substring(1);
     }
