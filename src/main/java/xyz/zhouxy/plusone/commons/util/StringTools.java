@@ -21,6 +21,8 @@ import com.google.common.annotations.Beta;
 @Beta
 public class StringTools {
 
+    public static final String EMPTY_STRING = "";
+
     public static boolean isNotBlank(final String cs) {
         if (cs == null || cs.isEmpty()) {
             return false;
