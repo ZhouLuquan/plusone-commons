@@ -29,12 +29,14 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
+import com.google.errorprone.annotations.Immutable;
 
 /**
  * 表示年份与季度
- * 
+ *
  * @author zhouxy
  */
+@Immutable
 public final class YearQuarter implements Comparable<YearQuarter>, Serializable {
     private static final long serialVersionUID = 3804145964419489753L;
 
@@ -57,7 +59,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param year 年份
      * @param quarter 季度
      * @return {@link YearQuarter} 实例
@@ -68,7 +70,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param year 年份
      * @param quarter 季度
      * @return {@link YearQuarter} 实例
@@ -79,7 +81,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
@@ -89,7 +91,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
@@ -103,7 +105,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
@@ -113,7 +115,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 根据指定年月，判断其所在的年份与季度，创建 {@link YearQuarter} 实例
-     * 
+     *
      * @param yearMonth 年月
      * @return {@link YearQuarter} 实例
      */
@@ -238,7 +240,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     /**
      * 返回 {@link YearQuarter} 的字符串表示形式，如 "2024 Q3"
-     * 
+     *
      * @return {@link YearQuarter} 的字符串表示形式
      */
     @Override

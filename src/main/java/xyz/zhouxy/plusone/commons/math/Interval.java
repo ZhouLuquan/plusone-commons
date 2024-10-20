@@ -21,9 +21,11 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
+import com.google.errorprone.annotations.Immutable;
 
 import xyz.zhouxy.plusone.commons.util.Numbers;
 
+@Immutable
 public class Interval<T extends Comparable<T>> {
     @Nonnull
     private final IntervalType intervalType;
@@ -50,29 +52,29 @@ public class Interval<T extends Comparable<T>> {
     }
 
     @Nonnull
-    public IntervalType getIntervalType() {
+    public final IntervalType getIntervalType() {
         return intervalType;
     }
 
     @Nonnull
-    public Optional<T> getLowerBound() {
+    public final Optional<T> getLowerBound() {
         return Optional.ofNullable(lowerBound);
     }
 
     @Nonnull
-    public Optional<T> getUpperBound() {
+    public final Optional<T> getUpperBound() {
         return Optional.ofNullable(upperBound);
     }
 
-    public boolean isLeftClosed() {
+    public final boolean isLeftClosed() {
         return this.intervalType.isLeftClosed();
     }
 
-    public boolean isRightClosed() {
+    public final boolean isRightClosed() {
         return this.intervalType.isRightClosed();
     }
 
-    public boolean validValue(@Nonnull T value) {
+    public final boolean validValue(@Nonnull T value) {
         return Numbers.between(value, this.lowerBound, this.upperBound, this.intervalType);
     }
 }
