@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
  * 身份证号
  */
 public abstract class IDCardNumber extends ValidatableStringRecord {
-    private static final long serialVersionUID = 20241011231527L;
 
     protected IDCardNumber(@Nonnull String idNumber, @Nonnull Pattern pattern)
             throws IllegalArgumentException{

@@ -18,7 +18,6 @@ package xyz.zhouxy.plusone.commons.model;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import cn.hutool.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +33,6 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.annotation.ValueObject;
 import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -62,25 +60,12 @@ class ValidatableStringRecordTests {
         Function<Username, String> compare = o -> o.value().toLowerCase();
         log.info("{}", Collections.max(usernames, Comparator.comparing(compare)));
     }
-
-    @Test
-    void testSerial() {
-        User obj = new User(Username.of("zhouxy"), Email.of("zhouxy@outlook.com"));
-        User snapshot = ObjectUtil.clone(obj);
-        obj.setUsername(Username.of("ZhouXY108"));
-        log.info("snapshot: {}", snapshot);
-        log.info("obj: {}", obj);
-
-        DiffResult<User> userDiffResult = User.Diff.diff(snapshot, obj);
-        log.info("userDiffResult: {}", userDiffResult);
-    }
 }
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-class User implements Serializable {
-    private static final long serialVersionUID = 3549288698636099823L;
+class User {
     Username username;
     Email email;
 
@@ -100,8 +85,6 @@ class User implements Serializable {
 
 @ValueObject
 class Email extends ValidatableStringRecord {
-    private static final long serialVersionUID = -2092385577843676401L;
-
     private Email(String value) {
         super(value, PatternConsts.EMAIL);
     }
@@ -114,8 +97,6 @@ class Email extends ValidatableStringRecord {
 
 @ValueObject
 class Username extends ValidatableStringRecord {
-    private static final long serialVersionUID = -7105647514140482394L;
-
     private Username(String username) {
         super(username, PatternConsts.USERNAME);
     }

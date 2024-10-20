@@ -31,7 +31,6 @@ import com.google.common.collect.ImmutableMap;
  * 中国第二代居民身份证号
  */
 public class Chinese2ndGenIDCardNumber extends IDCardNumber {
-    private static final long serialVersionUID = 20241011231542L;
 
     /** 省份编码 */
     private final String provinceCode;

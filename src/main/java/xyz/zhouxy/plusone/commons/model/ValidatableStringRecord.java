@@ -16,7 +16,6 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -33,12 +32,12 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
  * @since 0.1.0
  */
 public abstract class ValidatableStringRecord
-        implements Comparable<ValidatableStringRecord>, Serializable {
+        implements Comparable<ValidatableStringRecord> {
 
     @Nonnull
     private final String value;
 
-    private final transient Matcher matcher;
+    private final Matcher matcher;
 
     protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern) {
         this(value, pattern, "Invalid value");
@@ -60,7 +59,7 @@ public abstract class ValidatableStringRecord
 
     /**
      * 值对象的字符串值。
-     * 
+     *
      * @return 字符串（不为空）
      */
     public final String value() {
@@ -98,5 +97,4 @@ public abstract class ValidatableStringRecord
         return matcher;
     }
 
-    private static final long serialVersionUID = -8365241662025469652L;
 }
