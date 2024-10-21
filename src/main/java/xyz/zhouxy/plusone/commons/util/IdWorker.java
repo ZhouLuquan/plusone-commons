@@ -22,7 +22,7 @@ import java.util.Enumeration;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
-import xyz.zhouxy.plusone.commons.exception.NoAvailableMacFoundException;
+import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
 
 
 public class IdWorker {
@@ -160,7 +160,7 @@ public class IdWorker {
     /**
      * use lowest 10 bit of available MAC as workerId
      * @return workerId
-     * @throws SocketException 
+     * @throws SocketException
      * @throws NoAvailableMacFoundException when there is no available mac found
      */
     private static long generateWorkerIdBaseOnMac() throws SocketException, NoAvailableMacFoundException {

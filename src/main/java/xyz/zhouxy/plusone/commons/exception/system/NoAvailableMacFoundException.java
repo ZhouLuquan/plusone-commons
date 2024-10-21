@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.exception;
+package xyz.zhouxy.plusone.commons.exception.system;
 
-public class NoAvailableMacFoundException extends Exception {
+/**
+ * NoAvailableMacFoundException
+ *
+ * <p>
+ * 在无法找到可访问的 Mac 地址时抛出
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
+public class NoAvailableMacFoundException extends SysException {
     private static final long serialVersionUID = 152827098461071551L;
 
     public NoAvailableMacFoundException() {

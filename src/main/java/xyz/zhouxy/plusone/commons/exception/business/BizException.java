@@ -1,0 +1,52 @@
+/*
+ * Copyright 2024 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package xyz.zhouxy.plusone.commons.exception.business;
+
+/**
+ * BizException
+ *
+ * <p>
+ * 业务异常
+ * </p>
+ *
+ * <p>
+ * <b>NOTE: 通常表示业务中的意外情况。如：用户错误输入、缺失必填字段、用户余额不足等。</b>
+ * </p>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
+public class BizException extends RuntimeException {
+
+    private static final String DEFAULT_MSG = "业务异常";
+
+    public BizException() {
+        super(DEFAULT_MSG);
+    }
+
+    public BizException(String msg) {
+        super(msg);
+    }
+
+    public BizException(Throwable cause) {
+        super(cause);
+    }
+
+    public BizException(String msg, Throwable cause) {
+        super(msg, cause);
+    }
+
+}

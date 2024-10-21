@@ -14,29 +14,35 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.exception;
+package xyz.zhouxy.plusone.commons.exception.system;
 
 /**
- * 输入参数无效异常
- * 
- * @author ZhouXY
+ * 系统异常
+ *
+ * <p>
+ * 通常表示应用代码存在问题，或因环境问题，引发异常。
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
  */
-public class InvalidInputException extends RuntimeException {
-    private static final long serialVersionUID = 20241017111423L;
+public class SysException extends RuntimeException {
 
-    public InvalidInputException() {
-        super();
+    private static final String DEFAULT_MSG = "系统异常";
+
+    protected SysException() {
+        super(DEFAULT_MSG);
     }
 
-    public InvalidInputException(String message) {
-        super(message);
+    public SysException(String msg) {
+        super(msg);
     }
 
-    public InvalidInputException(Throwable cause) {
+    public SysException(Throwable cause) {
         super(cause);
     }
 
-    public InvalidInputException(String message, Throwable cause) {
-        super(message, cause);
+    public SysException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 }

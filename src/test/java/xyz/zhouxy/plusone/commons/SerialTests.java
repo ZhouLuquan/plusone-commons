@@ -21,7 +21,7 @@ import java.io.ObjectStreamClass;
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.zhouxy.plusone.commons.exception.NoAvailableMacFoundException;
+import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
 
 @Slf4j
 class SerialTests {
