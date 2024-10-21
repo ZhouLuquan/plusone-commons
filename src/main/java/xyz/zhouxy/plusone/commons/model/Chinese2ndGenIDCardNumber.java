@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package xyz.zhouxy.plusone.commons.model;
 
 import java.time.LocalDate;

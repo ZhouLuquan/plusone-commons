@@ -40,8 +40,8 @@ import xyz.zhouxy.plusone.commons.time.YearQuarter;
 
 /**
  * 日期时间工具类
- * 
- * @author zhouxy
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class DateTimeTools {
 
@@ -59,7 +59,7 @@ public class DateTimeTools {
 
     /**
      * 获取时间格式化器
-     * 
+     *
      * @param pattern 时间格式
      * @return 时间格式化器
      */
@@ -69,7 +69,7 @@ public class DateTimeTools {
 
     /**
      * 将日期时间转换为指定格式的字符串
-     * 
+     *
      * @param pattern  时间格式
      * @param dateTime 日期时间
      * @return 格式化的字符串
@@ -80,7 +80,7 @@ public class DateTimeTools {
 
     /**
      * 将时间戳转换为指定格式的字符串，使用系统默认时区
-     * 
+     *
      * @param pattern 时间格式
      * @param instant 时间戳
      * @return 格式化的字符串
@@ -92,7 +92,7 @@ public class DateTimeTools {
 
     /**
      * 将时间戳转换为指定格式的字符串，使用指定时区
-     * 
+     *
      * @param pattern 时间格式
      * @param instant 时间戳
      * @param zone    时区
@@ -105,7 +105,7 @@ public class DateTimeTools {
 
     /**
      * 指定格式，返回当前时间戳对应的字符串
-     * 
+     *
      * @param pattern 时间格式
      * @return 格式化的字符串
      */
@@ -115,7 +115,7 @@ public class DateTimeTools {
 
     /**
      * 指定格式，返回当前时间戳对应的字符串，使用指定时区
-     * 
+     *
      * @param pattern 时间格式
      * @param zone    时区
      * @return 格式化的字符串
@@ -128,7 +128,7 @@ public class DateTimeTools {
 
     /**
      * 将时间戳转换为 {@link Date} 对象
-     * 
+     *
      * @param timeMillis 时间戳
      * @return {@link Date} 对象
      */
@@ -138,7 +138,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link Calendar} 对象转换为 {@link Date} 对象
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @return {@link Date} 对象
      */
@@ -148,7 +148,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link Instant} 对象转换为 {@link Date} 对象
-     * 
+     *
      * @param instant {@link Instant} 对象
      * @return {@link Date} 对象
      */
@@ -158,7 +158,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link ZonedDateTime} 对象转换为 {@link Date} 对象
-     * 
+     *
      * @param zonedDateTime {@link ZonedDateTime} 对象
      * @return {@link Date} 对象
      */
@@ -168,7 +168,7 @@ public class DateTimeTools {
 
     /**
      * 使用指定时区，将 {@link LocalDateTime} 对象转换为 {@link Date} 对象
-     * 
+     *
      * @param localDateTime {@link LocalDateTime} 对象
      * @param zone          时区
      * @return {@link Date} 对象
@@ -179,7 +179,7 @@ public class DateTimeTools {
 
     /**
      * 使用指定时区，将 {@link LocalDate} 和 {@link LocalTime} 对象转换为 {@link Date} 对象
-     * 
+     *
      * @param localDate {@link LocalDate} 对象
      * @param localTime {@link LocalTime} 对象
      * @param zone      时区
@@ -193,7 +193,7 @@ public class DateTimeTools {
 
     /**
      * 将时间戳转换为 {@link Instant} 对象
-     * 
+     *
      * @param timeMillis 时间戳
      * @return {@link Instant} 对象
      */
@@ -203,7 +203,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link Date} 对象转换为 {@link Instant} 对象
-     * 
+     *
      * @param date {@link Date} 对象
      * @return {@link Instant} 对象
      */
@@ -213,7 +213,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link Calendar} 对象转换为 {@link Instant} 对象
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @return {@link Instant} 对象
      */
@@ -223,7 +223,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link ZonedDateTime} 对象转换为 {@link Instant} 对象
-     * 
+     *
      * @param zonedDateTime {@link ZonedDateTime} 对象
      * @return {@link Instant} 对象
      * @deprecated 请使用 {@link ZonedDateTime#toInstant()} 方法
@@ -235,7 +235,7 @@ public class DateTimeTools {
 
     /**
      * 使用指定时区，将 {@link LocalDateTime} 对象转换为 {@link Instant} 对象
-     * 
+     *
      * @param LocalDateTime {@link LocalDateTime} 对象
      * @param zone          时区
      * @return {@link Instant} 对象
@@ -252,7 +252,7 @@ public class DateTimeTools {
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上还是同一时间戳，
      * 只是不同时区的表示。
      * </p>
-     * 
+     *
      * @param timeMillis 时间戳
      * @param zone       时区
      * @return 带时区信息的地区时间
@@ -267,7 +267,7 @@ public class DateTimeTools {
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上还是同一时间戳，
      * 只是不同时区的表示。
      * </p>
-     * 
+     *
      * @param dateTime {@link Date} 对象
      * @param zone     时区
      * @return 带时区信息的地区时间
@@ -282,7 +282,7 @@ public class DateTimeTools {
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上表示的还是还是同一时间戳的时间，
      * 只是不同时区的表示。
      * </p>
-     * 
+     *
      * @param dateTime {@link Date} 对象
      * @param timeZone 时区
      * @return 带时区信息的地区时间
@@ -294,7 +294,7 @@ public class DateTimeTools {
     /**
      * 使用 {@code calendar} 对象的时区信息，将 {@link Calendar} 对象转换为 {@link ZonedDateTime}
      * 对象。
-     * 
+     *
      * @param calendar{@link Calendar} 对象
      * @return {@link ZonedDateTime} 对象
      */
@@ -304,7 +304,7 @@ public class DateTimeTools {
 
     /**
      * 使用指定的时区，将 {@link Calendar} 对象转换为 {@link ZonedDateTime} 对象。
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @param zone     时区
      * @return {@link ZonedDateTime} 对象
@@ -315,7 +315,7 @@ public class DateTimeTools {
 
     /**
      * 使用指定的时区，将 {@link Calendar} 对象转换为 {@link ZonedDateTime} 对象。
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @param zone     时区
      * @return {@link ZonedDateTime} 对象
@@ -326,11 +326,11 @@ public class DateTimeTools {
 
     /**
      * 创建带时区的地区时间
-     * 
+     *
      * @param localDateTime 地区时间
      * @param zone          时区
      * @return 带时区的地区时间
-     * 
+     *
      * @deprecated 使用 {@link ZonedDateTime#of(LocalDateTime, ZoneId)}
      */
     @Deprecated
@@ -342,7 +342,7 @@ public class DateTimeTools {
 
     /**
      * 获取时间戳在指定时区的地区时间。
-     * 
+     *
      * @param timeMillis 时间戳
      * @param zone       时区
      * @return 地区时间
@@ -353,7 +353,7 @@ public class DateTimeTools {
 
     /**
      * 获取 {@link Date} 所表示的时间戳，在指定时区的地区时间。
-     * 
+     *
      * @param dateTime {@link Date} 对象
      * @param zone     时区
      * @return 地区时间
@@ -364,7 +364,7 @@ public class DateTimeTools {
 
     /**
      * 获取 {@link Date} 所表示的时间戳，在指定时区的地区时间。
-     * 
+     *
      * @param dateTime {@link Date} 对象
      * @param timeZone 时区
      * @return 地区时间
@@ -375,7 +375,7 @@ public class DateTimeTools {
 
     /**
      * 获取 {@link Calendar} 所表示的时间戳，在指定时区的地区时间。
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @param zone     时区
      * @return 地区时间
@@ -386,7 +386,7 @@ public class DateTimeTools {
 
     /**
      * 获取 {@link Calendar} 所表示的时间戳，在指定时区的地区时间。
-     * 
+     *
      * @param calendar {@link Calendar} 对象
      * @param zone     时区
      * @return 地区时间
@@ -397,7 +397,7 @@ public class DateTimeTools {
 
     /**
      * 获取 {@link ZonedDateTime} 所表示的时间戳，在指定时区的地区时间。
-     * 
+     *
      * @param zonedDateTime {@link ZonedDateTime} 对象
      * @param zone          时区
      * @return 地区时间
@@ -412,7 +412,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link java.time.Instant} 转换为 {@link org.joda.time.Instant}
-     * 
+     *
      * @param instant {@link java.time.Instant} 对象
      * @return {@link org.joda.time.Instant} 对象
      */
@@ -422,7 +422,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link java.time.ZonedDateTime} 转换为 {@link org.joda.time.Instant}
-     * 
+     *
      * @param zonedDateTime {@link java.time.ZonedDateTime} 对象
      * @return {@link org.joda.time.Instant} 对象
      */
@@ -432,7 +432,7 @@ public class DateTimeTools {
 
     /**
      * 计算指定时区的地区时间，对应的时间戳。结果为 {@link org.joda.time.Instant} 对象
-     * 
+     *
      * @param localDateTime {@link java.time.LocalDateTime} 对象
      * @param zone          时区
      * @return {@link org.joda.time.Instant} 对象
@@ -456,7 +456,7 @@ public class DateTimeTools {
     /**
      * 将 joda-time 中的 {@link org.joda.time.DateTime} 对象转换为 Java 的
      * {@link java.time.Instant} 对象
-     * 
+     *
      * @param dateTime joda-time 中表示日期时间的 {@link org.joda.time.DateTime} 对象
      * @return Java 表示时间戳的 {@link java.time.Instant} 对象
      */
@@ -468,7 +468,7 @@ public class DateTimeTools {
      * 将 joda-time 中的 {@link org.joda.time.LocalDateTime} 对象和
      * {@link org.joda.time.DateTimeZone} 对象
      * 转换为 Java 中的 {@link java.time.Instant} 对象
-     * 
+     *
      * @param localDateTime
      * @param zone
      * @return
@@ -484,7 +484,7 @@ public class DateTimeTools {
     /**
      * 将 Java 中表示日期时间的 {@link java.time.ZonedDateTime} 对象
      * 转换为 joda-time 的 {@link org.joda.time.DateTime} 对象
-     * 
+     *
      * @param zonedDateTime 日期时间
      * @return joda-time 中对应的 {@link org.joda.time.DateTime} 对象
      */
@@ -498,7 +498,7 @@ public class DateTimeTools {
      * {@link java.time.ZoneId} 对象转换为 joda-time 中对应的 {@link org.joda.time.DateTime}
      * 对象
      * 转换为 joda-time 中对应的 {@link org.joda.time.DateTime} 对象
-     * 
+     *
      * @param localDateTime 日期时间
      * @param zone          时区
      * @return joda-time 中对应的 {@link org.joda.time.DateTime} 对象
@@ -512,7 +512,7 @@ public class DateTimeTools {
 
     /**
      * 计算时间戳在指定时区对应的时间，结果使用 {@link org.joda.time.DateTime} 表示
-     * 
+     *
      * @param instant java.time 中的时间戳
      * @param zone    java.time 中的时区
      * @return joda-time 中带时区的日期时间
@@ -528,7 +528,7 @@ public class DateTimeTools {
 
     /**
      * 将 joda-time 中带时区的日期时间，转换为 java.time 中带时区的日期时间
-     * 
+     *
      * @param dateTime joda-time 中带时区的日期时间
      * @return java.time 中带时区的日期时间
      */
@@ -541,7 +541,7 @@ public class DateTimeTools {
      * 将 joda-time 中的 {@link org.joda.time.LocalDateTime} 和
      * {@link org.joda.time.DateTimeZone}
      * 转换为 java.time 中的 {@link java.time.ZonedDateTime}
-     * 
+     *
      * @param localDateTime joda-time 中的地区时间
      * @param dateTimeZone  joda-time 中的时区
      * @return java.time 中带时区的日期时间
@@ -556,7 +556,7 @@ public class DateTimeTools {
     /**
      * 获取 joda-time 中的 {@link org.joda.time.Instant} 在指定时区的时间，用 Java 8
      * {@link java.time.ZonedDateTime} 表示
-     * 
+     *
      * @param instant      joda-time 中的时间戳
      * @param dateTimeZone joda-time 中的时区
      * @return
@@ -572,7 +572,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link java.time.LocalDateTime} 转换为 {@link org.joda.time.LocalDateTime}
-     * 
+     *
      * @param localDateTime Java 8 LocalDateTime
      * @return joda-time LocalDateTime
      */
@@ -586,7 +586,7 @@ public class DateTimeTools {
 
     /**
      * 将 {@link org.joda.time.LocalDateTime} 转换为 {@link java.time.LocalDateTime}
-     * 
+     *
      * @param localDateTime joda-time LocalDateTime
      * @return Java 8 LocalDateTime
      */
@@ -598,7 +598,7 @@ public class DateTimeTools {
 
     /**
      * 转换 Java API 和 joda-time API 表示时区的对象
-     * 
+     *
      * @param jodaZone joda-time API 中表示时区的对象
      * @return Java API 中表示时区的对象
      */
@@ -608,7 +608,7 @@ public class DateTimeTools {
 
     /**
      * 转换 Java API 和 joda-time API 表示时区的对象
-     * 
+     *
      * @param zone Java API 中表示时区的对象
      * @return joda-time API 中表示时区的对象
      */
@@ -620,7 +620,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定日期所在季度
-     * 
+     *
      * @param date 日期
      * @return 日期所在的季度
      */
@@ -630,7 +630,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定日期所在季度
-     * 
+     *
      * @param date 日期
      * @return 日期所在的季度
      */
@@ -640,7 +640,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定月份所在季度
-     * 
+     *
      * @param month 月份
      * @return 季度
      */
@@ -650,7 +650,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定年月所在季度
-     * 
+     *
      * @param year  年
      * @param month 月
      * @return 季度
@@ -661,7 +661,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定年月所在季度
-     * 
+     *
      * @param yearMonth 年月
      * @return 季度
      */
@@ -671,7 +671,7 @@ public class DateTimeTools {
 
     /**
      * 获取指定日期所在季度
-     * 
+     *
      * @param date 日期
      * @return 日期所在的季度
      */

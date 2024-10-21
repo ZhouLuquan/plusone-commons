@@ -26,8 +26,8 @@ import xyz.zhouxy.plusone.commons.util.Numbers;
 
 /**
  * 季度
- * 
- * @author zhouxy
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public enum Quarter {
     /** 第一季度 */
@@ -66,7 +66,7 @@ public enum Quarter {
 
     /**
      * 根据给定的月份值返回对应的季度
-     * 
+     *
      * @param monthValue 月份值，取值范围为1到12
      * @return 对应的季度
      * @throws IllegalArgumentException 如果月份值不在有效范围内（1到12），将抛出异常
@@ -79,7 +79,7 @@ public enum Quarter {
 
     /**
      * 根据给定的月份返回对应的季度
-     * 
+     *
      * @param month 月份
      * @return 对应的季度
      */
@@ -102,7 +102,7 @@ public enum Quarter {
 
     /**
      * 根据给定的季度值返回对应的季度
-     * 
+     *
      * @param value 季度值 (1/2/3/4)
      * @return 对应的季度
      * @throws IllegalArgumentException 如果季度值不在有效范围内（1到4），将抛出异常
@@ -172,7 +172,7 @@ public enum Quarter {
 
     /**
      * 计算给定月份对应的季度值
-     * 
+     *
      * @param monthValue 月份值，取值范围为1到12
      * @return 对应的季度值
      */

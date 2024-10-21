@@ -134,7 +134,7 @@ public final class EnumTools {
 
     /**
      * 校验枚举的 ordinal。
-     * 
+     *
      * @param <E>     枚举类型
      * @param clazz   枚举类型
      * @param ordinal The ordinal
@@ -147,7 +147,7 @@ public final class EnumTools {
 
     /**
      * 校验枚举的 ordinal，如果 ordinal 为 {@code null}，则返回 {@code 0}。
-     * 
+     *
      * @param <E>     枚举类型
      * @param clazz   枚举类型
      * @param ordinal The ordinal
@@ -160,7 +160,7 @@ public final class EnumTools {
 
     /**
      * 校验枚举的 ordinal，如果 ordinal 为 {@code null}，则返回 {@code defaultValue}。
-     * 
+     *
      * @param <E>     枚举类型
      * @param clazz   枚举类型
      * @param ordinal The ordinal

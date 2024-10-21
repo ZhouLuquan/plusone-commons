@@ -31,10 +31,12 @@ import javax.annotation.Nonnull;
 import com.google.common.base.Preconditions;
 import com.google.errorprone.annotations.Immutable;
 
+import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
+
 /**
  * 表示年份与季度
  *
- * @author zhouxy
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 @Immutable
 public final class YearQuarter implements Comparable<YearQuarter>, Serializable {
@@ -57,6 +59,8 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         this.lastDate = quarter.lastMonthDay().atYear(year);
     }
 
+    // #region - StaticFactoryMethod
+
     /**
      * 根据指定年份与季度，创建 {@link YearQuarter} 实例
      *
@@ -64,6 +68,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param quarter 季度
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(int year, int quarter) {
         return of(year, Quarter.of(quarter));
     }
@@ -75,6 +80,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param quarter 季度
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(int year, @Nonnull Quarter quarter) {
         return new YearQuarter(year, quarter);
     }
@@ -85,6 +91,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(@Nonnull LocalDate date) {
         return of(date.getYear(), Quarter.fromMonth(date.getMonth()));
     }
@@ -95,6 +102,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(@Nonnull Date date) {
         @SuppressWarnings("deprecation")
         final int year = date.getYear() + 1900;
@@ -109,6 +117,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param date 日期
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(Calendar date) {
         return of(date.get(Calendar.YEAR), Quarter.fromMonth(date.get(Calendar.MONTH) + 1));
     }
@@ -119,11 +128,14 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @param yearMonth 年月
      * @return {@link YearQuarter} 实例
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(YearMonth yearMonth) {
         return of(yearMonth.getYear(), Quarter.fromMonth(yearMonth.getMonth()));
     }
 
-    // Getters
+    // #endregion
+
+    // #region - Getters
 
     public int getYear() {
         return year;
@@ -165,9 +177,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return lastDate;
     }
 
-    // Getters end
+    // #endregion
 
-    // computes
+    // #region - computes
 
     public YearQuarter plusQuarters(long quartersToAdd) { // TODO 单元测试
         if (quartersToAdd == 0) {
@@ -196,9 +208,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return plusYears(-yearsToAdd);
     }
 
-    // computes end
+    // #endregion
 
-    // hashCode & equals
+    // #region - hashCode & equals
 
     @Override
     public int hashCode() {
@@ -217,7 +229,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return year == other.year && quarter == other.quarter;
     }
 
-    // compareTo
+    // #endregion
+
+    // #region - compareTo
 
     @Override
     public int compareTo(YearQuarter other) {
@@ -236,7 +250,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return this.compareTo(other) > 0;
     }
 
-    // toString
+    // #endregion
+
+    // #region - toString
 
     /**
      * 返回 {@link YearQuarter} 的字符串表示形式，如 "2024 Q3"
@@ -247,4 +263,6 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     public String toString() {
         return this.year + " " + this.quarter.name();
     }
+
+    // #endregion
 }

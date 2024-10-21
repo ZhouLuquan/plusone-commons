@@ -20,6 +20,8 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 性别
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public enum Gender {
     UNKNOWN(0, "Unknown", "未知"),

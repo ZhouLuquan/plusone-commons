@@ -21,7 +21,7 @@ import org.apache.ibatis.jdbc.AbstractSQL;
 import com.google.common.annotations.Beta;
 
 /**
- * @author ZhouXY
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 @Beta
 public abstract class SQL<T> extends AbstractSQL<T> {

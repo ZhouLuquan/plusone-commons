@@ -19,6 +19,7 @@ package xyz.zhouxy.plusone.commons.util;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,12 +28,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
-import xyz.zhouxy.plusone.commons.collection.SafeConcurrentHashMap;
-
 /**
  * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用（最多缓存大概 256 个）。
- * 
- * @author ZhouXY
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  *
  */
 public final class RegexTools {
@@ -40,11 +39,11 @@ public final class RegexTools {
     private static final int DEFAULT_CACHE_INITIAL_CAPACITY = 64;
     private static final int MAX_CACHE_SIZE = 256;
     private static final Map<String, Pattern> PATTERN_CACHE
-            = new SafeConcurrentHashMap<>(DEFAULT_CACHE_INITIAL_CAPACITY);
+            = new ConcurrentHashMap<>(DEFAULT_CACHE_INITIAL_CAPACITY);
 
     /**
      * 获取 {@link Pattern} 实例。
-     * 
+     *
      * @param pattern      正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例
@@ -56,7 +55,7 @@ public final class RegexTools {
 
     /**
      * 获取 {@link Pattern} 实例，不缓存。
-     * 
+     *
      * @param pattern 正则表达式
      * @return {@link Pattern} 实例
      */
@@ -67,7 +66,7 @@ public final class RegexTools {
 
     /**
      * 将各个正则表达式转为 {@link Pattern} 实例。
-     * 
+     *
      * @param patterns     正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例数组
@@ -82,7 +81,7 @@ public final class RegexTools {
 
     /**
      * 将各个正则表达式转为 {@link Pattern} 实例，不缓存。
-     * 
+     *
      * @param patterns 正则表达式
      * @return {@link Pattern} 实例数组
      */
@@ -94,7 +93,7 @@ public final class RegexTools {
 
     /**
      * 手动缓存 Pattern 实例。
-     * 
+     *
      * @param pattern 要缓存的 {@link Pattern} 实例
      * @return 缓存的 Pattern 实例。如果缓存已满，则返回 {@code null}。
      */
@@ -110,7 +109,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
-     * 
+     *
      * @param input   输入
      * @param pattern 正则
      * @return 判断结果
@@ -122,7 +121,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code patterns} 中的一个。
-     * 
+     *
      * @param input    输入
      * @param patterns 正则
      * @return 判断结果
@@ -135,7 +134,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配全部正则。
-     * 
+     *
      * @param input    输入
      * @param patterns 正则
      * @return 判断结果
@@ -148,7 +147,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
-     * 
+     *
      * @param input        输入
      * @param pattern      正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
@@ -165,7 +164,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code pattern}。不缓存 {@link Pattern} 实例。
-     * 
+     *
      * @param input   输入
      * @param pattern 正则表达式
      * @return 判断结果
@@ -177,7 +176,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code patterns} 中的一个。
-     * 
+     *
      * @param input        输入
      * @param patterns     正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
@@ -195,7 +194,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code patterns} 中的一个。不缓存 {@link Pattern} 实例。
-     * 
+     *
      * @param input    输入
      * @param patterns 正则表达式
      * @return 判断结果
@@ -209,7 +208,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配全部正则。
-     * 
+     *
      * @param input        输入
      * @param patterns     正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
@@ -227,7 +226,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配全部正则。不缓存 {@link Pattern} 实例。
-     * 
+     *
      * @param input    输入
      * @param patterns 正则表达式
      * @return 判断结果
@@ -241,7 +240,7 @@ public final class RegexTools {
 
     /**
      * 生成 Matcher。
-     * 
+     *
      * @param input   输入
      * @param pattern 正则
      * @return 结果
@@ -254,7 +253,7 @@ public final class RegexTools {
 
     /**
      * 生成 Matcher。
-     * 
+     *
      * @param input        输入
      * @param pattern      正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
@@ -271,7 +270,7 @@ public final class RegexTools {
 
     /**
      * 生成 Matcher。不缓存 {@link Pattern} 实例。
-     * 
+     *
      * @param input   输入
      * @param pattern 正则表达式
      * @return 结果
@@ -286,7 +285,7 @@ public final class RegexTools {
 
     /**
      * 获取 {@link Pattern} 实例。
-     * 
+     *
      * @param pattern      正则表达式
      * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例
@@ -305,7 +304,7 @@ public final class RegexTools {
 
     /**
      * 获取 {@link Pattern} 实例，不缓存。
-     * 
+     *
      * @param pattern 正则表达式
      * @return {@link Pattern} 实例
      */
@@ -320,7 +319,7 @@ public final class RegexTools {
 
     /**
      * 将各个正则表达式转为 {@link Pattern} 实例。
-     * 
+     *
      * @param patterns 正则表达式
      * @return {@link Pattern} 实例数组
      */
@@ -333,7 +332,7 @@ public final class RegexTools {
 
     /**
      * 将各个正则表达式转为 {@link Pattern} 实例。
-     * 
+     *
      * @param patterns 正则表达式
      * @return {@link Pattern} 实例数组
      */
@@ -346,7 +345,7 @@ public final class RegexTools {
 
     /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
-     * 
+     *
      * @param input   输入
      * @param pattern 正则
      * @return 判断结果

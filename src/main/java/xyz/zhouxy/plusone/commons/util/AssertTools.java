@@ -24,17 +24,17 @@ import javax.annotation.Nonnull;
  * 断言工具
  *
  * <p>
- * 本工具类基本仅对表达式进行判断，并在表达式为 {@code false} 时抛出对应异常。
- * 不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
+ * 本工具类不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
  * </p>
  *
  * <pre>
  * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * AssertTools.checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
  * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles), () -> new InvalidInputException("The roles cannot be empty."));
+ * AssertTools.checkCondition(RegexTools.matches(email, PatternConsts.EMAIL), "must be a well-formed email address");
  * </pre>
  *
- * @author ZhouXY
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class AssertTools {
 

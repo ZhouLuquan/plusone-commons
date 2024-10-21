@@ -55,7 +55,7 @@ public final class Ref<T> {
         return this.value != null;
     }
 
-    public void execute(Consumer<T> consumer) {
+    public void execute(Consumer<? super T> consumer) {
         consumer.accept(value);
     }
 

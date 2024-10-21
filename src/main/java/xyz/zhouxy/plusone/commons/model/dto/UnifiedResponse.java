@@ -194,7 +194,7 @@ public abstract class UnifiedResponse {
     /**
      * 自定义结果
      *
-     * @author zhouxy
+     * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
      */
     protected static class CustomResult extends UnifiedResponse {
 

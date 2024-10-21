@@ -21,9 +21,9 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
-public class BigDecimals {
+import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
-    public static final BigDecimal ZERO = new BigDecimal("0.00");
+public class BigDecimals {
 
     public static boolean equalsValue(@Nullable BigDecimal a, @Nullable BigDecimal b) {
         return (a == b) || (a != null && a.compareTo(b) == 0);
@@ -49,8 +49,9 @@ public class BigDecimals {
         return lt(a, b) || equalsValue(a, b);
     }
 
+    @StaticFactoryMethod(BigDecimal.class)
     public static BigDecimal of(final String val) {
-        return (StringTools.isNotBlank(val)) ? new BigDecimal(val) : ZERO;
+        return (StringTools.isNotBlank(val)) ? new BigDecimal(val) : BigDecimal.ZERO;
     }
 
     private BigDecimals() {
