@@ -22,21 +22,23 @@ import javax.annotation.Nonnull;
 
 /**
  * 断言工具
- * 
+ *
  * <p>
  * 本工具类基本仅对表达式进行判断，并在表达式为 {@code false} 时抛出对应异常。
  * 不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
  * </p>
- * 
+ *
  * <pre>
  * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * AssertTools.checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
  * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles), () -> new InvalidInputException("The roles cannot be empty."));
  * </pre>
- * 
+ *
  * @author ZhouXY
  */
 public class AssertTools {
+
+    // #region - checkArgument
 
     public static <T> void checkArgumentNotNull(T argument) {
         checkCondition(argument != null, () -> new IllegalArgumentException("The argument cannot be null."));
@@ -70,6 +72,10 @@ public class AssertTools {
         checkCondition(condition, () -> new IllegalArgumentException(String.format(format, args)));
     }
 
+    // #endregion
+
+    // #region - checkState
+
     public static void checkState(boolean condition) {
         checkCondition(condition, IllegalStateException::new);
     }
@@ -86,6 +92,10 @@ public class AssertTools {
         checkCondition(condition, () -> new IllegalStateException(String.format(format, args)));
     }
 
+    // #endregion
+
+    // #region - checkCondition
+
     public static <T extends Exception> void checkCondition(boolean condition, @Nonnull Supplier<T> e)
             throws T {
         if (!condition) {
@@ -93,7 +103,13 @@ public class AssertTools {
         }
     }
 
+    // #endregion
+
+    // #region - private constructor
+
     private AssertTools() {
         throw new IllegalStateException("Utility class");
     }
+
+    // #endregion
 }

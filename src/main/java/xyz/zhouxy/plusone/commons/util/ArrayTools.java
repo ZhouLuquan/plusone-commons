@@ -26,18 +26,23 @@ import javax.annotation.Nullable;
 
 public class ArrayTools {
 
-    // empty arrays
+    // #region - empty arrays
+
     public static final char[] EMPTY_CHAR_ARRAY = {};
     public static final int[] EMPTY_INTEGER_ARRAY = {};
     public static final long[] EMPTY_LONG_ARRAY = {};
     public static final float[] EMPTY_FLOAT_ARRAY = {};
     public static final double[] EMPTY_DOUBLE_ARRAY = {};
 
+    // #endregion
+
+    // #region - isNullOrEmpty
+
     // isNullOrEmpty
 
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @param <T> 数组中元素的类型
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
@@ -49,7 +54,7 @@ public class ArrayTools {
     // isNullOrEmpty - float
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -60,7 +65,7 @@ public class ArrayTools {
     // isNullOrEmpty - double
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -71,7 +76,7 @@ public class ArrayTools {
     // isNullOrEmpty - byte
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -82,7 +87,7 @@ public class ArrayTools {
     // isNullOrEmpty - long
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -93,7 +98,7 @@ public class ArrayTools {
     // isNullOrEmpty - int
     /**
      * 检查给定数组是否为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -101,10 +106,14 @@ public class ArrayTools {
         return arr == null || arr.length == 0;
     }
 
+    // #endregion
+
+    // #region - isNotEmpty
+
     // isNotEmpty
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @param <T> 数组中元素的类型
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
@@ -116,7 +125,7 @@ public class ArrayTools {
     // isNotEmpty - float
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -127,7 +136,7 @@ public class ArrayTools {
     // isNotEmpty - double
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -138,7 +147,7 @@ public class ArrayTools {
     // isNotEmpty - byte
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -149,7 +158,7 @@ public class ArrayTools {
     // isNotEmpty - long
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -160,7 +169,7 @@ public class ArrayTools {
     // isNotEmpty - int
     /**
      * 检查给定数组是否不为空
-     * 
+     *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
@@ -168,7 +177,9 @@ public class ArrayTools {
         return arr != null && arr.length > 0;
     }
 
-    // isAllElementsNotNull
+    // #endregion
+
+    // #region - isAllElementsNotNull
 
     /**
      * 判断数组的所有元素是否都不为空：
@@ -178,11 +189,11 @@ public class ArrayTools {
      * <li><b>数组中有至少一个元素为 {@code null}</b>：返回 {@code false}。
      * <li><b>数组中所有元素都不为 {@code null}</b>：返回 {@code true}。
      * </ol>
-     * 
+     *
      * @param <T> 数组元素的类型
      * @param arr 待检查的数组。不为 {@code null}
      * @return 如果数组的所有元素都不为 {@code null}，则返回  {@code true}；否则返回  {@code false}
-     * 
+     *
      * @throws IllegalArgumentException 当参数为空时抛出
      */
     public static <T> boolean isAllElementsNotNull(@Nonnull final T[] arr) {
@@ -195,11 +206,13 @@ public class ArrayTools {
         return true;
     }
 
-    // concat
+    // #endregion
+
+    // #region - concat
 
     /**
      * 拼接多个数组
-     * 
+     *
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
@@ -219,7 +232,7 @@ public class ArrayTools {
 
     /**
      * 拼接多个数组
-     * 
+     *
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
@@ -239,7 +252,7 @@ public class ArrayTools {
 
     /**
      * 拼接多个数组
-     * 
+     *
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
@@ -259,7 +272,7 @@ public class ArrayTools {
 
     /**
      * 拼接多个数组
-     * 
+     *
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
@@ -279,7 +292,7 @@ public class ArrayTools {
 
     /**
      * 拼接多个数组
-     * 
+     *
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
@@ -299,7 +312,7 @@ public class ArrayTools {
 
     /**
      * 将集合中的数组连接为一个列表
-     * 
+     *
      * @param arrays 可能包含多个数组的集合，这些数组中的元素将被连接到一个列表中
      * @param <T> 泛型参数，表示数组的元素类型
      * @return 返回连接后的列表，如果输入的集合为空或包含空数组，则返回空列表
@@ -321,6 +334,10 @@ public class ArrayTools {
         // 返回连接后的列表
         return result;
     }
+
+    // #endregion
+
+    // #region - fill
 
     // fill - char
 
@@ -451,7 +468,7 @@ public class ArrayTools {
     public static <T> void fill(@Nonnull T[] a, int fromIndex, int toIndex, T[] values) {
         fillInternal(a, fromIndex, toIndex, values);
     }
-    
+
     private static <T> void fillInternal(@Nonnull T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         AssertTools.checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
@@ -475,7 +492,13 @@ public class ArrayTools {
         }
     }
 
+    // #endregion
+
+    // #region - private constructor
+
     private ArrayTools() {
         throw new IllegalStateException("Utility class");
     }
+
+    // #endregion
 }
