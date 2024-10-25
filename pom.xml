@@ -15,7 +15,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <guava.version>33.3.1-jre</guava.version>
-        <joda-time.version>2.12.7</joda-time.version>
+        <joda-time.version>2.13.0</joda-time.version>
     </properties>
 
     <dependencies>
@@ -81,7 +81,7 @@
             <version>5.8.25</version>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10.1</version>
+            <version>2.11.0</version>
             <scope>test</scope>
         </dependency>
 
