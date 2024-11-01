@@ -35,6 +35,15 @@ public class StringTools {
         return false;
     }
 
+    public static String repeat(String str, int times) {
+        return repeat(str, times, Integer.MAX_VALUE);
+    }
+
+    public static String repeat(String str, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(str);
+        return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
+    }
+
     private StringTools() {
         throw new IllegalStateException("Utility class");
     }

@@ -337,6 +337,94 @@ public class ArrayTools {
 
     // #endregion
 
+    // #region - repeat
+
+    // repeat - char
+
+    public static char[] repeat(char[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static char[] repeat(char[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_CHAR_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final char[] result = new char[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - long
+
+    public static long[] repeat(long[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static long[] repeat(long[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_LONG_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final long[] result = new long[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - float
+
+    public static float[] repeat(float[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static float[] repeat(float[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final float[] result = new float[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - double
+
+    public static double[] repeat(double[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static double[] repeat(double[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final double[] result = new double[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // #endregion
+
     // #region - fill
 
     // fill - char
