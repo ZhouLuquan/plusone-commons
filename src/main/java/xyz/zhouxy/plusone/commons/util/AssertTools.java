@@ -94,6 +94,26 @@ public class AssertTools {
 
     // #endregion
 
+    // #region - checkNotNull
+
+    public static <T> void checkNotNull(T obj) {
+        checkCondition(obj != null, NullPointerException::new);
+    }
+
+    public static <T> void checkNotNull(T obj, String errMsg) {
+        checkCondition(obj != null, () -> new NullPointerException(errMsg));
+    }
+
+    public static <T> void checkNotNull(T obj, Supplier<String> messageSupplier) {
+        checkCondition(obj != null, () -> new NullPointerException(messageSupplier.get()));
+    }
+
+    public static <T> void checkNotNull(T obj, String format, Object... args) {
+        checkCondition(obj != null, () -> new NullPointerException(String.format(format, args)));
+    }
+
+    // #endregion
+
     // #region - checkCondition
 
     public static <T extends Exception> void checkCondition(boolean condition, @Nonnull Supplier<T> e)
