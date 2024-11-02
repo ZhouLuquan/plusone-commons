@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -164,6 +165,24 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     @Override
     public String toString() {
         return this.map.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(map);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        @SuppressWarnings("rawtypes")
+        AbstractMapWrapper other = (AbstractMapWrapper) obj;
+        return Objects.equals(map, other.map);
     }
 
     public abstract static class Builder<K, V, T extends AbstractMapWrapper<K, V, T>> {
