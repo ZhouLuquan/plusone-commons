@@ -17,6 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Numbers
@@ -25,7 +29,7 @@ import java.math.BigDecimal;
  */
 public class Numbers {
 
-    // sum
+    // #region - sum
 
     public static int sum(final short... numbers) {
         int result = 0;
@@ -67,13 +71,59 @@ public class Numbers {
         return result;
     }
 
-    public static BigDecimal sum(final BigDecimal... numbers) {
-        BigDecimal result = BigDecimals.of("0.00");
-        for (BigDecimal number : numbers) {
-            result = result.add(number);
+    public static BigInteger sum(final BigInteger... numbers) {
+        if (ArrayTools.isNullOrEmpty(numbers)) {
+            return BigInteger.ZERO;
+        }
+        BigInteger result = Numbers.nullToZero(numbers[0]);
+        for (int i = 1; i < numbers.length; i++) {
+            BigInteger value = numbers[i];
+            if (value != null) {
+                result = result.add(value);
+            }
         }
         return result;
     }
+
+    public static BigDecimal sum(final BigDecimal... numbers) {
+        return BigDecimals.sum(numbers);
+    }
+
+    // #endregion
+
+    // #region - nullToZero
+
+    public static short nullToZero(@Nullable final Short val) {
+        return val != null ? val : 0;
+    }
+
+    public static int nullToZero(@Nullable final Integer val) {
+        return val != null ? val : 0;
+    }
+
+    public static long nullToZero(@Nullable final Long val) {
+        return val != null ? val : 0L;
+    }
+
+    public static float nullToZero(@Nullable final Float val) {
+        return val != null ? val : 0.0F;
+    }
+
+    public static double nullToZero(@Nullable final Double val) {
+        return val != null ? val : 0.0;
+    }
+
+    @Nonnull
+    public static BigInteger nullToZero(@Nullable final BigInteger val) {
+        return val != null ? val : BigInteger.ZERO;
+    }
+
+    @Nonnull
+    public static BigDecimal nullToZero(@Nullable final BigDecimal val) {
+        return BigDecimals.nullToZero(val);
+    }
+
+    // #endregion
 
     private Numbers() {
         throw new IllegalStateException("Utility class");
