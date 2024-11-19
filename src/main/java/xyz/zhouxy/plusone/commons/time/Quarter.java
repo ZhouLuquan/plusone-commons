@@ -18,11 +18,11 @@ package xyz.zhouxy.plusone.commons.time;
 
 import java.time.Month;
 import java.time.MonthDay;
+import java.time.temporal.ChronoField;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
-import xyz.zhouxy.plusone.commons.util.Numbers;
 
 /**
  * 季度
@@ -43,11 +43,7 @@ public enum Quarter {
     /** 季度值 (1/2/3/4) */
     private final int value;
 
-    /** 季度开始月份 */
-    private final int firstMonth;
-
-    /** 季度结束月份 */
-    private final int lastMonth;
+    private final Range<Integer> monthRange;
 
     /** 常量值 */
     private static final Quarter[] ENUMS = Quarter.values();
@@ -58,8 +54,10 @@ public enum Quarter {
     Quarter(int value) {
         this.value = value;
 
-        this.lastMonth = value * 3;
-        this.firstMonth = this.lastMonth - 2;
+        final int lastMonth = value * 3;
+        final int firstMonth = lastMonth - 2;
+
+        this.monthRange = Range.closed(firstMonth, lastMonth);
     }
 
     // StaticFactoryMethods
@@ -73,7 +71,7 @@ public enum Quarter {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(int monthValue) {
-        Preconditions.checkArgument(Numbers.between(monthValue, 1, 13), "Invalid value for MonthOfYear: " + monthValue);
+        ChronoField.MONTH_OF_YEAR.checkValidValue(monthValue);
         return of(computeQuarterValueInternal(monthValue));
     }
 
@@ -137,23 +135,23 @@ public enum Quarter {
     }
 
     public Month firstMonth() {
-        return Month.of(firstMonth);
+        return Month.of(firstMonthValue());
     }
 
     public int firstMonthValue() {
-        return firstMonth;
+        return this.monthRange.lowerEndpoint();
     }
 
     public Month lastMonth() {
-        return Month.of(lastMonth);
+        return Month.of(lastMonthValue());
     }
 
     public int lastMonthValue() {
-        return lastMonth;
+        return this.monthRange.upperEndpoint();
     }
 
     public MonthDay firstMonthDay() {
-        return MonthDay.of(this.firstMonth, 1);
+        return MonthDay.of(firstMonth(), 1);
     }
 
     public MonthDay lastMonthDay() {
@@ -163,7 +161,7 @@ public enum Quarter {
     }
 
     public int firstDayOfYear(boolean leapYear) {
-        return Month.of(this.firstMonth).firstDayOfYear(leapYear);
+        return firstMonth().firstDayOfYear(leapYear);
     }
 
     // Getters end
