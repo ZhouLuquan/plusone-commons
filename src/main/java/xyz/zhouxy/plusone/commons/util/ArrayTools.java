@@ -16,10 +16,13 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,12 +32,16 @@ public class ArrayTools {
     // #region - empty arrays
 
     public static final char[] EMPTY_CHAR_ARRAY = {};
-    public static final int[] EMPTY_INTEGER_ARRAY = {};
+    public static final byte[] EMPTY_BYTE_ARRAY = {};
+    public static final short[] EMPTY_SHORT_ARRAY = {};
+    public static final int[] EMPTY_INT_ARRAY = {};
     public static final long[] EMPTY_LONG_ARRAY = {};
     public static final float[] EMPTY_FLOAT_ARRAY = {};
     public static final double[] EMPTY_DOUBLE_ARRAY = {};
 
     // #endregion
+
+    public static final int NOT_FOUND_INDEX = -1;
 
     // #region - isNullOrEmpty
 
@@ -48,6 +55,61 @@ public class ArrayTools {
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
     public static <T> boolean isNullOrEmpty(@Nullable T[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
+    // isNullOrEmpty - char
+    /**
+     * 检查给定数组是否为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNullOrEmpty(@Nullable char[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
+    // isNullOrEmpty - byte
+    /**
+     * 检查给定数组是否为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNullOrEmpty(@Nullable byte[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
+    // isNullOrEmpty - short
+    /**
+     * 检查给定数组是否为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNullOrEmpty(@Nullable short[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
+    // isNullOrEmpty - int
+    /**
+     * 检查给定数组是否为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNullOrEmpty(@Nullable int[] arr) {
+        return arr == null || arr.length == 0;
+    }
+
+    // isNullOrEmpty - long
+    /**
+     * 检查给定数组是否为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNullOrEmpty(@Nullable long[] arr) {
         return arr == null || arr.length == 0;
     }
 
@@ -73,39 +135,6 @@ public class ArrayTools {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - byte
-    /**
-     * 检查给定数组是否为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNullOrEmpty(@Nullable byte[] arr) {
-        return arr == null || arr.length == 0;
-    }
-
-    // isNullOrEmpty - long
-    /**
-     * 检查给定数组是否为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNullOrEmpty(@Nullable long[] arr) {
-        return arr == null || arr.length == 0;
-    }
-
-    // isNullOrEmpty - int
-    /**
-     * 检查给定数组是否为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNullOrEmpty(@Nullable int[] arr) {
-        return arr == null || arr.length == 0;
-    }
-
     // #endregion
 
     // #region - isNotEmpty
@@ -119,6 +148,61 @@ public class ArrayTools {
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
     public static <T> boolean isNotEmpty(@Nullable T[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    // isNotEmpty - char
+    /**
+     * 检查给定数组是否不为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNotEmpty(@Nullable char[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    // isNotEmpty - byte
+    /**
+     * 检查给定数组是否不为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNotEmpty(@Nullable byte[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    // isNotEmpty - short
+    /**
+     * 检查给定数组是否不为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNotEmpty(@Nullable short[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    // isNotEmpty - int
+    /**
+     * 检查给定数组是否不为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNotEmpty(@Nullable int[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    // isNotEmpty - long
+    /**
+     * 检查给定数组是否不为空
+     *
+     * @param arr 待检查的数组，可以为 {@code null}
+     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
+     */
+    public static boolean isNotEmpty(@Nullable long[] arr) {
         return arr != null && arr.length > 0;
     }
 
@@ -141,39 +225,6 @@ public class ArrayTools {
      * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
      */
     public static boolean isNotEmpty(@Nullable double[] arr) {
-        return arr != null && arr.length > 0;
-    }
-
-    // isNotEmpty - byte
-    /**
-     * 检查给定数组是否不为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNotEmpty(@Nullable byte[] arr) {
-        return arr != null && arr.length > 0;
-    }
-
-    // isNotEmpty - long
-    /**
-     * 检查给定数组是否不为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNotEmpty(@Nullable long[] arr) {
-        return arr != null && arr.length > 0;
-    }
-
-    // isNotEmpty - int
-    /**
-     * 检查给定数组是否不为空
-     *
-     * @param arr 待检查的数组，可以为 {@code null}
-     * @return 如果数组不为 {@code null} 且长度大于 0，则返回  {@code true}；否则返回  {@code false}
-     */
-    public static boolean isNotEmpty(@Nullable int[] arr) {
         return arr != null && arr.length > 0;
     }
 
@@ -216,34 +267,14 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static float[] concatFloatArray(@Nullable Collection<float[]> arrays) {
+    public static char[] concatCharArray(@Nullable Collection<char[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
-            return new float[0];
+            return new char[0];
         }
         final int length = arrays.stream().mapToInt(a -> a.length).sum();
-        final float[] result = new float[length];
+        final char[] result = new char[length];
         int i = 0;
-        for (float[] arr : arrays) {
-            System.arraycopy(arr, 0, result, i, arr.length);
-            i += arr.length;
-        }
-        return result;
-    }
-
-    /**
-     * 拼接多个数组
-     *
-     * @param arrays 数组集合，可以为 {@code null}
-     * @return 拼接后的数组
-     */
-    public static double[] concatDoubleArray(@Nullable Collection<double[]> arrays) {
-        if (arrays == null || arrays.isEmpty()) {
-            return new double[0];
-        }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
-        final double[] result = new double[length];
-        int i = 0;
-        for (double[] arr : arrays) {
+        for (char[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -276,14 +307,14 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static long[] concatLongArray(@Nullable Collection<long[]> arrays) {
+    public static short[] concatShortArray(@Nullable Collection<short[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
-            return new long[0];
+            return new short[0];
         }
         final int length = arrays.stream().mapToInt(a -> a.length).sum();
-        final long[] result = new long[length];
+        final short[] result = new short[length];
         int i = 0;
-        for (long[] arr : arrays) {
+        for (short[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -304,6 +335,66 @@ public class ArrayTools {
         final int[] result = new int[length];
         int i = 0;
         for (int[] arr : arrays) {
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i += arr.length;
+        }
+        return result;
+    }
+
+    /**
+     * 拼接多个数组
+     *
+     * @param arrays 数组集合，可以为 {@code null}
+     * @return 拼接后的数组
+     */
+    public static long[] concatLongArray(@Nullable Collection<long[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new long[0];
+        }
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final long[] result = new long[length];
+        int i = 0;
+        for (long[] arr : arrays) {
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i += arr.length;
+        }
+        return result;
+    }
+
+    /**
+     * 拼接多个数组
+     *
+     * @param arrays 数组集合，可以为 {@code null}
+     * @return 拼接后的数组
+     */
+    public static float[] concatFloatArray(@Nullable Collection<float[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new float[0];
+        }
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final float[] result = new float[length];
+        int i = 0;
+        for (float[] arr : arrays) {
+            System.arraycopy(arr, 0, result, i, arr.length);
+            i += arr.length;
+        }
+        return result;
+    }
+
+    /**
+     * 拼接多个数组
+     *
+     * @param arrays 数组集合，可以为 {@code null}
+     * @return 拼接后的数组
+     */
+    public static double[] concatDoubleArray(@Nullable Collection<double[]> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return new double[0];
+        }
+        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final double[] result = new double[length];
+        int i = 0;
+        for (double[] arr : arrays) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -356,6 +447,69 @@ public class ArrayTools {
         }
         final int length = Integer.min(arr.length * times, maxLength);
         final char[] result = new char[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - byte
+
+    public static byte[] repeat(byte[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static byte[] repeat(byte[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final byte[] result = new byte[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - short
+
+    public static short[] repeat(short[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static short[] repeat(short[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final short[] result = new short[length];
+        fill(result, 0, length, arr);
+        return result;
+    }
+
+    // repeat - int
+
+    public static int[] repeat(int[] arr, int times) {
+        return repeat(arr, times, Integer.MAX_VALUE);
+    }
+
+    public static int[] repeat(int[] arr, int times, int maxLength) {
+        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(times >= 0,
+                "The number of times must be greater than or equal to zero");
+        AssertTools.checkArgument(maxLength >= 0,
+                "The max length must be greater than or equal to zero");
+        if (times == 0) {
+            return EMPTY_INT_ARRAY;
+        }
+        final int length = Integer.min(arr.length * times, maxLength);
+        final int[] result = new int[length];
         fill(result, 0, length, arr);
         return result;
     }
@@ -438,6 +592,93 @@ public class ArrayTools {
     }
 
     public static void fill(char[] a, int fromIndex, int toIndex, char... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - byte
+
+    public static void fill(byte[] a, byte... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(byte[] a, int fromIndex, int toIndex, byte... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - short
+
+    public static void fill(short[] a, short... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(short[] a, int fromIndex, int toIndex, short... values) {
+        AssertTools.checkArgumentNotNull(a);
+        if (values.length == 0) {
+            return;
+        }
+        final int start = Integer.max(fromIndex, 0);
+        final int end = Integer.min(toIndex, a.length);
+        if (start >= end) {
+            return;
+        }
+        for (int i = start; i < end; i += values.length) {
+            for (int j = 0; j < values.length; j++) {
+                final int k = (i + j);
+                if (k < end) {
+                    a[k] = values[j];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // fill - int
+
+    public static void fill(int[] a, int... values) {
+        fill(a, 0, a.length, values);
+    }
+
+    public static void fill(int[] a, int fromIndex, int toIndex, int... values) {
         AssertTools.checkArgumentNotNull(a);
         if (values.length == 0) {
             return;
@@ -578,6 +819,256 @@ public class ArrayTools {
                 }
             }
         }
+    }
+
+    // #endregion
+
+    // #region - indexOf
+
+    public static <T> int indexOf(T[] arr, Predicate<? super T> predicate) { // TODO 单元测试
+        AssertTools.checkNotNull(predicate);
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (predicate.test(arr[i])) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int indexOf(T[] arr, T obj) { // TODO 单元测试
+        return indexOf(arr, item -> Objects.equals(item, obj));
+    }
+
+    public static int indexOf(char[] arr, char value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(byte[] arr, byte value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(short[] arr, short value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(int[] arr, int value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(long[] arr, long value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(float[] arr, float value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static int indexOf(double[] arr, double value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    // #endregion
+
+    // #region - lastIndexOf
+
+    public static <T> int lastIndexOf(T[] arr, @Nonnull Predicate<? super T> predicate) { // TODO 单元测试
+        AssertTools.checkNotNull(predicate);
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (predicate.test(arr[i])) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(T[] arr, T obj) { // TODO 单元测试
+        return lastIndexOf(arr, item -> Objects.equals(item, obj));
+    }
+
+    public static <T> int lastIndexOf(char[] arr, char value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(byte[] arr, byte value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(short[] arr, short value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(int[] arr, int value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(long[] arr, long value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(float[] arr, float value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    public static <T> int lastIndexOf(double[] arr, double value) { // TODO 单元测试
+        if (isNullOrEmpty(arr)) {
+            return NOT_FOUND_INDEX;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (value == arr[i]) {
+                return i;
+            }
+        }
+        return NOT_FOUND_INDEX;
+    }
+
+    // #endregion
+
+    // #region - contains
+
+    public static <T> boolean contains(T[] arr, T obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(char[] arr, char obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(byte[] arr, byte obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(short[] arr, short obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(int[] arr, int obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(long[] arr, long obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(float[] arr, float obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean contains(double[] arr, double obj) { // TODO 单元测试
+        return indexOf(arr, obj) > NOT_FOUND_INDEX;
+    }
+
+    public static boolean containsValue(BigDecimal[] arr, BigDecimal obj) { // TODO 单元测试
+        return indexOf(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
     }
 
     // #endregion
