@@ -1,0 +1,100 @@
+[x] 无需测试
+[ ] 未开始测试
+[-] 测试未完成
+[Y] 测试完成
+
+xyz.zhouxy.plusone.commons
+    ├───annotation
+    │       ReaderMethod.java                     [x]
+    │       StaticFactoryMethod.java              [x]
+    │       UnsupportedOperation.java             [x]
+    │       ValueObject.java                      [x]
+    │       Virtual.java                          [x]
+    │       WriterMethod.java                     [x]
+    │
+    ├───base
+    │       BoolRef.java                          [Y]
+    │       CharRef.java                          [Y]
+    │       DoubleRef.java                        [Y]
+    │       IntRef.java                           [Y]
+    │       IWithCode.java                        [ ]
+    │       IWithIntCode.java                     [ ]
+    │       IWithLongCode.java                    [ ]
+    │       JRE.java                              [ ]
+    │       LongRef.java                          [Y]
+    │       Ref.java                              [Y]
+    │
+    ├───collection
+    │       AbstractMapWrapper.java               [ ]
+    │       CollectionTools.java                  [ ]
+    │       MapWrapper.java                       [ ]
+    │       ReadWriteLockedTable.java             [ ]
+    │       SafeConcurrentHashMap.java            [ ]
+    │
+    ├───constant
+    │       PatternConsts.java                    [ ]
+    │       RegexConsts.java                      [ ]
+    │
+    ├───exception
+    │   │   ParsingFailureException.java          [ ]
+    │   │
+    │   ├───business
+    │   │       BizException.java                 [ ]
+    │   │       InvalidInputException.java        [ ]
+    │   │       RequestParamsException.java       [ ]
+    │   │
+    │   └───system
+    │           DataOperationResultException.java [ ]
+    │           NoAvailableMacFoundException.java [ ]
+    │           SysException.java                 [ ]
+    │
+    ├───function
+    │       BoolUnaryOperator.java                [ ]
+    │       CharUnaryOperator.java                [ ]
+    │       Executable.java                       [ ]
+    │       OptionalSupplier.java                 [ ]
+    │       PredicateTools.java                   [ ]
+    │       ThrowingConsumer.java                 [ ]
+    │       ThrowingPredicate.java                [ ]
+    │       ThrowingSupplier.java                 [ ]
+    │       ToOptionalBiFunction.java             [ ]
+    │       ToOptionalFunction.java               [ ]
+    │
+    ├───model
+    │   │   Chinese2ndGenIDCardNumber.java        [-]
+    │   │   Gender.java                           [ ]
+    │   │   IDCardNumber.java                     [ ]
+    │   │   ValidatableStringRecord.java          [-]
+    │   │
+    │   └───dto
+    │           PageResult.java                   [-]
+    │           PagingAndSortingQueryParams.java  [-]
+    │           PagingParams.java                 [-]
+    │           UnifiedResponse.java              [-]
+    │
+    ├───sql
+    │       JdbcSql.java                          [ ]
+    │       MyBatisSql.java                       [-]
+    │       SQL.java                              [ ]
+    │
+    ├───time
+    │       Quarter.java                          [-]
+    │       YearQuarter.java                      [-]
+    │
+    └───util
+            ArrayTools.java                       [-]
+            AssertTools.java                      [-]
+            BigDecimals.java                      [-]
+            ConcurrentHashMapTools.java           [-]
+            DateTimeTools.java                    [-]
+            Enumeration.java                      [Y]
+            EnumTools.java                        [-]
+            IdGenerator.java                      [ ]
+            IdWorker.java                         [ ]
+            Numbers.java                          [ ]
+            OptionalTools.java                    [ ]
+            RandomTools.java                      [ ]
+            RegexTools.java                       [ ]
+            SnowflakeIdGenerator.java             [ ]
+            StringTools.java                      [ ]
+            TreeBuilder.java                      [-]
