@@ -17,6 +17,8 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.math.BigDecimal;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
@@ -47,6 +49,25 @@ public class BigDecimals {
 
     public static boolean le(BigDecimal a, BigDecimal b) {
         return lt(a, b) || equalsValue(a, b);
+    }
+
+    public static BigDecimal sum(final BigDecimal... numbers) {
+        if (ArrayTools.isNullOrEmpty(numbers)) {
+            return BigDecimal.ZERO;
+        }
+        BigDecimal result = BigDecimals.nullToZero(numbers[0]);
+        for (int i = 1; i < numbers.length; i++) {
+            BigDecimal value = numbers[i];
+            if (value != null) {
+                result = result.add(value);
+            }
+        }
+        return result;
+    }
+
+    @Nonnull
+    public static BigDecimal nullToZero(@Nullable final BigDecimal val) {
+        return val != null ? val : BigDecimal.ZERO;
     }
 
     @StaticFactoryMethod(BigDecimal.class)
