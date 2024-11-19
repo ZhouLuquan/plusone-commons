@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.base;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.zhouxy.plusone.commons.base.BoolRef;
-import xyz.zhouxy.plusone.commons.base.CharRef;
-import xyz.zhouxy.plusone.commons.base.DoubleRef;
-import xyz.zhouxy.plusone.commons.base.IntRef;
-import xyz.zhouxy.plusone.commons.base.LongRef;
-import xyz.zhouxy.plusone.commons.base.Ref;
 
 @Slf4j
 class RefTests {

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.util;
+package xyz.zhouxy.plusone.commons.sql;
 
 import static xyz.zhouxy.plusone.commons.sql.MyBatisSql.IN;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import xyz.zhouxy.plusone.commons.sql.MyBatisSql;
 
 class MyBatisSqlBuilderTests {
     private static final Logger log = LoggerFactory.getLogger(MyBatisSqlBuilderTests.class);
