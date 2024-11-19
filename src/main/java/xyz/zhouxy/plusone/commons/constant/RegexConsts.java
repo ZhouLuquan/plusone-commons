@@ -23,7 +23,11 @@ package xyz.zhouxy.plusone.commons.constant;
  */
 public final class RegexConsts {
 
-    public static final String DATE = "^\\d{4}-\\d{2}-\\d{2}";
+    // TODO 【优化】 根据需要添加 group
+
+    // TODO 【添加】 新增身份证等正则常量
+
+    public static final String DATE = "^\\d{4}-\\d{2}-\\d{2}"; // TODO 【优化】 修改为对应的日期格式名称
 
     public static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[\\w\\\\!#$%&'*\\+\\-/=?^`{|}~@\\(\\)\\[\\]\",\\.;':><]{8,32}$";
 

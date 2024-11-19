@@ -25,7 +25,9 @@ import java.util.regex.Pattern;
  */
 public final class PatternConsts {
 
-    public static final Pattern DATE = Pattern.compile(RegexConsts.DATE);
+    // TODO 【添加】 新增身份证等正则常量
+
+    public static final Pattern DATE = Pattern.compile(RegexConsts.DATE); // TODO 【优化】 修改为对应的日期格式名称
 
     public static final Pattern PASSWORD = Pattern.compile(RegexConsts.PASSWORD);
 
