@@ -236,9 +236,7 @@ public class DateTimeTools {
      *
      * @param zonedDateTime {@link ZonedDateTime} 对象
      * @return {@link Instant} 对象
-     * @deprecated 请使用 {@link ZonedDateTime#toInstant()} 方法
      */
-    @Deprecated
     public static Instant toInstant(ZonedDateTime zonedDateTime) { // NOSONAR
         return zonedDateTime.toInstant();
     }
@@ -342,10 +340,7 @@ public class DateTimeTools {
      * @param localDateTime 地区时间
      * @param zone          时区
      * @return 带时区的地区时间
-     *
-     * @deprecated 使用 {@link ZonedDateTime#of(LocalDateTime, ZoneId)}
      */
-    @Deprecated
     public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) { // NOSONAR
         return ZonedDateTime.of(localDateTime, zone);
     }
