@@ -40,6 +40,7 @@ public class IdGenerator {
     }
 
     public static String toSimpleString(UUID uuid) {
+        AssertTools.checkArgumentNotNull(uuid);
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
                 uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
                 uuidDigits(uuid.getMostSignificantBits(), 4) +
