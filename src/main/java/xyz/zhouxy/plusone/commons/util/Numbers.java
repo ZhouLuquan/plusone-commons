@@ -93,6 +93,10 @@ public class Numbers {
 
     // #region - nullToZero
 
+    public static byte nullToZero(@Nullable final Byte val) {
+        return val != null ? val : 0;
+    }
+
     public static short nullToZero(@Nullable final Short val) {
         return val != null ? val : 0;
     }
