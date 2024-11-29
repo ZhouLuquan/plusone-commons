@@ -40,9 +40,9 @@ public class Chinese2ndGenIDCardNumberTests {
     }
 
     @Test
-    void test() throws CloneNotSupportedException {
+    void test() {
         Chinese2ndGenIDCardNumber idCardNumber = Chinese2ndGenIDCardNumber.of("11010520000101111X");
-        assertEquals("11010520000101111X", idCardNumber.value());
+        assertEquals("11010520000101111X", idCardNumber.getValue());
         assertEquals(LocalDate.of(2000, 1, 1), idCardNumber.getBirthDate());
         assertEquals(Gender.MALE, idCardNumber.getGender());
         assertEquals("110105", idCardNumber.getCountyCode());
@@ -66,7 +66,6 @@ public class Chinese2ndGenIDCardNumberTests {
             Chinese2ndGenIDCardNumber.of("11010520002101111X");
         }
         catch (IllegalArgumentException e) {
-            log.error(e.getMessage(), e);
             assertTrue(e.getCause() instanceof DateTimeParseException);
         }
     }

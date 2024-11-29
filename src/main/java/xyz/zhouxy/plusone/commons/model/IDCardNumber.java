@@ -18,29 +18,29 @@ package xyz.zhouxy.plusone.commons.model;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.function.Supplier;
-import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 身份证号
  */
-public abstract class IDCardNumber extends ValidatableStringRecord {
+public abstract class IDCardNumber {
 
-    protected IDCardNumber(@Nonnull String idNumber, @Nonnull Pattern pattern)
-            throws IllegalArgumentException{
-        super(idNumber, pattern);
+    @Nonnull
+    private final String value;
+
+    private static final char DEFAULT_REPLACED_CHAR = '*';
+    private static final int DEFAULT_DISPLAY_FRONT = 1;
+    private static final int DEFAULT_DISPLAY_END = 2;
+
+    protected IDCardNumber(String value) {
+        this.value = value;
     }
 
-    protected IDCardNumber(@Nonnull String idNumber, @Nonnull Pattern pattern,
-            @Nonnull String errorMessage) {
-        super(idNumber, pattern, errorMessage);
-    }
-
-    protected IDCardNumber(@Nonnull String idNumber, @Nonnull Pattern pattern,
-            @Nonnull Supplier<String> errorMessage) {
-        super(idNumber, pattern, errorMessage);
+    public final String getValue() {
+        return this.value;
     }
 
     /**
@@ -58,4 +58,35 @@ public abstract class IDCardNumber extends ValidatableStringRecord {
         LocalDate now = LocalDate.now();
         return Period.between(getBirthDate(), now).getYears();
     }
+
+    // ================================
+    // #region - toString
+    // ================================
+
+    @Override
+    public String toString() {
+        return toDesensitizedString();
+    }
+
+    public String toDesensitizedString() {
+        return toDesensitizedString(DEFAULT_REPLACED_CHAR, DEFAULT_DISPLAY_FRONT, DEFAULT_DISPLAY_END);
+    }
+
+    public String toDesensitizedString(int front, int end) {
+        return toDesensitizedString(DEFAULT_REPLACED_CHAR, front, end);
+    }
+
+    public String toDesensitizedString(char replacedChar, int front, int end) {
+        AssertTools.checkArgument(front >= 0 && end >= 0);
+        AssertTools.checkArgument((front + end) <= this.value.length(), "需要截取的长度不能大于身份证号长度");
+        final char[] charArray = getValue().toCharArray();
+        for (int i = front; i < charArray.length - end; i++) {
+            charArray[i] = replacedChar;
+        }
+        return String.valueOf(charArray);
+    }
+
+    // ================================
+    // #endregion - toString
+    // ================================
 }
