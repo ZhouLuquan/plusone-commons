@@ -27,7 +27,9 @@ public final class PatternConsts {
 
     // TODO 【添加】 新增身份证等正则常量
 
-    public static final Pattern DATE = Pattern.compile(RegexConsts.DATE); // TODO 【优化】 修改为对应的日期格式名称
+    public static final Pattern BASIC_ISO_DATE = Pattern.compile(RegexConsts.BASIC_ISO_DATE);
+
+    public static final Pattern ISO_LOCAL_DATE = Pattern.compile(RegexConsts.ISO_LOCAL_DATE);
 
     public static final Pattern PASSWORD = Pattern.compile(RegexConsts.PASSWORD);
 
