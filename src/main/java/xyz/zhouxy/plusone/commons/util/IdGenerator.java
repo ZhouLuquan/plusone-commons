@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -40,7 +41,7 @@ public class IdGenerator {
     }
 
     public static String toSimpleString(UUID uuid) {
-        AssertTools.checkArgumentNotNull(uuid);
+        AssertTools.checkArgument(Objects.nonNull(uuid));
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
                 uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
                 uuidDigits(uuid.getMostSignificantBits(), 4) +

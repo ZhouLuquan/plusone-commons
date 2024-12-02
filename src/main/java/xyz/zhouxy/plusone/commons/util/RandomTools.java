@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.security.SecureRandom;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -41,20 +42,20 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(@Nonnull Random random, @Nonnull char[] sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(random, "Random cannot be null.");
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(random), "Random cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
     public static String randomStr(@Nonnull char[] sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
     public static String secureRandomStr(@Nonnull char[] sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
     }
@@ -70,20 +71,20 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(@Nonnull Random random, @Nonnull String sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(random, "Random cannot be null.");
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(random), "Random cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
     public static String randomStr(@Nonnull String sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
     public static String secureRandomStr(@Nonnull String sourceCharacters, int length) {
-        AssertTools.checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
     }

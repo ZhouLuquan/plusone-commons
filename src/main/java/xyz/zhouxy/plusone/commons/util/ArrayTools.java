@@ -437,7 +437,7 @@ public class ArrayTools {
     }
 
     public static char[] repeat(char[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -458,7 +458,7 @@ public class ArrayTools {
     }
 
     public static byte[] repeat(byte[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -479,7 +479,7 @@ public class ArrayTools {
     }
 
     public static short[] repeat(short[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -500,7 +500,7 @@ public class ArrayTools {
     }
 
     public static int[] repeat(int[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -521,7 +521,7 @@ public class ArrayTools {
     }
 
     public static long[] repeat(long[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -542,7 +542,7 @@ public class ArrayTools {
     }
 
     public static float[] repeat(float[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -563,7 +563,7 @@ public class ArrayTools {
     }
 
     public static double[] repeat(double[] arr, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(arr);
+        AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         AssertTools.checkArgument(maxLength >= 0,
@@ -592,7 +592,7 @@ public class ArrayTools {
     }
 
     public static void fill(char[] a, int fromIndex, int toIndex, char... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -621,7 +621,7 @@ public class ArrayTools {
     }
 
     public static void fill(byte[] a, int fromIndex, int toIndex, byte... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -650,7 +650,7 @@ public class ArrayTools {
     }
 
     public static void fill(short[] a, int fromIndex, int toIndex, short... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -679,7 +679,7 @@ public class ArrayTools {
     }
 
     public static void fill(int[] a, int fromIndex, int toIndex, int... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -708,7 +708,7 @@ public class ArrayTools {
     }
 
     public static void fill(long[] a, int fromIndex, int toIndex, long... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -737,7 +737,7 @@ public class ArrayTools {
     }
 
     public static void fill(float[] a, int fromIndex, int toIndex, float... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -766,7 +766,7 @@ public class ArrayTools {
     }
 
     public static void fill(double[] a, int fromIndex, int toIndex, double... values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values.length == 0) {
             return;
         }
@@ -799,7 +799,7 @@ public class ArrayTools {
     }
 
     private static <T> void fillInternal(@Nonnull T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
-        AssertTools.checkArgumentNotNull(a);
+        AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }

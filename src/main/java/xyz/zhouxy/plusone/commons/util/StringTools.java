@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Objects;
+
 import com.google.common.annotations.Beta;
 
 @Beta
@@ -40,7 +42,7 @@ public class StringTools {
     }
 
     public static String repeat(String str, int times, int maxLength) {
-        AssertTools.checkArgumentNotNull(str);
+        AssertTools.checkArgument(Objects.nonNull(str));
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
     }
 

@@ -50,8 +50,8 @@ public abstract class ValidatableStringRecord
 
     protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern,
             @Nonnull String errorMessage) {
-        AssertTools.checkArgumentNotNull(value, "The value cannot be null.");
-        AssertTools.checkArgumentNotNull(pattern, "The pattern cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(value), "The value cannot be null.");
+        AssertTools.checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
         this.matcher = pattern.matcher(value);
         AssertTools.checkArgument(this.matcher.matches(), errorMessage);
         this.value = value;

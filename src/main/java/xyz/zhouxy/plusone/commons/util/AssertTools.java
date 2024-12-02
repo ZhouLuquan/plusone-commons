@@ -16,9 +16,14 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
+import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
 
 /**
  * 断言工具
@@ -30,91 +35,231 @@ import javax.annotation.Nonnull;
  * <pre>
  * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * AssertTools.checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
- * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles), () -> new InvalidInputException("The roles cannot be empty."));
- * AssertTools.checkCondition(RegexTools.matches(email, PatternConsts.EMAIL), "must be a well-formed email address");
+ * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles),
+ *     () -> new InvalidInputException("The roles cannot be empty."));
+ * AssertTools.checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
+ *     "must be a well-formed email address");
  * </pre>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class AssertTools {
 
-    // #region - checkArgument
+    // ================================
+    // #region - Argument
+    // ================================
 
-    public static <T> void checkArgumentNotNull(T argument) {
-        checkCondition(argument != null, () -> new IllegalArgumentException("The argument cannot be null."));
-    }
-
-    public static <T> void checkArgumentNotNull(T argument, String errMsg) {
-        checkCondition(argument != null, () -> new IllegalArgumentException(errMsg));
-    }
-
-    public static <T> void checkArgumentNotNull(T argument, Supplier<String> messageSupplier) {
-        checkCondition(argument != null, () -> new IllegalArgumentException(messageSupplier.get()));
-    }
-
-    public static <T> void checkArgumentNotNull(T argument, String format, Object... args) {
-        checkCondition(argument != null, () -> new IllegalArgumentException(String.format(format, args)));
-    }
-
+    /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
     public static void checkArgument(boolean condition) {
         checkCondition(condition, IllegalArgumentException::new);
     }
 
+    /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
     public static void checkArgument(boolean condition, String errMsg) {
         checkCondition(condition, () -> new IllegalArgumentException(errMsg));
     }
 
-    public static void checkArgument(boolean condition, Supplier<String> messageSupplier) {
+    /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
+    public static void checkArgument(boolean condition, @Nonnull Supplier<String> messageSupplier) {
         checkCondition(condition, () -> new IllegalArgumentException(messageSupplier.get()));
     }
 
+    /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
     public static void checkArgument(boolean condition, String format, Object... args) {
         checkCondition(condition, () -> new IllegalArgumentException(String.format(format, args)));
     }
 
-    // #endregion
+    // ================================
+    // #endregion - Argument
+    // ================================
 
-    // #region - checkState
+    // ================================
+    // #region - State
+    // ================================
 
+    /** Throw {@link IllegalStateException} if the {@code condition} is false. */
     public static void checkState(boolean condition) {
         checkCondition(condition, IllegalStateException::new);
     }
 
+    /** Throw {@link IllegalStateException} if the {@code condition} is false. */
     public static void checkState(boolean condition, String errMsg) {
         checkCondition(condition, () -> new IllegalStateException(errMsg));
     }
 
-    public static void checkState(boolean condition, Supplier<String> messageSupplier) {
+    /** Throw {@link IllegalStateException} if the {@code condition} is false. */
+    public static void checkState(boolean condition, @Nonnull Supplier<String> messageSupplier) {
         checkCondition(condition, () -> new IllegalStateException(messageSupplier.get()));
     }
 
+    /** Throw {@link IllegalStateException} if the {@code condition} is false. */
     public static void checkState(boolean condition, String format, Object... args) {
         checkCondition(condition, () -> new IllegalStateException(String.format(format, args)));
     }
 
+    // ================================
     // #endregion
+    // ================================
 
-    // #region - checkNotNull
+    // ================================
+    // #region - NotNull
+    // ================================
 
+    /** Throw {@link NullPointerException} if the {@code obj} is null. */
     public static <T> void checkNotNull(T obj) {
         checkCondition(obj != null, NullPointerException::new);
     }
 
+    /** Throw {@link NullPointerException} if the {@code obj} is null. */
     public static <T> void checkNotNull(T obj, String errMsg) {
         checkCondition(obj != null, () -> new NullPointerException(errMsg));
     }
 
-    public static <T> void checkNotNull(T obj, Supplier<String> messageSupplier) {
+    /** Throw {@link NullPointerException} if the {@code obj} is null. */
+    public static <T> void checkNotNull(T obj, @Nonnull Supplier<String> messageSupplier) {
         checkCondition(obj != null, () -> new NullPointerException(messageSupplier.get()));
     }
 
+    /** Throw {@link NullPointerException} if the {@code obj} is null. */
     public static <T> void checkNotNull(T obj, String format, Object... args) {
         checkCondition(obj != null, () -> new NullPointerException(String.format(format, args)));
     }
 
+    // ================================
     // #endregion
+    // ================================
 
-    // #region - checkCondition
+    // ================================
+    // #region - Exists
+    // ================================
+
+    /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
+    public static <T> T checkExists(T obj)
+            throws DataNotExistsException {
+        checkCondition(Objects.nonNull(obj), DataNotExistsException::new);
+        return obj;
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
+    public static <T> T checkExists(T obj, String message)
+            throws DataNotExistsException {
+        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(message));
+        return obj;
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
+    public static <T> T checkExists(T obj, @Nonnull Supplier<String> messageSupplier)
+            throws DataNotExistsException {
+        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(messageSupplier.get()));
+        return obj;
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
+    public static <T> T checkExists(T obj, String format, Object... args)
+            throws DataNotExistsException {
+        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(String.format(format, args)));
+        return obj;
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
+    public static <T> T checkExists(@Nonnull Optional<T> optional)
+            throws DataNotExistsException {
+        checkCondition(optional.isPresent(), DataNotExistsException::new);
+        return optional.get();
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
+    public static <T> T checkExists(@Nonnull Optional<T> optional, String message)
+            throws DataNotExistsException {
+        checkCondition(optional.isPresent(), () -> new DataNotExistsException(message));
+        return optional.get();
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
+    public static <T> T checkExists(@Nonnull Optional<T> optional, @Nonnull Supplier<String> messageSupplier)
+            throws DataNotExistsException {
+        checkCondition(optional.isPresent(), () -> new DataNotExistsException(messageSupplier.get()));
+        return optional.get();
+    }
+
+    /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
+    public static <T> T checkExists(@Nonnull Optional<T> optional, String format, Object... args)
+            throws DataNotExistsException {
+        checkCondition(optional.isPresent(), () -> new DataNotExistsException(String.format(format, args)));
+        return optional.get();
+    }
+
+    // ================================
+    // #endregion - Exists
+    // ================================
+
+    // ================================
+    // #region - AffectedRows
+    // ================================
+
+    public static void checkAffectedRows(int expectedValue, int result) {
+        checkAffectedRows(expectedValue, result,
+                "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
+    }
+
+    public static void checkAffectedRows(int expectedValue, int result, String message) {
+        checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
+    }
+
+    public static void checkAffectedRows(int expectedValue, int result,
+            @Nonnull Supplier<String> messageSupplier) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(messageSupplier.get()));
+    }
+
+    public static void checkAffectedRows(int expectedValue, int result, String format, Object... args) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(String.format(format, args)));
+    }
+
+    public static void checkAffectedRows(long result, long expectedValue) {
+        checkCondition(expectedValue == result, DataOperationResultException::new);
+    }
+
+    public static void checkAffectedRows(long result, long expectedValue, String message) {
+        checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
+    }
+
+    public static void checkAffectedRows(long result, long expectedValue,
+            @Nonnull Supplier<String> messageSupplier) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(messageSupplier.get()));
+    }
+
+    public static void checkAffectedRows(long result, long expectedValue, String format, Object... args) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(String.format(format, args)));
+    }
+
+    public static void checkAffectedOneRow(int result) {
+        checkAffectedRows(1, result,
+                () -> "The number of rows affected is expected to be 1, but is: " + result);
+    }
+
+    public static void checkAffectedOneRow(int result, String message) {
+        checkAffectedRows(1, result, message);
+    }
+
+    public static void checkAffectedOneRow(int result, @Nonnull Supplier<String> messageSupplier) {
+        checkAffectedRows(1, result, messageSupplier);
+    }
+
+    public static void checkAffectedOneRow(int result, String format, Object... args) {
+        checkAffectedRows(1, result, format, args);
+    }
+
+    // ================================
+    // #endregion - AffectedRows
+    // ================================
+
+    // ================================
+    // #region - Condition
+    // ================================
 
     public static <T extends Exception> void checkCondition(boolean condition, @Nonnull Supplier<T> e)
             throws T {
@@ -123,13 +268,19 @@ public class AssertTools {
         }
     }
 
+    // ================================
     // #endregion
+    // ================================
 
-    // #region - private constructor
+    // ================================
+    // #region - constructor
+    // ================================
 
     private AssertTools() {
         throw new IllegalStateException("Utility class");
     }
 
+    // ================================
     // #endregion
+    // ================================
 }
