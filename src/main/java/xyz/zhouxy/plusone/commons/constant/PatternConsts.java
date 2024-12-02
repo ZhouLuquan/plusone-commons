@@ -22,26 +22,38 @@ import java.util.regex.Pattern;
  * 正则表达式常量
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @see RegexConsts
+ * @see xyz.zhouxy.plusone.commons.util.RegexTools
  */
 public final class PatternConsts {
 
-    // TODO 【添加】 新增身份证等正则常量
-
+    /** yyyyMMdd */
     public static final Pattern BASIC_ISO_DATE = Pattern.compile(RegexConsts.BASIC_ISO_DATE);
 
+    /** yyyy-MM-dd */
     public static final Pattern ISO_LOCAL_DATE = Pattern.compile(RegexConsts.ISO_LOCAL_DATE);
 
+    /** 密码 */
     public static final Pattern PASSWORD = Pattern.compile(RegexConsts.PASSWORD);
 
+    /** 验证码 */
     public static final Pattern CAPTCHA = Pattern.compile(RegexConsts.CAPTCHA);
 
+    /** 邮箱地址 */
     public static final Pattern EMAIL = Pattern.compile(RegexConsts.EMAIL);
 
+    /** 中国大陆手机号 */
     public static final Pattern MOBILE_PHONE = Pattern.compile(RegexConsts.MOBILE_PHONE);
 
+    /** 用户名 */
     public static final Pattern USERNAME = Pattern.compile(RegexConsts.USERNAME);
 
+    /** 昵称 */
     public static final Pattern NICKNAME = Pattern.compile(RegexConsts.NICKNAME);
+
+    /** 中国第二代居民身份证 */
+    public static final Pattern CHINESE_2ND_ID_CARD_NUMBER
+            = Pattern.compile(RegexConsts.CHINESE_2ND_ID_CARD_NUMBER);
 
     private PatternConsts() {
         throw new IllegalStateException("Utility class");
