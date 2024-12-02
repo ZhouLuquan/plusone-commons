@@ -19,42 +19,31 @@ package xyz.zhouxy.plusone.commons.model;
 import java.time.LocalDate;
 import java.time.Period;
 
-import javax.annotation.Nonnull;
-
 import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 身份证号
  */
-public abstract class IDCardNumber {
+public interface IDCardNumber {
 
-    @Nonnull
-    private final String value;
+    static final char DEFAULT_REPLACED_CHAR = '*';
+    static final int DEFAULT_DISPLAY_FRONT = 1;
+    static final int DEFAULT_DISPLAY_END = 2;
 
-    private static final char DEFAULT_REPLACED_CHAR = '*';
-    private static final int DEFAULT_DISPLAY_FRONT = 1;
-    private static final int DEFAULT_DISPLAY_END = 2;
-
-    protected IDCardNumber(String value) {
-        this.value = value;
-    }
-
-    public final String getValue() {
-        return this.value;
-    }
+    String value();
 
     /**
      * 根据身份证号判断性别
      */
-    public abstract Gender getGender();
+    Gender getGender();
 
     /**
      * 获取出生日期
      */
-    public abstract LocalDate getBirthDate();
+    LocalDate getBirthDate();
 
     /** 计算年龄 */
-    public final int calculateAge() {
+    default int calculateAge() {
         LocalDate now = LocalDate.now();
         return Period.between(getBirthDate(), now).getYears();
     }
@@ -63,23 +52,19 @@ public abstract class IDCardNumber {
     // #region - toString
     // ================================
 
-    @Override
-    public String toString() {
-        return toDesensitizedString();
-    }
-
-    public String toDesensitizedString() {
+    default String toDesensitizedString() {
         return toDesensitizedString(DEFAULT_REPLACED_CHAR, DEFAULT_DISPLAY_FRONT, DEFAULT_DISPLAY_END);
     }
 
-    public String toDesensitizedString(int front, int end) {
+    default String toDesensitizedString(int front, int end) {
         return toDesensitizedString(DEFAULT_REPLACED_CHAR, front, end);
     }
 
-    public String toDesensitizedString(char replacedChar, int front, int end) {
+    default String toDesensitizedString(char replacedChar, int front, int end) {
+        final String value = value();
         AssertTools.checkArgument(front >= 0 && end >= 0);
-        AssertTools.checkArgument((front + end) <= this.value.length(), "需要截取的长度不能大于身份证号长度");
-        final char[] charArray = getValue().toCharArray();
+        AssertTools.checkArgument((front + end) <= value.length(), "需要截取的长度不能大于身份证号长度");
+        final char[] charArray = value.toCharArray();
         for (int i = front; i < charArray.length - end; i++) {
             charArray[i] = replacedChar;
         }

@@ -26,13 +26,14 @@ import java.util.regex.Matcher;
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
 @Slf4j
 public class Chinese2ndGenIDCardNumberTests {
 
     @Test
     void testPattern() {
-        Matcher matcher = Chinese2ndGenIDCardNumber.PATTERN.matcher("11010520000101111X");
+        Matcher matcher = PatternConsts.CHINESE_2ND_ID_CARD_NUMBER.matcher("11010520000101111X");
         assertTrue(matcher.matches());
         for (int i = 0; i < matcher.groupCount(); i++) {
             log.info("{}: {}", i, matcher.group(i));
@@ -42,7 +43,7 @@ public class Chinese2ndGenIDCardNumberTests {
     @Test
     void test() {
         Chinese2ndGenIDCardNumber idCardNumber = Chinese2ndGenIDCardNumber.of("11010520000101111X");
-        assertEquals("11010520000101111X", idCardNumber.getValue());
+        assertEquals("11010520000101111X", idCardNumber.value());
         assertEquals(LocalDate.of(2000, 1, 1), idCardNumber.getBirthDate());
         assertEquals(Gender.MALE, idCardNumber.getGender());
         assertEquals("110105", idCardNumber.getCountyCode());

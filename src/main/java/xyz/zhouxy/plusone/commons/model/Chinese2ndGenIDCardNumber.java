@@ -16,26 +16,39 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.errorprone.annotations.Immutable;
 
+import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 import xyz.zhouxy.plusone.commons.annotation.ValueObject;
+import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 import xyz.zhouxy.plusone.commons.util.AssertTools;
 import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
+ * Chinese2ndGenIDCardNumber
+ *
+ * <p>
  * 中国第二代居民身份证号
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ * @see xyz.zhouxy.plusone.commons.constant.PatternConsts#CHINESE_2ND_ID_CARD_NUMBER
  */
 @ValueObject
 @Immutable
-public class Chinese2ndGenIDCardNumber extends IDCardNumber {
+public class Chinese2ndGenIDCardNumber implements IDCardNumber, Serializable {
+
+    private final String value;
 
     /** 省份编码 */
     private final String provinceCode;
@@ -52,7 +65,7 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
 
     private Chinese2ndGenIDCardNumber(String value, String provinceCode, String cityCode, String countyCode,
             Gender gender, LocalDate birthDate) {
-        super(value);
+        this.value = value;
         this.provinceCode = provinceCode;
         this.cityCode = cityCode;
         this.countyCode = countyCode;
@@ -60,13 +73,11 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
         this.birthDate = birthDate;
     }
 
-    public static final Pattern PATTERN = Pattern.compile("^(?<county>(?<city>(?<province>\\d{2})\\d{2})\\d{2})(?<birthDate>\\d{8})\\d{2}(?<gender>\\d)([\\dXx])$");
-
     public static Chinese2ndGenIDCardNumber of(final String value) {
         AssertTools.checkArgument(StringTools.isNotBlank(value), "二代居民身份证校验失败：号码为空");
         final String idNumber = value.toUpperCase();
 
-        final Matcher matcher = Chinese2ndGenIDCardNumber.PATTERN.matcher(idNumber);
+        final Matcher matcher = PatternConsts.CHINESE_2ND_ID_CARD_NUMBER.matcher(idNumber);
         AssertTools.checkArgument(matcher.matches(), () -> "二代居民身份证校验失败：" + value);
 
         final String provinceCode = matcher.group("province");
@@ -98,39 +109,53 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
     // #region - reader methods
     // ================================
 
+    @ReaderMethod
+    public String value() {
+        return value;
+    }
+
+    @ReaderMethod
     public String getProvinceCode() {
         return provinceCode;
     }
 
+    @ReaderMethod
     public String getProvinceName() {
         return PROVINCE_CODES.get(this.provinceCode);
     }
 
+    @ReaderMethod
     public String getFullProvinceCode() {
         return Strings.padEnd(this.provinceCode, 12, '0');
     }
 
+    @ReaderMethod
     public String getCityCode() {
         return cityCode;
     }
 
+    @ReaderMethod
     public String getFullCityCode() {
         return Strings.padEnd(this.cityCode, 12, '0');
     }
 
+    @ReaderMethod
     public String getCountyCode() {
         return countyCode;
     }
 
+    @ReaderMethod
     public String getFullCountyCode() {
         return Strings.padEnd(this.countyCode, 12, '0');
     }
 
+    @ReaderMethod
     @Override
     public Gender getGender() {
         return gender;
     }
 
+    @ReaderMethod
     @Override
     public LocalDate getBirthDate() {
         return birthDate;
@@ -188,11 +213,18 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hashCode(value);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Chinese2ndGenIDCardNumber))
+            return false;
+        Chinese2ndGenIDCardNumber other = (Chinese2ndGenIDCardNumber) obj;
+        return Objects.equals(value, other.value);
     }
+
+    private static final long serialVersionUID = 20241202095400L;
 }
