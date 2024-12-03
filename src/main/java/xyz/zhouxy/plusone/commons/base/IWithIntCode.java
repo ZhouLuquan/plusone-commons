@@ -29,4 +29,16 @@ public interface IWithIntCode {
     default boolean equalsCode(int code) {
         return getCode() == code;
     }
+
+    default boolean equalsCode(IWithCode<?> obj) { // TODO 单元测试
+        return obj != null && obj.getCode().equals(getCode());
+    }
+
+    default boolean equalsCode(IWithIntCode obj) { // TODO 单元测试
+        return obj != null && getCode() == obj.getCode();
+    }
+
+    default boolean equalsCode(IWithLongCode obj) { // TODO 单元测试
+        return obj != null && getCode() == obj.getCode();
+    }
 }
