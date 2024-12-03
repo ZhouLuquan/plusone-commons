@@ -21,19 +21,27 @@ import java.math.BigDecimal;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.base.Preconditions;
-
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
+/**
+ * BigDecimals
+ *
+ * <p>
+ * BigDecimal 工具类
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
 public class BigDecimals {
 
     public static boolean equalsValue(@Nullable BigDecimal a, @Nullable BigDecimal b) {
-        return (a == b) || (a != null && a.compareTo(b) == 0);
+        return (a == b) || (a != null && b != null && a.compareTo(b) == 0);
     }
 
     public static boolean gt(BigDecimal a, BigDecimal b) {
-        Preconditions.checkNotNull(a, "Parameter could not be null.");
-        Preconditions.checkNotNull(b, "Parameter could not be null.");
+        AssertTools.checkNotNull(a, "Parameter could not be null.");
+        AssertTools.checkNotNull(b, "Parameter could not be null.");
         return (a != b) && (a.compareTo(b) > 0);
     }
 
@@ -42,8 +50,8 @@ public class BigDecimals {
     }
 
     public static boolean lt(BigDecimal a, BigDecimal b) {
-        Preconditions.checkNotNull(a, "Parameter could not be null.");
-        Preconditions.checkNotNull(b, "Parameter could not be null.");
+        AssertTools.checkNotNull(a, "Parameter could not be null.");
+        AssertTools.checkNotNull(b, "Parameter could not be null.");
         return (a != b) && (a.compareTo(b) < 0);
     }
 
