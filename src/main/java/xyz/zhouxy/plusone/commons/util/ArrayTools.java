@@ -23,10 +23,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * ArrayTools
+ *
+ * <p>
+ * 数组工具类
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
 public class ArrayTools {
 
     // #region - empty arrays
@@ -267,14 +278,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static char[] concatCharArray(@Nullable Collection<char[]> arrays) {
+    public static char[] concatCharArray(@Nullable final Collection<char[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new char[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<char[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final char[] result = new char[length];
         int i = 0;
-        for (char[] arr : arrays) {
+        for (char[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -287,14 +302,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static byte[] concatByteArray(@Nullable Collection<byte[]> arrays) {
+    public static byte[] concatByteArray(@Nullable final Collection<byte[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new byte[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<byte[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final byte[] result = new byte[length];
         int i = 0;
-        for (byte[] arr : arrays) {
+        for (byte[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -307,14 +326,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static short[] concatShortArray(@Nullable Collection<short[]> arrays) {
+    public static short[] concatShortArray(@Nullable final Collection<short[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new short[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<short[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final short[] result = new short[length];
         int i = 0;
-        for (short[] arr : arrays) {
+        for (short[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -327,14 +350,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static int[] concatIntArray(@Nullable Collection<int[]> arrays) {
+    public static int[] concatIntArray(@Nullable final Collection<int[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new int[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<int[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final int[] result = new int[length];
         int i = 0;
-        for (int[] arr : arrays) {
+        for (int[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -347,14 +374,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static long[] concatLongArray(@Nullable Collection<long[]> arrays) {
+    public static long[] concatLongArray(@Nullable final Collection<long[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new long[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<long[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final long[] result = new long[length];
         int i = 0;
-        for (long[] arr : arrays) {
+        for (long[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -367,14 +398,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static float[] concatFloatArray(@Nullable Collection<float[]> arrays) {
+    public static float[] concatFloatArray(@Nullable final Collection<float[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new float[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<float[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final float[] result = new float[length];
         int i = 0;
-        for (float[] arr : arrays) {
+        for (float[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -387,14 +422,18 @@ public class ArrayTools {
      * @param arrays 数组集合，可以为 {@code null}
      * @return 拼接后的数组
      */
-    public static double[] concatDoubleArray(@Nullable Collection<double[]> arrays) {
+    public static double[] concatDoubleArray(@Nullable final Collection<double[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
             return new double[0];
         }
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final Collection<double[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final double[] result = new double[length];
         int i = 0;
-        for (double[] arr : arrays) {
+        for (double[] arr : arraysToConcat) {
             System.arraycopy(arr, 0, result, i, arr.length);
             i += arr.length;
         }
@@ -408,17 +447,21 @@ public class ArrayTools {
      * @param <T> 泛型参数，表示数组的元素类型
      * @return 返回连接后的列表，如果输入的集合为空或包含空数组，则返回空列表
      */
-    public static <T> List<T> concatToList(@Nullable Collection<T[]> arrays) {
+    public static <T> List<T> concatToList(@Nullable final Collection<T[]> arrays) {
         // 如果输入的集合是否为空，则直接返回一个空列表
         if (arrays == null || arrays.isEmpty()) {
             return Collections.emptyList();
         }
 
+        final Collection<T[]> arraysToConcat = arrays
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         // 计算所有数组的总长度，用于初始化列表的容量
-        final int length = arrays.stream().mapToInt(a -> a.length).sum();
+        final int length = arraysToConcat.stream().mapToInt(a -> a.length).sum();
         final List<T> result = new ArrayList<>(length);
 
-        for (T[] arr : arrays) {
+        for (T[] arr : arraysToConcat) {
             Collections.addAll(result, arr);
         }
 
@@ -825,7 +868,7 @@ public class ArrayTools {
 
     // #region - indexOf
 
-    public static <T> int indexOf(T[] arr, Predicate<? super T> predicate) { // TODO 单元测试
+    public static <T> int indexOf(T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
@@ -838,11 +881,11 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int indexOf(T[] arr, T obj) { // TODO 单元测试
+    public static <T> int indexOf(T[] arr, T obj) {
         return indexOf(arr, item -> Objects.equals(item, obj));
     }
 
-    public static int indexOf(char[] arr, char value) { // TODO 单元测试
+    public static int indexOf(char[] arr, char value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -854,7 +897,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(byte[] arr, byte value) { // TODO 单元测试
+    public static int indexOf(byte[] arr, byte value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -866,7 +909,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(short[] arr, short value) { // TODO 单元测试
+    public static int indexOf(short[] arr, short value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -878,7 +921,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(int[] arr, int value) { // TODO 单元测试
+    public static int indexOf(int[] arr, int value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -890,7 +933,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(long[] arr, long value) { // TODO 单元测试
+    public static int indexOf(long[] arr, long value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -902,7 +945,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(float[] arr, float value) { // TODO 单元测试
+    public static int indexOf(float[] arr, float value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -914,7 +957,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(double[] arr, double value) { // TODO 单元测试
+    public static int indexOf(double[] arr, double value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -930,7 +973,7 @@ public class ArrayTools {
 
     // #region - lastIndexOf
 
-    public static <T> int lastIndexOf(T[] arr, @Nonnull Predicate<? super T> predicate) { // TODO 单元测试
+    public static <T> int lastIndexOf(T[] arr, @Nonnull Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
@@ -943,11 +986,11 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(T[] arr, T obj) { // TODO 单元测试
+    public static <T> int lastIndexOf(T[] arr, T obj) {
         return lastIndexOf(arr, item -> Objects.equals(item, obj));
     }
 
-    public static <T> int lastIndexOf(char[] arr, char value) { // TODO 单元测试
+    public static int lastIndexOf(char[] arr, char value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -959,7 +1002,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(byte[] arr, byte value) { // TODO 单元测试
+    public static int lastIndexOf(byte[] arr, byte value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -971,7 +1014,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(short[] arr, short value) { // TODO 单元测试
+    public static int lastIndexOf(short[] arr, short value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -983,7 +1026,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(int[] arr, int value) { // TODO 单元测试
+    public static int lastIndexOf(int[] arr, int value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -995,7 +1038,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(long[] arr, long value) { // TODO 单元测试
+    public static int lastIndexOf(long[] arr, long value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -1007,7 +1050,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(float[] arr, float value) { // TODO 单元测试
+    public static int lastIndexOf(float[] arr, float value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -1019,7 +1062,7 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int lastIndexOf(double[] arr, double value) { // TODO 单元测试
+    public static int lastIndexOf(double[] arr, double value) {
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
         }
@@ -1035,39 +1078,39 @@ public class ArrayTools {
 
     // #region - contains
 
-    public static <T> boolean contains(T[] arr, T obj) { // TODO 单元测试
+    public static <T> boolean contains(T[] arr, T obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(char[] arr, char obj) { // TODO 单元测试
+    public static boolean contains(char[] arr, char obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(byte[] arr, byte obj) { // TODO 单元测试
+    public static boolean contains(byte[] arr, byte obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(short[] arr, short obj) { // TODO 单元测试
+    public static boolean contains(short[] arr, short obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(int[] arr, int obj) { // TODO 单元测试
+    public static boolean contains(int[] arr, int obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(long[] arr, long obj) { // TODO 单元测试
+    public static boolean contains(long[] arr, long obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(float[] arr, float obj) { // TODO 单元测试
+    public static boolean contains(float[] arr, float obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(double[] arr, double obj) { // TODO 单元测试
+    public static boolean contains(double[] arr, double obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean containsValue(BigDecimal[] arr, BigDecimal obj) { // TODO 单元测试
+    public static boolean containsValue(BigDecimal[] arr, BigDecimal obj) {
         return indexOf(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
     }
 
