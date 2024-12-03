@@ -1,6 +1,6 @@
 [x] 无需测试 - 6
-[ ] 未开始测试 - 38
-[-] 测试未完成 - 15
+[ ] 未开始测试 - 36
+[-] 测试未完成 - 17
 [Y] 测试完成 - 11
 
 xyz.zhouxy.plusone.commons
@@ -17,8 +17,8 @@ xyz.zhouxy.plusone.commons
     │       CharRef.java                          [Y]
     │       DoubleRef.java                        [Y]
     │       IntRef.java                           [Y]
-    │       IWithCode.java                        [ ]
-    │       IWithIntCode.java                     [ ]
+    │       IWithCode.java                        [-]
+    │       IWithIntCode.java                     [-]
     │       IWithLongCode.java                    [ ]
     │       JRE.java                              [ ]
     │       LongRef.java                          [Y]
