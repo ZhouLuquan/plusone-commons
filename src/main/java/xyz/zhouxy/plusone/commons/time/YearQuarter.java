@@ -28,10 +28,10 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.base.Preconditions;
 import com.google.errorprone.annotations.Immutable;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 表示年份与季度
@@ -52,7 +52,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     private final LocalDate lastDate;
 
     private YearQuarter(int year, @Nonnull Quarter quarter) {
-        Preconditions.checkNotNull(quarter, "Quarter can not be null.");
+        AssertTools.checkNotNull(quarter, "Quarter can not be null.");
         this.year = year;
         this.quarter = quarter;
         this.firstDate = quarter.firstMonthDay().atYear(year);

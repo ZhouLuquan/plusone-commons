@@ -19,7 +19,6 @@ package xyz.zhouxy.plusone.commons.util;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.annotations.Beta;
-import com.google.common.base.Preconditions;
 
 /**
  * Twitter_Snowflake
@@ -80,9 +79,9 @@ public class SnowflakeIdGenerator {
      * @param datacenterId 数据中心ID (0~31)
      */
     public SnowflakeIdGenerator(final long workerId, final long datacenterId) {
-        Preconditions.checkArgument((workerId <= MAX_WORKER_ID && workerId >= 0),
+        AssertTools.checkArgument((workerId <= MAX_WORKER_ID && workerId >= 0),
                 "WorkerId can't be greater than %s or less than 0.", MAX_WORKER_ID);
-        Preconditions.checkArgument((datacenterId <= MAX_DATACENTER_ID && datacenterId >= 0),
+        AssertTools.checkArgument((datacenterId <= MAX_DATACENTER_ID && datacenterId >= 0),
                 "DatacenterId can't be greater than %s or less than 0.", MAX_DATACENTER_ID);
         this.datacenterIdAndWorkerId
                 = (datacenterId << DATACENTER_ID_SHIFT) | (workerId << WORKER_ID_SHIFT);
