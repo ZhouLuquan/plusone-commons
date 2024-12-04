@@ -28,7 +28,6 @@ xyz.zhouxy.plusone.commons
     │       AbstractMapWrapper.java               [ ]
     │       CollectionTools.java                  [Y]
     │       MapWrapper.java                       [ ]
-    │       ReadWriteLockedTable.java             [ ]
     │       SafeConcurrentHashMap.java            [ ]
     │
     ├───constant
