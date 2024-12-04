@@ -26,6 +26,16 @@ import java.util.function.Consumer;
 
 import com.google.common.annotations.Beta;
 
+/**
+ * MapWrapper
+ *
+ * <p>
+ * Map 包装器的默认实现
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
 @Beta
 public final class MapWrapper<K, V> extends AbstractMapWrapper<K, V, MapWrapper<K, V>> {
 

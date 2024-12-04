@@ -27,12 +27,26 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.annotations.Beta;
 
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapTools;
 
+/**
+ * AbstractMapWrapper
+ *
+ * <p>
+ * 包装了一个 {@link Map}。
+ * 主要在于获取值时，如果 Key 不存在，是抛出异常；如果 Key 存在，则将 value 包装在 {@link Optional} 中 返回。
+ * 此外可以定义 Key 和 Value 的检查规则。
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ */
 @Beta
 public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V, T>> {
 
@@ -40,7 +54,9 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
     private final Consumer<K> keyChecker;
     private final Consumer<V> valueChecker;
 
-    protected AbstractMapWrapper(Map<K, V> map, @Nullable Consumer<K> keyChecker, @Nullable Consumer<V> valueChecker) {
+    protected AbstractMapWrapper(Map<K, V> map,
+            @Nullable Consumer<K> keyChecker,
+            @Nullable Consumer<V> valueChecker) {
         this.map = map;
         this.keyChecker = keyChecker;
         this.valueChecker = valueChecker;
@@ -71,10 +87,9 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
      * @return 可缺失的值
      * @throws IllegalArgumentException key 不存在时抛出。
      */
+    @Nonnull
     public Optional<V> get(K key) {
-        if (!this.map.containsKey(key)) {
-            throw new IllegalArgumentException("Key does not exist");
-        }
+        AssertTools.checkArgument(this.map.containsKey(key), "Key does not exist");
         return Optional.ofNullable(this.map.get(key));
     }
 
@@ -180,8 +195,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
             return false;
         if (getClass() != obj.getClass())
             return false;
-        @SuppressWarnings("rawtypes")
-        AbstractMapWrapper other = (AbstractMapWrapper) obj;
+        AbstractMapWrapper<?, ?, ?> other = (AbstractMapWrapper<?, ?, ?>) obj;
         return Objects.equals(map, other.map);
     }
 
