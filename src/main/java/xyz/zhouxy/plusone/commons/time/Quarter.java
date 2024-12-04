@@ -115,7 +115,7 @@ public enum Quarter {
 
     // StaticFactoryMethods end
 
-    // computs
+    // computes
 
     public Quarter plus(long quarters) { // TODO 单元测试
         final int amount = (int) ((quarters % 4) + 4);
@@ -126,7 +126,7 @@ public enum Quarter {
         return plus(-(quarters % 4));
     }
 
-    // computs end
+    // computes end
 
     // Getters
 
