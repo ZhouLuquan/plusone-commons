@@ -21,7 +21,15 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+/**
+ * 集合工具类
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 0.1.0
+ */
 public class CollectionTools {
+
+    // TODO [添加] 新增其它集合类型，如 guava 的扩展集合等
 
     // isEmpty
 
