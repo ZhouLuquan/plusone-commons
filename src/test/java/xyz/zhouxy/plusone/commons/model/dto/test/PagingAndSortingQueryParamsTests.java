@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.queryparams.test;
+package xyz.zhouxy.plusone.commons.model.dto.test;
 
 import java.io.IOException;
 import java.time.LocalDate;
