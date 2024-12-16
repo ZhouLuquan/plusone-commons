@@ -59,8 +59,8 @@ public class YearQuarterTests {
     void of_ValidYearQuarter_GetsCorrectStartAndEndDate() {
 
         for (int year = 1990; year <= 2024; year++) {
-            for (int qrtr = 1; qrtr <= 4; qrtr++) {
-                Quarter quarter = Quarter.of(qrtr);
+            for (int quarterValue = 1; quarterValue <= 4; quarterValue++) {
+                Quarter quarter = Quarter.of(quarterValue);
                 YearQuarter yearQuarter = YearQuarter.of(year, quarter);
 
                 LocalDate expectedStartDate = quarter.firstMonthDay().atYear(year);
