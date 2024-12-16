@@ -23,13 +23,15 @@ import java.time.temporal.ChronoField;
 import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
+import xyz.zhouxy.plusone.commons.base.IWithIntCode;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 季度
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
-public enum Quarter {
+public enum Quarter implements IWithIntCode {
     /** 第一季度 */
     Q1(1),
     /** 第二季度 */
@@ -107,10 +109,7 @@ public enum Quarter {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter of(int value) {
-        if (value < 1 || value > 4) {
-            throw new IllegalArgumentException("Invalid value for Quarter: " + value);
-        }
-        return ENUMS[value - 1];
+        return ENUMS[checkValidIntValue(value) - 1];
     }
 
     // StaticFactoryMethods end
@@ -132,6 +131,11 @@ public enum Quarter {
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public int getCode() {
+        return getValue();
     }
 
     public Month firstMonth() {
@@ -165,6 +169,11 @@ public enum Quarter {
     }
 
     // Getters end
+
+    public static int checkValidIntValue(int value) {
+        AssertTools.checkArgument(value >= 1 && value <= 4, () -> "Invalid value for Quarter: " + value);
+        return value;
+    }
 
     // Internal
 
