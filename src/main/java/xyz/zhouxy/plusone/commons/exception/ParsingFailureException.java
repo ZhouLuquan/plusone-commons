@@ -18,6 +18,9 @@ package xyz.zhouxy.plusone.commons.exception;
 
 import java.time.format.DateTimeParseException;
 
+import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.base.IWithCode;
 import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
 
 /**
@@ -26,7 +29,10 @@ import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
  * <p>
  * 解析失败的不一定是客户传的参数，也可能是其它来源的数据解析失败。
  * 如果表示用户传参造成的解析失败，可使用 {@link RequestParamsException#RequestParamsException(Throwable)}，
- * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出
+ * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出。
+ * <pre>
+ * throw new RequestParamsException(ParsingFailureException.of(ParsingFailureException.Type.NUMBER_PARSING_FAILURE));
+ * </pre>
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
@@ -56,6 +62,22 @@ public final class ParsingFailureException extends RuntimeException {
         this.type = type;
     }
 
+    public ParsingFailureException() {
+        this(Type.DEFAULT);
+    }
+
+    public ParsingFailureException(String msg) {
+        this(Type.DEFAULT, msg);
+    }
+
+    public ParsingFailureException(Throwable e) {
+        this(Type.DEFAULT, e);
+    }
+
+    public ParsingFailureException(String msg, Throwable e) {
+        this(Type.DEFAULT, msg, e);
+    }
+
     public static ParsingFailureException of(Type type) {
         return new ParsingFailureException(type);
     }
@@ -80,19 +102,29 @@ public final class ParsingFailureException extends RuntimeException {
         return new ParsingFailureException(Type.DATE_TIME_PARSING_FAILURE, msg, e);
     }
 
+    public static ParsingFailureException of(NumberFormatException e) {
+        return new ParsingFailureException(Type.NUMBER_PARSING_FAILURE, e.getMessage(), e);
+    }
+
+    public static ParsingFailureException of(String msg, NumberFormatException e) {
+        return new ParsingFailureException(Type.NUMBER_PARSING_FAILURE, msg, e);
+    }
+
     public Type getType() {
         return type;
     }
 
-    public enum Type {
-        DEFAULT("4010500", "解析失败"),
-        NUMBER_PARSING_FAILURE("4010501", "数字转换失败"),
-        DATE_TIME_PARSING_FAILURE("4010502", "时间解析失败"),
-        JSON_PARSING_FAILURE("4010503", "JSON 解析失败"),
-        XML_PARSING_FAILURE("4010504", "XML 解析失败"),
+    public enum Type implements IWithCode<String> {
+        DEFAULT("00", "解析失败"),
+        NUMBER_PARSING_FAILURE("10", "数字转换失败"),
+        DATE_TIME_PARSING_FAILURE("20", "时间解析失败"),
+        JSON_PARSING_FAILURE("30", "JSON 解析失败"),
+        XML_PARSING_FAILURE("40", "XML 解析失败"),
         ;
 
+        @Nonnull
         final String code;
+        @Nonnull
         final String defaultMsg;
 
         Type(String code, String defaultMsg) {
@@ -100,6 +132,8 @@ public final class ParsingFailureException extends RuntimeException {
             this.defaultMsg = defaultMsg;
         }
 
+        @Override
+        @Nonnull
         public String getCode() {
             return code;
         }
