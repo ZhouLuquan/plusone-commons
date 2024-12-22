@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,13 +32,6 @@ import org.slf4j.LoggerFactory;
 class DateTimeToolsTests {
 
     private static final Logger log = LoggerFactory.getLogger(DateTimeToolsTests.class);
-
-    @Test
-    void testLocalNowStr() {
-        String nowStr = DateTimeTools.nowStr("yyyy/MM/dd HH:mm:ss.SSS");
-        log.info(nowStr);
-        assertEquals(23, nowStr.length());
-    }
 
     @Test
     void testToJoda() {
@@ -55,7 +49,8 @@ class DateTimeToolsTests {
     void testToInstant() {
         ZonedDateTime dt = ZonedDateTime.of(2008, 1, 8, 10, 23, 50, 108000000, ZoneId.systemDefault());
         Instant instant = DateTimeTools.toInstant(dt.toInstant().toEpochMilli());
-        String str = DateTimeTools.toString("yy-M-d HH:mm:ss.SSS", instant);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-M-d HH:mm:ss.SSS");
+        String str = formatter.format(instant.atZone(ZoneId.systemDefault()));
         log.info(str);
         assertEquals("08-1-8 10:23:50.108", str);
     }
@@ -106,5 +101,12 @@ class DateTimeToolsTests {
         DateTimeFormatter formatter2 = formatter.withZone(ZoneId.systemDefault());
         log.info("{}", formatter);
         log.info("{}", formatter2);
+    }
+
+    @Test
+    void testToString() {
+        assertEquals("04", DateTimeTools.toMonthString(Month.APRIL));
+        assertEquals("04", DateTimeTools.toMonthString(Month.APRIL, true));
+        assertEquals("4", DateTimeTools.toMonthString(Month.APRIL, false));
     }
 }

@@ -21,19 +21,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.chrono.IsoChronology;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import javax.annotation.Nonnull;
-
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.google.common.base.Strings;
+import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.time.Quarter;
 import xyz.zhouxy.plusone.commons.time.YearQuarter;
@@ -45,89 +43,32 @@ import xyz.zhouxy.plusone.commons.time.YearQuarter;
  */
 public class DateTimeTools {
 
-    /**
-     * 缓存时间格式化器
-     */
-    private static final LoadingCache<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = CacheBuilder.newBuilder()
-            .maximumSize(20)
-            .build(new CacheLoader<String, DateTimeFormatter>() {
-                @Override
-                public DateTimeFormatter load(@Nonnull String pattern) throws Exception {
-                    return DateTimeFormatter.ofPattern(pattern);
-                }
-            });
-
-    /**
-     * 获取时间格式化器
-     *
-     * @param pattern 时间格式
-     * @return 时间格式化器
-     */
-    public static DateTimeFormatter getDateTimeFormatter(String pattern) {
-        return DATE_TIME_FORMATTER_CACHE.getUnchecked(pattern);
-    }
-
     // #region - toString
 
-    /**
-     * 将日期时间转换为指定格式的字符串
-     *
-     * @param pattern  时间格式
-     * @param dateTime 日期时间
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, ZonedDateTime dateTime) {
-        return getDateTimeFormatter(pattern).format(dateTime);
+    public static String toYearString(int year) {
+        return Integer.toString(year);
     }
 
-    /**
-     * 将时间戳转换为指定格式的字符串，使用系统默认时区
-     *
-     * @param pattern 时间格式
-     * @param instant 时间戳
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, Instant instant) {
-        ZonedDateTime dateTime = instant.atZone(ZoneId.systemDefault());
-        return toString(pattern, dateTime);
+    public static String toYearString(Year year) {
+        return year.toString();
     }
 
-    /**
-     * 将时间戳转换为指定格式的字符串，使用指定时区
-     *
-     * @param pattern 时间格式
-     * @param instant 时间戳
-     * @param zone    时区
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, Instant instant, ZoneId zone) {
-        ZonedDateTime dateTime = instant.atZone(zone);
-        return toString(pattern, dateTime);
+    public static String toMonthString(int monthValue) {
+        return Strings.padStart(Integer.toString(monthValue), 2, '0');
     }
 
-    // #endregion
-
-    // #region - nowStr
-
-    /**
-     * 指定格式，返回当前时间戳对应的字符串
-     *
-     * @param pattern 时间格式
-     * @return 格式化的字符串
-     */
-    public static String nowStr(String pattern) {
-        return toString(pattern, ZonedDateTime.now());
+    public static String toMonthString(int monthValue, boolean padStart) {
+        return padStart ? toMonthString(monthValue) : Integer.toString(monthValue);
     }
 
-    /**
-     * 指定格式，返回当前时间戳对应的字符串，使用指定时区
-     *
-     * @param pattern 时间格式
-     * @param zone    时区
-     * @return 格式化的字符串
-     */
-    public static String nowStr(String pattern, ZoneId zone) {
-        return toString(pattern, Instant.now().atZone(zone));
+    public static String toMonthString(Month month) {
+        final int monthValue = month.getValue();
+        return Strings.padStart(Integer.toString(monthValue), 2, '0');
+    }
+
+    public static String toMonthString(Month month, boolean padStart) {
+        final int monthValue = month.getValue();
+        return padStart ? toMonthString(month) : Integer.toString(monthValue);
     }
 
     // #endregion
@@ -707,6 +648,42 @@ public class DateTimeTools {
     }
 
     // #endregion
+
+    // ================================
+    // #region - others
+    // ================================
+
+    public static LocalDate startDateOfYear(int year) {
+        return LocalDate.ofYearDay(year, 1);
+    }
+
+    public static LocalDate endDateOfYear(int year) {
+        return LocalDate.of(year, 12, 31);
+    }
+
+    public static LocalDateTime startOfNextDate(LocalDate date) {
+        return date.plusDays(1L).atStartOfDay();
+    }
+
+    public static ZonedDateTime startOfNextDate(LocalDate date, ZoneId zone) {
+        return date.plusDays(1L).atStartOfDay(zone);
+    }
+
+    public static Range<LocalDateTime> toDateTimeRange(LocalDate date) {
+        return Range.closedOpen(date.atStartOfDay(), startOfNextDate(date));
+    }
+
+    public static Range<ZonedDateTime> toDateTimeRange(LocalDate date, ZoneId zone) {
+        return Range.closedOpen(date.atStartOfDay(zone), startOfNextDate(date, zone));
+    }
+
+    public static boolean isLeapYear(int year) {
+        return IsoChronology.INSTANCE.isLeapYear(year);
+    }
+
+    // ================================
+    // #endregion - others
+    // ================================
 
     /**
      * 私有构造方法，明确标识该常量类的作用。
