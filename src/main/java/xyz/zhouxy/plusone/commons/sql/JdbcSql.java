@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.sql;
 
 import java.util.Collection;
 
+import xyz.zhouxy.plusone.commons.util.StringTools;
+
 public class JdbcSql extends SQL<JdbcSql> {
 
     JdbcSql() {
@@ -33,40 +35,38 @@ public class JdbcSql extends SQL<JdbcSql> {
         return this;
     }
 
-    public static String IN(String col, Collection<?> c) {
+    public static String IN(String col, Collection<?> c) { // NOSONAR
         return IN(col, c.size());
     }
 
-    public static <T> String IN(String col, T[] c) {
+    public static <T> String IN(String col, T[] c) { // NOSONAR
         return IN(col, c.length);
     }
 
-    private static String IN(String col, int length) {
-        return col + " IN (" + String.valueOf(buildQuestionsList(length)) + ')';
+    private static String IN(String col, int length) { // NOSONAR
+        if (length == 0) {
+            return "false";
+        }
+        return col + " IN (" + buildQuestionsList(length) + ')';
     }
 
-    public static String NOT_IN(String col, Collection<?> c) {
+    public static String NOT_IN(String col, Collection<?> c) { // NOSONAR
         return NOT_IN(col, c.size());
     }
 
-    public static <T> String NOT_IN(String col, T[] c) {
+    public static <T> String NOT_IN(String col, T[] c) { // NOSONAR
         return NOT_IN(col, c.length);
     }
 
-    private static String NOT_IN(String col, int length) {
-        return col + " NOT IN (" + String.valueOf(buildQuestionsList(length)) + ')';
+    private static String NOT_IN(String col, int length) { // NOSONAR
+        if (length == 0) {
+            return "true";
+        }
+        return col + " NOT IN (" + buildQuestionsList(length) + ')';
     }
 
-    private static char[] buildQuestionsList(int times) {
-        char[] arr = new char[times * 3 - 2];
-        int i = 0;
-        for (int t = 1; t <= times; t++) {
-            arr[i++] = '?';
-            if (t < times) {
-                arr[i++] = ',';
-                arr[i++] = ' ';
-            }
-        }
-        return arr;
+    private static String buildQuestionsList(int times) {
+        final int length = times <= 0 ? 0 : (times * 3 - 2);
+        return StringTools.repeat("?, ", times, length);
     }
 }

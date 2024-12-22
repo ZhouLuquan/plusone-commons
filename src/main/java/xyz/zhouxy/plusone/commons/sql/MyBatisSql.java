@@ -41,11 +41,11 @@ public class MyBatisSql extends SQL<MyBatisSql> {
         return this;
     }
 
-    public static String IN(String col, String paramName) {
+    public static String IN(String col, String paramName) { // NOSONAR
         return " " + col + " IN" + buildForeach(col, paramName);
     }
 
-    public static String NOT_IN(String col, String paramName) {
+    public static String NOT_IN(String col, String paramName) { // NOSONAR
         return col + " NOT IN" + buildForeach(col, paramName);
     }
 

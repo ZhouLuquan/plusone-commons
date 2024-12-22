@@ -34,14 +34,14 @@ public abstract class SQL<T> extends AbstractSQL<T> {
         return new MyBatisSql(withScript);
     }
 
-    public T WHERE(boolean condition, String sqlCondition) {
+    public T WHERE(boolean condition, String sqlCondition) { // NOSONAR
         if (condition) {
             return WHERE(sqlCondition);
         }
         return getSelf();
     }
 
-    public T WHERE(boolean condition, String ifSqlCondition, String elseSqlCondition) {
+    public T WHERE(boolean condition, String ifSqlCondition, String elseSqlCondition) { // NOSONAR
         return WHERE(condition ? ifSqlCondition : elseSqlCondition);
     }
 }
