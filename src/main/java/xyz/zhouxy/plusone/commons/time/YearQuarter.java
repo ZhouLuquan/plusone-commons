@@ -138,11 +138,15 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     // #region - Getters
 
     public int getYear() {
-        return year;
+        return this.year;
     }
 
     public Quarter getQuarter() {
-        return quarter;
+        return this.quarter;
+    }
+
+    public int getQuarterValue() {
+        return this.quarter.getValue();
     }
 
     public YearMonth firstYearMonth() {
