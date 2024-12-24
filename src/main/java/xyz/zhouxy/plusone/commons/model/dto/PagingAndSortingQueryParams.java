@@ -27,7 +27,9 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableMap;
 
 import xyz.zhouxy.plusone.commons.annotation.Virtual;
+import xyz.zhouxy.plusone.commons.collection.CollectionTools;
 import xyz.zhouxy.plusone.commons.util.AssertTools;
+import xyz.zhouxy.plusone.commons.util.RegexTools;
 import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
@@ -49,12 +51,12 @@ public class PagingAndSortingQueryParams {
     private Long pageNum;
     private List<String> orderBy;
 
-    private static final Pattern sortStrPattern = Pattern.compile("^[a-zA-Z]\\w+-(desc|asc|DESC|ASC)$");
+    private static final Pattern SORT_STR_PATTERN = Pattern.compile("^[a-zA-Z]\\w+-(desc|asc|DESC|ASC)$");
 
     private final Map<String, String> sortableProperties;
 
     public PagingAndSortingQueryParams(@Nonnull Map<String, String> sortableProperties) {
-        AssertTools.checkArgument(sortableProperties != null && !sortableProperties.isEmpty(),
+        AssertTools.checkArgument(CollectionTools.isNotEmpty(sortableProperties),
                 "Sortable properties can not be empty.");
         sortableProperties.forEach((k, v) ->
                 AssertTools.checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
@@ -102,7 +104,7 @@ public class PagingAndSortingQueryParams {
     }
 
     private SortableProperty generateSortableProperty(String orderByStr) {
-        AssertTools.checkArgument(PagingAndSortingQueryParams.sortStrPattern.matcher(orderByStr).matches());
+        AssertTools.checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
         String[] propertyNameAndOrderType = orderByStr.split("-");
         AssertTools.checkArgument(propertyNameAndOrderType.length == 2);
 
