@@ -27,10 +27,18 @@ public final class DataNotExistsException extends Exception {
     private static final long serialVersionUID = 6536955800679703111L;
 
     public DataNotExistsException() {
-        super("数据不存在");
+        super();
     }
 
     public DataNotExistsException(String message) {
         super(message);
+    }
+
+    public DataNotExistsException(Throwable cause) {
+        super(cause);
+    }
+
+    public DataNotExistsException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
