@@ -16,6 +16,10 @@
 
 package xyz.zhouxy.plusone.commons.exception.business;
 
+import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.base.IWithCode;
+
 /**
  * InvalidInputException
  *
@@ -53,6 +57,22 @@ public final class InvalidInputException extends RequestParamsException {
         this.type = type;
     }
 
+    public InvalidInputException() {
+        this(Type.DEFAULT);
+    }
+
+    public InvalidInputException(String msg) {
+        this(Type.DEFAULT, msg);
+    }
+
+    public InvalidInputException(Throwable e) {
+        this(Type.DEFAULT, e);
+    }
+
+    public InvalidInputException(String msg, Throwable e) {
+        this(Type.DEFAULT, msg, e);
+    }
+
     public static InvalidInputException of(Type type) {
         return new InvalidInputException(type);
     }
@@ -81,7 +101,7 @@ public final class InvalidInputException extends RequestParamsException {
         return type;
     }
 
-    public enum Type {
+    public enum Type implements IWithCode<String> {
         DEFAULT("00", "用户输入内容非法"),
         CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS("01", "包含非法恶意跳转链接"),
         CONTAINS_ILLEGAL_WORDS("02", "包含违禁敏感词"),
@@ -97,6 +117,8 @@ public final class InvalidInputException extends RequestParamsException {
             this.defaultMsg = defaultMsg;
         }
 
+        @Override
+        @Nonnull
         public String getCode() {
             return code;
         }

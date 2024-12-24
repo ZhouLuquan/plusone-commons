@@ -18,9 +18,8 @@ package xyz.zhouxy.plusone.commons.model.dto;
 
 import java.util.List;
 
-import com.google.common.base.Preconditions;
-
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 返回分页查询的结果
@@ -37,7 +36,7 @@ public class PageResult<T> {
     private final List<T> content;
 
     private PageResult(List<T> content, long total) {
-        Preconditions.checkNotNull(content, "Content must not be null.");
+        AssertTools.checkNotNull(content, "Content must not be null.");
         this.content = content;
         this.total = total;
     }

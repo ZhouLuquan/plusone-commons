@@ -59,7 +59,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         this.lastDate = quarter.lastMonthDay().atYear(year);
     }
 
-    // #region - StaticFactoryMethod
+    // #region - StaticFactory
 
     /**
      * 根据指定年份与季度，创建 {@link YearQuarter} 实例
@@ -186,7 +186,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     // #region - computes
 
     public YearQuarter plusQuarters(long quartersToAdd) { // TODO 单元测试
-        if (quartersToAdd == 0) {
+        if (quartersToAdd == 0L) {
             return this;
         }
         long quarterCount = this.year * 4L + (this.quarter.getValue() - 1);
@@ -200,8 +200,16 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return plusQuarters(-quartersToAdd);
     }
 
+    public YearQuarter nextQuarter() { // TODO 单元测试
+        return plusQuarters(1L);
+    }
+
+    public YearQuarter lastQuarter() { // TODO 单元测试
+        return minusQuarters(1L);
+    }
+
     public YearQuarter plusYears(long yearsToAdd) { // TODO 单元测试
-        if (yearsToAdd == 0) {
+        if (yearsToAdd == 0L) {
             return this;
         }
         int newYear = YEAR.checkValidIntValue(this.year + yearsToAdd);  // safe overflow
@@ -210,6 +218,14 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     public YearQuarter minusYears(long yearsToAdd) {
         return plusYears(-yearsToAdd);
+    }
+
+    public YearQuarter nextYear() {
+        return plusYears(1L);
+    }
+
+    public YearQuarter lastYear() {
+        return minusYears(1L);
     }
 
     // #endregion
@@ -235,7 +251,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     // #endregion
 
-    // #region - compareTo
+    // #region - compare
 
     @Override
     public int compareTo(YearQuarter other) {
@@ -252,6 +268,14 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     public boolean isAfter(YearQuarter other) {
         return this.compareTo(other) > 0;
+    }
+
+    public static YearQuarter min(YearQuarter yearQuarter1, YearQuarter yearQuarter2) { // TODO 单元测试
+        return yearQuarter1.compareTo(yearQuarter2) <= 0 ? yearQuarter1 : yearQuarter2;
+    }
+
+    public static YearQuarter max(YearQuarter yearQuarter1, YearQuarter yearQuarter2) { // TODO 单元测试
+        return yearQuarter1.compareTo(yearQuarter2) >= 0 ? yearQuarter1 : yearQuarter2;
     }
 
     // #endregion
