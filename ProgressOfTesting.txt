@@ -1,7 +1,7 @@
 [x] 无需测试 - 6
 [ ] 未开始测试 - 34
-[-] 测试未完成 - 17
-[Y] 测试完成 - 12
+[-] 测试未完成 - 15
+[Y] 测试完成 - 15
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -17,9 +17,9 @@ xyz.zhouxy.plusone.commons
     │       CharRef.java                          [Y]
     │       DoubleRef.java                        [Y]
     │       IntRef.java                           [Y]
-    │       IWithCode.java                        [-]
-    │       IWithIntCode.java                     [-]
-    │       IWithLongCode.java                    [ ]
+    │       IWithCode.java                        [Y]
+    │       IWithIntCode.java                     [Y]
+    │       IWithLongCode.java                    [Y]
     │       JRE.java                              [ ]
     │       LongRef.java                          [Y]
     │       Ref.java                              [Y]
