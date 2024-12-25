@@ -116,12 +116,12 @@ public enum Quarter implements IWithIntCode {
 
     // computes
 
-    public Quarter plus(long quarters) { // TODO 单元测试
+    public Quarter plus(long quarters) {
         final int amount = (int) ((quarters % 4) + 4);
         return ENUMS[(ordinal() + amount) % 4];
     }
 
-    public Quarter minus(long quarters) { // TODO 单元测试
+    public Quarter minus(long quarters) {
         return plus(-(quarters % 4));
     }
 
