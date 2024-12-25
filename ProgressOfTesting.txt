@@ -1,7 +1,7 @@
 [ ] 未开始测试 - 15 (21.43%)
 [-] 测试未完成 - 12 (17.14%)
-[Y] 测试完成 - 21 (30.00%)
-[x] 无需测试 - 22 (31.43%)
+[Y] 测试完成 - 22 (31.43%)
+[x] 无需测试 - 21 (30.00%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -54,7 +54,7 @@ xyz.zhouxy.plusone.commons
     │       CharUnaryOperator.java                [x]
     │       Executable.java                       [x]
     │       OptionalSupplier.java                 [x]
-    │       PredicateTools.java                   [x]
+    │       PredicateTools.java                   [Y]
     │       ThrowingConsumer.java                 [x]
     │       ThrowingPredicate.java                [x]
     │       ThrowingSupplier.java                 [x]
