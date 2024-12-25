@@ -1,7 +1,7 @@
-[ ] 未开始测试 - 25 (35.71%)
+[ ] 未开始测试 - 15 (21.43%)
 [-] 测试未完成 - 12 (17.14%)
 [Y] 测试完成 - 21 (30.00%)
-[x] 无需测试 - 12 (17.14%)
+[x] 无需测试 - 22 (31.43%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -50,16 +50,16 @@ xyz.zhouxy.plusone.commons
     │           SysException.java                 [x]
     │
     ├───function
-    │       BoolUnaryOperator.java                [ ]
-    │       CharUnaryOperator.java                [ ]
-    │       Executable.java                       [ ]
-    │       OptionalSupplier.java                 [ ]
-    │       PredicateTools.java                   [ ]
-    │       ThrowingConsumer.java                 [ ]
-    │       ThrowingPredicate.java                [ ]
-    │       ThrowingSupplier.java                 [ ]
-    │       ToOptionalBiFunction.java             [ ]
-    │       ToOptionalFunction.java               [ ]
+    │       BoolUnaryOperator.java                [x]
+    │       CharUnaryOperator.java                [x]
+    │       Executable.java                       [x]
+    │       OptionalSupplier.java                 [x]
+    │       PredicateTools.java                   [x]
+    │       ThrowingConsumer.java                 [x]
+    │       ThrowingPredicate.java                [x]
+    │       ThrowingSupplier.java                 [x]
+    │       ToOptionalBiFunction.java             [x]
+    │       ToOptionalFunction.java               [x]
     │
     ├───model
     │   │   Chinese2ndGenIDCardNumber.java        [-]
