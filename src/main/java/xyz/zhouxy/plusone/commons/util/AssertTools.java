@@ -217,21 +217,22 @@ public class AssertTools {
                 () -> new DataOperationResultException(String.format(format, args)));
     }
 
-    public static void checkAffectedRows(long result, long expectedValue) {
-        checkCondition(expectedValue == result, DataOperationResultException::new);
+    public static void checkAffectedRows(long expectedValue, long result) {
+        checkAffectedRows(expectedValue, result,
+                "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
     }
 
-    public static void checkAffectedRows(long result, long expectedValue, String message) {
+    public static void checkAffectedRows(long expectedValue, long result, String message) {
         checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
     }
 
-    public static void checkAffectedRows(long result, long expectedValue,
+    public static void checkAffectedRows(long expectedValue, long result,
             @Nonnull Supplier<String> messageSupplier) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(messageSupplier.get()));
     }
 
-    public static void checkAffectedRows(long result, long expectedValue, String format, Object... args) {
+    public static void checkAffectedRows(long expectedValue, long result, String format, Object... args) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(String.format(format, args)));
     }
@@ -251,6 +252,23 @@ public class AssertTools {
 
     public static void checkAffectedOneRow(int result, String format, Object... args) {
         checkAffectedRows(1, result, format, args);
+    }
+
+    public static void checkAffectedOneRow(long result) {
+        checkAffectedRows(1L, result,
+                () -> "The number of rows affected is expected to be 1, but is: " + result);
+    }
+
+    public static void checkAffectedOneRow(long result, String message) {
+        checkAffectedRows(1L, result, message);
+    }
+
+    public static void checkAffectedOneRow(long result, @Nonnull Supplier<String> messageSupplier) {
+        checkAffectedRows(1L, result, messageSupplier);
+    }
+
+    public static void checkAffectedOneRow(long result, String format, Object... args) {
+        checkAffectedRows(1L, result, format, args);
     }
 
     // ================================
