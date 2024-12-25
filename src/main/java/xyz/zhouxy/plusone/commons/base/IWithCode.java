@@ -34,15 +34,15 @@ public interface IWithCode<T> {
     default boolean equalsCode(T code) {
         return Objects.equals(getCode(), code);
     }
-    default boolean equalsCode(IWithCode<?> obj) { // TODO 单元测试
+    default boolean equalsCode(IWithCode<?> obj) {
         return obj != null && obj.getCode().equals(getCode());
     }
 
-    default boolean equalsCode(IWithIntCode obj) { // TODO 单元测试
+    default boolean equalsCode(IWithIntCode obj) {
         return obj != null && getCode().equals(obj.getCode());
     }
 
-    default boolean equalsCode(IWithLongCode obj) { // TODO 单元测试
+    default boolean equalsCode(IWithLongCode obj) {
         return obj != null && getCode().equals(obj.getCode());
     }
 }
