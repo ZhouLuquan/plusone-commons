@@ -34,16 +34,16 @@ public class RequestParamsException extends BizException {
         super(DEFAULT_MSG);
     }
 
-    public RequestParamsException(String msg) {
-        super(msg);
+    public RequestParamsException(String message) {
+        super(message);
     }
 
     public RequestParamsException(Throwable cause) {
         super(cause);
     }
 
-    public RequestParamsException(String msg, Throwable cause) {
-        super(msg, cause);
+    public RequestParamsException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

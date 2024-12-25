@@ -1,7 +1,7 @@
-[x] 无需测试 - 6
-[ ] 未开始测试 - 34
-[-] 测试未完成 - 14
-[Y] 测试完成 - 16
+[ ] 未开始测试 - 25 (35.71%)
+[-] 测试未完成 - 14 (20.00%)
+[Y] 测试完成 - 19 (27.14%)
+[x] 无需测试 - 12 (17.14%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -35,18 +35,19 @@ xyz.zhouxy.plusone.commons
     │       RegexConsts.java                      [ ]
     │
     ├───exception
-    │   │   DataNotExistsException.java           [ ]
-    │   │   ParsingFailureException.java          [ ]
+    │   │   DataNotExistsException.java           [x]
+    │   │   ParsingFailureException.java          [Y]
+    │   │   ExceptionType.java                    [Y]
     │   │
     │   ├───business
-    │   │       BizException.java                 [ ]
-    │   │       InvalidInputException.java        [ ]
-    │   │       RequestParamsException.java       [ ]
+    │   │       BizException.java                 [x]
+    │   │       InvalidInputException.java        [Y]
+    │   │       RequestParamsException.java       [x]
     │   │
     │   └───system
-    │           DataOperationResultException.java [ ]
-    │           NoAvailableMacFoundException.java [ ]
-    │           SysException.java                 [ ]
+    │           DataOperationResultException.java [x]
+    │           NoAvailableMacFoundException.java [x]
+    │           SysException.java                 [x]
     │
     ├───function
     │       BoolUnaryOperator.java                [ ]

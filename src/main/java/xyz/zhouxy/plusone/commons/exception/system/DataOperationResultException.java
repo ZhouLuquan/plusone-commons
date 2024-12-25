@@ -39,15 +39,15 @@ public final class DataOperationResultException extends SysException {
         super(DEFAULT_MSG);
     }
 
-    public DataOperationResultException(String msg) {
-        super(msg);
+    public DataOperationResultException(String message) {
+        super(message);
     }
 
     public DataOperationResultException(Throwable cause) {
         super(cause);
     }
 
-    public DataOperationResultException(String msg, Throwable cause) {
-        super(msg, cause);
+    public DataOperationResultException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
