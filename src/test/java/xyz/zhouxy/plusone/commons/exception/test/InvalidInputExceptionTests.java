@@ -1,0 +1,288 @@
+/*
+ * Copyright 2024 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package xyz.zhouxy.plusone.commons.exception.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+
+import lombok.extern.slf4j.Slf4j;
+import xyz.zhouxy.plusone.commons.exception.business.InvalidInputException;
+
+@Slf4j
+public class InvalidInputExceptionTests {
+
+    // ================================
+    // #region - createByType
+    // ================================
+
+    @Test
+    void test_createByType() {
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create();
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getCode());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getDefaultMessage(), e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void test_createByType_withMessage() {
+        final String message = "test_createByType_withMessage";
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message);
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void test_createByType_withNullMessage() {
+        final String message = null;
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.create(message);
+        });
+        assertEquals(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION, e.getType());
+        assertEquals(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void test_createByType_withCause() {
+        Arrays.asList("test_createByType_withCause", null).forEach(message -> {
+
+            NumberFormatException nfe = new NumberFormatException(message);
+            InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+                throw InvalidInputException.Type.INFRINGE_COPYRIGHT.create(nfe);
+            });
+
+            assertEquals(InvalidInputException.Type.INFRINGE_COPYRIGHT, e.getType());
+            assertEquals(InvalidInputException.Type.INFRINGE_COPYRIGHT.getCode(), e.getCode());
+            log.info("{}", e.getMessage());
+            assertEquals(nfe.toString(), e.getMessage());
+            assertEquals(nfe, e.getCause());
+        });
+    }
+
+    @Test
+    void test_createByType_withNullCause() {
+        NumberFormatException nfe = null;
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.DEFAULT.create(nfe);
+        });
+
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void test_createByType_withMessageAndCause() {
+        final String message = "test_createByType_withMessageAndCause";
+        final NumberFormatException nfe = new NumberFormatException("NumberFormatExceptionMessage");
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertEquals(nfe, e.getCause());
+    }
+
+    @Test
+    void test_createByType_withNullMessageAndCause() {
+        final String message = null;
+        final NullPointerException nfe = new NullPointerException("Context is null.");
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertEquals(nfe, e.getCause());
+    }
+
+    @Test
+    void test_createByType_withMessageAndNullCause() {
+        final String message = "test_createByType_withMessageAndNullCause";
+        final NullPointerException npe = null;
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, npe);
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void test_createByType_withNullMessageAndNullCause() {
+        final String message = null;
+        final NullPointerException nfe = null;
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    // ================================
+    // #endregion - createByType
+    // ================================
+
+    // ================================
+    // #region - constructor
+    // ================================
+
+    @Test
+    void testConstructor() {
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException();
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertEquals(InvalidInputException.Type.DEFAULT.getDefaultMessage(), e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void testConstructor_withMessage() {
+        final String message = "testConstructor_withMessage";
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void testConstructor_withNullMessage() {
+        final String message = null;
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void testConstructor_withCause() {
+        Arrays.asList("testConstructor_withCause", null).forEach(message -> {
+
+            NumberFormatException nfe = new NumberFormatException(message);
+            InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+                throw new InvalidInputException(nfe);
+            });
+
+            assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+            assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+            log.info("{}", e.getMessage());
+            assertEquals(nfe.toString(), e.getMessage());
+            assertEquals(nfe, e.getCause());
+        });
+    }
+
+    @Test
+    void testConstructor_withNullCause() {
+        NumberFormatException nfe = null;
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(nfe);
+        });
+
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void testConstructor_withMessageAndCause() {
+        final String message = "testConstructor_withMessageAndCause";
+        final NumberFormatException nfe = new NumberFormatException("NumberFormatExceptionMessage");
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertEquals(nfe, e.getCause());
+    }
+
+    @Test
+    void testConstructor_withNullMessageAndCause() {
+        final String message = null;
+        final NullPointerException nfe = new NullPointerException("Context is null.");
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertEquals(nfe, e.getCause());
+    }
+
+    @Test
+    void testConstructor_withMessageAndNullCause() {
+        final String message = "testConstructor_withMessageAndNullCause";
+        final NullPointerException npe = null;
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message, npe);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertEquals(message, e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    @Test
+    void testConstructor_withNullMessageAndNullCause() {
+        final String message = null;
+        final NullPointerException nfe = null;
+
+        InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
+            throw new InvalidInputException(message, nfe);
+        });
+        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    // ================================
+    // #endregion - constructor
+    // ================================
+}
