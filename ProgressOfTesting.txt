@@ -1,6 +1,6 @@
 [ ] 未开始测试 - 15 (21.43%)
-[-] 测试未完成 - 12 (17.14%)
-[Y] 测试完成 - 22 (31.43%)
+[-] 测试未完成 - 11 (15.71%)
+[Y] 测试完成 - 23 (32.86%)
 [x] 无需测试 - 21 (30.00%)
 
 xyz.zhouxy.plusone.commons
@@ -89,7 +89,7 @@ xyz.zhouxy.plusone.commons
             ConcurrentHashMapTools.java           [-]
             DateTimeTools.java                    [-]
             Enumeration.java                      [Y]
-            EnumTools.java                        [-]
+            EnumTools.java                        [Y]
             IdGenerator.java                      [ ]
             IdWorker.java                         [ ]
             Numbers.java                          [Y]
