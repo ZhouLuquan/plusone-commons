@@ -18,6 +18,7 @@ package xyz.zhouxy.plusone.commons.time;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.DateTimeException;
 import java.time.Month;
 import java.time.MonthDay;
 
@@ -37,7 +38,7 @@ class QuarterTests {
         assertEquals(1, quarter.getValue());
         assertEquals("Q1", quarter.name());
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(DateTimeException.class, () -> {
             Quarter.of(0);
         });
 
@@ -84,7 +85,7 @@ class QuarterTests {
         assertEquals(2, quarter.getValue());
         assertEquals("Q2", quarter.name());
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(DateTimeException.class, () -> {
             Quarter.of(5);
         });
 
