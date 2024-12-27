@@ -1,7 +1,7 @@
-[ ] 未开始测试 - 10 (14.93%)
-[-] 测试未完成 - 9 (13.43%)
-[Y] 测试完成 - 27 (40.30%)
-[x] 无需测试 - 21 (31.34%)
+[ ] 未开始测试 - 8 (11.94%)
+[-] 测试未完成 - 8 (11.94%)
+[Y] 测试完成 - 29 (43.28%)
+[x] 无需测试 - 22 (32.84%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -60,9 +60,9 @@ xyz.zhouxy.plusone.commons
     │       ToOptionalFunction.java               [x]
     │
     ├───model
-    │   │   Chinese2ndGenIDCardNumber.java        [-]
-    │   │   Gender.java                           [ ]
-    │   │   IDCardNumber.java                     [ ]
+    │   │   Chinese2ndGenIDCardNumber.java        [Y]
+    │   │   Gender.java                           [x]
+    │   │   IDCardNumber.java                     [Y]
     │   │   ValidatableStringRecord.java          [-]
     │   │
     │   └───dto
