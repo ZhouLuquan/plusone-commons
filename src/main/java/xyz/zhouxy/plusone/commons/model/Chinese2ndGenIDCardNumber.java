@@ -226,5 +226,5 @@ public class Chinese2ndGenIDCardNumber implements IDCardNumber, Serializable {
         return Objects.equals(value, other.value);
     }
 
-    private static final long serialVersionUID = 20241202095400L;
+    private static final long serialVersionUID = 8390082242712103716L;
 }
