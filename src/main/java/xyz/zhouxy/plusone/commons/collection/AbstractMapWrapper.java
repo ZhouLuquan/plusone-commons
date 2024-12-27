@@ -23,7 +23,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -33,7 +32,6 @@ import javax.annotation.Nullable;
 import com.google.common.annotations.Beta;
 
 import xyz.zhouxy.plusone.commons.util.AssertTools;
-import xyz.zhouxy.plusone.commons.util.ConcurrentHashMapTools;
 
 /**
  * AbstractMapWrapper
@@ -159,12 +157,7 @@ public abstract class AbstractMapWrapper<K, V, T extends AbstractMapWrapper<K, V
             }
             return value;
         };
-        if (this.map instanceof ConcurrentHashMap) {
-            return ConcurrentHashMapTools.computeIfAbsent(
-                    (ConcurrentHashMap<K, V>) this.map, key, func);
-        } else {
-            return this.map.computeIfAbsent(key, func);
-        }
+        return this.map.computeIfAbsent(key, func);
     }
 
     public final Map<K, V> exportMap() {
