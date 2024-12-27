@@ -1,6 +1,6 @@
-[ ] 未开始测试 - 8 (11.94%)
+[ ] 未开始测试 - 7 (10.45%)
 [-] 测试未完成 - 8 (11.94%)
-[Y] 测试完成 - 29 (43.28%)
+[Y] 测试完成 - 30 (44.78%)
 [x] 无需测试 - 22 (32.84%)
 
 xyz.zhouxy.plusone.commons
@@ -91,7 +91,7 @@ xyz.zhouxy.plusone.commons
             IdWorker.java                         [Y]
             Numbers.java                          [Y]
             OptionalTools.java                    [Y]
-            RandomTools.java                      [ ]
+            RandomTools.java                      [Y]
             RegexTools.java                       [ ]
             SnowflakeIdGenerator.java             [Y]
             StringTools.java                      [Y]
