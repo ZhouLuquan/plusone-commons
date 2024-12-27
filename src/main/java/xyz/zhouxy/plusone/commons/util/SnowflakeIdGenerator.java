@@ -18,12 +18,9 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.concurrent.TimeUnit;
 
-import com.google.common.annotations.Beta;
-
 /**
- * Twitter_Snowflake
+ * Twitter 版雪花算法
  */
-@Beta
 public class SnowflakeIdGenerator {
 
     // ==============================Fields===========================================
