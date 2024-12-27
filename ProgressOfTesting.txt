@@ -1,6 +1,6 @@
-[ ] 未开始测试 - 13 (19.40%)
+[ ] 未开始测试 - 10 (14.93%)
 [-] 测试未完成 - 9 (13.43%)
-[Y] 测试完成 - 24 (35.82%)
+[Y] 测试完成 - 27 (40.30%)
 [x] 无需测试 - 21 (31.34%)
 
 xyz.zhouxy.plusone.commons
@@ -87,12 +87,12 @@ xyz.zhouxy.plusone.commons
             DateTimeTools.java                    [-]
             Enumeration.java                      [Y]
             EnumTools.java                        [Y]
-            IdGenerator.java                      [ ]
-            IdWorker.java                         [ ]
+            IdGenerator.java                      [Y]
+            IdWorker.java                         [Y]
             Numbers.java                          [Y]
             OptionalTools.java                    [Y]
             RandomTools.java                      [ ]
             RegexTools.java                       [ ]
-            SnowflakeIdGenerator.java             [ ]
+            SnowflakeIdGenerator.java             [Y]
             StringTools.java                      [Y]
             TreeBuilder.java                      [Y]

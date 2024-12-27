@@ -925,9 +925,10 @@ public class AssertToolsTests {
 
     // #region - Condition
 
+    static final class MyException extends RuntimeException {}
+
     @Test
     void testCheckCondition() {
-        class MyException extends RuntimeException {}
 
         AssertTools.checkCondition(true, MyException::new);
 
