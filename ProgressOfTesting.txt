@@ -1,6 +1,6 @@
 [ ] 未开始测试 - 7 (10.45%)
-[-] 测试未完成 - 8 (11.94%)
-[Y] 测试完成 - 30 (44.78%)
+[-] 测试未完成 - 7 (10.45%)
+[Y] 测试完成 - 31 (46.27%)
 [x] 无需测试 - 22 (32.84%)
 
 xyz.zhouxy.plusone.commons
@@ -63,7 +63,7 @@ xyz.zhouxy.plusone.commons
     │   │   Chinese2ndGenIDCardNumber.java        [Y]
     │   │   Gender.java                           [x]
     │   │   IDCardNumber.java                     [Y]
-    │   │   ValidatableStringRecord.java          [-]
+    │   │   ValidatableStringRecord.java          [Y]
     │   │
     │   └───dto
     │           PageResult.java                   [-]
