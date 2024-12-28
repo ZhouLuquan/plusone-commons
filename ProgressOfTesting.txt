@@ -1,7 +1,7 @@
-[ ] 未开始测试 - 5 (7.94%)
-[-] 测试未完成 - 5 (7.94%)
-[Y] 测试完成 - 31 (49.21%)
-[x] 无需测试 - 22 (34.92%)
+[ ] 未开始测试 - 5 (7.81%)
+[-] 测试未完成 - 5 (7.81%)
+[Y] 测试完成 - 32 (50.00%)
+[x] 无需测试 - 22 (34.38%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -69,6 +69,7 @@ xyz.zhouxy.plusone.commons
     │           PageResult.java                   [-]
     │           PagingAndSortingQueryParams.java  [-]
     │           PagingParams.java                 [-]
+    │           UnifiedResponse.java              [Y]
     │
     ├───time
     │       Quarter.java                          [Y]

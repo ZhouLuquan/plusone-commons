@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.model.dto;
 
+import java.util.Collections;
 import java.util.List;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
@@ -46,6 +47,11 @@ public class PageResult<T> {
         return new PageResult<>(content, total);
     }
 
+    @StaticFactoryMethod(PageResult.class)
+    public static <T> PageResult<T> empty() {
+        return new PageResult<>(Collections.emptyList(), 0L);
+    }
+
     public long getTotal() {
         return total;
     }
@@ -56,6 +62,6 @@ public class PageResult<T> {
 
     @Override
     public String toString() {
-        return "PageDTO [total=" + total + ", content=" + content + "]";
+        return "PageResult [total=" + total + ", content=" + content + "]";
     }
 }
