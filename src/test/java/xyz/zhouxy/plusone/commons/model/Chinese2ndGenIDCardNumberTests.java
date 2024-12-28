@@ -51,7 +51,12 @@ public class Chinese2ndGenIDCardNumberTests {
 
         assertEquals("1***************1X", idCardNumber.toDesensitizedString());
         assertEquals("110***********111X", idCardNumber.toDesensitizedString(3, 4));
-        assertEquals("11############111X", idCardNumber.toDesensitizedString('#', 2, 4));
+        assertEquals("110###############", idCardNumber.toDesensitizedString('#', 3, 0));
+        assertEquals("11010520000101111X", idCardNumber.toDesensitizedString(10, 8));
+
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(-1, 5));
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(5, -1));
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(10, 9));
     }
 
     @Test
