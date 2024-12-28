@@ -1,7 +1,7 @@
-[ ] 未开始测试 - 7 (10.45%)
-[-] 测试未完成 - 7 (10.45%)
-[Y] 测试完成 - 31 (46.27%)
-[x] 无需测试 - 22 (32.84%)
+[ ] 未开始测试 - 5 (7.94%)
+[-] 测试未完成 - 5 (7.94%)
+[Y] 测试完成 - 31 (49.21%)
+[x] 无需测试 - 22 (34.92%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
@@ -69,12 +69,6 @@ xyz.zhouxy.plusone.commons
     │           PageResult.java                   [-]
     │           PagingAndSortingQueryParams.java  [-]
     │           PagingParams.java                 [-]
-    │           UnifiedResponse.java              [-]
-    │
-    ├───sql
-    │       JdbcSql.java                          [ ]
-    │       MyBatisSql.java                       [-]
-    │       SQL.java                              [ ]
     │
     ├───time
     │       Quarter.java                          [Y]
