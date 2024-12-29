@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
+import xyz.zhouxy.plusone.commons.collection.CollectionTools;
 
 /**
  * 返回分页查询的结果
@@ -37,8 +37,7 @@ public class PageResult<T> {
     private final List<T> content;
 
     private PageResult(List<T> content, long total) {
-        AssertTools.checkNotNull(content, "Content must not be null.");
-        this.content = content;
+        this.content = CollectionTools.nullToEmptyList(content);
         this.total = total;
     }
 
