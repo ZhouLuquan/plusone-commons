@@ -40,7 +40,7 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create();
         });
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
@@ -52,7 +52,7 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.JSON_PARSING_FAILURE.create(message);
         });
-        assertEquals(ParsingFailureException.Type.JSON_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.Type.JSON_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.Type.JSON_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -64,7 +64,7 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.XML_PARSING_FAILURE.create(message);
         });
-        assertEquals(ParsingFailureException.XML_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.XML_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.XML_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -79,11 +79,11 @@ public class ParsingFailureExceptionTests {
                 throw ParsingFailureException.NUMBER_PARSING_FAILURE.create(nfe);
             });
 
-            assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+            assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
             assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
-            assertEquals(nfe, e.getCause());
+            assertSame(nfe, e.getCause());
         });
     }
 
@@ -94,7 +94,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.NUMBER_PARSING_FAILURE.create(nfe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -108,10 +108,10 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.NUMBER_PARSING_FAILURE.create(message, nfe);
         });
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -122,10 +122,10 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, nfe);
         });
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, npe);
         });
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -150,7 +150,7 @@ public class ParsingFailureExceptionTests {
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, nfe);
         });
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -174,10 +174,10 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(dtpe.getMessage(), e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
@@ -188,7 +188,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
@@ -205,10 +205,10 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
@@ -222,10 +222,10 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
@@ -237,7 +237,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -252,7 +252,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -269,17 +269,17 @@ public class ParsingFailureExceptionTests {
     @Test
     void test_createByOf_withNumberFormatException() {
         NumberFormatException dtpe = assertThrows(NumberFormatException.class, () -> {
-            LocalDateTime.parse("abcd", DateTimeFormatter.ISO_DATE_TIME);
+            Integer.parseInt("abcd");
         });
 
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.of(dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(dtpe.getMessage(), e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
@@ -290,7 +290,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
@@ -300,34 +300,34 @@ public class ParsingFailureExceptionTests {
     void test_createByOf_withNumberFormatExceptionAndMessage() {
         final String message = "test_createByOf_withNumberFormatExceptionAndMessage";
         NumberFormatException dtpe = assertThrows(NumberFormatException.class, () -> {
-            LocalDateTime.parse("abcd", DateTimeFormatter.ISO_DATE_TIME);
+            Integer.parseInt("abcd");
         });
 
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
     void test_createByOf_withNumberFormatExceptionAndNullMessage() {
         final String message = null;
         NumberFormatException dtpe = assertThrows(NumberFormatException.class, () -> {
-            LocalDateTime.parse("abcd", DateTimeFormatter.ISO_DATE_TIME);
+            Integer.parseInt("abcd");
         });
 
         ParsingFailureException e = assertThrows(ParsingFailureException.class, () -> {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
-        assertEquals(dtpe, e.getCause());
+        assertSame(dtpe, e.getCause());
     }
 
     @Test
@@ -339,7 +339,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -354,7 +354,7 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.of(message, dtpe);
         });
 
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
+        assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());

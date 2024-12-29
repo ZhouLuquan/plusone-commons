@@ -37,7 +37,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create();
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getCode());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
@@ -49,7 +49,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message);
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -61,7 +61,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.create(message);
         });
-        assertEquals(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION, e.getType());
+        assertSame(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION, e.getType());
         assertEquals(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -76,11 +76,11 @@ public class InvalidInputExceptionTests {
                 throw InvalidInputException.Type.INFRINGE_COPYRIGHT.create(nfe);
             });
 
-            assertEquals(InvalidInputException.Type.INFRINGE_COPYRIGHT, e.getType());
+            assertSame(InvalidInputException.Type.INFRINGE_COPYRIGHT, e.getType());
             assertEquals(InvalidInputException.Type.INFRINGE_COPYRIGHT.getCode(), e.getCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
-            assertEquals(nfe, e.getCause());
+            assertSame(nfe, e.getCause());
         });
     }
 
@@ -91,7 +91,7 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.DEFAULT.create(nfe);
         });
 
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -105,10 +105,10 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -119,10 +119,10 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
         assertNull(e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, npe);
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -147,7 +147,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
+        assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -166,7 +166,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException();
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertEquals(InvalidInputException.Type.DEFAULT.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
@@ -178,7 +178,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -190,7 +190,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -205,11 +205,11 @@ public class InvalidInputExceptionTests {
                 throw new InvalidInputException(nfe);
             });
 
-            assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+            assertSame(InvalidInputException.Type.DEFAULT, e.getType());
             assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
-            assertEquals(nfe, e.getCause());
+            assertSame(nfe, e.getCause());
         });
     }
 
@@ -220,7 +220,7 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(nfe);
         });
 
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
@@ -234,10 +234,10 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -248,10 +248,10 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertNull(e.getMessage());
-        assertEquals(nfe, e.getCause());
+        assertSame(nfe, e.getCause());
     }
 
     @Test
@@ -262,7 +262,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message, npe);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
@@ -276,7 +276,7 @@ public class InvalidInputExceptionTests {
         InvalidInputException e = assertThrows(InvalidInputException.class, () -> {
             throw new InvalidInputException(message, nfe);
         });
-        assertEquals(InvalidInputException.Type.DEFAULT, e.getType());
+        assertSame(InvalidInputException.Type.DEFAULT, e.getType());
         assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
