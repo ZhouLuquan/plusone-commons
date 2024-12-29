@@ -16,15 +16,23 @@
 
 package xyz.zhouxy.plusone.commons.collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class CollectionToolsTests {
     @Test
@@ -45,5 +53,20 @@ public class CollectionToolsTests {
         map.put("2", 2);
         assertFalse(CollectionTools.isEmpty(map));
         assertTrue(CollectionTools.isNotEmpty(map));
+    }
+
+    @Test
+    void testNullToEmpty() {
+        List<String> list = Lists.newArrayList("Java", "C", "C++", "C#");
+        assertSame(list, CollectionTools.nullToEmptyList(list));
+        assertEquals(Collections.emptyList(), CollectionTools.nullToEmptyList(null));
+
+        Set<String> set = Sets.newHashSet("Java", "C", "C++", "C#");
+        assertSame(set, CollectionTools.nullToEmptySet(set));
+        assertEquals(Collections.emptySet(), CollectionTools.nullToEmptySet(null));
+
+        Map<String, Integer> map = ImmutableMap.of("K1", 1, "K2", 2, "K3", 3);
+        assertSame(map, CollectionTools.nullToEmptyMap(map));
+        assertEquals(Collections.emptyMap(), CollectionTools.nullToEmptyMap(null));
     }
 }
