@@ -17,8 +17,12 @@
 package xyz.zhouxy.plusone.commons.collection;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -49,6 +53,21 @@ public class CollectionTools {
 
     public static boolean isNotEmpty(@Nullable Map<?, ?> map) {
         return map != null && !map.isEmpty();
+    }
+
+    @Nonnull
+    public static <T> List<T> nullToEmptyList(@Nullable List<T> list) {
+        return list == null ? Collections.emptyList() : list;
+    }
+
+    @Nonnull
+    public static <T> Set<T> nullToEmptySet(@Nullable Set<T> set) {
+        return set == null ? Collections.emptySet() : set;
+    }
+
+    @Nonnull
+    public static <K, V> Map<K, V> nullToEmptyMap(@Nullable Map<K, V> map) {
+        return map == null ? Collections.emptyMap() : map;
     }
 
     private CollectionTools() {
