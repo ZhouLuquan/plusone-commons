@@ -39,7 +39,7 @@ class RegexToolsTests {
 
     @Test
     void getPattern_CachePatternFalse_ReturnsNewPattern() {
-        String pattern = "abc";
+        String pattern = "getPattern_CachePatternFalse_ReturnsNewPattern";
         Pattern pattern1 = RegexTools.getPattern(pattern, false);
         Pattern pattern2 = RegexTools.getPattern(pattern, false);
         assertNotSame(pattern1, pattern2, "Pattern should not be cached");
@@ -63,7 +63,7 @@ class RegexToolsTests {
 
     @Test
     void getPatterns_CachePatternFalse_ReturnsNewPatterns() {
-        String[] patterns = {"abc", "def"};
+        String[] patterns = {"getPatterns_CachePatternFalse_ReturnsNewPatterns1", "getPatterns_CachePatternFalse_ReturnsNewPatterns2"};
         Pattern[] patterns1 = RegexTools.getPatterns(patterns, false);
         Pattern[] patterns2 = RegexTools.getPatterns(patterns, false);
         assertNotSame(patterns1[0], patterns2[0]);

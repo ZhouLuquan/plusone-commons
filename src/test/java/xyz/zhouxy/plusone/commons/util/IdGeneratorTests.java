@@ -25,6 +25,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
 
@@ -49,9 +51,12 @@ public class IdGeneratorTests {
         }
     }
 
-    @Test
-    void testIdWorker() { // NOSONAR
-        final IdWorker idWorker = new IdWorker(0L);
+    @ParameterizedTest
+    @ValueSource(longs = { 0L, 1L, 108L, 300L })
+    void testIdWorker(long workerId) { // NOSONAR
+        // 如果使用 new IdWorker(0L) 创建，会和下面的 IdGenerator#nextSnowflakeId 使用相同 workerId 的不同 IdWorker 实例，造成 ID 重复
+        final IdWorker idWorker = IdGenerator.getSnowflakeIdGenerator(workerId);
+
         final Set<Long> ids = new ConcurrentHashSet<>();
         for (int i = 0; i < 10000; i++) {
             executor.execute(() -> {
@@ -63,7 +68,7 @@ public class IdGeneratorTests {
             });
             executor.execute(() -> {
                 for (int j = 0; j < 50000; j++) {
-                    if (false == ids.add(IdGenerator.nextSnowflakeId(0))) {
+                    if (false == ids.add(IdGenerator.nextSnowflakeId(workerId))) {
                         throw new RuntimeException("重复ID！");
                     }
                 }
