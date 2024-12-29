@@ -1,16 +1,16 @@
-[ ] 未开始测试 - 3 (4.84%)
-[-] 测试未完成 - 5 (8.06%)
-[Y] 测试完成 - 32 (51.61%)
-[x] 无需测试 - 22 (35.48%)
+[ ] 未开始测试 - 0 (0.00%)
+[*] 测试未完成 - 5 (8.06%)
+[Y] 测试完成 - 35 (56.45%)
+[-] 无需测试 - 22 (35.48%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
-    │       ReaderMethod.java                     [x]
-    │       StaticFactoryMethod.java              [x]
-    │       UnsupportedOperation.java             [x]
-    │       ValueObject.java                      [x]
-    │       Virtual.java                          [x]
-    │       WriterMethod.java                     [x]
+    │       ReaderMethod.java                     [-]
+    │       StaticFactoryMethod.java              [-]
+    │       UnsupportedOperation.java             [-]
+    │       ValueObject.java                      [-]
+    │       Virtual.java                          [-]
+    │       WriterMethod.java                     [-]
     │
     ├───base
     │       BoolRef.java                          [Y]
@@ -27,46 +27,46 @@ xyz.zhouxy.plusone.commons
     │       CollectionTools.java                  [Y]
     │
     ├───constant
-    │       PatternConsts.java                    [ ]
-    │       RegexConsts.java                      [ ]
+    │       PatternConsts.java                    [Y]
+    │       RegexConsts.java                      [Y]
     │
     ├───exception
-    │   │   DataNotExistsException.java           [x]
+    │   │   DataNotExistsException.java           [-]
     │   │   ParsingFailureException.java          [Y]
     │   │   ExceptionType.java                    [Y]
     │   │
     │   ├───business
-    │   │       BizException.java                 [x]
+    │   │       BizException.java                 [-]
     │   │       InvalidInputException.java        [Y]
-    │   │       RequestParamsException.java       [x]
+    │   │       RequestParamsException.java       [-]
     │   │
     │   └───system
-    │           DataOperationResultException.java [x]
-    │           NoAvailableMacFoundException.java [x]
-    │           SysException.java                 [x]
+    │           DataOperationResultException.java [-]
+    │           NoAvailableMacFoundException.java [-]
+    │           SysException.java                 [-]
     │
     ├───function
-    │       BoolUnaryOperator.java                [x]
-    │       CharUnaryOperator.java                [x]
-    │       Executable.java                       [x]
-    │       OptionalSupplier.java                 [x]
+    │       BoolUnaryOperator.java                [-]
+    │       CharUnaryOperator.java                [-]
+    │       Executable.java                       [-]
+    │       OptionalSupplier.java                 [-]
     │       PredicateTools.java                   [Y]
-    │       ThrowingConsumer.java                 [x]
-    │       ThrowingPredicate.java                [x]
-    │       ThrowingSupplier.java                 [x]
-    │       ToOptionalBiFunction.java             [x]
-    │       ToOptionalFunction.java               [x]
+    │       ThrowingConsumer.java                 [-]
+    │       ThrowingPredicate.java                [-]
+    │       ThrowingSupplier.java                 [-]
+    │       ToOptionalBiFunction.java             [-]
+    │       ToOptionalFunction.java               [-]
     │
     ├───model
     │   │   Chinese2ndGenIDCardNumber.java        [Y]
-    │   │   Gender.java                           [x]
+    │   │   Gender.java                           [-]
     │   │   IDCardNumber.java                     [Y]
     │   │   ValidatableStringRecord.java          [Y]
     │   │
     │   └───dto
-    │           PageResult.java                   [-]
-    │           PagingAndSortingQueryParams.java  [-]
-    │           PagingParams.java                 [-]
+    │           PageResult.java                   [*]
+    │           PagingAndSortingQueryParams.java  [*]
+    │           PagingParams.java                 [*]
     │           UnifiedResponse.java              [Y]
     │
     ├───time
@@ -74,10 +74,10 @@ xyz.zhouxy.plusone.commons
     │       YearQuarter.java                      [Y]
     │
     └───util
-            ArrayTools.java                       [-]
+            ArrayTools.java                       [*] 61
             AssertTools.java                      [Y]
             BigDecimals.java                      [Y]
-            DateTimeTools.java                    [-]
+            DateTimeTools.java                    [*] 83
             Enumeration.java                      [Y]
             EnumTools.java                        [Y]
             IdGenerator.java                      [Y]
@@ -85,7 +85,7 @@ xyz.zhouxy.plusone.commons
             Numbers.java                          [Y]
             OptionalTools.java                    [Y]
             RandomTools.java                      [Y]
-            RegexTools.java                       [ ]
+            RegexTools.java                       [Y]
             SnowflakeIdGenerator.java             [Y]
             StringTools.java                      [Y]
             TreeBuilder.java                      [Y]
