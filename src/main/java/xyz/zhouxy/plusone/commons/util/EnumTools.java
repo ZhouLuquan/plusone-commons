@@ -18,6 +18,7 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -41,12 +42,26 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    public static <E extends Enum<?>> E valueOf(Class<E> enumType, int ordinal) { // NOSONAR 该方法弃用，但不删掉
-        AssertTools.checkNotNull(enumType, "Enum type must not be null.");
+    private static <E extends Enum<?>> E valueOfInternal(@Nonnull Class<E> enumType, int ordinal) { // NOSONAR 该方法弃用，但不删掉
         E[] values = enumType.getEnumConstants();
         AssertTools.checkCondition((ordinal >= 0 && ordinal < values.length),
                 () -> new EnumConstantNotPresentException(enumType, Integer.toString(ordinal)));
         return values[ordinal];
+    }
+
+    /**
+     * 通过 ordinal 获取枚举实例
+     *
+     * @param <E>      枚举的类型
+     * @param enumType 枚举的类型信息
+     * @param ordinal  序号
+     * @return 枚举对象
+     * @deprecated 不推荐使用枚举的 ordinal。
+     */
+    @Deprecated
+    public static <E extends Enum<?>> E valueOf(Class<E> enumType, int ordinal) { // NOSONAR 该方法弃用，但不删掉
+        AssertTools.checkNotNull(enumType, "Enum type must not be null.");
+        return valueOfInternal(enumType, ordinal);
     }
 
     /**
@@ -62,7 +77,8 @@ public final class EnumTools {
     @Deprecated
     public static <E extends Enum<?>> E valueOf(Class<E> enumType, // NOSONAR 该方法弃用，但不删掉
             @Nullable Integer ordinal, E defaultValue) {
-        return null == ordinal ? defaultValue : valueOf(enumType, ordinal);
+        AssertTools.checkNotNull(enumType);
+        return null == ordinal ? defaultValue : valueOfInternal(enumType, ordinal);
     }
 
     /**
@@ -80,7 +96,9 @@ public final class EnumTools {
             Class<E> enumType,
             @Nullable Integer ordinal,
             Supplier<E> defaultValue) {
-        return null == ordinal ? defaultValue.get() : valueOf(enumType, ordinal);
+        AssertTools.checkNotNull(enumType);
+        AssertTools.checkNotNull(defaultValue);
+        return null == ordinal ? defaultValue.get() : valueOfInternal(enumType, ordinal);
     }
 
     /**
@@ -134,7 +152,7 @@ public final class EnumTools {
      */
     @Nullable
     public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> enumType, @Nullable Integer ordinal) {
-        return checkOrdinalOrDefault(enumType, ordinal, null);
+        return checkOrdinalOrDefault(enumType, ordinal, (Integer) null);
     }
 
     /**
@@ -163,6 +181,30 @@ public final class EnumTools {
             Class<E> enumType,
             @Nullable Integer ordinal,
             @Nullable Integer defaultValue) {
-        return ordinal != null ? checkOrdinal(enumType, ordinal) : defaultValue;
+        AssertTools.checkNotNull(enumType);
+        return checkOrdinalOrGetInternal(enumType, ordinal, () -> checkOrdinalOrDefaultInternal(enumType, defaultValue, null));
+    }
+
+    /**
+     * 仅对 {@code ordinal} 进行判断，不对 {@code defaultValue} 进行判断
+     */
+    @Nullable
+    private static <E extends Enum<?>> Integer checkOrdinalOrDefaultInternal(
+            @Nonnull Class<E> enumType,
+            @Nullable Integer ordinal,
+            @Nullable Integer defaultValue) {
+        return ordinal != null
+                ? checkOrdinal(enumType, ordinal)
+                : defaultValue;
+    }
+
+    @Nullable
+    private static <E extends Enum<?>> Integer checkOrdinalOrGetInternal(
+            @Nonnull Class<E> enumType,
+            @Nullable Integer ordinal,
+            @Nonnull Supplier<Integer> defaultValueSupplier) {
+        return ordinal != null
+                ? checkOrdinal(enumType, ordinal)
+                : defaultValueSupplier.get();
     }
 }
