@@ -1,6 +1,6 @@
 [ ] 未开始测试 - 0 (0.00%)
-[*] 测试未完成 - 5 (8.06%)
-[Y] 测试完成 - 35 (56.45%)
+[*] 测试未完成 - 4 (06.45%)
+[Y] 测试完成 - 36 (58.06%)
 [-] 无需测试 - 22 (35.48%)
 
 xyz.zhouxy.plusone.commons
@@ -77,7 +77,7 @@ xyz.zhouxy.plusone.commons
             ArrayTools.java                       [*] 61
             AssertTools.java                      [Y]
             BigDecimals.java                      [Y]
-            DateTimeTools.java                    [*] 83
+            DateTimeTools.java                    [Y]
             Enumeration.java                      [Y]
             EnumTools.java                        [Y]
             IdGenerator.java                      [Y]
