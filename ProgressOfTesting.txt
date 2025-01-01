@@ -1,6 +1,6 @@
 [ ] 未开始测试 - 0 (0.00%)
-[*] 测试未完成 - 3 (04.84%)
-[Y] 测试完成 - 37 (59.68%)
+[*] 测试未完成 - 0 (0.00%)
+[Y] 测试完成 - 40 (64.52%)
 [-] 无需测试 - 22 (35.48%)
 
 xyz.zhouxy.plusone.commons
@@ -64,9 +64,9 @@ xyz.zhouxy.plusone.commons
     │   │   ValidatableStringRecord.java          [Y]
     │   │
     │   └───dto
-    │           PageResult.java                   [*]
-    │           PagingAndSortingQueryParams.java  [*]
-    │           PagingParams.java                 [*]
+    │           PageResult.java                   [Y]
+    │           PagingAndSortingQueryParams.java  [Y]
+    │           PagingParams.java                 [Y]
     │           UnifiedResponse.java              [Y]
     │
     ├───time
