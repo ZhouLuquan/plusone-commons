@@ -1,6 +1,6 @@
 [ ] 未开始测试 - 0 (0.00%)
-[*] 测试未完成 - 4 (06.45%)
-[Y] 测试完成 - 36 (58.06%)
+[*] 测试未完成 - 3 (04.84%)
+[Y] 测试完成 - 37 (59.68%)
 [-] 无需测试 - 22 (35.48%)
 
 xyz.zhouxy.plusone.commons
@@ -74,7 +74,7 @@ xyz.zhouxy.plusone.commons
     │       YearQuarter.java                      [Y]
     │
     └───util
-            ArrayTools.java                       [*] 61
+            ArrayTools.java                       [Y]
             AssertTools.java                      [Y]
             BigDecimals.java                      [Y]
             DateTimeTools.java                    [Y]
