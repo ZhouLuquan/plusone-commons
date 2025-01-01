@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static java.time.temporal.ChronoField.*;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +32,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.time.Quarter;
@@ -46,29 +47,27 @@ public class DateTimeTools {
     // #region - toString
 
     public static String toYearString(int year) {
-        return Integer.toString(year);
+        return Integer.toString(YEAR.checkValidIntValue(year));
     }
 
     public static String toYearString(Year year) {
         return year.toString();
     }
 
-    public static String toMonthString(int monthValue) {
-        return Strings.padStart(Integer.toString(monthValue), 2, '0');
+    public static String toMonthStringM(int monthValue) {
+        return Integer.toString(MONTH_OF_YEAR.checkValidIntValue(monthValue));
     }
 
-    public static String toMonthString(int monthValue, boolean padStart) {
-        return padStart ? toMonthString(monthValue) : Integer.toString(monthValue);
+    public static String toMonthStringMM(int monthValue) {
+        return String.format("%02d", MONTH_OF_YEAR.checkValidIntValue(monthValue));
     }
 
-    public static String toMonthString(Month month) {
-        final int monthValue = month.getValue();
-        return Strings.padStart(Integer.toString(monthValue), 2, '0');
+    public static String toMonthStringM(Month month) {
+        return Integer.toString(month.getValue());
     }
 
-    public static String toMonthString(Month month, boolean padStart) {
-        final int monthValue = month.getValue();
-        return padStart ? toMonthString(month) : Integer.toString(monthValue);
+    public static String toMonthStringMM(Month month) {
+        return String.format("%02d", month.getValue());
     }
 
     // #endregion
@@ -282,7 +281,7 @@ public class DateTimeTools {
      * @param zone          时区
      * @return 带时区的地区时间
      */
-    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) { // NOSONAR
+    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) {
         return ZonedDateTime.of(localDateTime, zone);
     }
 

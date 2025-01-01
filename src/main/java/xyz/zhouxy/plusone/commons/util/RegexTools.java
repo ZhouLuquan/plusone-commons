@@ -90,22 +90,6 @@ public final class RegexTools {
     }
 
     /**
-     * 手动缓存 Pattern 实例。
-     *
-     * @param pattern 要缓存的 {@link Pattern} 实例
-     * @return 缓存的 Pattern 实例。如果缓存已满，则返回 {@code null}。
-     */
-    public static Pattern cachePattern(final Pattern pattern) {
-        AssertTools.checkNotNull(pattern, "The pattern can not be null.");
-        if (PATTERN_CACHE.size() >= MAX_CACHE_SIZE) {
-            return null;
-        }
-        final String patternStr = pattern.pattern();
-        final Pattern pre = PATTERN_CACHE.putIfAbsent(patternStr, pattern);
-        return pre != null ? pre : pattern;
-    }
-
-    /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
      *
      * @param input   输入
@@ -285,7 +269,6 @@ public final class RegexTools {
      * 获取 {@link Pattern} 实例。
      *
      * @param pattern      正则表达式
-     * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例
      */
     @Nonnull

@@ -24,7 +24,26 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
 
-
+/**
+ * Seata 提供的修改版雪花ID。
+ * <p>
+ * 大体思路为：
+ * <ol>
+ * <li>每个机器线程安全地生成序列，前面加上机器的id，这样就不会与其它机器的id相冲突。</li>
+ * <li>时间戳作为序列的“预留位”，它更像是应用启动时最开始的序列的一部分，在一个时间戳里生成 4096 个 id 之后，直接生成下一个时间戳的 id。</li>
+ * </ol>
+ * </p>
+ * <p>
+ * 详情见以下介绍：
+ * <ul>
+ * <li><a href="https://seata.apache.org/zh-cn/blog/seata-analysis-UUID-generator/">Seata基于改良版雪花算法的分布式UUID生成器分析</a></li>
+ * <li><a href="https://seata.apache.org/zh-cn/blog/seata-snowflake-explain">关于新版雪花算法的答疑</a></li>
+ * <li><a href="https://juejin.cn/post/7264387737276203065">在开源项目中看到一个改良版的雪花算法，现在它是你的了。</a></li>
+ * <li><a href="https://juejin.cn/post/7265516484029743138">关于若干读者，阅读“改良版雪花算法”后提出的几个共性问题的回复。</a></li>
+ * </ul>
+ * </p>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ */
 public class IdWorker {
 
     /**

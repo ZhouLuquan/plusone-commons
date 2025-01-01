@@ -24,8 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public
 class NumbersTests {
 
-    // TODO 【优化】 检查测试用例
-
     @Test
     public void sum_ShortArray_ReturnsCorrectSum() {
         short[] numbers = {1, 2, 3, 4};

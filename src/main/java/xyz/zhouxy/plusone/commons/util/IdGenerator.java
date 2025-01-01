@@ -21,9 +21,17 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.annotations.Beta;
-
-@Beta
+/**
+ * ID 生成器
+ *
+ * <p>
+ * 生成 UUID 和 修改版雪花ID（Seata 版本）
+ * </p>
+ *
+ * @see UUID
+ * @see IdWorker
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ */
 public class IdGenerator {
 
     // ===== UUID =====

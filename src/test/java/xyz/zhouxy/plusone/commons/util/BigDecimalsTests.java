@@ -27,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BigDecimalsTests {
 
-    // TODO 【优化】 检查测试用例
-
     @Test
     void equalsValue_NullValues_ReturnsTrue() {
         assertTrue(BigDecimals.equalsValue(null, null));
@@ -176,7 +174,8 @@ public class BigDecimalsTests {
         BigDecimal bd1 = new BigDecimal("10");
         BigDecimal bd2 = new BigDecimal("20");
         BigDecimal bd3 = new BigDecimal("30");
-        assertEquals(new BigDecimal("60"), BigDecimals.sum(bd1, bd2, bd3));
+        BigDecimal bd4 = null;
+        assertEquals(new BigDecimal("60"), BigDecimals.sum(bd1, bd2, bd3, bd4));
     }
 
     @Test
@@ -192,6 +191,8 @@ public class BigDecimalsTests {
 
     @Test
     void of_BlankString_ReturnsZero() {
+        assertEquals(BigDecimal.ZERO, BigDecimals.of(null));
+        assertEquals(BigDecimal.ZERO, BigDecimals.of(""));
         assertEquals(BigDecimal.ZERO, BigDecimals.of(" "));
     }
 

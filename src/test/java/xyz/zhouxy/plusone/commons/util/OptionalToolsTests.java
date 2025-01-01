@@ -19,6 +19,7 @@ package xyz.zhouxy.plusone.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -28,10 +29,11 @@ import java.util.OptionalLong;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * {@link OptionalTools} 单元测试
+ */
 public
 class OptionalToolsTests {
-
-    // TODO 【优化】 检查测试用例
 
     @Test
     void optionalOf_NullInteger_ReturnsEmptyOptionalInt() {
@@ -112,8 +114,14 @@ class OptionalToolsTests {
     }
 
     @Test
-    void orElseNull_NullOptional_ReturnsNull() {
-        Object result = OptionalTools.orElseNull(Optional.ofNullable(null));
+    void orElseNull_NullOptional_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> OptionalTools.orElseNull(null));
+    }
+
+    @Test
+    void orElseNull_EmptyOptional_ReturnsNull() {
+        Object result = OptionalTools.orElseNull(Optional.empty());
         assertNull(result);
     }
 
@@ -124,7 +132,13 @@ class OptionalToolsTests {
     }
 
     @Test
-    void toInteger_NullOptionalInt_ReturnsNull() {
+    void toInteger_NullOptionalInt_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> OptionalTools.toInteger(null));
+    }
+
+    @Test
+    void toInteger_EmptyOptionalInt_ReturnsNull() {
         Integer result = OptionalTools.toInteger(OptionalInt.empty());
         assertNull(result);
     }
@@ -136,7 +150,13 @@ class OptionalToolsTests {
     }
 
     @Test
-    void toLong_NullOptionalLong_ReturnsNull() {
+    void toLong_NullOptionalLong_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> OptionalTools.toLong(null));
+    }
+
+    @Test
+    void toLong_EmptyOptionalLong_ReturnsNull() {
         Long result = OptionalTools.toLong(OptionalLong.empty());
         assertNull(result);
     }
@@ -148,7 +168,13 @@ class OptionalToolsTests {
     }
 
     @Test
-    void toDouble_NullOptionalDouble_ReturnsNull() {
+    void toDouble_NullOptionalDouble_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> OptionalTools.toDouble(null));
+    }
+
+    @Test
+    void toDouble_EmptyOptionalDouble_ReturnsNull() {
         Double result = OptionalTools.toDouble(OptionalDouble.empty());
         assertNull(result);
     }

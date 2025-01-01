@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
+import java.time.temporal.ChronoField;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -52,7 +53,6 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     private final LocalDate lastDate;
 
     private YearQuarter(int year, @Nonnull Quarter quarter) {
-        AssertTools.checkNotNull(quarter, "Quarter can not be null.");
         this.year = year;
         this.quarter = quarter;
         this.firstDate = quarter.firstMonthDay().atYear(year);
@@ -70,7 +70,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(int year, int quarter) {
-        return of(year, Quarter.of(quarter));
+        return new YearQuarter(YEAR.checkValidIntValue(year), Quarter.of(quarter));
     }
 
     /**
@@ -81,8 +81,8 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @return {@link YearQuarter} 实例
      */
     @StaticFactoryMethod(YearQuarter.class)
-    public static YearQuarter of(int year, @Nonnull Quarter quarter) {
-        return new YearQuarter(year, quarter);
+    public static YearQuarter of(int year, Quarter quarter) {
+        return new YearQuarter(YEAR.checkValidIntValue(year), Objects.requireNonNull(quarter));
     }
 
     /**
@@ -92,8 +92,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @return {@link YearQuarter} 实例
      */
     @StaticFactoryMethod(YearQuarter.class)
-    public static YearQuarter of(@Nonnull LocalDate date) {
-        return of(date.getYear(), Quarter.fromMonth(date.getMonth()));
+    public static YearQuarter of(LocalDate date) {
+        AssertTools.checkNotNull(date);
+        return new YearQuarter(date.getYear(), Quarter.fromMonth(date.getMonth()));
     }
 
     /**
@@ -103,12 +104,13 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      * @return {@link YearQuarter} 实例
      */
     @StaticFactoryMethod(YearQuarter.class)
-    public static YearQuarter of(@Nonnull Date date) {
+    public static YearQuarter of(Date date) {
+        AssertTools.checkNotNull(date);
         @SuppressWarnings("deprecation")
-        final int year = date.getYear() + 1900;
+        final int yearValue = YEAR.checkValidIntValue(date.getYear() + 1900L);
         @SuppressWarnings("deprecation")
-        final int month = date.getMonth() + 1;
-        return of(year, Quarter.fromMonth(month));
+        final int monthValue = date.getMonth() + 1;
+        return new YearQuarter(yearValue, Quarter.fromMonth(monthValue));
     }
 
     /**
@@ -119,7 +121,10 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(Calendar date) {
-        return of(date.get(Calendar.YEAR), Quarter.fromMonth(date.get(Calendar.MONTH) + 1));
+        AssertTools.checkNotNull(date);
+        final int yearValue = ChronoField.YEAR.checkValidIntValue(date.get(Calendar.YEAR));
+        final int monthValue = date.get(Calendar.MONTH) + 1;
+        return new YearQuarter(yearValue, Quarter.fromMonth(monthValue));
     }
 
     /**
@@ -130,7 +135,13 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(YearMonth yearMonth) {
+        AssertTools.checkNotNull(yearMonth);
         return of(yearMonth.getYear(), Quarter.fromMonth(yearMonth.getMonth()));
+    }
+
+    @StaticFactoryMethod(YearQuarter.class)
+    public static YearQuarter now() {
+        return of(LocalDate.now());
     }
 
     // #endregion
@@ -185,7 +196,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     // #region - computes
 
-    public YearQuarter plusQuarters(long quartersToAdd) { // TODO 单元测试
+    public YearQuarter plusQuarters(long quartersToAdd) {
         if (quartersToAdd == 0L) {
             return this;
         }
@@ -193,27 +204,27 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         long calcQuarters = quarterCount + quartersToAdd; // safe overflow
         int newYear = YEAR.checkValidIntValue(Math.floorDiv(calcQuarters, 4));
         int newQuarter = (int) Math.floorMod(calcQuarters, 4) + 1;
-        return of(newYear, Quarter.of(newQuarter));
+        return new YearQuarter(newYear, Quarter.of(newQuarter));
     }
 
-    public YearQuarter minusQuarters(long quartersToAdd) { // TODO 单元测试
+    public YearQuarter minusQuarters(long quartersToAdd) {
         return plusQuarters(-quartersToAdd);
     }
 
-    public YearQuarter nextQuarter() { // TODO 单元测试
+    public YearQuarter nextQuarter() {
         return plusQuarters(1L);
     }
 
-    public YearQuarter lastQuarter() { // TODO 单元测试
+    public YearQuarter lastQuarter() {
         return minusQuarters(1L);
     }
 
-    public YearQuarter plusYears(long yearsToAdd) { // TODO 单元测试
+    public YearQuarter plusYears(long yearsToAdd) {
         if (yearsToAdd == 0L) {
             return this;
         }
         int newYear = YEAR.checkValidIntValue(this.year + yearsToAdd);  // safe overflow
-        return of(newYear, this.quarter);
+        return new YearQuarter(newYear, this.quarter);
     }
 
     public YearQuarter minusYears(long yearsToAdd) {
@@ -270,11 +281,11 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return this.compareTo(other) > 0;
     }
 
-    public static YearQuarter min(YearQuarter yearQuarter1, YearQuarter yearQuarter2) { // TODO 单元测试
+    public static YearQuarter min(YearQuarter yearQuarter1, YearQuarter yearQuarter2) {
         return yearQuarter1.compareTo(yearQuarter2) <= 0 ? yearQuarter1 : yearQuarter2;
     }
 
-    public static YearQuarter max(YearQuarter yearQuarter1, YearQuarter yearQuarter2) { // TODO 单元测试
+    public static YearQuarter max(YearQuarter yearQuarter1, YearQuarter yearQuarter2) {
         return yearQuarter1.compareTo(yearQuarter2) >= 0 ? yearQuarter1 : yearQuarter2;
     }
 

@@ -17,35 +17,27 @@
 package xyz.zhouxy.plusone.commons.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
 @Slf4j
 public class Chinese2ndGenIDCardNumberTests {
 
     @Test
-    void testPattern() {
-        Matcher matcher = PatternConsts.CHINESE_2ND_ID_CARD_NUMBER.matcher("11010520000101111X");
-        assertTrue(matcher.matches());
-        for (int i = 0; i < matcher.groupCount(); i++) {
-            log.info("{}: {}", i, matcher.group(i));
-        }
-    }
-
-    @Test
-    void test() {
+    void testOf_success() {
         Chinese2ndGenIDCardNumber idCardNumber = Chinese2ndGenIDCardNumber.of("11010520000101111X");
         assertEquals("11010520000101111X", idCardNumber.value());
         assertEquals(LocalDate.of(2000, 1, 1), idCardNumber.getBirthDate());
-        assertEquals(Gender.MALE, idCardNumber.getGender());
+        assertSame(Gender.MALE, idCardNumber.getGender());
         assertEquals("110105", idCardNumber.getCountyCode());
         assertEquals("110105000000", idCardNumber.getFullCountyCode());
 
@@ -57,17 +49,43 @@ public class Chinese2ndGenIDCardNumberTests {
 
         assertEquals("北京", idCardNumber.getProvinceName());
 
-        assertThrows(IllegalArgumentException.class,
-                () -> Chinese2ndGenIDCardNumber.of("1101520000101111"));
+        assertEquals("1***************1X", idCardNumber.toDesensitizedString());
+        assertEquals("110***********111X", idCardNumber.toDesensitizedString(3, 4));
+        assertEquals("110###############", idCardNumber.toDesensitizedString('#', 3, 0));
+        assertEquals("11010520000101111X", idCardNumber.toDesensitizedString(10, 8));
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(-1, 5));
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(5, -1));
+        assertThrows(IllegalArgumentException.class, () -> idCardNumber.toDesensitizedString(10, 9));
+    }
+
+    @Test
+    void testOf_blankValue() {
+        String[] strings = { null, "", " " };
+        for (String value : strings) {
+            IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                    () -> Chinese2ndGenIDCardNumber.of(value));
+            assertEquals("二代居民身份证校验失败：号码为空", e.getMessage());
+        }
+    }
+    @ParameterizedTest
+    @ValueSource(strings = { "1101520000101111", "110A0520000101111X", "110105220000101111X" })
+    void testOf_mismatched(String value) {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> Chinese2ndGenIDCardNumber.of(value));
+        assertEquals("二代居民身份证校验失败：" + value, e.getMessage());
+    }
+
+    @Test
+    void testOf_wrongBirthDate() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> Chinese2ndGenIDCardNumber.of("11010520002101111X"));
+        assertTrue(e.getCause() instanceof DateTimeParseException);
+    }
 
-        try {
-            Chinese2ndGenIDCardNumber.of("11010520002101111X");
-        }
-        catch (IllegalArgumentException e) {
-            assertTrue(e.getCause() instanceof DateTimeParseException);
-        }
+    @Test
+    void testOf_wrongProvince() {
+        assertThrows(IllegalArgumentException.class,
+                () -> Chinese2ndGenIDCardNumber.of("99010520000101111X"));
     }
 }

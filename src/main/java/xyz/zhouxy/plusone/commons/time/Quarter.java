@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.time;
 
+import java.time.DateTimeException;
 import java.time.Month;
 import java.time.MonthDay;
 import java.time.temporal.ChronoField;
@@ -171,7 +172,8 @@ public enum Quarter implements IWithIntCode {
     // Getters end
 
     public static int checkValidIntValue(int value) {
-        AssertTools.checkArgument(value >= 1 && value <= 4, () -> "Invalid value for Quarter: " + value);
+        AssertTools.checkCondition(value >= 1 && value <= 4,
+                () -> new DateTimeException("Invalid value for Quarter: " + value));
         return value;
     }
 

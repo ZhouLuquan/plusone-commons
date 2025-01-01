@@ -1,16 +1,16 @@
-[ ] 未开始测试 - 15 (21.43%)
-[-] 测试未完成 - 11 (15.71%)
-[Y] 测试完成 - 23 (32.86%)
-[x] 无需测试 - 21 (30.00%)
+[ ] 未开始测试 - 0 (0.00%)
+[*] 测试未完成 - 0 (0.00%)
+[Y] 测试完成 - 40 (64.52%)
+[-] 无需测试 - 22 (35.48%)
 
 xyz.zhouxy.plusone.commons
     ├───annotation
-    │       ReaderMethod.java                     [x]
-    │       StaticFactoryMethod.java              [x]
-    │       UnsupportedOperation.java             [x]
-    │       ValueObject.java                      [x]
-    │       Virtual.java                          [x]
-    │       WriterMethod.java                     [x]
+    │       ReaderMethod.java                     [-]
+    │       StaticFactoryMethod.java              [-]
+    │       UnsupportedOperation.java             [-]
+    │       ValueObject.java                      [-]
+    │       Virtual.java                          [-]
+    │       WriterMethod.java                     [-]
     │
     ├───base
     │       BoolRef.java                          [Y]
@@ -20,82 +20,72 @@ xyz.zhouxy.plusone.commons
     │       IWithCode.java                        [Y]
     │       IWithIntCode.java                     [Y]
     │       IWithLongCode.java                    [Y]
-    │       JRE.java                              [ ]
     │       LongRef.java                          [Y]
     │       Ref.java                              [Y]
     │
     ├───collection
-    │       AbstractMapWrapper.java               [ ]
     │       CollectionTools.java                  [Y]
-    │       MapWrapper.java                       [ ]
-    │       SafeConcurrentHashMap.java            [ ]
     │
     ├───constant
-    │       PatternConsts.java                    [ ]
-    │       RegexConsts.java                      [ ]
+    │       PatternConsts.java                    [Y]
+    │       RegexConsts.java                      [Y]
     │
     ├───exception
-    │   │   DataNotExistsException.java           [x]
+    │   │   DataNotExistsException.java           [-]
     │   │   ParsingFailureException.java          [Y]
     │   │   ExceptionType.java                    [Y]
     │   │
     │   ├───business
-    │   │       BizException.java                 [x]
+    │   │       BizException.java                 [-]
     │   │       InvalidInputException.java        [Y]
-    │   │       RequestParamsException.java       [x]
+    │   │       RequestParamsException.java       [-]
     │   │
     │   └───system
-    │           DataOperationResultException.java [x]
-    │           NoAvailableMacFoundException.java [x]
-    │           SysException.java                 [x]
+    │           DataOperationResultException.java [-]
+    │           NoAvailableMacFoundException.java [-]
+    │           SysException.java                 [-]
     │
     ├───function
-    │       BoolUnaryOperator.java                [x]
-    │       CharUnaryOperator.java                [x]
-    │       Executable.java                       [x]
-    │       OptionalSupplier.java                 [x]
+    │       BoolUnaryOperator.java                [-]
+    │       CharUnaryOperator.java                [-]
+    │       Executable.java                       [-]
+    │       OptionalSupplier.java                 [-]
     │       PredicateTools.java                   [Y]
-    │       ThrowingConsumer.java                 [x]
-    │       ThrowingPredicate.java                [x]
-    │       ThrowingSupplier.java                 [x]
-    │       ToOptionalBiFunction.java             [x]
-    │       ToOptionalFunction.java               [x]
+    │       ThrowingConsumer.java                 [-]
+    │       ThrowingPredicate.java                [-]
+    │       ThrowingSupplier.java                 [-]
+    │       ToOptionalBiFunction.java             [-]
+    │       ToOptionalFunction.java               [-]
     │
     ├───model
-    │   │   Chinese2ndGenIDCardNumber.java        [-]
-    │   │   Gender.java                           [ ]
-    │   │   IDCardNumber.java                     [ ]
-    │   │   ValidatableStringRecord.java          [-]
+    │   │   Chinese2ndGenIDCardNumber.java        [Y]
+    │   │   Gender.java                           [-]
+    │   │   IDCardNumber.java                     [Y]
+    │   │   ValidatableStringRecord.java          [Y]
     │   │
     │   └───dto
-    │           PageResult.java                   [-]
-    │           PagingAndSortingQueryParams.java  [-]
-    │           PagingParams.java                 [-]
-    │           UnifiedResponse.java              [-]
-    │
-    ├───sql
-    │       JdbcSql.java                          [ ]
-    │       MyBatisSql.java                       [-]
-    │       SQL.java                              [ ]
+    │           PageResult.java                   [Y]
+    │           PagingAndSortingQueryParams.java  [Y]
+    │           PagingParams.java                 [Y]
+    │           UnifiedResponse.java              [Y]
     │
     ├───time
     │       Quarter.java                          [Y]
-    │       YearQuarter.java                      [-]
+    │       YearQuarter.java                      [Y]
     │
     └───util
-            ArrayTools.java                       [-]
+            ArrayTools.java                       [Y]
             AssertTools.java                      [Y]
             BigDecimals.java                      [Y]
-            ConcurrentHashMapTools.java           [-]
-            DateTimeTools.java                    [-]
+            DateTimeTools.java                    [Y]
             Enumeration.java                      [Y]
             EnumTools.java                        [Y]
-            IdGenerator.java                      [ ]
-            IdWorker.java                         [ ]
+            IdGenerator.java                      [Y]
+            IdWorker.java                         [Y]
             Numbers.java                          [Y]
             OptionalTools.java                    [Y]
-            RandomTools.java                      [ ]
-            RegexTools.java                       [ ]
-            SnowflakeIdGenerator.java             [ ]
+            RandomTools.java                      [Y]
+            RegexTools.java                       [Y]
+            SnowflakeIdGenerator.java             [Y]
             StringTools.java                      [Y]
             TreeBuilder.java                      [Y]
