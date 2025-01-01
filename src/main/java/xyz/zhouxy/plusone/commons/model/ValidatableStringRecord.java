@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
@@ -31,8 +32,8 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 0.1.0
  */
-public abstract class ValidatableStringRecord
-        implements Comparable<ValidatableStringRecord> {
+public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<T>>
+        implements Comparable<T> {
 
     @Nonnull
     private final String value;
@@ -62,18 +63,19 @@ public abstract class ValidatableStringRecord
      *
      * @return 字符串（不为空）
      */
+    @ReaderMethod
     public final String value() {
         return this.value;
     }
 
     @Override
-    public int compareTo(ValidatableStringRecord o) {
-        return this.value.compareTo(o.value);
+    public int compareTo(T o) {
+        return this.value.compareTo(o.value());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(getClass(), value);
     }
 
     @Override
@@ -84,8 +86,9 @@ public abstract class ValidatableStringRecord
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ValidatableStringRecord other = (ValidatableStringRecord) obj;
-        return Objects.equals(value, other.value);
+        @SuppressWarnings("unchecked")
+        T other = (T) obj;
+        return Objects.equals(value, other.value());
     }
 
     @Override

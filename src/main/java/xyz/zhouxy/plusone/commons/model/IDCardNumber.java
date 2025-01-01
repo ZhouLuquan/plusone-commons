@@ -43,7 +43,7 @@ public interface IDCardNumber {
     LocalDate getBirthDate();
 
     /** 计算年龄 */
-    default int calculateAge() {
+    default int getAge() {
         LocalDate now = LocalDate.now();
         return Period.between(getBirthDate(), now).getYears();
     }

@@ -84,7 +84,7 @@ class User {
 }
 
 @ValueObject
-class Email extends ValidatableStringRecord {
+class Email extends ValidatableStringRecord<Email> {
     private Email(String value) {
         super(value, PatternConsts.EMAIL);
     }
@@ -96,7 +96,7 @@ class Email extends ValidatableStringRecord {
 }
 
 @ValueObject
-class Username extends ValidatableStringRecord {
+class Username extends ValidatableStringRecord<Username> {
     private Username(String username) {
         super(username, PatternConsts.USERNAME);
     }

@@ -18,6 +18,7 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -260,12 +261,7 @@ public class ArrayTools {
      */
     public static <T> boolean isAllElementsNotNull(@Nonnull final T[] arr) {
         AssertTools.checkArgument(arr != null, "The array cannot be null.");
-        for (T element : arr) {
-            if (element == null) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.stream(arr).allMatch(Objects::nonNull);
     }
 
     // #endregion
@@ -626,7 +622,7 @@ public class ArrayTools {
 
     // fill - char
 
-    public static void fill(char[] a, char... values) {
+    public static void fill(char[] a, char[] values) {
         fill(a, 0, a.length, values);
     }
 
@@ -634,9 +630,9 @@ public class ArrayTools {
         fill(a, 0, a.length, values != null ? values.toCharArray() : EMPTY_CHAR_ARRAY);
     }
 
-    public static void fill(char[] a, int fromIndex, int toIndex, char... values) {
+    public static void fill(char[] a, int fromIndex, int toIndex, char[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -659,13 +655,13 @@ public class ArrayTools {
 
     // fill - byte
 
-    public static void fill(byte[] a, byte... values) {
+    public static void fill(byte[] a, byte[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(byte[] a, int fromIndex, int toIndex, byte... values) {
+    public static void fill(byte[] a, int fromIndex, int toIndex, byte[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -688,13 +684,13 @@ public class ArrayTools {
 
     // fill - short
 
-    public static void fill(short[] a, short... values) {
+    public static void fill(short[] a, short[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(short[] a, int fromIndex, int toIndex, short... values) {
+    public static void fill(short[] a, int fromIndex, int toIndex, short[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -717,13 +713,13 @@ public class ArrayTools {
 
     // fill - int
 
-    public static void fill(int[] a, int... values) {
+    public static void fill(int[] a, int[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(int[] a, int fromIndex, int toIndex, int... values) {
+    public static void fill(int[] a, int fromIndex, int toIndex, int[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -746,13 +742,13 @@ public class ArrayTools {
 
     // fill - long
 
-    public static void fill(long[] a, long... values) {
+    public static void fill(long[] a, long[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(long[] a, int fromIndex, int toIndex, long... values) {
+    public static void fill(long[] a, int fromIndex, int toIndex, long[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -775,13 +771,13 @@ public class ArrayTools {
 
     // fill - float
 
-    public static void fill(float[] a, float... values) {
+    public static void fill(float[] a, float[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(float[] a, int fromIndex, int toIndex, float... values) {
+    public static void fill(float[] a, int fromIndex, int toIndex, float[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -804,13 +800,13 @@ public class ArrayTools {
 
     // fill - double
 
-    public static void fill(double[] a, double... values) {
+    public static void fill(double[] a, double[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(double[] a, int fromIndex, int toIndex, double... values) {
+    public static void fill(double[] a, int fromIndex, int toIndex, double[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
-        if (values.length == 0) {
+        if (values == null || values.length == 0) {
             return;
         }
         final int start = Integer.max(fromIndex, 0);
@@ -868,7 +864,7 @@ public class ArrayTools {
 
     // #region - indexOf
 
-    public static <T> int indexOf(T[] arr, Predicate<? super T> predicate) {
+    public static <T> int indexOfWithPredicate(T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
@@ -882,7 +878,7 @@ public class ArrayTools {
     }
 
     public static <T> int indexOf(T[] arr, T obj) {
-        return indexOf(arr, item -> Objects.equals(item, obj));
+        return indexOfWithPredicate(arr, item -> Objects.equals(item, obj));
     }
 
     public static int indexOf(char[] arr, char value) {
@@ -973,7 +969,7 @@ public class ArrayTools {
 
     // #region - lastIndexOf
 
-    public static <T> int lastIndexOf(T[] arr, @Nonnull Predicate<? super T> predicate) {
+    public static <T> int lastIndexOfWithPredicate(T[] arr, @Nonnull Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (isNullOrEmpty(arr)) {
             return NOT_FOUND_INDEX;
@@ -987,7 +983,7 @@ public class ArrayTools {
     }
 
     public static <T> int lastIndexOf(T[] arr, T obj) {
-        return lastIndexOf(arr, item -> Objects.equals(item, obj));
+        return lastIndexOfWithPredicate(arr, item -> Objects.equals(item, obj));
     }
 
     public static int lastIndexOf(char[] arr, char value) {
@@ -1111,7 +1107,7 @@ public class ArrayTools {
     }
 
     public static boolean containsValue(BigDecimal[] arr, BigDecimal obj) {
-        return indexOf(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
+        return indexOfWithPredicate(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
     }
 
     // #endregion

@@ -24,9 +24,9 @@ package xyz.zhouxy.plusone.commons.constant;
  */
 public final class RegexConsts {
 
-    public static final String BASIC_ISO_DATE = "^(?<y>\\d{4})(?<M>\\d{2})(?<d>\\d{2})";
+    public static final String BASIC_ISO_DATE = "^(?<yyyy>\\d{4,9})(?<MM>\\d{2})(?<dd>\\d{2})";
 
-    public static final String ISO_LOCAL_DATE = "^(?<y>\\d{4})-(?<M>\\d{2})-(?<d>\\d{2})";
+    public static final String ISO_LOCAL_DATE = "^(?<yyyy>\\d{4,9})-(?<MM>\\d{2})-(?<dd>\\d{2})";
 
     public static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[\\w\\\\!#$%&'*\\+\\-/=?^`{|}~@\\(\\)\\[\\]\",\\.;':><]{8,32}$";
 
@@ -38,12 +38,12 @@ public final class RegexConsts {
 
     public static final String MOBILE_PHONE = "^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$";
 
-    public static final String USERNAME = "^[\\w_.@\\\\]{4,36}$";
+    public static final String USERNAME = "^[\\w-_.@]{4,36}$";
 
-    public static final String NICKNAME = "^[\\w_.@\\\\]{4,36}$";
+    public static final String NICKNAME = "^[\\w-_.@]{4,36}$";
 
     public static final String CHINESE_2ND_ID_CARD_NUMBER
-            = "^(?<county>(?<city>(?<province>\\d{2})\\d{2})\\d{2})(?<birthDate>\\d{8})\\d{2}(?<gender>\\d)([\\dXx])$";
+            = "^(?<county>(?<city>(?<province>\\d{2})\\d{2})\\d{2})(?<birthDate>\\d{8})\\d{2}(?<gender>\\d)([\\dX])$";
 
     private RegexConsts() {
         throw new IllegalStateException("Utility class");
