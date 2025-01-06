@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,18 +31,19 @@ public interface IWithCode<T> {
     @Nonnull
     T getCode();
 
-    default boolean equalsCode(T code) {
+    default boolean isCodeEquals(T code) {
         return Objects.equals(getCode(), code);
     }
-    default boolean equalsCode(IWithCode<?> obj) {
-        return obj != null && obj.getCode().equals(getCode());
+
+    default boolean isSameCodeAs(IWithCode<?> other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean equalsCode(IWithIntCode obj) {
-        return obj != null && getCode().equals(obj.getCode());
+    default boolean isSameCodeAs(IWithIntCode other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean equalsCode(IWithLongCode obj) {
-        return obj != null && getCode().equals(obj.getCode());
+    default boolean isSameCodeAs(IWithLongCode other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
     }
 }

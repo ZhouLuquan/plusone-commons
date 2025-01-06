@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.base;
 
+import java.util.Objects;
+
 /**
  * 规定实现类带有 {@code getCode} 方法。
  * 用于像自定义异常等需要带有 {@code code} 字段的类，
@@ -26,19 +28,19 @@ package xyz.zhouxy.plusone.commons.base;
 public interface IWithIntCode {
     int getCode();
 
-    default boolean equalsCode(int code) {
+    default boolean isCodeEquals(int code) {
         return getCode() == code;
     }
 
-    default boolean equalsCode(IWithCode<?> obj) {
-        return obj != null && obj.getCode().equals(getCode());
+    default boolean isSameCodeAs(IWithCode<?> other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean equalsCode(IWithIntCode obj) {
-        return obj != null && getCode() == obj.getCode();
+    default boolean isSameCodeAs(IWithIntCode other) {
+        return other != null && getCode() == other.getCode();
     }
 
-    default boolean equalsCode(IWithLongCode obj) {
-        return obj != null && getCode() == obj.getCode();
+    default boolean isSameCodeAs(IWithLongCode other) {
+        return other != null && getCode() == other.getCode();
     }
 }
