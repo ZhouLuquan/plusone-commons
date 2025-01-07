@@ -32,6 +32,7 @@
  * | UnaryOperator | CharUnaryOperator    | char applyAsChar(char)           |
  * | Throwing      | Executable           | void execute() throws E          |
  * | Throwing      | ThrowingConsumer     | void accept(T) throws E          |
+ * | Throwing      | ThrowingFunction     | R apply(T) throws E              |
  * | Throwing      | ThrowingPredicate    | boolean test(T) throws E         |
  * | Throwing      | ThrowingSupplier     | T get() throws E                 |
  * | Optional      | OptionalSupplier     | Optional&lt;T&gt; get() throws E       |
