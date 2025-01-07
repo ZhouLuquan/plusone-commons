@@ -18,18 +18,35 @@ package xyz.zhouxy.plusone.commons.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import com.google.errorprone.annotations.Immutable;
+
+import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
+import xyz.zhouxy.plusone.commons.annotation.ValueObject;
+import xyz.zhouxy.plusone.commons.constant.PatternConsts;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
+import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
+ * Chinese2ndGenIDCardNumber
+ *
+ * <p>
  * 中国第二代居民身份证号
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ * @see xyz.zhouxy.plusone.commons.constant.PatternConsts#CHINESE_2ND_ID_CARD_NUMBER
  */
-public class Chinese2ndGenIDCardNumber extends IDCardNumber {
+@ValueObject
+@Immutable
+public class Chinese2ndGenIDCardNumber
+        extends ValidatableStringRecord<Chinese2ndGenIDCardNumber>
+        implements IDCardNumber {
 
     /** 省份编码 */
     private final String provinceCode;
@@ -42,83 +59,101 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
     /** 出生日期 */
     private final LocalDate birthDate;
 
-    public static final Pattern PATTERN = Pattern.compile("^(((\\d{2})\\d{2})\\d{2})(\\d{8})\\d{2}(\\d)([\\dXx])$");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-    private Chinese2ndGenIDCardNumber(String idNumber) {
-        super(idNumber, PATTERN, "Invalid ID number");
+    private Chinese2ndGenIDCardNumber(String value) {
+        super(value.toUpperCase(),  PatternConsts.CHINESE_2ND_ID_CARD_NUMBER, () -> "二代居民身份证校验失败：" + value);
+
+        final Matcher matcher = getMatcher();
+
+        final String provinceCodeValue = matcher.group("province");
+        AssertTools.checkArgument(Chinese2ndGenIDCardNumber.PROVINCE_CODES.containsKey(provinceCodeValue));
+
+        final String cityCodeValue = matcher.group("city");
+        final String countyCodeValue = matcher.group("county");
+
+        final Gender genderValue;
+        final LocalDate birthDateValue;
 
         try {
-            final Matcher matcher = getMatcher();
-            this.provinceCode = matcher.group(3);
-            this.cityCode = matcher.group(2);
-            this.countyCode = matcher.group(1);
+            // 出生日期
+            final String birthDateStr = matcher.group("birthDate");
+            birthDateValue = LocalDate.parse(birthDateStr, DATE_FORMATTER);
 
             // 性别
-            final String genderStr = matcher.group(5);
-            final int genderIndex = Integer.parseInt(genderStr);
-            this.gender = genderIndex % 2 == 0 ? Gender.FEMALE : Gender.MALE;
-
-            // 出生日期
-            final String birthDateStr = matcher.group(4);
-            this.birthDate = LocalDate.parse(birthDateStr, DATE_FORMATTER);
+            final int genderCode = Integer.parseInt(matcher.group("gender"));
+            genderValue = genderCode % 2 == 0 ? Gender.FEMALE : Gender.MALE;
         }
-        catch (DateTimeParseException e) {
+        catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+
+        this.provinceCode = provinceCodeValue;
+        this.cityCode = cityCodeValue;
+        this.countyCode = countyCodeValue;
+        this.gender = genderValue;
+        this.birthDate = birthDateValue;
     }
 
-    public static Chinese2ndGenIDCardNumber of(String idNumber) {
-        return new Chinese2ndGenIDCardNumber(idNumber);
+    public static Chinese2ndGenIDCardNumber of(final String value) {
+        AssertTools.checkArgument(StringTools.isNotBlank(value), "二代居民身份证校验失败：号码为空");
+        return new Chinese2ndGenIDCardNumber(value);
     }
 
+    // ================================
+    // #region - reader methods
+    // ================================
+
+    @ReaderMethod
     public String getProvinceCode() {
         return provinceCode;
     }
 
+    @ReaderMethod
     public String getProvinceName() {
         return PROVINCE_CODES.get(this.provinceCode);
     }
 
+    @ReaderMethod
     public String getFullProvinceCode() {
         return Strings.padEnd(this.provinceCode, 12, '0');
     }
 
+    @ReaderMethod
     public String getCityCode() {
         return cityCode;
     }
 
+    @ReaderMethod
     public String getFullCityCode() {
         return Strings.padEnd(this.cityCode, 12, '0');
     }
 
+    @ReaderMethod
     public String getCountyCode() {
         return countyCode;
     }
 
+    @ReaderMethod
     public String getFullCountyCode() {
         return Strings.padEnd(this.countyCode, 12, '0');
     }
 
+    @ReaderMethod
     @Override
     public Gender getGender() {
         return gender;
     }
 
+    @ReaderMethod
     @Override
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+    // ================================
+    // #endregion - reader methods
+    // ================================
 
     /**
      * 省份代码表
@@ -164,5 +199,15 @@ public class Chinese2ndGenIDCardNumber extends IDCardNumber {
                 .put("83", "台湾") // 台湾身份证号码以83开头，但是行政区划为71
                 .put("91", "国外")
                 .build();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

@@ -16,24 +16,23 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static java.time.temporal.ChronoField.*;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.chrono.IsoChronology;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import javax.annotation.Nonnull;
-
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.time.Quarter;
 import xyz.zhouxy.plusone.commons.time.YearQuarter;
@@ -45,86 +44,35 @@ import xyz.zhouxy.plusone.commons.time.YearQuarter;
  */
 public class DateTimeTools {
 
-    /**
-     * 缓存时间格式化器
-     */
-    private static final LoadingCache<String, DateTimeFormatter> DATE_TIME_FORMATTER_CACHE = CacheBuilder.newBuilder()
-            .maximumSize(20)
-            .build(new CacheLoader<String, DateTimeFormatter>() {
-                @Override
-                public DateTimeFormatter load(@Nonnull String pattern) throws Exception {
-                    return DateTimeFormatter.ofPattern(pattern);
-                }
-            });
+    // #region - toString
 
-    /**
-     * 获取时间格式化器
-     *
-     * @param pattern 时间格式
-     * @return 时间格式化器
-     */
-    public static DateTimeFormatter getDateTimeFormatter(String pattern) {
-        return DATE_TIME_FORMATTER_CACHE.getUnchecked(pattern);
+    public static String toYearString(int year) {
+        return Integer.toString(YEAR.checkValidIntValue(year));
     }
 
-    /**
-     * 将日期时间转换为指定格式的字符串
-     *
-     * @param pattern  时间格式
-     * @param dateTime 日期时间
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, ZonedDateTime dateTime) {
-        return getDateTimeFormatter(pattern).format(dateTime);
+    public static String toYearString(Year year) {
+        return year.toString();
     }
 
-    /**
-     * 将时间戳转换为指定格式的字符串，使用系统默认时区
-     *
-     * @param pattern 时间格式
-     * @param instant 时间戳
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, Instant instant) {
-        ZonedDateTime dateTime = instant.atZone(ZoneId.systemDefault());
-        return toString(pattern, dateTime);
+    public static String toMonthStringM(int monthValue) {
+        return Integer.toString(MONTH_OF_YEAR.checkValidIntValue(monthValue));
     }
 
-    /**
-     * 将时间戳转换为指定格式的字符串，使用指定时区
-     *
-     * @param pattern 时间格式
-     * @param instant 时间戳
-     * @param zone    时区
-     * @return 格式化的字符串
-     */
-    public static String toString(String pattern, Instant instant, ZoneId zone) {
-        ZonedDateTime dateTime = instant.atZone(zone);
-        return toString(pattern, dateTime);
+    public static String toMonthStringMM(int monthValue) {
+        return String.format("%02d", MONTH_OF_YEAR.checkValidIntValue(monthValue));
     }
 
-    /**
-     * 指定格式，返回当前时间戳对应的字符串
-     *
-     * @param pattern 时间格式
-     * @return 格式化的字符串
-     */
-    public static String nowStr(String pattern) {
-        return toString(pattern, ZonedDateTime.now());
+    public static String toMonthStringM(Month month) {
+        return Integer.toString(month.getValue());
     }
 
-    /**
-     * 指定格式，返回当前时间戳对应的字符串，使用指定时区
-     *
-     * @param pattern 时间格式
-     * @param zone    时区
-     * @return 格式化的字符串
-     */
-    public static String nowStr(String pattern, ZoneId zone) {
-        return toString(pattern, Instant.now().atZone(zone));
+    public static String toMonthStringMM(Month month) {
+        return String.format("%02d", month.getValue());
     }
 
-    // toDate
+    // #endregion
+
+    // #region - toDate
 
     /**
      * 将时间戳转换为 {@link Date} 对象
@@ -189,7 +137,9 @@ public class DateTimeTools {
         return Date.from(ZonedDateTime.of(localDate, localTime, zone).toInstant());
     }
 
-    // toInstant
+    // #endregion
+
+    // #region - toInstant
 
     /**
      * 将时间戳转换为 {@link Instant} 对象
@@ -226,9 +176,7 @@ public class DateTimeTools {
      *
      * @param zonedDateTime {@link ZonedDateTime} 对象
      * @return {@link Instant} 对象
-     * @deprecated 请使用 {@link ZonedDateTime#toInstant()} 方法
      */
-    @Deprecated
     public static Instant toInstant(ZonedDateTime zonedDateTime) { // NOSONAR
         return zonedDateTime.toInstant();
     }
@@ -244,7 +192,9 @@ public class DateTimeTools {
         return ZonedDateTime.of(localDateTime, zone).toInstant();
     }
 
-    // toZonedDateTime
+    // #endregion
+
+    // #region - toZonedDateTime
 
     /**
      * 获取时间戳在指定时区的地区时间。
@@ -330,15 +280,14 @@ public class DateTimeTools {
      * @param localDateTime 地区时间
      * @param zone          时区
      * @return 带时区的地区时间
-     *
-     * @deprecated 使用 {@link ZonedDateTime#of(LocalDateTime, ZoneId)}
      */
-    @Deprecated
-    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) { // NOSONAR
+    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId zone) {
         return ZonedDateTime.of(localDateTime, zone);
     }
 
-    // toLocalDateTime
+    // #endregion
+
+    // #region - toLocalDateTime
 
     /**
      * 获取时间戳在指定时区的地区时间。
@@ -406,9 +355,11 @@ public class DateTimeTools {
         return LocalDateTime.ofInstant(zonedDateTime.toInstant(), zone);
     }
 
+    // #endregion
+
     // ====================
 
-    // toJodaInstant
+    // #region - toJodaInstant
 
     /**
      * 将 {@link java.time.Instant} 转换为 {@link org.joda.time.Instant}
@@ -441,7 +392,9 @@ public class DateTimeTools {
         return toJodaInstant(java.time.ZonedDateTime.of(localDateTime, zone));
     }
 
-    // toJavaInstant
+    // #endregion
+
+    // #region - toJavaInstant
 
     /**
      * 将 {@link org.joda.time.Instant} 对象转换为 {@link java.time.Instant} 对象
@@ -479,7 +432,9 @@ public class DateTimeTools {
         return toJavaInstant(localDateTime.toDateTime(zone));
     }
 
-    // toJodaDateTime
+    // #endregion
+
+    // #region - toJodaDateTime
 
     /**
      * 将 Java 中表示日期时间的 {@link java.time.ZonedDateTime} 对象
@@ -506,7 +461,7 @@ public class DateTimeTools {
     public static org.joda.time.DateTime toJodaDateTime(
             java.time.LocalDateTime localDateTime,
             java.time.ZoneId zone) {
-        org.joda.time.DateTimeZone dateTimeZone = toJodaTime(zone);
+        org.joda.time.DateTimeZone dateTimeZone = toJodaZone(zone);
         return toJodaInstant(ZonedDateTime.of(localDateTime, zone).toInstant()).toDateTime(dateTimeZone);
     }
 
@@ -520,11 +475,13 @@ public class DateTimeTools {
     public static org.joda.time.DateTime toJodaDateTime(
             java.time.Instant instant,
             java.time.ZoneId zone) {
-        org.joda.time.DateTimeZone dateTimeZone = toJodaTime(zone);
+        org.joda.time.DateTimeZone dateTimeZone = toJodaZone(zone);
         return toJodaInstant(instant).toDateTime(dateTimeZone);
     }
 
-    // toZonedDateTime
+    // #endregion
+
+    // #region - toZonedDateTime
 
     /**
      * 将 joda-time 中带时区的日期时间，转换为 java.time 中带时区的日期时间
@@ -568,7 +525,9 @@ public class DateTimeTools {
         return toJavaInstant(instant).atZone(zone);
     }
 
-    // toJodaLocalDateTime
+    // #endregion
+
+    // #region - toJodaLocalDateTime
 
     /**
      * 将 {@link java.time.LocalDateTime} 转换为 {@link org.joda.time.LocalDateTime}
@@ -578,11 +537,13 @@ public class DateTimeTools {
      */
     public static org.joda.time.LocalDateTime toJodaLocalDateTime(java.time.LocalDateTime localDateTime) {
         java.time.ZoneId javaZone = java.time.ZoneId.systemDefault();
-        org.joda.time.DateTimeZone jodaZone = toJodaTime(javaZone);
+        org.joda.time.DateTimeZone jodaZone = toJodaZone(javaZone);
         return toJodaInstant(localDateTime, javaZone).toDateTime(jodaZone).toLocalDateTime();
     }
 
-    // toJavaLocalDateTime
+    // #endregion
+
+    // #region - toJavaLocalDateTime
 
     /**
      * 将 {@link org.joda.time.LocalDateTime} 转换为 {@link java.time.LocalDateTime}
@@ -595,6 +556,10 @@ public class DateTimeTools {
         java.time.ZoneId javaZone = toJavaZone(jodaZone);
         return toJavaInstant(localDateTime, jodaZone).atZone(javaZone).toLocalDateTime();
     }
+
+    // #endregion
+
+    // #region - ZoneId <--> DateTimeZone
 
     /**
      * 转换 Java API 和 joda-time API 表示时区的对象
@@ -612,11 +577,13 @@ public class DateTimeTools {
      * @param zone Java API 中表示时区的对象
      * @return joda-time API 中表示时区的对象
      */
-    public static org.joda.time.DateTimeZone toJodaTime(java.time.ZoneId zone) {
+    public static org.joda.time.DateTimeZone toJodaZone(java.time.ZoneId zone) {
         return org.joda.time.DateTimeZone.forID(zone.getId());
     }
 
-    // getQuarter
+    // #endregion
+
+    // #region - YearQuarter & Quarter
 
     /**
      * 获取指定日期所在季度
@@ -678,6 +645,44 @@ public class DateTimeTools {
     public static YearQuarter getQuarter(LocalDate date) {
         return YearQuarter.of(date);
     }
+
+    // #endregion
+
+    // ================================
+    // #region - others
+    // ================================
+
+    public static LocalDate startDateOfYear(int year) {
+        return LocalDate.ofYearDay(year, 1);
+    }
+
+    public static LocalDate endDateOfYear(int year) {
+        return LocalDate.of(year, 12, 31);
+    }
+
+    public static LocalDateTime startOfNextDate(LocalDate date) {
+        return date.plusDays(1L).atStartOfDay();
+    }
+
+    public static ZonedDateTime startOfNextDate(LocalDate date, ZoneId zone) {
+        return date.plusDays(1L).atStartOfDay(zone);
+    }
+
+    public static Range<LocalDateTime> toDateTimeRange(LocalDate date) {
+        return Range.closedOpen(date.atStartOfDay(), startOfNextDate(date));
+    }
+
+    public static Range<ZonedDateTime> toDateTimeRange(LocalDate date, ZoneId zone) {
+        return Range.closedOpen(date.atStartOfDay(zone), startOfNextDate(date, zone));
+    }
+
+    public static boolean isLeapYear(int year) {
+        return IsoChronology.INSTANCE.isLeapYear(year);
+    }
+
+    // ================================
+    // #endregion - others
+    // ================================
 
     /**
      * 私有构造方法，明确标识该常量类的作用。

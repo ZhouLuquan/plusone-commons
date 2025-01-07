@@ -17,12 +17,21 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.annotations.Beta;
-
-@Beta
+/**
+ * ID 生成器
+ *
+ * <p>
+ * 生成 UUID 和 修改版雪花ID（Seata 版本）
+ * </p>
+ *
+ * @see UUID
+ * @see IdWorker
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ */
 public class IdGenerator {
 
     // ===== UUID =====
@@ -40,6 +49,7 @@ public class IdGenerator {
     }
 
     public static String toSimpleString(UUID uuid) {
+        AssertTools.checkArgument(Objects.nonNull(uuid));
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
                 uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
                 uuidDigits(uuid.getMostSignificantBits(), 4) +

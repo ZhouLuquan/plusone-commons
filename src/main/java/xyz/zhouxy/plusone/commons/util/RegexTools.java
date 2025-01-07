@@ -26,8 +26,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.base.Preconditions;
-
 /**
  * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用（最多缓存大概 256 个）。
  *
@@ -49,7 +47,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern, final boolean cachePattern) {
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(pattern);
         return cachePattern ? cacheAndGetPatternInternal(pattern) : getPatternInternal(pattern);
     }
 
@@ -60,7 +58,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern) {
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(pattern);
         return getPatternInternal(pattern);
     }
 
@@ -72,8 +70,8 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns, final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         return cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -86,25 +84,9 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         return getPatternsInternal(patterns);
-    }
-
-    /**
-     * 手动缓存 Pattern 实例。
-     *
-     * @param pattern 要缓存的 {@link Pattern} 实例
-     * @return 缓存的 Pattern 实例。如果缓存已满，则返回 {@code null}。
-     */
-    public static Pattern cachePattern(final Pattern pattern) {
-        Preconditions.checkNotNull(pattern, "The pattern can not be null.");
-        if (PATTERN_CACHE.size() >= MAX_CACHE_SIZE) {
-            return null;
-        }
-        final String patternStr = pattern.pattern();
-        final Pattern pre = PATTERN_CACHE.putIfAbsent(patternStr, pattern);
-        return pre != null ? pre : pattern;
     }
 
     /**
@@ -115,7 +97,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final Pattern pattern) {
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(pattern);
         return matchesInternal(input, pattern);
     }
 
@@ -127,8 +109,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final Pattern[] patterns) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         return matchesOneInternal(input, patterns);
     }
 
@@ -140,8 +122,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final Pattern[] patterns) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         return matchesAllInternal(input, patterns);
     }
 
@@ -155,7 +137,7 @@ public final class RegexTools {
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(pattern);
         Pattern p = cachePattern
                 ? cacheAndGetPatternInternal(pattern)
                 : getPatternInternal(pattern);
@@ -170,7 +152,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern) {
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(pattern);
         return matchesInternal(input, getPatternInternal(pattern));
     }
 
@@ -184,8 +166,8 @@ public final class RegexTools {
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -200,8 +182,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesOneInternal(input, patternSet);
     }
@@ -216,8 +198,8 @@ public final class RegexTools {
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -232,8 +214,8 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns) {
-        Preconditions.checkNotNull(patterns);
-        Preconditions.checkArgument(allNotNull(patterns));
+        AssertTools.checkNotNull(patterns);
+        AssertTools.checkArgument(allNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesAllInternal(input, patternSet);
     }
@@ -246,8 +228,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final Pattern pattern) {
-        Preconditions.checkNotNull(input);
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(input);
+        AssertTools.checkNotNull(pattern);
         return pattern.matcher(input);
     }
 
@@ -260,8 +242,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern, boolean cachePattern) {
-        Preconditions.checkNotNull(input);
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(input);
+        AssertTools.checkNotNull(pattern);
         final Pattern p = cachePattern
                 ? cacheAndGetPatternInternal(pattern)
                 : getPatternInternal(pattern);
@@ -276,8 +258,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern) {
-        Preconditions.checkNotNull(input);
-        Preconditions.checkNotNull(pattern);
+        AssertTools.checkNotNull(input);
+        AssertTools.checkNotNull(pattern);
         return getPatternInternal(pattern).matcher(input);
     }
 
@@ -287,7 +269,6 @@ public final class RegexTools {
      * 获取 {@link Pattern} 实例。
      *
      * @param pattern      正则表达式
-     * @param cachePattern 是否缓存 {@link Pattern} 实例
      * @return {@link Pattern} 实例
      */
     @Nonnull

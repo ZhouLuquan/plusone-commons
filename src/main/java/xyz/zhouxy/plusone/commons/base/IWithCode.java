@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package xyz.zhouxy.plusone.commons.base;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * 规定实现类带有 {@code getCode} 方法。
@@ -31,7 +32,19 @@ public interface IWithCode<T> {
     @Nonnull
     T getCode();
 
-    default boolean equalsCode(T code) {
+    default boolean isCodeEquals(@Nullable T code) {
         return Objects.equals(getCode(), code);
+    }
+
+    default boolean isSameCodeAs(@Nullable IWithCode<?> other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
+    }
+
+    default boolean isSameCodeAs(@Nullable IWithIntCode other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
+    }
+
+    default boolean isSameCodeAs(@Nullable IWithLongCode other) {
+        return other != null && Objects.equals(getCode(), other.getCode());
     }
 }

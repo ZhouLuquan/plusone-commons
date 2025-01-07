@@ -30,19 +30,19 @@ public class SysException extends RuntimeException {
 
     private static final String DEFAULT_MSG = "系统异常";
 
-    protected SysException() {
+    public SysException() {
         super(DEFAULT_MSG);
     }
 
-    public SysException(String msg) {
-        super(msg);
+    public SysException(String message) {
+        super(message);
     }
 
     public SysException(Throwable cause) {
         super(cause);
     }
 
-    public SysException(String msg, Throwable cause) {
-        super(msg, cause);
+    public SysException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

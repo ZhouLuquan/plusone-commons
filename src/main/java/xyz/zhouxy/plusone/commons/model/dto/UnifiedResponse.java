@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Preconditions;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 统一结果，对返回给前端的数据进行封装。
@@ -78,16 +78,16 @@ public abstract class UnifiedResponse {
 
     public static UnifiedResponse of(final boolean isSuccess,
             final Supplier<SuccessResult> successResult, final Supplier<ErrorResult> errorResult) {
-        Preconditions.checkNotNull(successResult, "Success supplier must not be null.");
-        Preconditions.checkNotNull(errorResult, "Error supplier must not be null.");
+        AssertTools.checkNotNull(successResult, "Success supplier must not be null.");
+        AssertTools.checkNotNull(errorResult, "Error supplier must not be null.");
         return isSuccess ? successResult.get() : errorResult.get();
     }
 
     public static UnifiedResponse of(final BooleanSupplier isSuccess,
             final Supplier<SuccessResult> successResult, final Supplier<ErrorResult> errorResult) {
-        Preconditions.checkNotNull(isSuccess, "Conditions for success must not be null.");
-        Preconditions.checkNotNull(successResult, "Success supplier must not be null.");
-        Preconditions.checkNotNull(errorResult, "Error supplier must not be null.");
+        AssertTools.checkNotNull(isSuccess, "Conditions for success must not be null.");
+        AssertTools.checkNotNull(successResult, "Success supplier must not be null.");
+        AssertTools.checkNotNull(errorResult, "Error supplier must not be null.");
         return isSuccess.getAsBoolean() ? successResult.get() : errorResult.get();
     }
 

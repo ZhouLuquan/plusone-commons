@@ -17,12 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.base.Preconditions;
-
-import xyz.zhouxy.plusone.commons.math.IntervalType;
+import javax.annotation.Nullable;
 
 /**
  * Numbers
@@ -31,7 +29,7 @@ import xyz.zhouxy.plusone.commons.math.IntervalType;
  */
 public class Numbers {
 
-    // sum
+    // #region - sum
 
     public static int sum(final short... numbers) {
         int result = 0;
@@ -73,104 +71,63 @@ public class Numbers {
         return result;
     }
 
-    public static BigDecimal sum(final BigDecimal... numbers) {
-        BigDecimal result = BigDecimals.of("0.00");
-        for (BigDecimal number : numbers) {
-            result = result.add(number);
+    public static BigInteger sum(final BigInteger... numbers) {
+        if (ArrayTools.isNullOrEmpty(numbers)) {
+            return BigInteger.ZERO;
+        }
+        BigInteger result = Numbers.nullToZero(numbers[0]);
+        for (int i = 1; i < numbers.length; i++) {
+            BigInteger value = numbers[i];
+            if (value != null) {
+                result = result.add(value);
+            }
         }
         return result;
     }
 
-    // between
-
-    public static boolean between(int value, int min, int max) {
-        return between(value, min, max, IntervalType.CLOSED_OPEN);
+    public static BigDecimal sum(final BigDecimal... numbers) {
+        return BigDecimals.sum(numbers);
     }
 
-    public static boolean between(int value, int min, int max, IntervalType intervalType) {
-        final IntervalType intervalTypeToUse = intervalType != null
-                ? intervalType
-                : IntervalType.CLOSED_OPEN;
-        switch (intervalTypeToUse) {
-            case OPEN:
-                return min < value && value < max;
-            case CLOSED:
-                return min <= value && value <= max;
-            case OPEN_CLOSED:
-                return min < value && value <= max;
-            case CLOSED_OPEN:
-            default:
-                return min <= value && value < max;
-        }
+    // #endregion
+
+    // #region - nullToZero
+
+    public static byte nullToZero(@Nullable final Byte val) {
+        return val != null ? val : 0;
     }
 
-    public static boolean between(long value, long min, long max) {
-        return between(value, min, max, IntervalType.CLOSED_OPEN);
+    public static short nullToZero(@Nullable final Short val) {
+        return val != null ? val : 0;
     }
 
-    public static boolean between(long value, long min, long max, IntervalType intervalType) {
-        final IntervalType intervalTypeToUse = intervalType != null
-                ? intervalType
-                : IntervalType.CLOSED_OPEN;
-        switch (intervalTypeToUse) {
-            case OPEN:
-                return min < value && value < max;
-            case CLOSED:
-                return min <= value && value <= max;
-            case OPEN_CLOSED:
-                return min < value && value <= max;
-            case CLOSED_OPEN:
-            default:
-                return min <= value && value < max;
-        }
+    public static int nullToZero(@Nullable final Integer val) {
+        return val != null ? val : 0;
     }
 
-    public static boolean between(double value, double min, double max) {
-        return between(value, min, max, IntervalType.CLOSED_OPEN);
+    public static long nullToZero(@Nullable final Long val) {
+        return val != null ? val : 0L;
     }
 
-    public static boolean between(double value, double min, double max, IntervalType intervalType) {
-        final IntervalType intervalTypeToUse = intervalType != null
-                ? intervalType
-                : IntervalType.CLOSED_OPEN;
-        switch (intervalTypeToUse) {
-            case OPEN:
-                return min < value && value < max;
-            case CLOSED:
-                return min <= value && value <= max;
-            case OPEN_CLOSED:
-                return min < value && value <= max;
-            case CLOSED_OPEN:
-            default:
-                return min <= value && value < max;
-        }
+    public static float nullToZero(@Nullable final Float val) {
+        return val != null ? val : 0.0F;
     }
 
-    public static <T extends Comparable<T>> boolean between(@Nonnull T value, T min, T max) {
-        return between(value, min, max, IntervalType.CLOSED_OPEN);
+    public static double nullToZero(@Nullable final Double val) {
+        return val != null ? val : 0.0;
     }
 
-    public static <T extends Comparable<T>> boolean between(@Nonnull T value, T min, T max, IntervalType intervalType) {
-        Preconditions.checkArgument(value != null, "The value to valid connot be null.");
-        IntervalType intervalTypeToUse = intervalType != null
-                ? intervalType
-                : IntervalType.CLOSED_OPEN;
-        switch (intervalTypeToUse) {
-            case OPEN:
-                return (min == null || min.compareTo(value) < 0)
-                        && (max == null || value.compareTo(max) < 0);
-            case CLOSED:
-                return (min == null || min.compareTo(value) <= 0)
-                        && (max == null || value.compareTo(max) <= 0);
-            case OPEN_CLOSED:
-                return (min == null || min.compareTo(value) < 0)
-                        && (max == null || value.compareTo(max) <= 0);
-            case CLOSED_OPEN:
-            default:
-                return (min == null || min.compareTo(value) <= 0)
-                        && (max == null || value.compareTo(max) < 0);
-        }
+    @Nonnull
+    public static BigInteger nullToZero(@Nullable final BigInteger val) {
+        return val != null ? val : BigInteger.ZERO;
     }
+
+    @Nonnull
+    public static BigDecimal nullToZero(@Nullable final BigDecimal val) {
+        return BigDecimals.nullToZero(val);
+    }
+
+    // #endregion
 
     private Numbers() {
         throw new IllegalStateException("Utility class");

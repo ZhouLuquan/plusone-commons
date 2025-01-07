@@ -18,13 +18,20 @@ package xyz.zhouxy.plusone.commons.exception;
 
 import java.time.format.DateTimeParseException;
 
+import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
+
 /**
  * 解析失败异常
  *
  * <p>
- * 解析失败的不一定是客户传的参数，也可能是其它来源的数据解析失败
- * 如果表示用户传参造成的解析失败，可使用 RequestParamsException(Throwable cause)，
- * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出
+ * 解析失败的不一定是客户传的参数，也可能是其它来源的数据解析失败。
+ * 如果表示用户传参造成的解析失败，可使用 {@link RequestParamsException#RequestParamsException(Throwable)}，
+ * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出。
+ * <pre>
+ * throw new RequestParamsException(ParsingFailureException.of(ParsingFailureException.Type.NUMBER_PARSING_FAILURE));
+ * </pre>
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
@@ -34,13 +41,8 @@ public final class ParsingFailureException extends RuntimeException {
 
     private final Type type;
 
-    private ParsingFailureException(Type type) {
-        super(type.getDefaultMsg());
-        this.type = type;
-    }
-
-    private ParsingFailureException(Type type, String msg) {
-        super(msg);
+    private ParsingFailureException(Type type, String message) {
+        super(message);
         this.type = type;
     }
 
@@ -49,61 +51,114 @@ public final class ParsingFailureException extends RuntimeException {
         this.type = type;
     }
 
-    private ParsingFailureException(Type type, String msg, Throwable cause) {
-        super(msg, cause);
+    private ParsingFailureException(Type type, String message, Throwable cause) {
+        super(message, cause);
         this.type = type;
     }
 
-    public static ParsingFailureException of(Type type) {
-        return new ParsingFailureException(type);
+    public ParsingFailureException() {
+        this(Type.DEFAULT, Type.DEFAULT.getDefaultMessage());
     }
 
-    public static ParsingFailureException of(Type type, String msg) {
-        return new ParsingFailureException(type, msg);
+    public ParsingFailureException(String message) {
+        this(Type.DEFAULT, message);
     }
 
-    public static ParsingFailureException of(Type type, Throwable e) {
-        return new ParsingFailureException(type, e);
+    public ParsingFailureException(Throwable cause) {
+        this(Type.DEFAULT, cause);
     }
 
-    public static ParsingFailureException of(Type type, String msg, Throwable e) {
-        return new ParsingFailureException(type, msg, e);
+    public ParsingFailureException(String message, Throwable cause) {
+        this(Type.DEFAULT, message, cause);
     }
 
-    public static ParsingFailureException of(DateTimeParseException e) {
-        return new ParsingFailureException(Type.DATE_TIME_PARSING_FAILURE, e.getMessage(), e);
+    public static ParsingFailureException of(DateTimeParseException cause) {
+        if (cause == null) {
+            return Type.DATE_TIME_PARSING_FAILURE.create();
+        }
+        return Type.DATE_TIME_PARSING_FAILURE.create(cause.getMessage(), cause);
     }
 
-    public static ParsingFailureException of(String msg, DateTimeParseException e) {
-        return new ParsingFailureException(Type.DATE_TIME_PARSING_FAILURE, msg, e);
+    public static ParsingFailureException of(String message, DateTimeParseException cause) {
+        return Type.DATE_TIME_PARSING_FAILURE.create(message, cause);
+    }
+
+    public static ParsingFailureException of(NumberFormatException cause) {
+        if (cause == null) {
+            return Type.NUMBER_PARSING_FAILURE.create();
+        }
+        return Type.NUMBER_PARSING_FAILURE.create(cause.getMessage(), cause);
+    }
+
+    public static ParsingFailureException of(String message, NumberFormatException cause) {
+        return Type.NUMBER_PARSING_FAILURE.create(message, cause);
     }
 
     public Type getType() {
         return type;
     }
 
-    public enum Type {
-        DEFAULT("4010500", "解析失败"),
-        NUMBER_PARSING_FAILURE("4010501", "数字转换失败"),
-        DATE_TIME_PARSING_FAILURE("4010502", "时间解析失败"),
-        JSON_PARSING_FAILURE("4010503", "JSON 解析失败"),
-        XML_PARSING_FAILURE("4010504", "XML 解析失败"),
+    public String getCode() {
+        return this.type.code;
+    }
+
+    public static final Type DEFAULT = Type.DEFAULT;
+    public static final Type NUMBER_PARSING_FAILURE = Type.NUMBER_PARSING_FAILURE;
+    public static final Type DATE_TIME_PARSING_FAILURE = Type.DATE_TIME_PARSING_FAILURE;
+    public static final Type JSON_PARSING_FAILURE = Type.JSON_PARSING_FAILURE;
+    public static final Type XML_PARSING_FAILURE = Type.XML_PARSING_FAILURE;
+
+    public enum Type implements ExceptionType<ParsingFailureException> {
+        DEFAULT("00", "解析失败"),
+        NUMBER_PARSING_FAILURE("10", "数字转换失败"),
+        DATE_TIME_PARSING_FAILURE("20", "时间解析失败"),
+        JSON_PARSING_FAILURE("30", "JSON 解析失败"),
+        XML_PARSING_FAILURE("40", "XML 解析失败"),
         ;
 
-        final String code;
-        final String defaultMsg;
+        @Nonnull
+        private final String code;
+        @Nonnull
+        private final String defaultMessage;
 
-        Type(String code, String defaultMsg) {
+        Type(String code, String defaultMessage) {
             this.code = code;
-            this.defaultMsg = defaultMsg;
+            this.defaultMessage = defaultMessage;
         }
 
+        @Override
+        @Nonnull
         public String getCode() {
             return code;
         }
 
-        public String getDefaultMsg() {
-            return defaultMsg;
+        @Override
+        public String getDefaultMessage() {
+            return defaultMessage;
+        }
+
+        @Override
+        @Nonnull
+        public ParsingFailureException create() {
+            return new ParsingFailureException(this, this.defaultMessage);
+        }
+
+        @Override
+        @Nonnull
+        public ParsingFailureException create(String message) {
+            return new ParsingFailureException(this, message);
+        }
+
+        @Override
+        @Nonnull
+        public ParsingFailureException create(Throwable cause) {
+            return new ParsingFailureException(this, cause);
+        }
+
+        @Override
+        @Nonnull
+        public ParsingFailureException create(String message, Throwable cause) {
+            return new ParsingFailureException(this, message, cause);
         }
     }
 }

@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
+import xyz.zhouxy.plusone.commons.base.IWithIntCode;
 import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
@@ -23,7 +24,7 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
-public enum Gender {
+public enum Gender implements IWithIntCode {
     UNKNOWN(0, "Unknown", "未知"),
     MALE(1, "Male", "男"),
     FEMALE(2, "Female", "女"),
@@ -58,6 +59,11 @@ public enum Gender {
 
     public String getDisplayNameZh() {
         return displayNameZh;
+    }
+
+    @Override
+    public int getCode() {
+        return getValue();
     }
 
 }

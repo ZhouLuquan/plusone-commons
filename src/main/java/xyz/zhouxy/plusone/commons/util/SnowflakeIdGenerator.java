@@ -18,13 +18,9 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.concurrent.TimeUnit;
 
-import com.google.common.annotations.Beta;
-import com.google.common.base.Preconditions;
-
 /**
- * Twitter_Snowflake
+ * Twitter 版雪花算法
  */
-@Beta
 public class SnowflakeIdGenerator {
 
     // ==============================Fields===========================================
@@ -68,9 +64,6 @@ public class SnowflakeIdGenerator {
     /** 上次生成 ID 的时间截 */
     private long lastTimestamp = -1L;
 
-    /** 锁对象 */
-    private final Object lock = new Object();
-
     // ==============================Constructors=====================================
 
     /**
@@ -80,9 +73,9 @@ public class SnowflakeIdGenerator {
      * @param datacenterId 数据中心ID (0~31)
      */
     public SnowflakeIdGenerator(final long workerId, final long datacenterId) {
-        Preconditions.checkArgument((workerId <= MAX_WORKER_ID && workerId >= 0),
+        AssertTools.checkArgument((workerId <= MAX_WORKER_ID && workerId >= 0),
                 "WorkerId can't be greater than %s or less than 0.", MAX_WORKER_ID);
-        Preconditions.checkArgument((datacenterId <= MAX_DATACENTER_ID && datacenterId >= 0),
+        AssertTools.checkArgument((datacenterId <= MAX_DATACENTER_ID && datacenterId >= 0),
                 "DatacenterId can't be greater than %s or less than 0.", MAX_DATACENTER_ID);
         this.datacenterIdAndWorkerId
                 = (datacenterId << DATACENTER_ID_SHIFT) | (workerId << WORKER_ID_SHIFT);
@@ -94,50 +87,46 @@ public class SnowflakeIdGenerator {
      *
      * @return SnowflakeId
      */
-    public long nextId() {
-        long timestamp;
-        synchronized (lock) {
-            timestamp = timeGen();
+    public synchronized long nextId() {
+        long timestamp = timeGen();
 
-            // 发生了回拨，此刻时间小于上次发号时间
-            if (timestamp < lastTimestamp) {
-                long offset = lastTimestamp - timestamp;
-                if (offset <= 5) {
-                    // 时间偏差大小小于5ms，则等待两倍时间
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(offset << 1);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new IllegalStateException(e);
-                    }
-                    timestamp = timeGen();
-                    if (timestamp < lastTimestamp) {
-                        // 还是小于，抛异常上报
-                        throwClockBackwardsEx(lastTimestamp, timestamp);
-                    }
-                } else {
+        // 发生了回拨，此刻时间小于上次发号时间
+        if (timestamp < lastTimestamp) {
+            long offset = lastTimestamp - timestamp;
+            if (offset <= 5) {
+                // 时间偏差大小小于5ms，则等待两倍时间
+                try {
+                    TimeUnit.MILLISECONDS.sleep(offset << 1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException(e);
+                }
+                timestamp = timeGen();
+                if (timestamp < lastTimestamp) {
+                    // 还是小于，抛异常上报
                     throwClockBackwardsEx(lastTimestamp, timestamp);
                 }
+            } else {
+                throwClockBackwardsEx(lastTimestamp, timestamp);
             }
-
-            // 如果是同一时间生成的，则进行毫秒内序列
-            if (lastTimestamp == timestamp) {
-                sequence = (sequence + 1) & SEQUENCE_MASK;
-                // 毫秒内序列溢出
-                if (sequence == 0) {
-                    // 阻塞到下一个毫秒,获得新的时间戳
-                    timestamp = tilNextMillis(lastTimestamp);
-                }
-            }
-            // 时间戳改变，毫秒内序列重置
-            else {
-                sequence = 0L;
-            }
-
-            // 上次生成 ID 的时间截
-            lastTimestamp = timestamp;
-
         }
+
+        // 如果是同一时间生成的，则进行毫秒内序列
+        if (lastTimestamp == timestamp) {
+            sequence = (sequence + 1) & SEQUENCE_MASK;
+            // 毫秒内序列溢出
+            if (sequence == 0) {
+                // 阻塞到下一个毫秒,获得新的时间戳
+                timestamp = tilNextMillis(lastTimestamp);
+            }
+        }
+        // 时间戳改变，毫秒内序列重置
+        else {
+            sequence = 0L;
+        }
+
+        // 上次生成 ID 的时间截
+        lastTimestamp = timestamp;
 
         // 移位并通过或运算拼到一起组成64位的ID
         return ((timestamp - TWEPOCH) << TIMESTAMP_LEFT_SHIFT) | datacenterIdAndWorkerId | sequence;

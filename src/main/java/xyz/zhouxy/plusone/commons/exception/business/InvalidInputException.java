@@ -16,6 +16,10 @@
 
 package xyz.zhouxy.plusone.commons.exception.business;
 
+import javax.annotation.Nonnull;
+
+import xyz.zhouxy.plusone.commons.exception.ExceptionType;
+
 /**
  * InvalidInputException
  *
@@ -34,12 +38,12 @@ public final class InvalidInputException extends RequestParamsException {
     private final Type type;
 
     private InvalidInputException(Type type) {
-        super(type.getDefaultMsg());
+        super(type.getDefaultMessage());
         this.type = type;
     }
 
-    private InvalidInputException(Type type, String msg) {
-        super(msg);
+    private InvalidInputException(Type type, String message) {
+        super(message);
         this.type = type;
     }
 
@@ -48,40 +52,36 @@ public final class InvalidInputException extends RequestParamsException {
         this.type = type;
     }
 
-    private InvalidInputException(Type type, String msg, Throwable cause) {
-        super(msg, cause);
+    private InvalidInputException(Type type, String message, Throwable cause) {
+        super(message, cause);
         this.type = type;
     }
 
-    public static InvalidInputException of(Type type) {
-        return new InvalidInputException(type);
+    public InvalidInputException() {
+        this(Type.DEFAULT);
     }
 
-    public static InvalidInputException of(Type type, String msg) {
-        return new InvalidInputException(type, msg);
+    public InvalidInputException(String message) {
+        this(Type.DEFAULT, message);
     }
 
-    public static InvalidInputException of(Type type, Throwable e) {
-        return new InvalidInputException(type, e);
+    public InvalidInputException(Throwable cause) {
+        this(Type.DEFAULT, cause);
     }
 
-    public static InvalidInputException of(Type type, String msg, Throwable e) {
-        return new InvalidInputException(type, msg, e);
-    }
-
-    public static InvalidInputException of(Throwable e) {
-        return new InvalidInputException(Type.DEFAULT, e.getMessage(), e);
-    }
-
-    public static InvalidInputException of(String msg, Throwable e) {
-        return new InvalidInputException(Type.DEFAULT, msg, e);
+    public InvalidInputException(String message, Throwable cause) {
+        this(Type.DEFAULT, message, cause);
     }
 
     public Type getType() {
-        return type;
+        return this.type;
     }
 
-    public enum Type {
+    public Object getCode() {
+        return this.type.code;
+    }
+
+    public enum Type implements ExceptionType<InvalidInputException> {
         DEFAULT("00", "用户输入内容非法"),
         CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS("01", "包含非法恶意跳转链接"),
         CONTAINS_ILLEGAL_WORDS("02", "包含违禁敏感词"),
@@ -89,20 +89,49 @@ public final class InvalidInputException extends RequestParamsException {
         INFRINGE_COPYRIGHT("04", "文件侵犯版权"),
         ;
 
+        @Nonnull
         final String code;
-        final String defaultMsg;
+        @Nonnull
+        final String defaultMessage;
 
         Type(String code, String defaultMsg) {
             this.code = code;
-            this.defaultMsg = defaultMsg;
+            this.defaultMessage = defaultMsg;
         }
 
+        @Override
+        @Nonnull
         public String getCode() {
             return code;
         }
 
-        public String getDefaultMsg() {
-            return defaultMsg;
+        @Override
+        public String getDefaultMessage() {
+            return defaultMessage;
+        }
+
+        @Override
+        @Nonnull
+        public InvalidInputException create() {
+            return new InvalidInputException(this);
+        }
+
+        @Override
+        @Nonnull
+        public InvalidInputException create(String message) {
+            return new InvalidInputException(this, message);
+        }
+
+        @Override
+        @Nonnull
+        public InvalidInputException create(Throwable cause) {
+            return new InvalidInputException(this, cause);
+        }
+
+        @Override
+        @Nonnull
+        public InvalidInputException create(String message, Throwable cause) {
+            return new InvalidInputException(this, message, cause);
         }
     }
 }

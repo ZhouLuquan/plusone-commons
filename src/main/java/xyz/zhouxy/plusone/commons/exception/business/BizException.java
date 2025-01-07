@@ -37,16 +37,16 @@ public class BizException extends RuntimeException {
         super(DEFAULT_MSG);
     }
 
-    public BizException(String msg) {
-        super(msg);
+    public BizException(String message) {
+        super(message);
     }
 
     public BizException(Throwable cause) {
         super(cause);
     }
 
-    public BizException(String msg, Throwable cause) {
-        super(msg, cause);
+    public BizException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

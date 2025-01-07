@@ -16,20 +16,23 @@
 
 package xyz.zhouxy.plusone.commons.time;
 
+import java.time.DateTimeException;
 import java.time.Month;
 import java.time.MonthDay;
+import java.time.temporal.ChronoField;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
-import xyz.zhouxy.plusone.commons.util.Numbers;
+import xyz.zhouxy.plusone.commons.base.IWithIntCode;
+import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 季度
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
-public enum Quarter {
+public enum Quarter implements IWithIntCode {
     /** 第一季度 */
     Q1(1),
     /** 第二季度 */
@@ -43,11 +46,7 @@ public enum Quarter {
     /** 季度值 (1/2/3/4) */
     private final int value;
 
-    /** 季度开始月份 */
-    private final int firstMonth;
-
-    /** 季度结束月份 */
-    private final int lastMonth;
+    private final Range<Integer> monthRange;
 
     /** 常量值 */
     private static final Quarter[] ENUMS = Quarter.values();
@@ -58,8 +57,10 @@ public enum Quarter {
     Quarter(int value) {
         this.value = value;
 
-        this.lastMonth = value * 3;
-        this.firstMonth = this.lastMonth - 2;
+        final int lastMonth = value * 3;
+        final int firstMonth = lastMonth - 2;
+
+        this.monthRange = Range.closed(firstMonth, lastMonth);
     }
 
     // StaticFactoryMethods
@@ -73,7 +74,7 @@ public enum Quarter {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(int monthValue) {
-        Preconditions.checkArgument(Numbers.between(monthValue, 1, 13), "Invalid value for MonthOfYear: " + monthValue);
+        ChronoField.MONTH_OF_YEAR.checkValidValue(monthValue);
         return of(computeQuarterValueInternal(monthValue));
     }
 
@@ -109,26 +110,23 @@ public enum Quarter {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter of(int value) {
-        if (value < 1 || value > 4) {
-            throw new IllegalArgumentException("Invalid value for Quarter: " + value);
-        }
-        return ENUMS[value - 1];
+        return ENUMS[checkValidIntValue(value) - 1];
     }
 
     // StaticFactoryMethods end
 
-    // computs
+    // computes
 
-    public Quarter plus(long quarters) { // TODO 单元测试
+    public Quarter plus(long quarters) {
         final int amount = (int) ((quarters % 4) + 4);
         return ENUMS[(ordinal() + amount) % 4];
     }
 
-    public Quarter minus(long quarters) { // TODO 单元测试
+    public Quarter minus(long quarters) {
         return plus(-(quarters % 4));
     }
 
-    // computs end
+    // computes end
 
     // Getters
 
@@ -136,24 +134,29 @@ public enum Quarter {
         return value;
     }
 
+    @Override
+    public int getCode() {
+        return getValue();
+    }
+
     public Month firstMonth() {
-        return Month.of(firstMonth);
+        return Month.of(firstMonthValue());
     }
 
     public int firstMonthValue() {
-        return firstMonth;
+        return this.monthRange.lowerEndpoint();
     }
 
     public Month lastMonth() {
-        return Month.of(lastMonth);
+        return Month.of(lastMonthValue());
     }
 
     public int lastMonthValue() {
-        return lastMonth;
+        return this.monthRange.upperEndpoint();
     }
 
     public MonthDay firstMonthDay() {
-        return MonthDay.of(this.firstMonth, 1);
+        return MonthDay.of(firstMonth(), 1);
     }
 
     public MonthDay lastMonthDay() {
@@ -163,10 +166,16 @@ public enum Quarter {
     }
 
     public int firstDayOfYear(boolean leapYear) {
-        return Month.of(this.firstMonth).firstDayOfYear(leapYear);
+        return firstMonth().firstDayOfYear(leapYear);
     }
 
     // Getters end
+
+    public static int checkValidIntValue(int value) {
+        AssertTools.checkCondition(value >= 1 && value <= 4,
+                () -> new DateTimeException("Invalid value for Quarter: " + value));
+        return value;
+    }
 
     // Internal
 
