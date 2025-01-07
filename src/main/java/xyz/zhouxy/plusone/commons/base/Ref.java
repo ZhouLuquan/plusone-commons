@@ -18,33 +18,98 @@ package xyz.zhouxy.plusone.commons.base;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-import com.google.common.annotations.Beta;
+import javax.annotation.Nullable;
 
-@Beta
+/**
+ * {@link Ref} 包装了一个值，表示对该值的应用。
+ *
+ * <p>灵感来自于 C# 的 {@value ref} 参数修饰符。C# 允许通过以下方式，将值返回给调用端：</p>
+ * <pre>
+ * void Method(ref int refArgument)
+ * {
+ *     refArgument = refArgument + 44;
+ * }
+ *
+ * int number = 1;
+ * Method(ref number);
+ * Console.WriteLine(number); // Output: 45
+ * </pre>
+ * {@link Ref} 使 Java 可以达到类似的效果，如：
+ * <pre>
+ * void method(final Ref&lt;Integer&gt; refArgument) {
+ *     refArgument.transformValue(i -&gt; i + 44);
+ * }
+ *
+ * Ref&lt;Integer&gt; number = Ref.of(1);
+ * method(number);
+ * System.out.println(number.getValue()); // Output: 45
+ * </pre>
+ * <p>
+ * 当一个方法需要产生多个结果时，无法有多个返回值，可以使用 {@link Ref} 作为参数传入，方法内部修改 {@link Ref} 的值。
+ * 调用方在调用方法之后，使用 {@code getValue()} 获取结果。
+ * </p>
+ * <pre>
+ * String method(final Ref&lt;Integer&gt; intRefArgument, final Ref&lt;String&gt; strRefArgument) {
+ *     intRefArgument.transformValue(i -&gt; i + 44);
+ *     strRefArgument.setValue("Hello " + strRefArgument.getValue());
+ *     return "Return string";
+ * }
+ *
+ * Ref&lt;Integer&gt; number = Ref.of(1);
+ * Ref&lt;String&gt; str = Ref.of("Java");
+ * String result = method(number, str);
+ * System.out.println(number.getValue()); // Output: 45
+ * System.out.println(str.getValue()); // Output: Hello Java
+ * System.out.println(result); // Output: Return string
+ * </pre>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
+ */
 public final class Ref<T> {
 
+    @Nullable
     private T value;
 
-    public Ref() {
-        this.value = null;
-    }
-
-    public Ref(T value) {
+    private Ref(@Nullable T value) {
         this.value = value;
     }
 
+    public static <T> Ref<T> of(@Nullable T value) {
+        return new Ref<>(value);
+    }
+
+    public static <T> Ref<T> empty() {
+        return new Ref<>(null);
+    }
+
+    @Nullable
     public T getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void setValue(@Nullable T value) {
         this.value = value;
     }
 
-    public void transform(UnaryOperator<T> operator) {
+    public void transformValue(UnaryOperator<T> operator) {
         this.value = operator.apply(this.value);
+    }
+
+    public <R> Ref<R> transform(Function<? super T, R> function) {
+        return Ref.of(function.apply(this.value));
+    }
+
+    public boolean checkValue(Predicate<? super T> predicate) {
+        return predicate.test(this.value);
+    }
+
+    public void execute(Consumer<? super T> consumer) {
+        consumer.accept(value);
     }
 
     public boolean isNull() {
@@ -53,10 +118,6 @@ public final class Ref<T> {
 
     public boolean isNotNull() {
         return this.value != null;
-    }
-
-    public void execute(Consumer<? super T> consumer) {
-        consumer.accept(value);
     }
 
     @Override
@@ -73,7 +134,7 @@ public final class Ref<T> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
