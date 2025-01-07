@@ -19,6 +19,7 @@ package xyz.zhouxy.plusone.commons.base;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * 规定实现类带有 {@code getCode} 方法。
@@ -31,19 +32,19 @@ public interface IWithCode<T> {
     @Nonnull
     T getCode();
 
-    default boolean isCodeEquals(T code) {
+    default boolean isCodeEquals(@Nullable T code) {
         return Objects.equals(getCode(), code);
     }
 
-    default boolean isSameCodeAs(IWithCode<?> other) {
+    default boolean isSameCodeAs(@Nullable IWithCode<?> other) {
         return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean isSameCodeAs(IWithIntCode other) {
+    default boolean isSameCodeAs(@Nullable IWithIntCode other) {
         return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean isSameCodeAs(IWithLongCode other) {
+    default boolean isSameCodeAs(@Nullable IWithLongCode other) {
         return other != null && Objects.equals(getCode(), other.getCode());
     }
 }

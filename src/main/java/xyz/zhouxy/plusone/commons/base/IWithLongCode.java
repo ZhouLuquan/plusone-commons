@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.base;
 
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 /**
  * 规定实现类带有 {@code getCode} 方法。
  * 用于像自定义异常等需要带有 {@code code} 字段的类，
@@ -32,15 +34,15 @@ public interface IWithLongCode {
         return getCode() == code;
     }
 
-    default boolean isSameCodeAs(IWithCode<?> other) {
+    default boolean isSameCodeAs(@Nullable IWithCode<?> other) {
         return other != null && Objects.equals(getCode(), other.getCode());
     }
 
-    default boolean isSameCodeAs(IWithIntCode other) {
+    default boolean isSameCodeAs(@Nullable IWithIntCode other) {
         return other != null && getCode() == other.getCode();
     }
 
-    default boolean isSameCodeAs(IWithLongCode other) {
+    default boolean isSameCodeAs(@Nullable IWithLongCode other) {
         return other != null && getCode() == other.getCode();
     }
 }
