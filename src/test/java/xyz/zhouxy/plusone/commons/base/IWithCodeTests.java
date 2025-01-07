@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,57 +28,57 @@ class IWithCodeTests {
 
     @Test
     void equalsCode_SameCode_ReturnsTrue() {
-        assertTrue(WithCode.INSTANCE.equalsCode("testCode"));
+        assertTrue(WithCode.INSTANCE.isCodeEquals("testCode"));
         Integer intCode = 0;
         Long longCode = 0L;
-        assertTrue(WithIntCode.INSTANCE.equalsCode(intCode));
-        assertTrue(WithLongCode.INSTANCE.equalsCode(intCode));
-        assertTrue(WithLongCode.INSTANCE.equalsCode(longCode));
+        assertTrue(WithIntCode.INSTANCE.isCodeEquals(intCode));
+        assertTrue(WithLongCode.INSTANCE.isCodeEquals(intCode));
+        assertTrue(WithLongCode.INSTANCE.isCodeEquals(longCode));
 
-        assertTrue(WithCode.INSTANCE.equalsCode(WithCode.SAME_CODE_INSTANCE));
-        assertTrue(WithIntCode.INSTANCE.equalsCode(WithIntCode.SAME_CODE_INSTANCE));
-        assertTrue(WithIntCode.INSTANCE.equalsCode(WithLongCode.SAME_CODE_INSTANCE));
-        assertTrue(WithLongCode.INSTANCE.equalsCode(WithLongCode.SAME_CODE_INSTANCE));
-        assertTrue(WithLongCode.INSTANCE.equalsCode(WithIntCode.SAME_CODE_INSTANCE));
+        assertTrue(WithCode.INSTANCE.isSameCodeAs(WithCode.SAME_CODE_INSTANCE));
+        assertTrue(WithIntCode.INSTANCE.isSameCodeAs(WithIntCode.SAME_CODE_INSTANCE));
+        assertTrue(WithIntCode.INSTANCE.isSameCodeAs(WithLongCode.SAME_CODE_INSTANCE));
+        assertTrue(WithLongCode.INSTANCE.isSameCodeAs(WithLongCode.SAME_CODE_INSTANCE));
+        assertTrue(WithLongCode.INSTANCE.isSameCodeAs(WithIntCode.SAME_CODE_INSTANCE));
     }
 
     @Test
     void equalsCode_DifferentCode_ReturnsFalse() {
-        assertFalse(WithCode.INSTANCE.equalsCode("wrongCode"));
+        assertFalse(WithCode.INSTANCE.isCodeEquals("wrongCode"));
         Integer intCode = 108;
         Long longCode = 108L;
-        assertFalse(WithIntCode.INSTANCE.equalsCode(intCode));
-        assertFalse(WithLongCode.INSTANCE.equalsCode(intCode));
-        assertFalse(WithLongCode.INSTANCE.equalsCode(longCode));
+        assertFalse(WithIntCode.INSTANCE.isCodeEquals(intCode));
+        assertFalse(WithLongCode.INSTANCE.isCodeEquals(intCode));
+        assertFalse(WithLongCode.INSTANCE.isCodeEquals(longCode));
 
-        assertFalse(WithCode.INSTANCE.equalsCode(WithCode.WRONG_CODE_INSTANCE));
-        assertFalse(WithIntCode.INSTANCE.equalsCode(WithIntCode.WRONG_CODE_INSTANCE));
-        assertFalse(WithIntCode.INSTANCE.equalsCode(WithLongCode.WRONG_CODE_INSTANCE));
-        assertFalse(WithLongCode.INSTANCE.equalsCode(WithLongCode.WRONG_CODE_INSTANCE));
-        assertFalse(WithLongCode.INSTANCE.equalsCode(WithIntCode.WRONG_CODE_INSTANCE));
+        assertFalse(WithCode.INSTANCE.isSameCodeAs(WithCode.WRONG_CODE_INSTANCE));
+        assertFalse(WithIntCode.INSTANCE.isSameCodeAs(WithIntCode.WRONG_CODE_INSTANCE));
+        assertFalse(WithIntCode.INSTANCE.isSameCodeAs(WithLongCode.WRONG_CODE_INSTANCE));
+        assertFalse(WithLongCode.INSTANCE.isSameCodeAs(WithLongCode.WRONG_CODE_INSTANCE));
+        assertFalse(WithLongCode.INSTANCE.isSameCodeAs(WithIntCode.WRONG_CODE_INSTANCE));
     }
 
     @Test
     @SuppressWarnings("null")
     void equalsCode_NullCode_ReturnsFalse() {
-        assertFalse(WithCode.INSTANCE.equalsCode((WithCode) null));
-        assertFalse(WithCode.INSTANCE.equalsCode((WithIntCode) null));
-        assertFalse(WithCode.INSTANCE.equalsCode((WithLongCode) null));
+        assertFalse(WithCode.INSTANCE.isSameCodeAs((WithCode) null));
+        assertFalse(WithCode.INSTANCE.isSameCodeAs((WithIntCode) null));
+        assertFalse(WithCode.INSTANCE.isSameCodeAs((WithLongCode) null));
 
-        assertFalse(WithIntCode.INSTANCE.equalsCode((WithCode) null));
-        assertFalse(WithIntCode.INSTANCE.equalsCode((WithIntCode) null));
-        assertFalse(WithIntCode.INSTANCE.equalsCode((WithLongCode) null));
+        assertFalse(WithIntCode.INSTANCE.isSameCodeAs((WithCode) null));
+        assertFalse(WithIntCode.INSTANCE.isSameCodeAs((WithIntCode) null));
+        assertFalse(WithIntCode.INSTANCE.isSameCodeAs((WithLongCode) null));
 
-        assertFalse(WithLongCode.INSTANCE.equalsCode((WithCode) null));
-        assertFalse(WithLongCode.INSTANCE.equalsCode((WithIntCode) null));
-        assertFalse(WithLongCode.INSTANCE.equalsCode((WithLongCode) null));
+        assertFalse(WithLongCode.INSTANCE.isSameCodeAs((WithCode) null));
+        assertFalse(WithLongCode.INSTANCE.isSameCodeAs((WithIntCode) null));
+        assertFalse(WithLongCode.INSTANCE.isSameCodeAs((WithLongCode) null));
 
-        assertFalse(WithCode.INSTANCE.equalsCode((String) null));
+        assertFalse(WithCode.INSTANCE.isCodeEquals((String) null));
         Integer intCode = null;
         Long longCode = null;
-        assertThrows(NullPointerException.class, () -> WithIntCode.INSTANCE.equalsCode(intCode));
-        assertThrows(NullPointerException.class, () -> WithLongCode.INSTANCE.equalsCode(intCode));
-        assertThrows(NullPointerException.class, () -> WithLongCode.INSTANCE.equalsCode(longCode));
+        assertThrows(NullPointerException.class, () -> WithIntCode.INSTANCE.isCodeEquals(intCode));
+        assertThrows(NullPointerException.class, () -> WithLongCode.INSTANCE.isCodeEquals(intCode));
+        assertThrows(NullPointerException.class, () -> WithLongCode.INSTANCE.isCodeEquals(longCode));
     }
 
     private static enum WithCode implements IWithCode<String> {
