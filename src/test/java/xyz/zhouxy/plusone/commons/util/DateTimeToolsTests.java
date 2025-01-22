@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Constructor;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -32,6 +34,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -493,4 +496,27 @@ class DateTimeToolsTests {
     // ================================
     // #endregion - toString
     // ================================
+
+    // ================================
+    // #region - invoke constructor
+    // ================================
+
+    @Test
+    void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
+        Constructor<?>[] constructors = DateTimeTools.class.getDeclaredConstructors();
+        Arrays.stream(constructors)
+                .forEach(constructor -> {
+                    assertFalse(constructor.isAccessible());
+                    constructor.setAccessible(true);
+                    Throwable cause = assertThrows(Exception.class, constructor::newInstance)
+                            .getCause();
+                    assertInstanceOf(IllegalStateException.class, cause);
+                    assertEquals("Utility class", cause.getMessage());
+                });
+    }
+
+    // ================================
+    // #endregion - invoke constructor
+    // ================================
+
 }

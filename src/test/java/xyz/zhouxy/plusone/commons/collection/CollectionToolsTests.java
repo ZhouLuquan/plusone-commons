@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,14 @@ package xyz.zhouxy.plusone.commons.collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -68,5 +72,19 @@ public class CollectionToolsTests {
         Map<String, Integer> map = ImmutableMap.of("K1", 1, "K2", 2, "K3", 3);
         assertSame(map, CollectionTools.nullToEmptyMap(map));
         assertEquals(Collections.emptyMap(), CollectionTools.nullToEmptyMap(null));
+    }
+
+    @Test
+    void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
+        Constructor<?>[] constructors = CollectionTools.class.getDeclaredConstructors();
+        Arrays.stream(constructors)
+                .forEach(constructor -> {
+                    assertFalse(constructor.isAccessible());
+                    constructor.setAccessible(true);
+                    Throwable cause = assertThrows(Exception.class, constructor::newInstance)
+                            .getCause();
+                    assertInstanceOf(IllegalStateException.class, cause);
+                    assertEquals("Utility class", cause.getMessage());
+                });
     }
 }
