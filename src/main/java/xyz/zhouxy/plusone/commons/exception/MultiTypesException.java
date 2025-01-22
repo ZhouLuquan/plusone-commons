@@ -119,7 +119,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * </pre>
  * </p>
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
  */
 public interface MultiTypesException<E extends Exception, T extends MultiTypesException.ExceptionType<E>> {

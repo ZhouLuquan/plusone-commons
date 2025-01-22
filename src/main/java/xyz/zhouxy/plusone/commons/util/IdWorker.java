@@ -42,7 +42,7 @@ import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
  * <li><a href="https://juejin.cn/post/7265516484029743138">关于若干读者，阅读“改良版雪花算法”后提出的几个共性问题的回复。</a></li>
  * </ul>
  * </p>
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class IdWorker {
 
