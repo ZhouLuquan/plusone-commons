@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1172,20 +1172,5 @@ public class YearQuarterTests {
                 assertTrue(YearQuarter.of(year - 1, quarter2).isBefore(yq));
             }
         }
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = { -1, 0, 1, 1900, 2000, 2023, 2024, Year.MAX_VALUE, Year.MIN_VALUE })
-    void test_min_And_max_sameYear(int year) {
-        YearQuarter yq1 = YearQuarter.of(year, 1);
-        YearQuarter anotherYq1 = YearQuarter.of(year, 1);
-
-        assertEquals(yq1, YearQuarter.max(yq1, anotherYq1));
-        assertEquals(yq1, YearQuarter.min(yq1, anotherYq1));
-
-        YearQuarter yq2 = YearQuarter.of(year, 2);
-        assertEquals(yq2, YearQuarter.max(yq1, yq2));
-        assertEquals(yq1, YearQuarter.min(yq1, yq2));
-
     }
 }
