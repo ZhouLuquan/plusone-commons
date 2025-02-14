@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,28 +20,43 @@ import javax.annotation.Nonnull;
 import xyz.zhouxy.plusone.commons.base.IWithCode;
 
 /**
- * 异常类型
+ * MultiTypesException
  *
  * <p>
- * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的异常类型。
- * 该枚举实现本接口，用于基于不同类型创建异常。
+ * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
+ * </p>
+ * <p>
+ * 异常实现 {@link MultiTypesException} 的 {@link #getType} 方法，返回对应的场景类型。
+ * </p>
+ * <p>
+ * 表示场景类型的枚举实现 {@link ExceptionType}，其中的工厂方法用于创建类型对象。
+ * </p>
  *
  * <pre>
- * public final class LoginException extends RuntimeException {
+ * public final class LoginException
+ *         extends RuntimeException
+ *         implements MultiTypesException&lt;LoginException, LoginException.Type&gt; {
  *     private final Type type;
- *     private LoginException(Type type, String message) {
+ *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
  *         super(message);
  *         this.type = type;
  *     }
  *
- *     private LoginException(Type type, Throwable cause) {
+ *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull Throwable cause) {
  *         super(cause);
  *         this.type = type;
  *     }
  *
- *     private LoginException(Type type, String message, Throwable cause) {
+ *     private LoginException(&#64;Nonnull Type type,
+ *                            &#64;Nonnull String message,
+ *                            &#64;Nonnull Throwable cause) {
  *         super(message, cause);
  *         this.type = type;
+ *     }
+ *
+ *     &#64;Override
+ *     public &#64;Nonnull Type getType() {
+ *         return this.type;
  *     }
  *
  *     // ...
@@ -60,43 +75,38 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *         &#64;Nonnull
  *         private final String defaultMessage;
  *
- *         Type(String code, String defaultMessage) {
+ *         Type(&#64;Nonnull String code, &#64;Nonnull String defaultMessage) {
  *             this.code = code;
  *             this.defaultMessage = defaultMessage;
  *         }
  *
  *         &#64;Override
- *         &#64;Nonnull
- *         public String getCode() {
+ *         public &#64;Nonnull String getCode() {
  *             return code;
  *         }
  *
  *         &#64;Override
- *         public String getDefaultMessage() {
+ *         public &#64;Nonnull String getDefaultMessage() {
  *             return defaultMessage;
  *         }
  *
  *         &#64;Override
- *         &#64;Nonnull
- *         public LoginException create() {
+ *         public &#64;Nonnull LoginException create() {
  *             return new LoginException(this, this.defaultMessage);
  *         }
  *
  *         &#64;Override
- *         &#64;Nonnull
- *         public LoginException create(String message) {
+ *         public &#64;Nonnull LoginException create(String message) {
  *             return new LoginException(this, message);
  *         }
  *
  *         &#64;Override
- *         &#64;Nonnull
- *         public LoginException create(Throwable cause) {
+ *         public &#64;Nonnull LoginException create(Throwable cause) {
  *             return new LoginException(this, cause);
  *         }
  *
  *         &#64;Override
- *         &#64;Nonnull
- *         public LoginException create(String message, Throwable cause) {
+ *         public &#64;Nonnull LoginException create(String message, Throwable cause) {
  *             return new LoginException(this, message, cause);
  *         }
  *     }
@@ -109,22 +119,33 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * </pre>
  * </p>
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
  */
-public interface ExceptionType<E extends Exception> extends IWithCode<String> {
-
-    String getDefaultMessage();
+public interface MultiTypesException<E extends Exception, T extends MultiTypesException.ExceptionType<E>> {
 
     @Nonnull
-    E create();
+    T getType();
 
-    @Nonnull
-    E create(String message);
+    default @Nonnull String getTypeCode() {
+        return getType().getCode();
+    }
 
-    @Nonnull
-    E create(Throwable cause);
+    public static interface ExceptionType<E extends Exception> extends IWithCode<String> {
 
-    @Nonnull
-    E create(String message, Throwable cause);
+        String getDefaultMessage();
 
+        @Nonnull
+        E create();
+
+        @Nonnull
+        E create(String message);
+
+        @Nonnull
+        E create(Throwable cause);
+
+        @Nonnull
+        E create(String message, Throwable cause);
+
+    }
 }

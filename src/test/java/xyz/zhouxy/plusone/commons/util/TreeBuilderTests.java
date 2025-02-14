@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ class TreeBuilderTests {
             Menu::getMenuCode,
             menu -> Optional.ofNullable(menu.parentMenuCode),
             MenuList::addChild,
-            Menu.orderNumComparator);
+            Comparator.comparing(Menu::getOrderNum));
 
     @Test
     void testBuildTreeAndSortedByOrderNum() {
@@ -70,31 +70,35 @@ class TreeBuilderTests {
         List<Menu> menuTreeSortedByOrderNum = treeBuilder.buildTree(clonedMenus);
         log.info("menuTreeSortedByOrderNum: {}", new Gson().toJson(menuTreeSortedByOrderNum));
 
-        assertEquals(clonedMenus.stream()
+        assertEquals(
+            clonedMenus.stream()
                 .filter(menu -> menu.getParentMenuCode() == null)
-                .sorted(Menu.orderNumComparator)
+                .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-                menuTreeSortedByOrderNum);
+            menuTreeSortedByOrderNum);
 
         Map<String, Menu> menuMap = new HashMap<>();
         for (Menu element : clonedMenus) {
             menuMap.put(element.getMenuCode(), element);
         }
 
-        assertEquals(Arrays.stream(new Menu[] { B001, B002, B003, B004 })
-                .sorted(Menu.orderNumComparator)
+        assertEquals(
+            Arrays.stream(new Menu[] { B001, B002, B003, B004 })
+                .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-                MenuList.class.cast(menuMap.get("B")).children);
+            MenuList.class.cast(menuMap.get("B")).children);
 
-        assertEquals(Arrays.stream(new Menu[] { C1, C2, C3 })
-                .sorted(Menu.orderNumComparator)
+        assertEquals(
+            Arrays.stream(new Menu[] { C1, C2, C3 })
+                .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-                MenuList.class.cast(menuMap.get("C")).children);
+            MenuList.class.cast(menuMap.get("C")).children);
 
-        assertEquals(Arrays.stream(new Menu[] { C1001, C1002 })
-                .sorted(Menu.orderNumComparator)
+        assertEquals(
+            Arrays.stream(new Menu[] { C1001, C1002 })
+                .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-                MenuList.class.cast(menuMap.get("C1")).children);
+            MenuList.class.cast(menuMap.get("C1")).children);
 
     }
 
@@ -103,16 +107,16 @@ class TreeBuilderTests {
         List<Menu> clonedMenus;
 
         clonedMenus = menus.stream().map(ObjectUtil::clone).collect(Collectors.toList());
-        List<Menu> menuTreeSortedByMenuCode = treeBuilder.buildTree(
-                clonedMenus,
-                (a, b) -> a.getMenuCode().compareTo(b.getMenuCode()));
+        List<Menu> menuTreeSortedByMenuCode = treeBuilder
+                .buildTree(clonedMenus, Comparator.comparing(Menu::getMenuCode));
         log.info("menuTreeSortedByMenuCode: {}", new Gson().toJson(menuTreeSortedByMenuCode));
 
-        assertEquals(clonedMenus.stream()
+        assertEquals(
+            clonedMenus.stream()
                 .filter(menu -> menu.getParentMenuCode() == null)
-                .sorted((a, b) -> a.getMenuCode().compareTo(b.getMenuCode()))
+                .sorted(Comparator.comparing(Menu::getMenuCode))
                 .collect(Collectors.toList()),
-                menuTreeSortedByMenuCode);
+            menuTreeSortedByMenuCode);
 
         Map<String, Menu> menuMap = new HashMap<>();
         for (Menu element : clonedMenus) {
@@ -159,9 +163,6 @@ class TreeBuilderTests {
         public int getOrderNum() {
             return orderNum;
         }
-
-        public static Comparator<Menu> orderNumComparator =
-                (a, b) -> Integer.compare(a.getOrderNum(), b.getOrderNum());
 
         private static final long serialVersionUID = 20240917181424L;
     }

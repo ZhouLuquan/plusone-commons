@@ -18,7 +18,8 @@ package xyz.zhouxy.plusone.commons.exception.business;
 
 import javax.annotation.Nonnull;
 
-import xyz.zhouxy.plusone.commons.exception.ExceptionType;
+import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
+import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
 
 /**
  * InvalidInputException
@@ -33,7 +34,9 @@ import xyz.zhouxy.plusone.commons.exception.ExceptionType;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 0.1.0
  */
-public final class InvalidInputException extends RequestParamsException {
+public final class InvalidInputException
+        extends RequestParamsException
+        implements MultiTypesException<InvalidInputException, InvalidInputException.Type> {
 
     private final Type type;
 
@@ -73,12 +76,10 @@ public final class InvalidInputException extends RequestParamsException {
         this(Type.DEFAULT, message, cause);
     }
 
+    @Override
+    @Nonnull
     public Type getType() {
         return this.type;
-    }
-
-    public Object getCode() {
-        return this.type.code;
     }
 
     public enum Type implements ExceptionType<InvalidInputException> {
@@ -90,9 +91,9 @@ public final class InvalidInputException extends RequestParamsException {
         ;
 
         @Nonnull
-        final String code;
+        private final String code;
         @Nonnull
-        final String defaultMessage;
+        private final String defaultMessage;
 
         Type(String code, String defaultMsg) {
             this.code = code;
@@ -100,37 +101,32 @@ public final class InvalidInputException extends RequestParamsException {
         }
 
         @Override
-        @Nonnull
-        public String getCode() {
+        public @Nonnull String getCode() {
             return code;
         }
 
         @Override
-        public String getDefaultMessage() {
+        public @Nonnull String getDefaultMessage() {
             return defaultMessage;
         }
 
         @Override
-        @Nonnull
-        public InvalidInputException create() {
+        public @Nonnull InvalidInputException create() {
             return new InvalidInputException(this);
         }
 
         @Override
-        @Nonnull
-        public InvalidInputException create(String message) {
+        public @Nonnull InvalidInputException create(String message) {
             return new InvalidInputException(this, message);
         }
 
         @Override
-        @Nonnull
-        public InvalidInputException create(Throwable cause) {
+        public @Nonnull InvalidInputException create(Throwable cause) {
             return new InvalidInputException(this, cause);
         }
 
         @Override
-        @Nonnull
-        public InvalidInputException create(String message, Throwable cause) {
+        public @Nonnull InvalidInputException create(String message, Throwable cause) {
             return new InvalidInputException(this, message, cause);
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,14 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -221,5 +226,19 @@ class EnumToolsTests {
         assertThrows(NullPointerException.class, () -> EnumTools.valueOf(null, 0));
         assertSame(MyEnum.VALUE_0, EnumTools.valueOf(MyEnum.class, null, MyEnum.VALUE_0));
         assertNull(EnumTools.valueOf(MyEnum.class, null, null));
+    }
+
+    @Test
+    void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
+        Constructor<?>[] constructors = EnumTools.class.getDeclaredConstructors();
+        Arrays.stream(constructors)
+                .forEach(constructor -> {
+                    assertFalse(constructor.isAccessible());
+                    constructor.setAccessible(true);
+                    Throwable cause = assertThrows(Exception.class, constructor::newInstance)
+                            .getCause();
+                    assertInstanceOf(IllegalStateException.class, cause);
+                    assertEquals("Utility class", cause.getMessage());
+                });
     }
 }

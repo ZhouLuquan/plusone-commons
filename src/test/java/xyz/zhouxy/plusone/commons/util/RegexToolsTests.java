@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -161,5 +163,19 @@ class RegexToolsTests {
         assertThrows(NullPointerException.class, () -> {
             RegexTools.getMatcher("abc", pattern);
         });
+    }
+
+    @Test
+    void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
+        Constructor<?>[] constructors = RegexTools.class.getDeclaredConstructors();
+        Arrays.stream(constructors)
+                .forEach(constructor -> {
+                    assertFalse(constructor.isAccessible());
+                    constructor.setAccessible(true);
+                    Throwable cause = assertThrows(Exception.class, constructor::newInstance)
+                            .getCause();
+                    assertInstanceOf(IllegalStateException.class, cause);
+                    assertEquals("Utility class", cause.getMessage());
+                });
     }
 }

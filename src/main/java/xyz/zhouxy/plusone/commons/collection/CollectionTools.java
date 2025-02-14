@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,11 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.RangeSet;
+import com.google.common.collect.Table;
+
 /**
  * 集合工具类
  *
@@ -33,9 +38,9 @@ import javax.annotation.Nullable;
  */
 public class CollectionTools {
 
-    // TODO [添加] 新增其它集合类型，如 guava 的扩展集合等
-
-    // isEmpty
+    // ================================
+    // #region - isEmpty
+    // ================================
 
     public static boolean isEmpty(@Nullable Collection<?> collection) {
         return collection == null || collection.isEmpty();
@@ -45,7 +50,29 @@ public class CollectionTools {
         return map == null || map.isEmpty();
     }
 
-    // isNotEmpty
+    public static boolean isEmpty(@Nullable Table<?, ?, ?> table) {
+        return table == null || table.isEmpty();
+    }
+
+    public static boolean isEmpty(@Nullable Multimap<?, ?> map) {
+        return map == null || map.isEmpty();
+    }
+
+    public static boolean isEmpty(@Nullable Multiset<?> set) {
+        return set == null || set.isEmpty();
+    }
+
+    public static boolean isEmpty(@Nullable RangeSet<?> set) {
+        return set == null || set.isEmpty();
+    }
+
+    // ================================
+    // #endregion - isEmpty
+    // ================================
+
+    // ================================
+    // #region - isNotEmpty
+    // ================================
 
     public static boolean isNotEmpty(@Nullable Collection<?> collection) {
         return collection != null && !collection.isEmpty();
@@ -54,6 +81,30 @@ public class CollectionTools {
     public static boolean isNotEmpty(@Nullable Map<?, ?> map) {
         return map != null && !map.isEmpty();
     }
+
+    public static boolean isNotEmpty(@Nullable Table<?, ?, ?> table) {
+        return table != null && !table.isEmpty();
+    }
+
+    public static boolean isNotEmpty(@Nullable Multimap<?, ?> map) {
+        return map != null && !map.isEmpty();
+    }
+
+    public static boolean isNotEmpty(@Nullable Multiset<?> set) {
+        return set != null && !set.isEmpty();
+    }
+
+    public static boolean isNotEmpty(@Nullable RangeSet<?> set) {
+        return set != null && !set.isEmpty();
+    }
+
+    // ================================
+    // #endregion - isNotEmpty
+    // ================================
+
+    // ================================
+    // #region - nullToEmpty
+    // ================================
 
     @Nonnull
     public static <T> List<T> nullToEmptyList(@Nullable List<T> list) {
@@ -69,6 +120,10 @@ public class CollectionTools {
     public static <K, V> Map<K, V> nullToEmptyMap(@Nullable Map<K, V> map) {
         return map == null ? Collections.emptyMap() : map;
     }
+
+    // ================================
+    // #endregion - nullToEmpty
+    // ================================
 
     private CollectionTools() {
         throw new IllegalStateException("Utility class");

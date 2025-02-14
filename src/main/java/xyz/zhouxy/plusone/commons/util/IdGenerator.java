@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Nonnull;
+
 /**
  * ID 生成器
  *
@@ -30,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @see UUID
  * @see IdWorker
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108}">ZhouXY</a>
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class IdGenerator {
 
@@ -48,7 +50,7 @@ public class IdGenerator {
         return toSimpleString(UUID.randomUUID());
     }
 
-    public static String toSimpleString(UUID uuid) {
+    public static String toSimpleString(@Nonnull UUID uuid) {
         AssertTools.checkArgument(Objects.nonNull(uuid));
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
                 uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
