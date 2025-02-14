@@ -34,14 +34,24 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeSet;
 import com.google.common.collect.Sets;
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeRangeSet;
 
 public class CollectionToolsTests {
     @Test
     void testIsEmpty() {
 
+        // Collection
         List<String> list = new ArrayList<>();
         assertTrue(CollectionTools.isEmpty(list));
         assertFalse(CollectionTools.isNotEmpty(list));
@@ -50,6 +60,7 @@ public class CollectionToolsTests {
         assertFalse(CollectionTools.isEmpty(list));
         assertTrue(CollectionTools.isNotEmpty(list));
 
+        // Map
         Map<String, Integer> map = new HashMap<>();
         assertTrue(CollectionTools.isEmpty(map));
         assertFalse(CollectionTools.isNotEmpty(map));
@@ -57,6 +68,43 @@ public class CollectionToolsTests {
         map.put("2", 2);
         assertFalse(CollectionTools.isEmpty(map));
         assertTrue(CollectionTools.isNotEmpty(map));
+
+        // Table
+        Table<String, String, Integer> table = HashBasedTable.create();
+        assertTrue(CollectionTools.isEmpty(table));
+        assertFalse(CollectionTools.isNotEmpty(table));
+
+        table.put("ABC", "d", 4);
+        assertFalse(CollectionTools.isEmpty(table));
+        assertTrue(CollectionTools.isNotEmpty(table));
+
+        // Multimap
+        Multimap<String, String> multimap = HashMultimap.create();
+        assertTrue(CollectionTools.isEmpty(multimap));
+        assertFalse(CollectionTools.isNotEmpty(multimap));
+
+        multimap.put("ABC", "d");
+        assertFalse(CollectionTools.isEmpty(multimap));
+        assertTrue(CollectionTools.isNotEmpty(multimap));
+
+        // Multiset
+        Multiset<String> multiset = HashMultiset.create();
+        assertTrue(CollectionTools.isEmpty(multiset));
+        assertFalse(CollectionTools.isNotEmpty(multiset));
+
+        multiset.add("ABC");
+        assertFalse(CollectionTools.isEmpty(multiset));
+        assertTrue(CollectionTools.isNotEmpty(multiset));
+
+        // RangeSet
+        RangeSet<Integer> rangeSet = TreeRangeSet.create();
+        assertTrue(CollectionTools.isEmpty(rangeSet));
+        assertFalse(CollectionTools.isNotEmpty(rangeSet));
+
+        rangeSet.add(Range.closed(0, 100));
+        rangeSet.add(Range.openClosed(100, 200));
+        assertFalse(CollectionTools.isEmpty(rangeSet));
+        assertTrue(CollectionTools.isNotEmpty(rangeSet));
     }
 
     @Test
