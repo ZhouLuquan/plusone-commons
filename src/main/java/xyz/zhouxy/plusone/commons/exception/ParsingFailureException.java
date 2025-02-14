@@ -21,6 +21,7 @@ import java.time.format.DateTimeParseException;
 import javax.annotation.Nonnull;
 
 import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
+import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
 
 /**
  * 解析失败异常
@@ -37,7 +38,9 @@ import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 0.1.0
  */
-public final class ParsingFailureException extends RuntimeException {
+public final class ParsingFailureException
+        extends RuntimeException
+        implements MultiTypesException<ParsingFailureException, ParsingFailureException.Type> {
 
     private final Type type;
 
@@ -94,12 +97,10 @@ public final class ParsingFailureException extends RuntimeException {
         return Type.NUMBER_PARSING_FAILURE.create(message, cause);
     }
 
+    @Override
+    @Nonnull
     public Type getType() {
         return type;
-    }
-
-    public String getCode() {
-        return this.type.code;
     }
 
     public static final Type DEFAULT = Type.DEFAULT;
@@ -127,37 +128,32 @@ public final class ParsingFailureException extends RuntimeException {
         }
 
         @Override
-        @Nonnull
-        public String getCode() {
+        public @Nonnull String getCode() {
             return code;
         }
 
         @Override
-        public String getDefaultMessage() {
+        public @Nonnull String getDefaultMessage() {
             return defaultMessage;
         }
 
         @Override
-        @Nonnull
-        public ParsingFailureException create() {
+        public @Nonnull ParsingFailureException create() {
             return new ParsingFailureException(this, this.defaultMessage);
         }
 
         @Override
-        @Nonnull
-        public ParsingFailureException create(String message) {
+        public @Nonnull ParsingFailureException create(String message) {
             return new ParsingFailureException(this, message);
         }
 
         @Override
-        @Nonnull
-        public ParsingFailureException create(Throwable cause) {
+        public @Nonnull ParsingFailureException create(Throwable cause) {
             return new ParsingFailureException(this, cause);
         }
 
         @Override
-        @Nonnull
-        public ParsingFailureException create(String message, Throwable cause) {
+        public @Nonnull ParsingFailureException create(String message, Throwable cause) {
             return new ParsingFailureException(this, message, cause);
         }
     }

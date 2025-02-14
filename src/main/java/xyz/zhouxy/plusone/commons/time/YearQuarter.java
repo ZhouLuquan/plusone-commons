@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -279,14 +279,6 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     public boolean isAfter(YearQuarter other) {
         return this.compareTo(other) > 0;
-    }
-
-    public static YearQuarter min(YearQuarter yearQuarter1, YearQuarter yearQuarter2) {
-        return yearQuarter1.compareTo(yearQuarter2) <= 0 ? yearQuarter1 : yearQuarter2;
-    }
-
-    public static YearQuarter max(YearQuarter yearQuarter1, YearQuarter yearQuarter2) {
-        return yearQuarter1.compareTo(yearQuarter2) >= 0 ? yearQuarter1 : yearQuarter2;
     }
 
     // #endregion

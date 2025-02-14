@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,13 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -83,5 +87,19 @@ class StringToolsTests {
     @Test
     void repeat_ZeroTimes_ReturnsEmptyString() {
         assertEquals("", StringTools.repeat("Hello", 0));
+    }
+
+    @Test
+    void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
+        Constructor<?>[] constructors = StringTools.class.getDeclaredConstructors();
+        Arrays.stream(constructors)
+                .forEach(constructor -> {
+                    assertFalse(constructor.isAccessible());
+                    constructor.setAccessible(true);
+                    Throwable cause = assertThrows(Exception.class, constructor::newInstance)
+                            .getCause();
+                    assertInstanceOf(IllegalStateException.class, cause);
+                    assertEquals("Utility class", cause.getMessage());
+                });
     }
 }
