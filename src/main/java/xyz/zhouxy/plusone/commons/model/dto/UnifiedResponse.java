@@ -22,10 +22,6 @@ import javax.annotation.Nullable;
 /**
  * 统一结果，对返回给前端的数据进行封装。
  *
- * <p>
- * <b>SUCCESS: 2000000</b>
- * </p>
- *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public class UnifiedResponse<T> {
@@ -39,11 +35,11 @@ public class UnifiedResponse<T> {
     // #region - Constructors
     // ================================
 
-    private UnifiedResponse(String code, @Nullable String message) {
+    UnifiedResponse(String code, @Nullable String message) {
         this(code, message, null);
     }
 
-    private UnifiedResponse(String code, @Nullable String message, @Nullable T data) {
+    UnifiedResponse(String code, @Nullable String message, @Nullable T data) {
         this.code = Objects.requireNonNull(code);
         this.message = message == null ? "" : message;
         this.data = data;
@@ -51,65 +47,6 @@ public class UnifiedResponse<T> {
 
     // ================================
     // #endregion - Constructors
-    // ================================
-
-    public static final String SUCCESS_CODE = "2000000";
-    private static final String DEFAULT_SUCCESS_MSG = "SUCCESS";
-
-    // ================================
-    // #region - success
-    // ================================
-
-    public static UnifiedResponse<Void> success() {
-        return new UnifiedResponse<>(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
-    }
-
-    public static UnifiedResponse<Void> success(@Nullable String message) {
-        return new UnifiedResponse<>(SUCCESS_CODE, message);
-    }
-
-    public static <T> UnifiedResponse<T> success(@Nullable String message, @Nullable T data) {
-        return new UnifiedResponse<>(SUCCESS_CODE, message, data);
-    }
-
-    // ================================
-    // #endregion - success
-    // ================================
-
-    // ================================
-    // #region - error
-    // ================================
-
-    public static UnifiedResponse<Void> error(String code, @Nullable String message) {
-        return new UnifiedResponse<>(code, message);
-    }
-
-    public static <T> UnifiedResponse<T> error(String code, @Nullable String message, @Nullable T data) {
-        return new UnifiedResponse<>(code, message, data);
-    }
-
-    public static UnifiedResponse<Void> error(String code, Throwable e) {
-        return new UnifiedResponse<>(code, e.getMessage());
-    }
-
-    // ================================
-    // #endregion - error
-    // ================================
-
-    // ================================
-    // #region - of
-    // ================================
-
-    public static UnifiedResponse<Void> of(String code, @Nullable String message) {
-        return new UnifiedResponse<>(code, message);
-    }
-
-    public static <T> UnifiedResponse<T> of(String code, @Nullable String message, @Nullable T data) {
-        return new UnifiedResponse<>(code, message, data);
-    }
-
-    // ================================
-    // #endregion - of
     // ================================
 
     // ================================
