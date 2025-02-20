@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.model.dto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.annotation.Nullable;
+
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -33,7 +35,7 @@ import xyz.zhouxy.plusone.commons.exception.business.BizException;
 
 @Slf4j
 public
-class UnifiedResponseTests {
+class CustomUnifiedResponseFactoryTests {
 
     static final ObjectMapper jackson = new ObjectMapper();
 
@@ -51,164 +53,164 @@ class UnifiedResponseTests {
     @Test
     void testSuccess_WithoutArgument() throws Exception {
         // 1. success without argument
-        UnifiedResponse<Void> success = UnifiedResponses.success();
-        assertEquals("2000000", success.getCode());
-        assertEquals("SUCCESS", success.getMessage());
+        UnifiedResponse<Void> success = CustomUnifiedResponses.success();
+        assertEquals("0000000", success.getCode());
+        assertEquals("成功", success.getMessage());
         assertNull(success.getData());
         String jacksonSuccess = jackson.writeValueAsString(success);
         log.info("jacksonSuccess: {}", jacksonSuccess);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"SUCCESS\"}", jacksonSuccess);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"成功\"}", jacksonSuccess);
     }
 
     @Test
     void testSuccess_WithMessage() throws Exception {
         // 2. success with message
-        UnifiedResponse<Void> successWithMessage = UnifiedResponses.success("成功");
-        assertEquals("2000000", successWithMessage.getCode());
+        UnifiedResponse<Void> successWithMessage = CustomUnifiedResponses.success("成功");
+        assertEquals("0000000", successWithMessage.getCode());
         assertEquals("成功", successWithMessage.getMessage());
         assertNull(successWithMessage.getData());
         String jacksonSuccessWithMessage = jackson.writeValueAsString(successWithMessage);
         log.info("jacksonSuccessWithMessage: {}", jacksonSuccessWithMessage);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"成功\"}", jacksonSuccessWithMessage);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"成功\"}", jacksonSuccessWithMessage);
     }
 
     @Test
     void testSuccess_WithMessageAndNullData() throws Exception {
         // success with message and null data
-        final UnifiedResponse<Void> successWithMessageAndNullData = UnifiedResponses.success("查询成功", null);
-        assertEquals("2000000", successWithMessageAndNullData.getCode());
+        final UnifiedResponse<Void> successWithMessageAndNullData = CustomUnifiedResponses.success("查询成功", null);
+        assertEquals("0000000", successWithMessageAndNullData.getCode());
         assertEquals("查询成功", successWithMessageAndNullData.getMessage());
         assertNull(successWithMessageAndNullData.getData());
         final String jacksonSuccessWithMessageAndNullData = jackson.writeValueAsString(successWithMessageAndNullData);
         log.info("jacksonSuccessWithMessageAndNullData: {}", jacksonSuccessWithMessageAndNullData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"查询成功\"}", jacksonSuccessWithMessageAndNullData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"查询成功\"}", jacksonSuccessWithMessageAndNullData);
 
-        assertEquals("{code: \"2000000\", message: \"查询成功\", data: null}", successWithMessageAndNullData.toString());
+        assertEquals("{code: \"0000000\", message: \"查询成功\", data: null}", successWithMessageAndNullData.toString());
     }
 
     @Test
     void testSuccess_WithMessageAndStringData() throws Exception {
-        UnifiedResponse<String> successWithStringData = UnifiedResponses.success("查询成功", "zhouxy");
-        assertEquals("2000000", successWithStringData.getCode());
+        UnifiedResponse<String> successWithStringData = CustomUnifiedResponses.success("查询成功", "zhouxy");
+        assertEquals("0000000", successWithStringData.getCode());
         assertEquals("查询成功", successWithStringData.getMessage());
         assertEquals("zhouxy", successWithStringData.getData());
         String jacksonSuccessWithStringData = jackson.writeValueAsString(successWithStringData);
         log.info("jacksonSuccessWithStringData: {}", jacksonSuccessWithStringData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"查询成功\",\"data\":\"zhouxy\"}", jacksonSuccessWithStringData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"查询成功\",\"data\":\"zhouxy\"}", jacksonSuccessWithStringData);
 
-        assertEquals("{code: \"2000000\", message: \"查询成功\", data: \"zhouxy\"}", successWithStringData.toString());
+        assertEquals("{code: \"0000000\", message: \"查询成功\", data: \"zhouxy\"}", successWithStringData.toString());
     }
 
     @Test
     void testSuccess_WithMessageAndIntegerData() throws Exception {
-        final UnifiedResponse<Integer> successWithIntegerData = UnifiedResponses.success("查询成功", 1);
-        assertEquals("2000000", successWithIntegerData.getCode());
+        final UnifiedResponse<Integer> successWithIntegerData = CustomUnifiedResponses.success("查询成功", 1);
+        assertEquals("0000000", successWithIntegerData.getCode());
         assertEquals("查询成功", successWithIntegerData.getMessage());
         assertEquals(1, successWithIntegerData.getData());
         final String jacksonSuccessWithIntegerData = jackson.writeValueAsString(successWithIntegerData);
         log.info("jacksonSuccessWithIntegerData: {}", jacksonSuccessWithIntegerData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"查询成功\",\"data\":1}", jacksonSuccessWithIntegerData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"查询成功\",\"data\":1}", jacksonSuccessWithIntegerData);
 
-        assertEquals("{code: \"2000000\", message: \"查询成功\", data: 1}", successWithIntegerData.toString());
+        assertEquals("{code: \"0000000\", message: \"查询成功\", data: 1}", successWithIntegerData.toString());
     }
 
     @Test
     void testSuccess_WithMessageAndData() throws Exception {
-        UnifiedResponse<PageResult<User>> successWithData = UnifiedResponses.success("查询成功", pageResult);
-        assertEquals("2000000", successWithData.getCode());
+        UnifiedResponse<PageResult<User>> successWithData = CustomUnifiedResponses.success("查询成功", pageResult);
+        assertEquals("0000000", successWithData.getCode());
         assertEquals("查询成功", successWithData.getMessage());
         assertNotNull(successWithData.getData());
         assertEquals(pageResult, successWithData.getData());
         String jacksonSuccessWithData = jackson.writeValueAsString(successWithData);
         log.info("jacksonSuccessWithData: {}", jacksonSuccessWithData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"查询成功\",\"data\":{\"total\":108,\"content\":[{\"username\":\"zhouxy1\",\"email\":\"zhouxy1@gmail.com\"},{\"username\":\"zhouxy2\",\"email\":\"zhouxy2@gmail.com\"}]}}", jacksonSuccessWithData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"查询成功\",\"data\":{\"total\":108,\"content\":[{\"username\":\"zhouxy1\",\"email\":\"zhouxy1@gmail.com\"},{\"username\":\"zhouxy2\",\"email\":\"zhouxy2@gmail.com\"}]}}", jacksonSuccessWithData);
     }
 
     @Test
     void testSuccess_WithNullMessage() throws Exception {
         // 3. success with null message
-        UnifiedResponse<Void> successWithNullMessage = UnifiedResponses.success(null);
-        assertEquals("2000000", successWithNullMessage.getCode());
+        UnifiedResponse<Void> successWithNullMessage = CustomUnifiedResponses.success(null);
+        assertEquals("0000000", successWithNullMessage.getCode());
         assertEquals("", successWithNullMessage.getMessage());
         assertNull(successWithNullMessage.getData());
         String jacksonSuccessWithNullMessage = jackson.writeValueAsString(successWithNullMessage);
         log.info("jacksonSuccessWithNullMessage: {}", jacksonSuccessWithNullMessage);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\"}", jacksonSuccessWithNullMessage);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\"}", jacksonSuccessWithNullMessage);
     }
 
     // success with null message and null data
     @Test
     void testSuccess_WithNullMessageAndNullData() throws Exception {
-        final UnifiedResponse<Void> successWithNullMessageAndNullData = UnifiedResponses.success(null, null);
-        assertEquals("2000000", successWithNullMessageAndNullData.getCode());
+        final UnifiedResponse<Void> successWithNullMessageAndNullData = CustomUnifiedResponses.success(null, null);
+        assertEquals("0000000", successWithNullMessageAndNullData.getCode());
         assertEquals("", successWithNullMessageAndNullData.getMessage());
         assertNull(successWithNullMessageAndNullData.getData());
 
         final String jacksonSuccessWithNullMessageAndNullData = jackson.writeValueAsString(successWithNullMessageAndNullData);
         log.info("jacksonSuccessWithNullMessageAndNullData: {}", jacksonSuccessWithNullMessageAndNullData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\"}", jacksonSuccessWithNullMessageAndNullData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\"}", jacksonSuccessWithNullMessageAndNullData);
 
-        assertEquals("{code: \"2000000\", message: \"\", data: null}", successWithNullMessageAndNullData.toString());
+        assertEquals("{code: \"0000000\", message: \"\", data: null}", successWithNullMessageAndNullData.toString());
     }
 
     @Test
     void testSuccess_WithNullMessageAndData() throws Exception {
         // success with null message and data
         final User user = new User("zhouxy", "zhouxy@code108.cn");
-        final UnifiedResponse<User> successWithNullMessageAndData = UnifiedResponses.success(null, user);
-        assertEquals("2000000", successWithNullMessageAndData.getCode());
+        final UnifiedResponse<User> successWithNullMessageAndData = CustomUnifiedResponses.success(null, user);
+        assertEquals("0000000", successWithNullMessageAndData.getCode());
         assertEquals("", successWithNullMessageAndData.getMessage());
         assertEquals(user, successWithNullMessageAndData.getData());
         final String jacksonSuccessWithNullMessageAndData = jackson.writeValueAsString(successWithNullMessageAndData);
         log.info("jacksonSuccessWithNullMessageAndData: {}", jacksonSuccessWithNullMessageAndData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\",\"data\":{\"username\":\"zhouxy\",\"email\":\"zhouxy@code108.cn\"}}",
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\",\"data\":{\"username\":\"zhouxy\",\"email\":\"zhouxy@code108.cn\"}}",
                 jacksonSuccessWithNullMessageAndData);
     }
 
     @Test
     void testSuccess_WithEmptyMessage() throws Exception {
         // 4. success with empty message
-        UnifiedResponse<Void> successWithEmptyMessage = UnifiedResponses.success("");
-        assertEquals("2000000", successWithEmptyMessage.getCode());
+        UnifiedResponse<Void> successWithEmptyMessage = CustomUnifiedResponses.success("");
+        assertEquals("0000000", successWithEmptyMessage.getCode());
         assertEquals("", successWithEmptyMessage.getMessage());
         assertNull(successWithEmptyMessage.getData());
         String jacksonSuccessWithEmptyMessage = jackson.writeValueAsString(successWithEmptyMessage);
         log.info("jacksonSuccessWithEmptyMessage: {}", jacksonSuccessWithEmptyMessage);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\"}", jacksonSuccessWithEmptyMessage);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\"}", jacksonSuccessWithEmptyMessage);
     }
 
     // success with empty message and null data
     @Test
     void testSuccess_WithEmptyMessageAndNullData() throws Exception {
-        final UnifiedResponse<Void> successWithEmptyMessageAndNullData = UnifiedResponses.success("", null);
-        assertEquals("2000000", successWithEmptyMessageAndNullData.getCode());
+        final UnifiedResponse<Void> successWithEmptyMessageAndNullData = CustomUnifiedResponses.success("", null);
+        assertEquals("0000000", successWithEmptyMessageAndNullData.getCode());
         assertEquals("", successWithEmptyMessageAndNullData.getMessage());
         assertNull(successWithEmptyMessageAndNullData.getData());
 
         final String jacksonSuccessWithEmptyMessageAndNullData = jackson.writeValueAsString(successWithEmptyMessageAndNullData);
         log.info("jacksonSuccessWithEmptyMessageAndNullData: {}", jacksonSuccessWithEmptyMessageAndNullData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\"}", jacksonSuccessWithEmptyMessageAndNullData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\"}", jacksonSuccessWithEmptyMessageAndNullData);
 
-        assertEquals("{code: \"2000000\", message: \"\", data: null}", successWithEmptyMessageAndNullData.toString());
+        assertEquals("{code: \"0000000\", message: \"\", data: null}", successWithEmptyMessageAndNullData.toString());
     }
 
     // success with empty message and data
     @Test
     void testSuccess_WithEmptyMessageAndData() throws Exception {
         final User user = new User("zhouxy", "zhouxy@gmail.com");
-        final UnifiedResponse<User> successWithEmptyMessageAndData = UnifiedResponses.success("", user);
-        assertEquals("2000000", successWithEmptyMessageAndData.getCode());
+        final UnifiedResponse<User> successWithEmptyMessageAndData = CustomUnifiedResponses.success("", user);
+        assertEquals("0000000", successWithEmptyMessageAndData.getCode());
         assertEquals("", successWithEmptyMessageAndData.getMessage());
         assertEquals(user, successWithEmptyMessageAndData.getData());
 
         final String jacksonSuccessWithEmptyMessageAndData = jackson.writeValueAsString(successWithEmptyMessageAndData);
         log.info("jacksonSuccessWithEmptyMessageAndData: {}", jacksonSuccessWithEmptyMessageAndData);
-        assertEquals("{\"code\":\"2000000\",\"message\":\"\",\"data\":{\"username\":\"zhouxy\",\"email\":\"zhouxy@gmail.com\"}}", jacksonSuccessWithEmptyMessageAndData);
+        assertEquals("{\"code\":\"0000000\",\"message\":\"\",\"data\":{\"username\":\"zhouxy\",\"email\":\"zhouxy@gmail.com\"}}", jacksonSuccessWithEmptyMessageAndData);
     }
 
     @Test
     void testError_WithStatusAndMessage() throws Exception {
-        final UnifiedResponse<Void> errorWithStatusAndMessage = UnifiedResponses.error("108", "查询失败");
+        final UnifiedResponse<Void> errorWithStatusAndMessage = CustomUnifiedResponses.error("108", "查询失败");
         assertEquals("108", errorWithStatusAndMessage.getCode());
         assertEquals("查询失败", errorWithStatusAndMessage.getMessage());
         assertNull(errorWithStatusAndMessage.getData());
@@ -224,7 +226,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndMessage_AndNullData() throws Exception {
-        final UnifiedResponse<Void> errorWithStatusAndMessageAndNullData = UnifiedResponses.error("108", "查询失败", null);
+        final UnifiedResponse<Void> errorWithStatusAndMessageAndNullData = CustomUnifiedResponses.error("108", "查询失败", null);
         assertEquals("108", errorWithStatusAndMessageAndNullData.getCode());
         assertEquals("查询失败", errorWithStatusAndMessageAndNullData.getMessage());
         assertNull(errorWithStatusAndMessageAndNullData.getData());
@@ -241,7 +243,7 @@ class UnifiedResponseTests {
     @Test
     void testError_WithStatusAndMessage_AndData() throws Exception {
         final PageResult<User> emptyPageResult = PageResult.empty();
-        final UnifiedResponse<PageResult<User>> errorWithStatusAndMessageAndData = UnifiedResponses.error("108", "查询失败", emptyPageResult);
+        final UnifiedResponse<PageResult<User>> errorWithStatusAndMessageAndData = CustomUnifiedResponses.error("108", "查询失败", emptyPageResult);
         assertEquals("108", errorWithStatusAndMessageAndData.getCode());
         assertEquals("查询失败", errorWithStatusAndMessageAndData.getMessage());
         assertEquals(emptyPageResult, errorWithStatusAndMessageAndData.getData());
@@ -258,7 +260,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndNullMessage() throws Exception {
-        UnifiedResponse<Void> errorWithStatusAndNullMessage = UnifiedResponses.error("500", (String) null);
+        UnifiedResponse<Void> errorWithStatusAndNullMessage = CustomUnifiedResponses.error("500", (String) null);
         assertEquals("500", errorWithStatusAndNullMessage.getCode());
         assertEquals("", errorWithStatusAndNullMessage.getMessage());
         assertNull(errorWithStatusAndNullMessage.getData());
@@ -272,7 +274,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndNullMessage_AndNullData() throws Exception {
-        UnifiedResponse<Void> errorWithStatusAndNullMessageAndNullData = UnifiedResponses.error("500", (String) null, null);
+        UnifiedResponse<Void> errorWithStatusAndNullMessageAndNullData = CustomUnifiedResponses.error("500", (String) null, null);
 
         assertEquals("500", errorWithStatusAndNullMessageAndNullData.getCode());
         assertEquals("", errorWithStatusAndNullMessageAndNullData.getMessage());
@@ -288,7 +290,7 @@ class UnifiedResponseTests {
     @Test
     void testError_WithStatusAndNullMessage_AndData() throws Exception {
         PageResult<User> emptyPageResult = PageResult.empty();
-        UnifiedResponse<PageResult<User>> errorWithStatusAndNullMessageAndData = UnifiedResponses.error("500", (String) null, emptyPageResult);
+        UnifiedResponse<PageResult<User>> errorWithStatusAndNullMessageAndData = CustomUnifiedResponses.error("500", (String) null, emptyPageResult);
         assertEquals("500", errorWithStatusAndNullMessageAndData.getCode());
         assertEquals("", errorWithStatusAndNullMessageAndData.getMessage());
         assertEquals(emptyPageResult, errorWithStatusAndNullMessageAndData.getData());
@@ -300,7 +302,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndEmptyMessage() throws Exception {
-        UnifiedResponse<Void> errorWithStatusAndEmptyMessage = UnifiedResponses.error("500", "");
+        UnifiedResponse<Void> errorWithStatusAndEmptyMessage = CustomUnifiedResponses.error("500", "");
         assertEquals("500", errorWithStatusAndEmptyMessage.getCode());
         assertEquals("", errorWithStatusAndEmptyMessage.getMessage());
         assertNull(errorWithStatusAndEmptyMessage.getData());
@@ -314,7 +316,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndEmptyMessage_AndNullData() throws Exception {
-        UnifiedResponse<Void> errorWithStatusAndEmptyMessageAndNullData = UnifiedResponses.error("500", "", null);
+        UnifiedResponse<Void> errorWithStatusAndEmptyMessageAndNullData = CustomUnifiedResponses.error("500", "", null);
 
         assertEquals("500", errorWithStatusAndEmptyMessageAndNullData.getCode());
         assertEquals("", errorWithStatusAndEmptyMessageAndNullData.getMessage());
@@ -330,7 +332,7 @@ class UnifiedResponseTests {
     @Test
     void testError_WithStatusAndEmptyMessage_AndData() throws Exception {
         PageResult<User> emptyPageResult = PageResult.empty();
-        UnifiedResponse<PageResult<User>> errorWithStatusAndEmptyMessageAndData = UnifiedResponses.error("500", "", emptyPageResult);
+        UnifiedResponse<PageResult<User>> errorWithStatusAndEmptyMessageAndData = CustomUnifiedResponses.error("500", "", emptyPageResult);
         assertEquals("500", errorWithStatusAndEmptyMessageAndData.getCode());
         assertEquals("", errorWithStatusAndEmptyMessageAndData.getMessage());
         assertEquals(emptyPageResult, errorWithStatusAndEmptyMessageAndData.getData());
@@ -343,7 +345,7 @@ class UnifiedResponseTests {
     @Test
     void testError_WithStatusAndThrowable() throws Exception {
         final IllegalArgumentException e = new IllegalArgumentException("ID cannot be null");
-        final UnifiedResponse<Void> errorWithStatusThrowable = UnifiedResponses.error("500", e);
+        final UnifiedResponse<Void> errorWithStatusThrowable = CustomUnifiedResponses.error("500", e);
         assertEquals("500", errorWithStatusThrowable.getCode());
         assertEquals("ID cannot be null", errorWithStatusThrowable.getMessage());
         assertNull(errorWithStatusThrowable.getData());
@@ -353,7 +355,7 @@ class UnifiedResponseTests {
 
     @Test
     void testError_WithStatusAndNullThrowable() {
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error("500", (Throwable) null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error("500", (Throwable) null));
     }
 
     @Test
@@ -363,30 +365,30 @@ class UnifiedResponseTests {
         final User user = new User("zhouxy", "zhouxy@gmail.com");
 
         // message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败"));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "查询失败"));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "查询失败", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "查询失败", user));
 
         // empty message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, ""));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, ""));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "", user));
 
         // null message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, nullMessage));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, nullMessage));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "查询失败", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, "查询失败", user));
 
         // Throwable
         BizException bizException = new BizException("业务异常");
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, bizException));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, (Throwable) null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, bizException));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.error(nullStatus, (Throwable) null));
     }
 
 
     @Test
     void testOf_WithStatusAndMessage() throws Exception {
-        final UnifiedResponse<Void> ofWithStatusAndMessage = UnifiedResponses.of("108", "This is a message.");
+        final UnifiedResponse<Void> ofWithStatusAndMessage = CustomUnifiedResponses.of("108", "This is a message.");
         assertEquals("108", ofWithStatusAndMessage.getCode());
         assertEquals("This is a message.", ofWithStatusAndMessage.getMessage());
         assertNull(ofWithStatusAndMessage.getData());
@@ -403,7 +405,7 @@ class UnifiedResponseTests {
 
     @Test
     void testOf_WithStatusAndMessage_AndNullData() throws Exception {
-        final UnifiedResponse<Void> ofWithStatusAndMessageAndNullData = UnifiedResponses.of("108", "This is a message.", null);
+        final UnifiedResponse<Void> ofWithStatusAndMessageAndNullData = CustomUnifiedResponses.of("108", "This is a message.", null);
         assertEquals("108", ofWithStatusAndMessageAndNullData.getCode());
         assertEquals("This is a message.", ofWithStatusAndMessageAndNullData.getMessage());
         assertNull(ofWithStatusAndMessageAndNullData.getData());
@@ -422,7 +424,7 @@ class UnifiedResponseTests {
     void testOf_WithStatusAndMessage_AndData() throws Exception {
         final PageResult<User> emptyPageResult = PageResult.empty();
         final UnifiedResponse<PageResult<User>> ofWithStatusAndMessageAndData
-                = UnifiedResponses.of("108", "This is a message.", emptyPageResult);
+                = CustomUnifiedResponses.of("108", "This is a message.", emptyPageResult);
         assertEquals("{code: \"108\", message: \"This is a message.\", data: PageResult [total=0, content=[]]}",
                 ofWithStatusAndMessageAndData.toString());
         assertEquals("108", ofWithStatusAndMessageAndData.getCode());
@@ -438,7 +440,7 @@ class UnifiedResponseTests {
 
     @Test
     void testOf_WithStatusAndNullMessage() throws Exception {
-        UnifiedResponse<Void> ofWithStatusAndNullMessage = UnifiedResponses.of("108", (String) null);
+        UnifiedResponse<Void> ofWithStatusAndNullMessage = CustomUnifiedResponses.of("108", (String) null);
         assertEquals("108", ofWithStatusAndNullMessage.getCode());
         assertEquals("", ofWithStatusAndNullMessage.getMessage());
         assertNull(ofWithStatusAndNullMessage.getData());
@@ -452,7 +454,7 @@ class UnifiedResponseTests {
 
     @Test
     void testOf_WithStatusAndNullMessage_AndNullData() throws Exception {
-        UnifiedResponse<Void> ofWithStatusAndNullMessageAndNullData = UnifiedResponses.of("108", (String) null, null);
+        UnifiedResponse<Void> ofWithStatusAndNullMessageAndNullData = CustomUnifiedResponses.of("108", (String) null, null);
 
         assertEquals("108", ofWithStatusAndNullMessageAndNullData.getCode());
         assertEquals("", ofWithStatusAndNullMessageAndNullData.getMessage());
@@ -468,7 +470,7 @@ class UnifiedResponseTests {
     @Test
     void testOf_WithStatusAndNullMessage_AndData() throws Exception {
         PageResult<User> emptyPageResult = PageResult.empty();
-        UnifiedResponse<PageResult<User>> ofWithStatusAndNullMessageAndData = UnifiedResponses.of("108", (String) null, emptyPageResult);
+        UnifiedResponse<PageResult<User>> ofWithStatusAndNullMessageAndData = CustomUnifiedResponses.of("108", (String) null, emptyPageResult);
         assertEquals("108", ofWithStatusAndNullMessageAndData.getCode());
         assertEquals("", ofWithStatusAndNullMessageAndData.getMessage());
         assertEquals(emptyPageResult, ofWithStatusAndNullMessageAndData.getData());
@@ -480,7 +482,7 @@ class UnifiedResponseTests {
 
     @Test
     void testOf_WithStatusAndEmptyMessage() throws Exception {
-        UnifiedResponse<Void> ofWithStatusAndEmptyMessage = UnifiedResponses.of("108", "");
+        UnifiedResponse<Void> ofWithStatusAndEmptyMessage = CustomUnifiedResponses.of("108", "");
         assertEquals("108", ofWithStatusAndEmptyMessage.getCode());
         assertEquals("", ofWithStatusAndEmptyMessage.getMessage());
         assertNull(ofWithStatusAndEmptyMessage.getData());
@@ -494,7 +496,7 @@ class UnifiedResponseTests {
 
     @Test
     void testOf_WithStatusAndEmptyMessage_AndNullData() throws Exception {
-        UnifiedResponse<Void> ofWithStatusAndEmptyMessageAndNullData = UnifiedResponses.of("108", "", null);
+        UnifiedResponse<Void> ofWithStatusAndEmptyMessageAndNullData = CustomUnifiedResponses.of("108", "", null);
 
         assertEquals("108", ofWithStatusAndEmptyMessageAndNullData.getCode());
         assertEquals("", ofWithStatusAndEmptyMessageAndNullData.getMessage());
@@ -510,7 +512,7 @@ class UnifiedResponseTests {
     @Test
     void testOf_WithStatusAndEmptyMessage_AndData() throws Exception {
         PageResult<User> emptyPageResult = PageResult.empty();
-        UnifiedResponse<PageResult<User>> ofWithStatusAndEmptyMessageAndData = UnifiedResponses.of("108", "", emptyPageResult);
+        UnifiedResponse<PageResult<User>> ofWithStatusAndEmptyMessageAndData = CustomUnifiedResponses.of("108", "", emptyPageResult);
         assertEquals("108", ofWithStatusAndEmptyMessageAndData.getCode());
         assertEquals("", ofWithStatusAndEmptyMessageAndData.getMessage());
         assertEquals(emptyPageResult, ofWithStatusAndEmptyMessageAndData.getData());
@@ -527,19 +529,19 @@ class UnifiedResponseTests {
         final User user = new User("zhouxy", "zhouxy@gmail.com");
 
         // message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "查询失败"));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "查询失败", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "查询失败", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "查询失败"));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "查询失败", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "查询失败", user));
 
         // empty message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, ""));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, ""));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "", user));
 
         // null message
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, nullMessage));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "查询失败", null));
-        assertThrows(NullPointerException.class, () -> UnifiedResponses.of(nullStatus, "查询失败", user));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, nullMessage));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "查询失败", null));
+        assertThrows(NullPointerException.class, () -> CustomUnifiedResponses.of(nullStatus, "查询失败", user));
     }
 
     @Data
@@ -548,6 +550,28 @@ class UnifiedResponseTests {
     private static class User {
         private String username;
         private String email;
+    }
+
+    public static class CustomUnifiedResponses extends UnifiedResponses {
+
+        public static final String SUCCESS_CODE = "0000000";
+        public static final String DEFAULT_SUCCESS_MSG = "成功";
+
+        public static UnifiedResponse<Void> success() {
+            return of(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
+        }
+
+        public static UnifiedResponse<Void> success(@Nullable String message) {
+            return of(SUCCESS_CODE, message);
+        }
+
+        public static <T> UnifiedResponse<T> success(@Nullable String message, @Nullable T data) {
+            return of(SUCCESS_CODE, message, data);
+        }
+
+        private CustomUnifiedResponses() {
+            super();
+        }
     }
 
 }
