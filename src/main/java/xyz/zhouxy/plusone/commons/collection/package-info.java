@@ -15,11 +15,11 @@
  */
 
 /**
- * <h1>集合<h1>
+ * <h2>集合<h2>
  *
- * <h2>
+ * <h3>
  * 1. {@link CollectionTools}
- * </h2>
+ * </h3>
  * 集合工具类
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>

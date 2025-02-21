@@ -15,13 +15,15 @@
  */
 
 /**
- * <h1>常量<h1>
+ * <h2>常量<h2>
  *
- * <h2>
+ * <h3>
  * 1. 正则常量
- * </h2>
- * {@link RegexConsts} 包含常见正则表达式；{@link PatternConsts} 包含对应的 {@link java.util.regex.Pattern} 对象。
+ * </h3>
+ * {@link RegexConsts} 包含常见正则表达式；{@link PatternConsts} 包含对应的 {@link Pattern} 对象。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 package xyz.zhouxy.plusone.commons.constant;
+
+import java.util.regex.Pattern;

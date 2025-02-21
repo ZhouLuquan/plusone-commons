@@ -15,9 +15,9 @@
  */
 
 /**
- * <h1>异常<h1>
+ * <h2>异常<h2>
  *
- * <h2>1. {@link MultiTypesException} - 多类型异常</h2>
+ * <h3>1. {@link MultiTypesException} - 多类型异常</h3>
  * <p>
  * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
  * </p>
@@ -115,10 +115,10 @@
  * </pre>
  * </p>
  *
- * <h2>2. 业务异常</h2>
+ * <h3>2. 业务异常</h3>
  * 预设常见的业务异常。可继承 {@link BizException} 自定义业务异常。
  *
- * <h2>3. 系统异常</h2>
+ * <h3>3. 系统异常</h3>
  * 预设常见的系统异常。可继承 {@link SysException} 自定义系统异常。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>

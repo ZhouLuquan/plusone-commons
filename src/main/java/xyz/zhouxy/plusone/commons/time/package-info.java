@@ -15,11 +15,12 @@
  */
 
 /**
- * <h1>时间 API<h1>
+ * <h2>时间 API<h2>
  *
- * <h2>1. 季度 API</h2>
+ * <h3>1. 季度 API</h3>
  *
- * TODO javadoc
+ * 模仿 JDK 的 {@link java.time.Month} 和 {@link java.time.YearMonth}，
+ * 实现 {@link Quarter}，{@link YearQuarter}，对季度进行建模。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
