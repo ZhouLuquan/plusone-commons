@@ -15,9 +15,9 @@
  */
 
 /**
- * 基础组件
+ * <h2>基础组件</h2>
  *
- * <h2>Ref</h2>
+ * <h3>1. Ref</h3>
  * <p>
  * {@link Ref} 包装了一个值，表示对该值的应用。
  * </p>
@@ -61,11 +61,13 @@
  * System.out.println(result); // Output: Return string
  * </pre>
  *
- * <h2>IWithCode</h2>
+ * <h3>2. IWithCode</h3>
  * <p>
- * 类似于枚举之类的类，通常需要设置固定的码值表示对应的含义。
+ * 类似于枚举这样的类型，通常需要设置固定的码值表示对应的含义。
  * 可实现 {@link IWithCode}、{@link IWithIntCode}、{@link IWithLongCode}，便于在需要的地方对这些接口的实现进行处理。
  * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 @CheckReturnValue
 @ParametersAreNonnullByDefault

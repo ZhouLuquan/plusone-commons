@@ -15,16 +15,16 @@
  */
 
 /**
- * 函数式编程
+ * <h2>函数式编程</h2>
  *
- * <h2>PredicateTools</h2>
+ * <h3>1. PredicateTools</h3>
  * <p>
  * {@link PredicateTools} 用于 {@link java.util.function.Predicate} 的相关操作。
  * </p>
  *
- * <h2>Functional interfaces</h2>
+ * <h3>2. Functional interfaces</h3>
  * <p>
- * 补充一些 JDK 没有，而项目中可能用得上的函数式接口：
+ * 补充可能用得上的函数式接口：
  * <pre>
  * | Group         | FunctionalInterface  | method                           |
  * | ------------- | -------------------- | -------------------------------- |
@@ -40,5 +40,7 @@
  * | Optional      | ToOptionalFunction   | Optional&lt;R&gt; apply(T)             |
  * </pre>
  * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 package xyz.zhouxy.plusone.commons.function;
