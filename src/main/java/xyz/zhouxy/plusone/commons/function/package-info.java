@@ -40,5 +40,7 @@
  * | Optional      | ToOptionalFunction   | Optional&lt;R&gt; apply(T)             |
  * </pre>
  * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 package xyz.zhouxy.plusone.commons.function;
