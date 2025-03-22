@@ -44,7 +44,9 @@ import xyz.zhouxy.plusone.commons.time.YearQuarter;
  */
 public class DateTimeTools {
 
+    // ================================
     // #region - toString
+    // ================================
 
     public static String toYearString(int year) {
         return Integer.toString(YEAR.checkValidIntValue(year));
@@ -70,9 +72,13 @@ public class DateTimeTools {
         return String.format("%02d", month.getValue());
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toDate
+    // ================================
 
     /**
      * 将时间戳转换为 {@link Date} 对象
@@ -137,9 +143,13 @@ public class DateTimeTools {
         return Date.from(ZonedDateTime.of(localDate, localTime, zone).toInstant());
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toInstant
+    // ================================
 
     /**
      * 将时间戳转换为 {@link Instant} 对象
@@ -192,9 +202,13 @@ public class DateTimeTools {
         return ZonedDateTime.of(localDateTime, zone).toInstant();
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toZonedDateTime
+    // ================================
 
     /**
      * 获取时间戳在指定时区的地区时间。
@@ -285,9 +299,13 @@ public class DateTimeTools {
         return ZonedDateTime.of(localDateTime, zone);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toLocalDateTime
+    // ================================
 
     /**
      * 获取时间戳在指定时区的地区时间。
@@ -355,11 +373,13 @@ public class DateTimeTools {
         return LocalDateTime.ofInstant(zonedDateTime.toInstant(), zone);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
-    // ====================
-
+    // ================================
     // #region - toJodaInstant
+    // ================================
 
     /**
      * 将 {@link java.time.Instant} 转换为 {@link org.joda.time.Instant}
@@ -392,9 +412,13 @@ public class DateTimeTools {
         return toJodaInstant(java.time.ZonedDateTime.of(localDateTime, zone));
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toJavaInstant
+    // ================================
 
     /**
      * 将 {@link org.joda.time.Instant} 对象转换为 {@link java.time.Instant} 对象
@@ -432,9 +456,13 @@ public class DateTimeTools {
         return toJavaInstant(localDateTime.toDateTime(zone));
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toJodaDateTime
+    // ================================
 
     /**
      * 将 Java 中表示日期时间的 {@link java.time.ZonedDateTime} 对象
@@ -479,9 +507,13 @@ public class DateTimeTools {
         return toJodaInstant(instant).toDateTime(dateTimeZone);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toZonedDateTime
+    // ================================
 
     /**
      * 将 joda-time 中带时区的日期时间，转换为 java.time 中带时区的日期时间
@@ -511,7 +543,7 @@ public class DateTimeTools {
     }
 
     /**
-     * 获取 joda-time 中的 {@link org.joda.time.Instant} 在指定时区的时间，用 Java 8
+     * 获取 joda-time 中的 {@link org.joda.time.Instant} 在指定时区的时间，用 Java 8+ 的
      * {@link java.time.ZonedDateTime} 表示
      *
      * @param instant      joda-time 中的时间戳
@@ -525,9 +557,13 @@ public class DateTimeTools {
         return toJavaInstant(instant).atZone(zone);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toJodaLocalDateTime
+    // ================================
 
     /**
      * 将 {@link java.time.LocalDateTime} 转换为 {@link org.joda.time.LocalDateTime}
@@ -541,9 +577,13 @@ public class DateTimeTools {
         return toJodaInstant(localDateTime, javaZone).toDateTime(jodaZone).toLocalDateTime();
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - toJavaLocalDateTime
+    // ================================
 
     /**
      * 将 {@link org.joda.time.LocalDateTime} 转换为 {@link java.time.LocalDateTime}
@@ -557,9 +597,13 @@ public class DateTimeTools {
         return toJavaInstant(localDateTime, jodaZone).atZone(javaZone).toLocalDateTime();
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - ZoneId <--> DateTimeZone
+    // ================================
 
     /**
      * 转换 Java API 和 joda-time API 表示时区的对象
@@ -581,9 +625,13 @@ public class DateTimeTools {
         return org.joda.time.DateTimeZone.forID(zone.getId());
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - YearQuarter & Quarter
+    // ================================
 
     /**
      * 获取指定日期所在季度
@@ -646,10 +694,12 @@ public class DateTimeTools {
         return YearQuarter.of(date);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
     // ================================
-    // #region - others
+    // #region - start & end
     // ================================
 
     public static LocalDate startDateOfYear(int year) {
@@ -667,6 +717,14 @@ public class DateTimeTools {
     public static ZonedDateTime startOfNextDate(LocalDate date, ZoneId zone) {
         return date.plusDays(1L).atStartOfDay(zone);
     }
+
+    // ================================
+    // #endregion - start & end
+    // ================================
+
+    // ================================
+    // #region - others
+    // ================================
 
     public static Range<LocalDateTime> toDateTimeRange(LocalDate date) {
         return Range.closedOpen(date.atStartOfDay(), startOfNextDate(date));

@@ -20,6 +20,15 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
+/**
+ * StringTools
+ *
+ * <p>
+ * 字符串工具类。
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ */
 public class StringTools {
 
     public static final String EMPTY_STRING = "";
