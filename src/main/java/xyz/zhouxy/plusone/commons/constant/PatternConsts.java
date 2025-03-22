@@ -61,7 +61,7 @@ public final class PatternConsts {
      *
      * @see RegexConsts#EMAIL
      */
-    public static final Pattern EMAIL = Pattern.compile(RegexConsts.EMAIL);
+    public static final Pattern EMAIL = Pattern.compile(RegexConsts.EMAIL, Pattern.CASE_INSENSITIVE);
 
     /**
      * 中国大陆手机号
