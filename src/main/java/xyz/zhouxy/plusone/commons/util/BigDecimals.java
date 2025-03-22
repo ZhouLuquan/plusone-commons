@@ -46,7 +46,9 @@ public class BigDecimals {
     }
 
     public static boolean ge(BigDecimal a, BigDecimal b) {
-        return gt(a, b) || equalsValue(a, b);
+        AssertTools.checkNotNull(a, "Parameter could not be null.");
+        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        return (a == b) || (a.compareTo(b) >= 0);
     }
 
     public static boolean lt(BigDecimal a, BigDecimal b) {
@@ -56,7 +58,9 @@ public class BigDecimals {
     }
 
     public static boolean le(BigDecimal a, BigDecimal b) {
-        return lt(a, b) || equalsValue(a, b);
+        AssertTools.checkNotNull(a, "Parameter could not be null.");
+        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        return (a == b) || (a.compareTo(b) <= 0);
     }
 
     public static BigDecimal sum(final BigDecimal... numbers) {
@@ -79,7 +83,7 @@ public class BigDecimals {
     }
 
     @StaticFactoryMethod(BigDecimal.class)
-    public static BigDecimal of(final String val) {
+    public static BigDecimal of(@Nullable final String val) {
         return (StringTools.isNotBlank(val)) ? new BigDecimal(val) : BigDecimal.ZERO;
     }
 

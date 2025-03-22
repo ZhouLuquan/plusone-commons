@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * {@link OptionalTools} 单元测试
  */
+@SuppressWarnings("null")
 public
 class OptionalToolsTests {
 

@@ -27,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.google.errorprone.annotations.Immutable;
 
@@ -52,7 +52,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     /** 季度结束日期 */
     private final LocalDate lastDate;
 
-    private YearQuarter(int year, @Nonnull Quarter quarter) {
+    private YearQuarter(int year, Quarter quarter) {
         this.year = year;
         this.quarter = quarter;
         this.firstDate = quarter.firstMonthDay().atYear(year);
@@ -249,7 +249,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -264,6 +264,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     // #region - compare
 
+    @SuppressWarnings("null")
     @Override
     public int compareTo(YearQuarter other) {
         int cmp = (this.year - other.year);

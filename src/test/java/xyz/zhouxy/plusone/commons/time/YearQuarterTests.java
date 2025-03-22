@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
+@SuppressWarnings("null")
 public class YearQuarterTests {
 
     // ================================
@@ -588,7 +589,7 @@ public class YearQuarterTests {
             Year.MIN_VALUE,
             Year.MAX_VALUE,
     })
-    void of_ValidYearMonth_CreatesYearMnoth_Q1(int year) {
+    void of_ValidYearMonth_CreatesYearMonth_Q1(int year) {
         {
             YearMonth yearMonth = YearMonth.of(year, 1);
             YearQuarter yearQuarter = YearQuarter.of(yearMonth);
@@ -619,7 +620,7 @@ public class YearQuarterTests {
             Year.MIN_VALUE,
             Year.MAX_VALUE,
     })
-    void of_ValidYearMonth_CreatesYearMnoth_Q2(int year) {
+    void of_ValidYearMonth_CreatesYearMonth_Q2(int year) {
         {
             YearMonth yearMonth = YearMonth.of(year, 4);
             YearQuarter yearQuarter = YearQuarter.of(yearMonth);
@@ -650,7 +651,7 @@ public class YearQuarterTests {
             Year.MIN_VALUE,
             Year.MAX_VALUE,
     })
-    void of_ValidYearMonth_CreatesYearMnoth_Q3(int year) {
+    void of_ValidYearMonth_CreatesYearMonth_Q3(int year) {
         {
             YearMonth yearMonth = YearMonth.of(year, 7);
             YearQuarter yearQuarter = YearQuarter.of(yearMonth);
@@ -681,7 +682,7 @@ public class YearQuarterTests {
             Year.MIN_VALUE,
             Year.MAX_VALUE,
     })
-    void of_ValidYearMonth_CreatesYearMnoth_Q4(int year) {
+    void of_ValidYearMonth_CreatesYearMonth_Q4(int year) {
         {
             YearMonth yearMonth = YearMonth.of(year, 10);
             YearQuarter yearQuarter = YearQuarter.of(yearMonth);
@@ -712,7 +713,7 @@ public class YearQuarterTests {
             Year.MIN_VALUE,
             Year.MAX_VALUE,
     })
-    void of_NullYearMonth_CreatesYearMnoth_Q4(int year) {
+    void of_NullYearMonth_CreatesYearMonth_Q4(int year) {
         YearMonth yearMonth = null;
         assertThrows(NullPointerException.class,
                 () -> YearQuarter.of(yearMonth));

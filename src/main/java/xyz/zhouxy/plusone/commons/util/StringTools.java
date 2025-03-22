@@ -18,14 +18,13 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Objects;
 
-import com.google.common.annotations.Beta;
+import javax.annotation.Nullable;
 
-@Beta
 public class StringTools {
 
     public static final String EMPTY_STRING = "";
 
-    public static boolean isNotBlank(final String cs) {
+    public static boolean isNotBlank(@Nullable final String cs) {
         if (cs == null || cs.isEmpty()) {
             return false;
         }
@@ -41,7 +40,7 @@ public class StringTools {
         return repeat(str, times, Integer.MAX_VALUE);
     }
 
-    public static String repeat(String str, int times, int maxLength) {
+    public static String repeat(final String str, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(str));
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
     }

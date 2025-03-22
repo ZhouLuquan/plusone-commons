@@ -28,6 +28,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("null")
 public
 class StringToolsTests {
 

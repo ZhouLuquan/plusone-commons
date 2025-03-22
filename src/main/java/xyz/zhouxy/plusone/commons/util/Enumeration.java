@@ -24,6 +24,8 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 
 /**
@@ -54,6 +56,7 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
         return name;
     }
 
+    @SuppressWarnings("null")
     @Override
     public final int compareTo(final T o) {
         return Integer.compare(this.id, o.id);
@@ -65,7 +68,7 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public final boolean equals(@Nullable final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

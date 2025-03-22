@@ -18,7 +18,6 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -42,7 +41,7 @@ public final class EnumTools {
      * @deprecated 不推荐使用枚举的 ordinal。
      */
     @Deprecated
-    private static <E extends Enum<?>> E valueOfInternal(@Nonnull Class<E> enumType, int ordinal) { // NOSONAR 该方法弃用，但不删掉
+    private static <E extends Enum<?>> E valueOfInternal(Class<E> enumType, int ordinal) { // NOSONAR 该方法弃用，但不删掉
         E[] values = enumType.getEnumConstants();
         AssertTools.checkCondition((ordinal >= 0 && ordinal < values.length),
                 () -> new EnumConstantNotPresentException(enumType, Integer.toString(ordinal)));
@@ -76,7 +75,7 @@ public final class EnumTools {
      */
     @Deprecated
     public static <E extends Enum<?>> E valueOf(Class<E> enumType, // NOSONAR 该方法弃用，但不删掉
-            @Nullable Integer ordinal, E defaultValue) {
+            @Nullable Integer ordinal, @Nullable E defaultValue) {
         AssertTools.checkNotNull(enumType);
         return null == ordinal ? defaultValue : valueOfInternal(enumType, ordinal);
     }
@@ -190,7 +189,7 @@ public final class EnumTools {
      */
     @Nullable
     private static <E extends Enum<?>> Integer checkOrdinalOrDefaultInternal(
-            @Nonnull Class<E> enumType,
+            Class<E> enumType,
             @Nullable Integer ordinal,
             @Nullable Integer defaultValue) {
         return ordinal != null
@@ -200,9 +199,9 @@ public final class EnumTools {
 
     @Nullable
     private static <E extends Enum<?>> Integer checkOrdinalOrGetInternal(
-            @Nonnull Class<E> enumType,
+            Class<E> enumType,
             @Nullable Integer ordinal,
-            @Nonnull Supplier<Integer> defaultValueSupplier) {
+            Supplier<Integer> defaultValueSupplier) {
         return ordinal != null
                 ? checkOrdinal(enumType, ordinal)
                 : defaultValueSupplier.get();

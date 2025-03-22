@@ -272,7 +272,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     @Nonnull
-    private static Pattern cacheAndGetPatternInternal(@Nonnull final String pattern) {
+    private static Pattern cacheAndGetPatternInternal(final String pattern) {
         if (PATTERN_CACHE.size() < MAX_CACHE_SIZE) {
             return PATTERN_CACHE.computeIfAbsent(pattern, Pattern::compile);
         }
@@ -290,7 +290,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     @Nonnull
-    private static Pattern getPatternInternal(@Nonnull final String pattern) {
+    private static Pattern getPatternInternal(final String pattern) {
         Pattern result = PATTERN_CACHE.get(pattern);
         if (result == null) {
             result = Pattern.compile(pattern);
@@ -305,7 +305,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     @Nonnull
-    private static Pattern[] cacheAndGetPatternsInternal(@Nonnull final String[] patterns) {
+    private static Pattern[] cacheAndGetPatternsInternal(final String[] patterns) {
         return Arrays.stream(patterns)
                 .map(RegexTools::cacheAndGetPatternInternal)
                 .toArray(Pattern[]::new);
@@ -318,7 +318,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     @Nonnull
-    private static Pattern[] getPatternsInternal(@Nonnull final String[] patterns) {
+    private static Pattern[] getPatternsInternal(final String[] patterns) {
         return Arrays.stream(patterns)
                 .map(RegexTools::getPatternInternal)
                 .toArray(Pattern[]::new);
@@ -331,17 +331,17 @@ public final class RegexTools {
      * @param pattern 正则
      * @return 判断结果
      */
-    private static boolean matchesInternal(@Nullable final CharSequence input, @Nonnull final Pattern pattern) {
+    private static boolean matchesInternal(@Nullable final CharSequence input, final Pattern pattern) {
         return input != null && pattern.matcher(input).matches();
     }
 
-    private static boolean matchesOneInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
+    private static boolean matchesOneInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
         return input != null
                 && Arrays.stream(patterns)
                         .anyMatch(pattern -> pattern.matcher(input).matches());
     }
 
-    private static boolean matchesAllInternal(@Nullable final CharSequence input, @Nonnull final Pattern[] patterns) {
+    private static boolean matchesAllInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
         return input != null
                 && Arrays.stream(patterns)
                         .allMatch(pattern -> pattern.matcher(input).matches());

@@ -22,8 +22,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.Nonnull;
-
 /**
  * 随机工具类
  * <p>
@@ -68,20 +66,20 @@ public final class RandomTools {
      * @param length           字符串长度
      * @return 随机字符串
      */
-    public static String randomStr(@Nonnull Random random, @Nonnull char[] sourceCharacters, int length) {
+    public static String randomStr(Random random, char[] sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(random), "Random cannot be null.");
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
-    public static String randomStr(@Nonnull char[] sourceCharacters, int length) {
+    public static String randomStr(char[] sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
-    public static String secureRandomStr(@Nonnull char[] sourceCharacters, int length) {
+    public static String secureRandomStr(char[] sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
@@ -97,20 +95,20 @@ public final class RandomTools {
      * @param length           字符串长度
      * @return 随机字符串
      */
-    public static String randomStr(@Nonnull Random random, @Nonnull String sourceCharacters, int length) {
+    public static String randomStr(Random random, String sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(random), "Random cannot be null.");
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
-    public static String randomStr(@Nonnull String sourceCharacters, int length) {
+    public static String randomStr(String sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
-    public static String secureRandomStr(@Nonnull String sourceCharacters, int length) {
+    public static String secureRandomStr(String sourceCharacters, int length) {
         AssertTools.checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
         AssertTools.checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
@@ -126,7 +124,7 @@ public final class RandomTools {
      * @param length           字符串长度
      * @return 随机字符串
      */
-    private static String randomStrInternal(@Nonnull Random random, @Nonnull char[] sourceCharacters, int length) {
+    private static String randomStrInternal(Random random, char[] sourceCharacters, int length) {
         if (length == 0) {
             return StringTools.EMPTY_STRING;
         }
@@ -147,7 +145,7 @@ public final class RandomTools {
      * @param length           字符串长度
      * @return 随机字符串
      */
-    private static String randomStrInternal(@Nonnull Random random, @Nonnull String sourceCharacters, int length) {
+    private static String randomStrInternal(Random random, String sourceCharacters, int length) {
         if (length == 0) {
             return StringTools.EMPTY_STRING;
         }

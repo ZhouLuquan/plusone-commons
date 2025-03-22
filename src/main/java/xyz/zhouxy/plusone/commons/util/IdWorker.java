@@ -22,6 +22,8 @@ import java.util.Enumeration;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.annotation.Nullable;
+
 import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
 
 /**
@@ -115,7 +117,7 @@ public class IdWorker {
      * init workerId
      * @param workerId if null, then auto generate one
      */
-    private void initWorkerId(Long workerId) {
+    private void initWorkerId(@Nullable Long workerId) {
         if (workerId == null) {
             workerId = generateWorkerId();
         }

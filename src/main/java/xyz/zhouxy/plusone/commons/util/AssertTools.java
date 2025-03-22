@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
 import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
@@ -55,12 +55,12 @@ public class AssertTools {
     }
 
     /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
-    public static void checkArgument(boolean condition, String errMsg) {
+    public static void checkArgument(boolean condition, @Nullable String errMsg) {
         checkCondition(condition, () -> new IllegalArgumentException(errMsg));
     }
 
     /** Throw {@link IllegalArgumentException} if the {@code condition} is false. */
-    public static void checkArgument(boolean condition, @Nonnull Supplier<String> messageSupplier) {
+    public static void checkArgument(boolean condition, Supplier<String> messageSupplier) {
         checkCondition(condition, () -> new IllegalArgumentException(messageSupplier.get()));
     }
 
@@ -83,12 +83,12 @@ public class AssertTools {
     }
 
     /** Throw {@link IllegalStateException} if the {@code condition} is false. */
-    public static void checkState(boolean condition, String errMsg) {
+    public static void checkState(boolean condition, @Nullable String errMsg) {
         checkCondition(condition, () -> new IllegalStateException(errMsg));
     }
 
     /** Throw {@link IllegalStateException} if the {@code condition} is false. */
-    public static void checkState(boolean condition, @Nonnull Supplier<String> messageSupplier) {
+    public static void checkState(boolean condition, Supplier<String> messageSupplier) {
         checkCondition(condition, () -> new IllegalStateException(messageSupplier.get()));
     }
 
@@ -106,22 +106,22 @@ public class AssertTools {
     // ================================
 
     /** Throw {@link NullPointerException} if the {@code obj} is null. */
-    public static <T> void checkNotNull(T obj) {
+    public static <T> void checkNotNull(@Nullable T obj) {
         checkCondition(obj != null, NullPointerException::new);
     }
 
     /** Throw {@link NullPointerException} if the {@code obj} is null. */
-    public static <T> void checkNotNull(T obj, String errMsg) {
+    public static <T> void checkNotNull(@Nullable T obj, String errMsg) {
         checkCondition(obj != null, () -> new NullPointerException(errMsg));
     }
 
     /** Throw {@link NullPointerException} if the {@code obj} is null. */
-    public static <T> void checkNotNull(T obj, @Nonnull Supplier<String> messageSupplier) {
+    public static <T> void checkNotNull(@Nullable T obj, Supplier<String> messageSupplier) {
         checkCondition(obj != null, () -> new NullPointerException(messageSupplier.get()));
     }
 
     /** Throw {@link NullPointerException} if the {@code obj} is null. */
-    public static <T> void checkNotNull(T obj, String format, Object... args) {
+    public static <T> void checkNotNull(@Nullable T obj, String format, Object... args) {
         checkCondition(obj != null, () -> new NullPointerException(String.format(format, args)));
     }
 
@@ -134,56 +134,56 @@ public class AssertTools {
     // ================================
 
     /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
-    public static <T> T checkExists(T obj)
+    public static <T> T checkExists(@Nullable T obj)
             throws DataNotExistsException {
         checkCondition(Objects.nonNull(obj), DataNotExistsException::new);
         return obj;
     }
 
     /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
-    public static <T> T checkExists(T obj, String message)
+    public static <T> T checkExists(@Nullable T obj, String message)
             throws DataNotExistsException {
         checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(message));
         return obj;
     }
 
     /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
-    public static <T> T checkExists(T obj, @Nonnull Supplier<String> messageSupplier)
+    public static <T> T checkExists(@Nullable T obj, Supplier<String> messageSupplier)
             throws DataNotExistsException {
         checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(messageSupplier.get()));
         return obj;
     }
 
     /** Throw {@link DataNotExistsException} if the {@code obj} is null. */
-    public static <T> T checkExists(T obj, String format, Object... args)
+    public static <T> T checkExists(@Nullable T obj, String format, Object... args)
             throws DataNotExistsException {
         checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(String.format(format, args)));
         return obj;
     }
 
     /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
-    public static <T> T checkExists(@Nonnull Optional<T> optional)
+    public static <T> T checkExists(Optional<T> optional)
             throws DataNotExistsException {
         checkCondition(optional.isPresent(), DataNotExistsException::new);
         return optional.get();
     }
 
     /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
-    public static <T> T checkExists(@Nonnull Optional<T> optional, String message)
+    public static <T> T checkExists(Optional<T> optional, String message)
             throws DataNotExistsException {
         checkCondition(optional.isPresent(), () -> new DataNotExistsException(message));
         return optional.get();
     }
 
     /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
-    public static <T> T checkExists(@Nonnull Optional<T> optional, @Nonnull Supplier<String> messageSupplier)
+    public static <T> T checkExists(Optional<T> optional, Supplier<String> messageSupplier)
             throws DataNotExistsException {
         checkCondition(optional.isPresent(), () -> new DataNotExistsException(messageSupplier.get()));
         return optional.get();
     }
 
     /** Throw {@link DataNotExistsException} if the {@code optional} is present. */
-    public static <T> T checkExists(@Nonnull Optional<T> optional, String format, Object... args)
+    public static <T> T checkExists(Optional<T> optional, String format, Object... args)
             throws DataNotExistsException {
         checkCondition(optional.isPresent(), () -> new DataNotExistsException(String.format(format, args)));
         return optional.get();
@@ -202,17 +202,18 @@ public class AssertTools {
                 "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
     }
 
-    public static void checkAffectedRows(int expectedValue, int result, String message) {
+    public static void checkAffectedRows(int expectedValue, int result, @Nullable String message) {
         checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
     }
 
     public static void checkAffectedRows(int expectedValue, int result,
-            @Nonnull Supplier<String> messageSupplier) {
+            Supplier<String> messageSupplier) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(messageSupplier.get()));
     }
 
-    public static void checkAffectedRows(int expectedValue, int result, String format, Object... args) {
+    public static void checkAffectedRows(int expectedValue, int result,
+            String format, Object... args) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(String.format(format, args)));
     }
@@ -222,17 +223,18 @@ public class AssertTools {
                 "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
     }
 
-    public static void checkAffectedRows(long expectedValue, long result, String message) {
+    public static void checkAffectedRows(long expectedValue, long result, @Nullable String message) {
         checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
     }
 
     public static void checkAffectedRows(long expectedValue, long result,
-            @Nonnull Supplier<String> messageSupplier) {
+            Supplier<String> messageSupplier) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(messageSupplier.get()));
     }
 
-    public static void checkAffectedRows(long expectedValue, long result, String format, Object... args) {
+    public static void checkAffectedRows(long expectedValue, long result,
+            String format, Object... args) {
         checkCondition(expectedValue == result,
                 () -> new DataOperationResultException(String.format(format, args)));
     }
@@ -246,7 +248,7 @@ public class AssertTools {
         checkAffectedRows(1, result, message);
     }
 
-    public static void checkAffectedOneRow(int result, @Nonnull Supplier<String> messageSupplier) {
+    public static void checkAffectedOneRow(int result, Supplier<String> messageSupplier) {
         checkAffectedRows(1, result, messageSupplier);
     }
 
@@ -263,11 +265,12 @@ public class AssertTools {
         checkAffectedRows(1L, result, message);
     }
 
-    public static void checkAffectedOneRow(long result, @Nonnull Supplier<String> messageSupplier) {
+    public static void checkAffectedOneRow(long result, Supplier<String> messageSupplier) {
         checkAffectedRows(1L, result, messageSupplier);
     }
 
-    public static void checkAffectedOneRow(long result, String format, Object... args) {
+    public static void checkAffectedOneRow(long result,
+            String format, Object... args) {
         checkAffectedRows(1L, result, format, args);
     }
 
@@ -279,7 +282,7 @@ public class AssertTools {
     // #region - Condition
     // ================================
 
-    public static <T extends Exception> void checkCondition(boolean condition, @Nonnull Supplier<T> e)
+    public static <T extends Exception> void checkCondition(boolean condition, Supplier<T> e)
             throws T {
         if (!condition) {
             throw e.get();

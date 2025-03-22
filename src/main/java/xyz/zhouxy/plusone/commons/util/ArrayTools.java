@@ -26,7 +26,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -259,7 +258,7 @@ public class ArrayTools {
      *
      * @throws IllegalArgumentException 当参数为空时抛出
      */
-    public static <T> boolean isAllElementsNotNull(@Nonnull final T[] arr) {
+    public static <T> boolean isAllElementsNotNull(final T[] arr) {
         AssertTools.checkArgument(arr != null, "The array cannot be null.");
         return Arrays.stream(arr).allMatch(Objects::nonNull);
     }
@@ -622,15 +621,15 @@ public class ArrayTools {
 
     // fill - char
 
-    public static void fill(char[] a, char[] values) {
+    public static void fill(char[] a, @Nullable char[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(char[] a, String values) {
+    public static void fill(char[] a, @Nullable String values) {
         fill(a, 0, a.length, values != null ? values.toCharArray() : EMPTY_CHAR_ARRAY);
     }
 
-    public static void fill(char[] a, int fromIndex, int toIndex, char[] values) {
+    public static void fill(char[] a, int fromIndex, int toIndex, @Nullable char[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -655,11 +654,11 @@ public class ArrayTools {
 
     // fill - byte
 
-    public static void fill(byte[] a, byte[] values) {
+    public static void fill(byte[] a, @Nullable byte[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(byte[] a, int fromIndex, int toIndex, byte[] values) {
+    public static void fill(byte[] a, int fromIndex, int toIndex, @Nullable byte[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -684,11 +683,11 @@ public class ArrayTools {
 
     // fill - short
 
-    public static void fill(short[] a, short[] values) {
+    public static void fill(short[] a, @Nullable short[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(short[] a, int fromIndex, int toIndex, short[] values) {
+    public static void fill(short[] a, int fromIndex, int toIndex, @Nullable short[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -713,11 +712,11 @@ public class ArrayTools {
 
     // fill - int
 
-    public static void fill(int[] a, int[] values) {
+    public static void fill(int[] a, @Nullable int[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(int[] a, int fromIndex, int toIndex, int[] values) {
+    public static void fill(int[] a, int fromIndex, int toIndex, @Nullable int[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -742,11 +741,11 @@ public class ArrayTools {
 
     // fill - long
 
-    public static void fill(long[] a, long[] values) {
+    public static void fill(long[] a, @Nullable long[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(long[] a, int fromIndex, int toIndex, long[] values) {
+    public static void fill(long[] a, int fromIndex, int toIndex, @Nullable long[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -771,11 +770,11 @@ public class ArrayTools {
 
     // fill - float
 
-    public static void fill(float[] a, float[] values) {
+    public static void fill(float[] a, @Nullable float[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(float[] a, int fromIndex, int toIndex, float[] values) {
+    public static void fill(float[] a, int fromIndex, int toIndex, @Nullable float[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -800,11 +799,11 @@ public class ArrayTools {
 
     // fill - double
 
-    public static void fill(double[] a, double[] values) {
+    public static void fill(double[] a, @Nullable double[] values) {
         fill(a, 0, a.length, values);
     }
 
-    public static void fill(double[] a, int fromIndex, int toIndex, double[] values) {
+    public static void fill(double[] a, int fromIndex, int toIndex, @Nullable double[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -829,15 +828,15 @@ public class ArrayTools {
 
     // fill - T
 
-    public static <T> void fill(@Nonnull T[] a, T[] values) {
+    public static <T> void fill(T[] a, @Nullable T[] values) {
         fillInternal(a, 0, a.length, values);
     }
 
-    public static <T> void fill(@Nonnull T[] a, int fromIndex, int toIndex, T[] values) {
+    public static <T> void fill(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         fillInternal(a, fromIndex, toIndex, values);
     }
 
-    private static <T> void fillInternal(@Nonnull T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
+    private static <T> void fillInternal(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
@@ -864,9 +863,9 @@ public class ArrayTools {
 
     // #region - indexOf
 
-    public static <T> int indexOfWithPredicate(T[] arr, Predicate<? super T> predicate) {
+    public static <T> int indexOfWithPredicate(@Nullable T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
-        if (isNullOrEmpty(arr)) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -877,12 +876,12 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static <T> int indexOf(T[] arr, T obj) {
+    public static <T> int indexOf(@Nullable T[] arr, @Nullable T obj) {
         return indexOfWithPredicate(arr, item -> Objects.equals(item, obj));
     }
 
-    public static int indexOf(char[] arr, char value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable char[] arr, char value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -893,8 +892,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(byte[] arr, byte value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable byte[] arr, byte value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -905,8 +904,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(short[] arr, short value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable short[] arr, short value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -917,8 +916,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(int[] arr, int value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable int[] arr, int value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -929,8 +928,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(long[] arr, long value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable long[] arr, long value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -941,8 +940,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(float[] arr, float value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable float[] arr, float value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -953,8 +952,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int indexOf(double[] arr, double value) {
-        if (isNullOrEmpty(arr)) {
+    public static int indexOf(@Nullable double[] arr, double value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -969,9 +968,9 @@ public class ArrayTools {
 
     // #region - lastIndexOf
 
-    public static <T> int lastIndexOfWithPredicate(T[] arr, @Nonnull Predicate<? super T> predicate) {
+    public static <T> int lastIndexOfWithPredicate(@Nullable T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
-        if (isNullOrEmpty(arr)) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -986,8 +985,8 @@ public class ArrayTools {
         return lastIndexOfWithPredicate(arr, item -> Objects.equals(item, obj));
     }
 
-    public static int lastIndexOf(char[] arr, char value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable char[] arr, char value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -998,8 +997,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(byte[] arr, byte value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable byte[] arr, byte value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1010,8 +1009,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(short[] arr, short value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable short[] arr, short value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1022,8 +1021,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(int[] arr, int value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable int[] arr, int value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1034,8 +1033,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(long[] arr, long value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable long[] arr, long value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1046,8 +1045,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(float[] arr, float value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable float[] arr, float value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1058,8 +1057,8 @@ public class ArrayTools {
         return NOT_FOUND_INDEX;
     }
 
-    public static int lastIndexOf(double[] arr, double value) {
-        if (isNullOrEmpty(arr)) {
+    public static int lastIndexOf(@Nullable double[] arr, double value) {
+        if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -1074,39 +1073,39 @@ public class ArrayTools {
 
     // #region - contains
 
-    public static <T> boolean contains(T[] arr, T obj) {
+    public static <T> boolean contains(@Nullable T[] arr, @Nullable T obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(char[] arr, char obj) {
+    public static boolean contains(@Nullable char[] arr, char obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(byte[] arr, byte obj) {
+    public static boolean contains(@Nullable byte[] arr, byte obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(short[] arr, short obj) {
+    public static boolean contains(@Nullable short[] arr, short obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(int[] arr, int obj) {
+    public static boolean contains(@Nullable int[] arr, int obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(long[] arr, long obj) {
+    public static boolean contains(@Nullable long[] arr, long obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(float[] arr, float obj) {
+    public static boolean contains(@Nullable float[] arr, float obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean contains(double[] arr, double obj) {
+    public static boolean contains(@Nullable double[] arr, double obj) {
         return indexOf(arr, obj) > NOT_FOUND_INDEX;
     }
 
-    public static boolean containsValue(BigDecimal[] arr, BigDecimal obj) {
+    public static boolean containsValue(@Nullable BigDecimal[] arr, @Nullable BigDecimal obj) {
         return indexOfWithPredicate(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
     }
 

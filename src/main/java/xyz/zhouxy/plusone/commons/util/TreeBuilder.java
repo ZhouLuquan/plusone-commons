@@ -45,7 +45,7 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     }
 
     public TreeBuilder(Function<T, TIdentity> identityGetter, Function<T, Optional<TIdentity>> parentIdentityGetter,
-            BiConsumer<TSubTree, T> addChild, Comparator<? super T> defaultComparator) {
+            BiConsumer<TSubTree, T> addChild, @Nullable Comparator<? super T> defaultComparator) {
         this.identityGetter = identityGetter;
         this.parentIdentityGetter = parentIdentityGetter;
         this.addChildMethod = addChild;

@@ -39,6 +39,7 @@ import cn.hutool.core.util.ObjectUtil;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+@SuppressWarnings("null")
 class TreeBuilderTests {
 
     private static final Logger log = LoggerFactory.getLogger(TreeBuilderTests.class);

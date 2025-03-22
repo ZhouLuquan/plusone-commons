@@ -22,4 +22,7 @@
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
+@ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.util;
+
+import javax.annotation.ParametersAreNonnullByDefault;
