@@ -86,6 +86,7 @@ public enum Quarter implements IWithIntCode {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(Month month) {
+        AssertTools.checkNotNull(month);
         final int monthValue = month.getValue();
         return of(computeQuarterValueInternal(monthValue));
     }
