@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,15 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 
 import javax.annotation.Nullable;
+
+import com.google.common.annotations.Beta;
+
+import xyz.zhouxy.plusone.commons.constant.PatternConsts;
 
 /**
  * StringTools
@@ -45,6 +51,18 @@ public class StringTools {
         return false;
     }
 
+    public static boolean isBlank(@Nullable String cs) {
+        if (cs == null || cs.isEmpty()) {
+            return true;
+        }
+        for (int i = 0; i < cs.length(); i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static String repeat(String str, int times) {
         return repeat(str, times, Integer.MAX_VALUE);
     }
@@ -52,6 +70,29 @@ public class StringTools {
     public static String repeat(final String str, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(str));
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
+    }
+
+    public static boolean isNotEmpty(@Nullable final String cs) {
+        return cs != null && !cs.isEmpty();
+    }
+
+    public static boolean isEmpty(@Nullable final String cs) {
+        return cs == null || cs.isEmpty();
+    }
+
+    @Beta
+    public static boolean isEmail(@Nullable final String cs) {
+        return RegexTools.matches(cs, PatternConsts.EMAIL);
+    }
+
+    @Beta
+    public static boolean isURL(@Nullable final String cs) {
+        try {
+            new URL(cs);
+        } catch (MalformedURLException e) {
+            return false;
+        }
+        return true;
     }
 
     private StringTools() {
