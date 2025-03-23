@@ -435,32 +435,117 @@ class DateTimeToolsTests {
     // ================================
 
     // ================================
-    // #region - others
+    // #region - start & end
     // ================================
 
     @Test
-    void startDateOfYear() {
+    void testStartAndEndDateOfYear() {
         assertEquals(LocalDate.of(2008, 1, 1), DateTimeTools.startDateOfYear(2008));
         assertEquals(LocalDate.of(2008, 12, 31), DateTimeTools.endDateOfYear(2008));
+    }
+
+    @Test
+    void testStartOfNextDate() {
         assertEquals(LocalDateTime.of(2024, 12, 30, 0, 0, 0),
                 DateTimeTools.startOfNextDate(LOCAL_DATE));
         assertEquals(LocalDateTime.of(2024, 12, 30, 0, 0, 0).atZone(SYS_ZONE_ID),
                 DateTimeTools.startOfNextDate(LOCAL_DATE, SYS_ZONE_ID));
         assertEquals(LocalDateTime.of(2024, 12, 30, 0, 0, 0).atZone(ZONE_ID),
                 DateTimeTools.startOfNextDate(LOCAL_DATE, ZONE_ID));
+    }
 
+    // ================================
+    // #endregion - start & end
+    // ================================
+
+    // ================================
+    // #region - isFuture & isPast
+    // ================================
+
+    @Test
+    void test_isFuture_And_isPast_WhenFuture() {
+        Date date = new Date(Instant.now().plusSeconds(10).toEpochMilli());
+        assertTrue(DateTimeTools.isFuture(date));
+        assertFalse(DateTimeTools.isPast(date));
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("+01:00"));
+        calendar.add(Calendar.SECOND, 10);
+        assertTrue(DateTimeTools.isFuture(calendar));
+        assertFalse(DateTimeTools.isPast(calendar));
+
+        Instant instant = Instant.now().plusSeconds(10);
+        assertTrue(DateTimeTools.isFuture(instant));
+        assertFalse(DateTimeTools.isPast(instant));
+
+        long timeMillis = Instant.now().plusSeconds(10).toEpochMilli();
+        assertTrue(DateTimeTools.isFuture(timeMillis));
+        assertFalse(DateTimeTools.isPast(timeMillis));
+
+        LocalDate localDate = LocalDate.now().plusDays(1);
+        assertTrue(DateTimeTools.isFuture(localDate));
+        assertFalse(DateTimeTools.isPast(localDate));
+
+        LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(10);
+        assertTrue(DateTimeTools.isFuture(localDateTime));
+        assertFalse(DateTimeTools.isPast(localDateTime));
+
+        ZonedDateTime zonedDateTime = Instant.now().plusSeconds(10).atZone(ZoneId.of("+01:00"));
+        assertTrue(DateTimeTools.isFuture(zonedDateTime));
+        assertFalse(DateTimeTools.isPast(zonedDateTime));
+    }
+
+    @Test
+    void test_isFuture_And_isPast_WhenPast() {
+        Date date = new Date(Instant.now().minusSeconds(10).toEpochMilli());
+        assertFalse(DateTimeTools.isFuture(date));
+        assertTrue(DateTimeTools.isPast(date));
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("+01:00"));
+        calendar.add(Calendar.SECOND, -10);
+        assertFalse(DateTimeTools.isFuture(calendar));
+        assertTrue(DateTimeTools.isPast(calendar));
+
+        Instant instant = Instant.now().minusSeconds(10);
+        assertFalse(DateTimeTools.isFuture(instant));
+        assertTrue(DateTimeTools.isPast(instant));
+
+        long timeMillis = Instant.now().minusSeconds(10).toEpochMilli();
+        assertFalse(DateTimeTools.isFuture(timeMillis));
+        assertTrue(DateTimeTools.isPast(timeMillis));
+
+        LocalDate localDate = LocalDate.now().minusDays(1);
+        assertFalse(DateTimeTools.isFuture(localDate));
+        assertTrue(DateTimeTools.isPast(localDate));
+
+        LocalDateTime localDateTime = LocalDateTime.now().minusSeconds(10);
+        assertFalse(DateTimeTools.isFuture(localDateTime));
+        assertTrue(DateTimeTools.isPast(localDateTime));
+
+        ZonedDateTime zonedDateTime = Instant.now().minusSeconds(10).atZone(ZoneId.of("+01:00"));
+        assertFalse(DateTimeTools.isFuture(zonedDateTime));
+        assertTrue(DateTimeTools.isPast(zonedDateTime));
+    }
+
+    // ================================
+    // #endregion - isFuture & isPast
+    // ================================
+
+    // ================================
+    // #region - others
+    // ================================
+
+    @Test
+    void startDateTimeRange() {
         Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(LOCAL_DATE);
         assertEquals(LOCAL_DATE.atStartOfDay(), localDateTimeRange.lowerEndpoint());
+        assertEquals(LocalDate.of(2024, 12, 30).atStartOfDay(), localDateTimeRange.upperEndpoint());
         assertTrue(localDateTimeRange.contains(LOCAL_DATE.atStartOfDay()));
-        assertEquals(LocalDate.of(2024, 12, 30).atStartOfDay(), localDateTimeRange.upperEndpoint());
-        assertEquals(LocalDate.of(2024, 12, 30).atStartOfDay(), localDateTimeRange.upperEndpoint());
         assertFalse(localDateTimeRange.contains(LocalDate.of(2024, 12, 30).atStartOfDay()));
 
         Range<ZonedDateTime> zonedDateTimeRange = DateTimeTools.toDateTimeRange(LOCAL_DATE, SYS_ZONE_ID);
         assertEquals(LOCAL_DATE.atStartOfDay().atZone(SYS_ZONE_ID), zonedDateTimeRange.lowerEndpoint());
+        assertEquals(LocalDate.of(2024, 12, 30).atStartOfDay().atZone(SYS_ZONE_ID), zonedDateTimeRange.upperEndpoint());
         assertTrue(zonedDateTimeRange.contains(LOCAL_DATE.atStartOfDay().atZone(SYS_ZONE_ID)));
-        assertEquals(ZonedDateTime.of(LocalDate.of(2024, 12, 30).atStartOfDay(), SYS_ZONE_ID), zonedDateTimeRange.upperEndpoint());
-        assertEquals(ZonedDateTime.of(LocalDate.of(2024, 12, 30).atStartOfDay(), SYS_ZONE_ID), zonedDateTimeRange.upperEndpoint());
         assertFalse(zonedDateTimeRange.contains(LocalDate.of(2024, 12, 30).atStartOfDay().atZone(SYS_ZONE_ID)));
     }
 
@@ -479,6 +564,10 @@ class DateTimeToolsTests {
         assertEquals("-999999999", DateTimeTools.toYearString(Year.MIN_VALUE));
         assertThrows(DateTimeException.class, () -> DateTimeTools.toYearString(Year.MIN_VALUE - 1));
         assertThrows(DateTimeException.class, () -> DateTimeTools.toYearString(Year.MAX_VALUE + 1));
+
+        assertEquals("2024", DateTimeTools.toYearString(Year.of(2024)));
+        assertEquals("999999999", DateTimeTools.toYearString(Year.of(Year.MAX_VALUE)));
+        assertEquals("-999999999", DateTimeTools.toYearString(Year.of(Year.MIN_VALUE)));
 
         assertEquals("01", DateTimeTools.toMonthStringMM(1));
         assertEquals("02", DateTimeTools.toMonthStringMM(2));

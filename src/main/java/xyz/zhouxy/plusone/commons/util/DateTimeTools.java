@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -720,6 +720,78 @@ public class DateTimeTools {
 
     // ================================
     // #endregion - start & end
+    // ================================
+
+    // ================================
+    // #region - isFuture
+    // ================================
+
+    public static boolean isFuture(Date date) {
+        return date.after(new Date());
+    }
+
+    public static boolean isFuture(Calendar date) {
+        return date.after(Calendar.getInstance());
+    }
+
+    public static boolean isFuture(Instant instant) {
+        return instant.isAfter(Instant.now());
+    }
+
+    public static boolean isFuture(long timeMillis) {
+        return timeMillis > System.currentTimeMillis();
+    }
+
+    public static boolean isFuture(LocalDate date) {
+        return date.isAfter(LocalDate.now());
+    }
+
+    public static boolean isFuture(LocalDateTime dateTime) {
+        return dateTime.isAfter(LocalDateTime.now());
+    }
+
+    public static boolean isFuture(ZonedDateTime dateTime) {
+        return dateTime.isAfter(ZonedDateTime.now());
+    }
+
+    // ================================
+    // #endregion - isFuture
+    // ================================
+
+    // ================================
+    // #region - isPast
+    // ================================
+
+    public static boolean isPast(Date date) {
+        return date.before(new Date());
+    }
+
+    public static boolean isPast(Calendar date) {
+        return date.before(Calendar.getInstance());
+    }
+
+    public static boolean isPast(Instant instant) {
+        return instant.isBefore(Instant.now());
+    }
+
+    public static boolean isPast(long timeMillis) {
+        return timeMillis < System.currentTimeMillis();
+    }
+
+    public static boolean isPast(LocalDate date) {
+        return date.isBefore(LocalDate.now());
+    }
+
+    public static boolean isPast(LocalDateTime dateTime) {
+        return dateTime.isBefore(LocalDateTime.now());
+    }
+
+    public static boolean isPast(ZonedDateTime dateTime) {
+        return dateTime.isBefore(ZonedDateTime.now());
+    }
+
+    // ================================
+    // #endregion - isPast
     // ================================
 
     // ================================
