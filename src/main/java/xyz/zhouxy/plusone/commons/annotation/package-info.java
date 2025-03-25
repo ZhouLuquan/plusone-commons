@@ -56,7 +56,7 @@
  * 5. {@link ValueObject}
  * </h3>
  * <p>
- * 标记一个类，表示其作为值对象，区别与 Entity。
+ * 标记一个类，表示其作为值对象，区别于 Entity。
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
