@@ -24,7 +24,7 @@ package xyz.zhouxy.plusone.commons.exception.business;
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 public class RequestParamsException extends BizException {
 

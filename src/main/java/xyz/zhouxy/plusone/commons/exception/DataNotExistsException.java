@@ -20,7 +20,7 @@ package xyz.zhouxy.plusone.commons.exception;
  * 数据不存在异常
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 public final class DataNotExistsException extends Exception {
 

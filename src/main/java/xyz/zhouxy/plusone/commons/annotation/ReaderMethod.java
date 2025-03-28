@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * 标识方法是读方法，如 getter。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 1.0
+ * @since 1.0.0
  * @see WriterMethod
  */
 @Target(ElementType.METHOD)

@@ -29,7 +29,7 @@ import java.lang.annotation.Documented;
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @version 1.0
- * @since 1.0
+ * @since 1.0.0
  * @see UnsupportedOperationException
  */
 @Documented
