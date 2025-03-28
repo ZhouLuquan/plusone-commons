@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.function;
 import java.util.function.Predicate;
 
 /**
- * Predicates
+ * PredicateTools
  *
  * <p>
  * {@link Predicate} 相关操作。
