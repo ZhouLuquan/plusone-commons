@@ -34,7 +34,7 @@ import com.google.common.collect.Table;
  * 集合工具类
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 public class CollectionTools {
 

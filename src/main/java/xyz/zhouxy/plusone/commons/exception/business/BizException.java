@@ -27,7 +27,7 @@ package xyz.zhouxy.plusone.commons.exception.business;
  * <b>NOTE: 通常表示业务中的意外情况。如：用户错误输入、缺失必填字段、用户余额不足等。</b>
  * </p>
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 public class BizException extends RuntimeException {
 

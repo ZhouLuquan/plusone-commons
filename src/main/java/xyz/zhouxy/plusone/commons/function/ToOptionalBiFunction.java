@@ -26,7 +26,7 @@ import java.util.function.BiFunction;
  * 接受类型为 T 和 U 的两个参数，返回 {@code Optional&lt;R&gt;} 对象。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  * @see Optional
  * @see BiFunction
  */

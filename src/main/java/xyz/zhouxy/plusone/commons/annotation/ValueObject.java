@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * ValueObject - 值对象
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 @Inherited
 @Target(ElementType.TYPE)

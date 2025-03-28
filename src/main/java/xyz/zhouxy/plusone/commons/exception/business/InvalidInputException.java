@@ -32,7 +32,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
  * <b>NOTE: 属业务异常</b>
  * </p>
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  */
 public final class InvalidInputException
         extends RequestParamsException

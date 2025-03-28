@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 0.1.0
+ * @since 1.0.0
  * @see Predicate
  */
 public class PredicateTools {
@@ -36,12 +36,12 @@ public class PredicateTools {
      * 如将 {@code Objects::nonNull} 明确地指定为 {@code Predicate&lt;String&gt;}，
      * 使之可以链式调用 {@link Predicate#and(Predicate)}、{@link Predicate#or(Predicate)}
      * 等方法，连接其它 {@code Predicate<? super T>} 对象。
-     * 
+     *
      * <pre>
      * Predicate&lt;String&gt; predicate = PredicateTools.&lt;String&gt;from(Objects::nonNull)
      *         .and(StringUtils::isNotEmpty);
      * </pre>
-     * 
+     *
      * @param <T>       目标类型
      * @param predicate Lambda 表达式
      * @return 传入的表达式自动成为 {@link Predicate} 实例

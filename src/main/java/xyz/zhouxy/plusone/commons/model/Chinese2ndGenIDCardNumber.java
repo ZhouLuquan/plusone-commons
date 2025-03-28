@@ -39,7 +39,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- * @since 1.0
+ * @since 1.0.0
  * @see xyz.zhouxy.plusone.commons.constant.PatternConsts#CHINESE_2ND_ID_CARD_NUMBER
  */
 @ValueObject
