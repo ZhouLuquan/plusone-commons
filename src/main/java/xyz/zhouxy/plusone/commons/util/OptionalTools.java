@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import com.google.common.annotations.Beta;
 
 /**
- * OptionalUtil
+ * OptionalTools
  *
  * <p>
  * 提供一些 Optional 相关的方法
