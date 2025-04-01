@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
@@ -55,7 +54,7 @@ public class PagingAndSortingQueryParams {
 
     private final Map<String, String> sortableProperties;
 
-    public PagingAndSortingQueryParams(@Nonnull Map<String, String> sortableProperties) {
+    public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
         AssertTools.checkArgument(CollectionTools.isNotEmpty(sortableProperties),
                 "Sortable properties can not be empty.");
         sortableProperties.forEach((k, v) ->
@@ -66,7 +65,12 @@ public class PagingAndSortingQueryParams {
 
     // Setters
 
-    public final void setOrderBy(@Nullable List<String> orderBy) {
+    /**
+     * 设置排序规则
+     *
+     * @param orderBy 排序规则，不能为空
+     */
+    public final void setOrderBy(List<String> orderBy) {
         this.orderBy = orderBy;
     }
 
@@ -83,7 +87,10 @@ public class PagingAndSortingQueryParams {
     public final PagingParams buildPagingParams() {
         final int sizeValue = this.size != null ? this.size : defaultSizeInternal();
         final long pageNumValue = this.pageNum != null ? this.pageNum : 1L;
-        final List<SortableProperty> propertiesToSort = this.orderBy.stream().map(this::generateSortableProperty)
+        AssertTools.checkArgument(CollectionTools.isNotEmpty(this.orderBy),
+                "The 'orderBy' cannot be empty");
+        final List<SortableProperty> propertiesToSort = this.orderBy.stream()
+                .map(this::generateSortableProperty)
                 .collect(Collectors.toList());
         return new PagingParams(sizeValue, pageNumValue, propertiesToSort);
     }
@@ -104,6 +111,7 @@ public class PagingAndSortingQueryParams {
     }
 
     private SortableProperty generateSortableProperty(String orderByStr) {
+        AssertTools.checkArgument(StringTools.isNotBlank(orderByStr));
         AssertTools.checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
         String[] propertyNameAndOrderType = orderByStr.split("-");
         AssertTools.checkArgument(propertyNameAndOrderType.length == 2);

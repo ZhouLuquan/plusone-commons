@@ -19,6 +19,8 @@ package xyz.zhouxy.plusone.commons.model.dto;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.collection.CollectionTools;
 
@@ -36,13 +38,13 @@ public class PageResult<T> {
 
     private final List<T> content;
 
-    private PageResult(List<T> content, long total) {
+    private PageResult(@Nullable final List<T> content, final long total) {
         this.content = CollectionTools.nullToEmptyList(content);
         this.total = total;
     }
 
     @StaticFactoryMethod(PageResult.class)
-    public static <T> PageResult<T> of(List<T> content, long total) {
+    public static <T> PageResult<T> of(@Nullable final List<T> content, final long total) {
         return new PageResult<>(content, total);
     }
 

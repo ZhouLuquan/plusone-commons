@@ -76,7 +76,7 @@ public class UnifiedResponse<T> {
                 this.code, this.message, transValue(this.data));
     }
 
-    private static String transValue(Object value) {
+    private static String transValue(@Nullable Object value) {
         if (value == null) {
             return null;
         }

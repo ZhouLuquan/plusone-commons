@@ -22,6 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 import xyz.zhouxy.plusone.commons.util.AssertTools;
@@ -40,17 +41,16 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
 
     private final Matcher matcher;
 
-    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern) {
+    protected ValidatableStringRecord(String value, Pattern pattern) {
         this(value, pattern, "Invalid value");
     }
 
-    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern,
-            @Nonnull Supplier<String> errorMessageSupplier) {
+    protected ValidatableStringRecord(String value, Pattern pattern,
+            Supplier<String> errorMessageSupplier) {
         this(value, pattern, errorMessageSupplier.get());
     }
 
-    protected ValidatableStringRecord(@Nonnull String value, @Nonnull Pattern pattern,
-            @Nonnull String errorMessage) {
+    protected ValidatableStringRecord(String value, Pattern pattern, String errorMessage) {
         AssertTools.checkArgument(Objects.nonNull(value), "The value cannot be null.");
         AssertTools.checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
         this.matcher = pattern.matcher(value);
@@ -69,7 +69,7 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
     }
 
     @Override
-    public int compareTo(T o) {
+    public int compareTo(@SuppressWarnings("null") T o) {
         return this.value.compareTo(o.value());
     }
 
@@ -79,7 +79,7 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

@@ -21,6 +21,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.regex.Matcher;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.errorprone.annotations.Immutable;
@@ -207,7 +209,7 @@ public class Chinese2ndGenIDCardNumber
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         return super.equals(obj);
     }
 }
