@@ -32,7 +32,10 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
+ *
+ * @deprecated 弃用。使用工厂方法创建对象，并在其中进行校验即可。
  */
+@Deprecated
 public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<T>>
         implements Comparable<T> {
 
