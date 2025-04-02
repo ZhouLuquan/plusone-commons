@@ -34,11 +34,25 @@ import xyz.zhouxy.plusone.commons.constant.PatternConsts;
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
  */
 public class StringTools {
 
     public static final String EMPTY_STRING = "";
 
+    /**
+     * 判断字符串是否非空白
+     *
+     * <pre>
+     * StringTools.isNotBlank(null);    // false
+     * StringTools.isNotBlank("");      // false
+     * StringTools.isNotBlank("   ");   // false
+     * StringTools.isNotBlank("Hello"); // true
+     * </pre>
+     *
+     * @param cs 检查的字符串
+     * @return 是否非空白
+     */
     public static boolean isNotBlank(@Nullable final String cs) {
         if (cs == null || cs.isEmpty()) {
             return false;
@@ -51,6 +65,20 @@ public class StringTools {
         return false;
     }
 
+    /**
+     * 判断是否空白字符串
+     *
+     * <pre>
+     * StringTools.isBlank(null);    // true
+     * StringTools.isBlank("");      // true
+     * StringTools.isBlank("   ");   // true
+     * StringTools.isBlank("Hello"); // false
+     * </pre>
+     *
+     * @param cs 检查的字符串
+     * @return 是否空白
+     * @since 1.1.0
+     */
     public static boolean isBlank(@Nullable String cs) {
         if (cs == null || cs.isEmpty()) {
             return true;
@@ -63,28 +91,89 @@ public class StringTools {
         return true;
     }
 
+    /**
+     * 重复字符串
+     *
+     * @param str   要重复的字符串
+     * @param times 重复次数
+     * @return 结果
+     */
     public static String repeat(String str, int times) {
         return repeat(str, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复字符串
+     *
+     * @param str       要重复的字符串
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 结果
+     */
     public static String repeat(final String str, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(str));
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
     }
 
+    /**
+     * 判断字符串是否非空
+     *
+     * <pre>
+     * StringTools.isNotEmpty(null);    // false
+     * StringTools.isNotEmpty("");      // false
+     * StringTools.isNotEmpty("   ");   // true
+     * StringTools.isNotEmpty("Hello"); // true
+     * </pre>
+     *
+     * @param cs 检查的字符串
+     * @return 是否非空
+     * @since 1.1.0
+     */
     public static boolean isNotEmpty(@Nullable final String cs) {
         return cs != null && !cs.isEmpty();
     }
 
+    /**
+     * 判断字符串是否为空字符串
+     *
+     * <pre>
+     * StringTools.isEmpty(null);    // true
+     * StringTools.isEmpty("");      // true
+     * StringTools.isEmpty("   ");   // false
+     * StringTools.isEmpty("Hello"); // false
+     * </pre>
+     *
+     * @param cs 检查的字符串
+     * @return 是否空字符串
+     * @since 1.1.0
+     */
     public static boolean isEmpty(@Nullable final String cs) {
         return cs == null || cs.isEmpty();
     }
 
+    /**
+     * 判断字符串是否为邮箱地址
+     *
+     * @param cs 检查的字符串
+     * @return 是否是邮箱地址
+     * @since 1.1.0
+     *
+     * @see PatternConsts#EMAIL
+     */
     @Beta
     public static boolean isEmail(@Nullable final String cs) {
         return RegexTools.matches(cs, PatternConsts.EMAIL);
     }
 
+    /**
+     * 判断字符串是否为 URL 地址
+     *
+     * @param cs 检查的字符串
+     * @return 是否是 URL
+     * @since 1.1.0
+     *
+     * @see URL
+     */
     @Beta
     public static boolean isURL(@Nullable final String cs) {
         try {
