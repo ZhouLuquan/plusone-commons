@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("null")
@@ -184,7 +185,7 @@ class StringToolsTests {
     // #region - isURL
     // ================================
 
-        /**
+    /**
      * TC1: 验证标准HTTP协议URL
      */
     @Test
@@ -296,6 +297,77 @@ class StringToolsTests {
 
     // ================================
     // #endregion - repeat
+    // ================================
+
+    // ================================
+    // #region - desensitize
+    // ================================
+
+    @Test
+    public void desensitize_NullInput_ReturnsEmptyString() {
+        String result = StringTools.desensitize(null, '#', 2, 2);
+        Assertions.assertEquals("", result);
+    }
+
+    @Test
+    public void desensitize_EmptyString_ReturnsEmptyString() {
+        String result = StringTools.desensitize("", '#', 2, 2);
+        Assertions.assertEquals("", result);
+    }
+
+    @Test
+    public void desensitize_NegativeFront_ThrowsException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            StringTools.desensitize("123456", '#', -1, 2);
+        });
+    }
+
+    @Test
+    public void desensitize_NegativeEnd_ThrowsException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            StringTools.desensitize("123456", '#', 2, -1);
+        });
+    }
+
+    @Test
+    public void desensitize_FrontPlusEndExceedsLength_ThrowsException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            StringTools.desensitize("123456", '#', 3, 4);
+        });
+    }
+
+    @Test
+    public void desensitize_ValidInput_ReturnsDesensitizedString() {
+        String result = StringTools.desensitize("123456", '#', 2, 2);
+        Assertions.assertEquals("12##56", result);
+    }
+
+    @Test
+    public void desensitize_FrontZero_ReturnsDesensitizedString() {
+        String result = StringTools.desensitize("123456", '#', 0, 2);
+        Assertions.assertEquals("####56", result);
+    }
+
+    @Test
+    public void desensitize_EndZero_ReturnsDesensitizedString() {
+        String result = StringTools.desensitize("123456", '#', 2, 0);
+        Assertions.assertEquals("12####", result);
+    }
+
+    @Test
+    public void desensitize_FrontAndEndZero_ReturnsDesensitizedString() {
+        String result = StringTools.desensitize("123456", '#', 0, 0);
+        Assertions.assertEquals("######", result);
+    }
+
+    @Test
+    public void desensitize_ValidInput_DefaultReplacedChar_ReturnsDesensitizedString() {
+        String result = StringTools.desensitize("123456", 2, 2);
+        Assertions.assertEquals("12**56", result);
+    }
+
+    // ================================
+    // #endregion - desensitize
     // ================================
 
     @Test

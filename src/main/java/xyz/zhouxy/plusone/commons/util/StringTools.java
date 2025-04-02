@@ -184,6 +184,42 @@ public class StringTools {
         return true;
     }
 
+    /**
+     * 脱敏
+     *
+     * @param src          原字符串
+     * @param front        前面保留的字符数
+     * @param end          后面保留的字符数
+     * @return 脱敏结果
+     * @since 1.1.0
+     */
+    public static String desensitize(@Nullable final String src, int front, int end) {
+        return desensitize(src, '*', front, end);
+    }
+
+    /**
+     * 脱敏
+     *
+     * @param src          原字符串
+     * @param replacedChar 用于替换的字符
+     * @param front        前面保留的字符数
+     * @param end          后面保留的字符数
+     * @return 脱敏结果
+     * @since 1.1.0
+     */
+    public static String desensitize(@Nullable final String src, char replacedChar, int front, int end) {
+        if (src == null || src.isEmpty()) {
+            return EMPTY_STRING;
+        }
+        AssertTools.checkArgument(front >= 0 && end >= 0);
+        AssertTools.checkArgument((front + end) <= src.length(), "需要截取的长度不能大于原字符串长度");
+        final char[] charArray = src.toCharArray();
+        for (int i = front; i < charArray.length - end; i++) {
+            charArray[i] = replacedChar;
+        }
+        return String.valueOf(charArray);
+    }
+
     private StringTools() {
         throw new IllegalStateException("Utility class");
     }
