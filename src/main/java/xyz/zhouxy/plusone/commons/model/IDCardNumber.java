@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.model;
 import java.time.LocalDate;
 import java.time.Period;
 
-import xyz.zhouxy.plusone.commons.util.AssertTools;
+import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
  * 身份证号
@@ -42,7 +42,9 @@ public interface IDCardNumber {
      */
     LocalDate getBirthDate();
 
-    /** 计算年龄 */
+    /**
+     * 计算年龄
+     */
     default int getAge() {
         LocalDate now = LocalDate.now();
         return Period.between(getBirthDate(), now).getYears();
@@ -53,22 +55,15 @@ public interface IDCardNumber {
     // ================================
 
     default String toDesensitizedString() {
-        return toDesensitizedString(DEFAULT_REPLACED_CHAR, DEFAULT_DISPLAY_FRONT, DEFAULT_DISPLAY_END);
+        return StringTools.desensitize(value(), DEFAULT_REPLACED_CHAR, DEFAULT_DISPLAY_FRONT, DEFAULT_DISPLAY_END);
     }
 
     default String toDesensitizedString(int front, int end) {
-        return toDesensitizedString(DEFAULT_REPLACED_CHAR, front, end);
+        return StringTools.desensitize(value(), DEFAULT_REPLACED_CHAR, front, end);
     }
 
     default String toDesensitizedString(char replacedChar, int front, int end) {
-        final String value = value();
-        AssertTools.checkArgument(front >= 0 && end >= 0);
-        AssertTools.checkArgument((front + end) <= value.length(), "需要截取的长度不能大于身份证号长度");
-        final char[] charArray = value.toCharArray();
-        for (int i = front; i < charArray.length - end; i++) {
-            charArray[i] = replacedChar;
-        }
-        return String.valueOf(charArray);
+        return StringTools.desensitize(value(), replacedChar, front, end);
     }
 
     // ================================
