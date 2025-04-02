@@ -18,7 +18,6 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,8 +69,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns, final boolean cachePattern) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -84,8 +82,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例数组
      */
     public static Pattern[] getPatterns(final String[] patterns) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return getPatternsInternal(patterns);
     }
 
@@ -109,8 +106,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final Pattern[] patterns) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return matchesOneInternal(input, patterns);
     }
 
@@ -122,8 +118,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final Pattern[] patterns) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return matchesAllInternal(input, patterns);
     }
 
@@ -166,8 +161,7 @@ public final class RegexTools {
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         final Pattern[] patternSet = cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -182,8 +176,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesOneInternal(input, patternSet);
     }
@@ -198,8 +191,7 @@ public final class RegexTools {
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns,
             final boolean cachePattern) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         final Pattern[] patternSet = cachePattern
                 ? cacheAndGetPatternsInternal(patterns)
                 : getPatternsInternal(patterns);
@@ -214,8 +206,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns) {
-        AssertTools.checkNotNull(patterns);
-        AssertTools.checkArgument(allNotNull(patterns));
+        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         final Pattern[] patternSet = getPatternsInternal(patterns);
         return matchesAllInternal(input, patternSet);
     }
@@ -345,10 +336,6 @@ public final class RegexTools {
         return input != null
                 && Arrays.stream(patterns)
                         .allMatch(pattern -> pattern.matcher(input).matches());
-    }
-
-    private static <T> boolean allNotNull(T[] array) {
-        return Arrays.stream(array).allMatch(Objects::nonNull);
     }
 
     private RegexTools() {

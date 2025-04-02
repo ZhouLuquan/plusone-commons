@@ -75,7 +75,7 @@ class RegexToolsTests {
 
     @Test
     void getPatterns_NullPatterns_ThrowsException() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             RegexTools.getPatterns(null, true);
         });
     }
