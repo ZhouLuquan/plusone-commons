@@ -730,37 +730,37 @@ public class ArrayToolsTests {
     // ================================
 
     @Test
-    void indexOfWithPredicate_NullPredicate_ThrowsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ArrayTools.indexOfWithPredicate(new String[] {}, null));
+    void indexOf_NullPredicate_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ArrayTools.indexOf(new String[] {}, null));
     }
 
     @Test
-    void indexOfWithPredicate_NullArray_ReturnsNotFoundIndex() {
+    void indexOf_NullArray_ReturnsNotFoundIndex() {
         Predicate<String> predicate = s -> s.equals("test");
-        int result = ArrayTools.indexOfWithPredicate(null, predicate);
+        int result = ArrayTools.indexOf(null, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
     @Test
-    void indexOfWithPredicate_EmptyArray_ReturnsNotFoundIndex() {
+    void indexOf_EmptyArray_ReturnsNotFoundIndex() {
         Predicate<String> predicate = s -> s.equals("test");
-        int result = ArrayTools.indexOfWithPredicate(new String[] {}, predicate);
+        int result = ArrayTools.indexOf(new String[] {}, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
     @Test
-    void indexOfWithPredicate_ArrayContainsMatchingElement_ReturnsIndex() {
+    void indexOf_ArrayContainsMatchingElement_ReturnsIndex() {
         String[] array = { "apple", "banana", "cherry" };
         Predicate<String> predicate = s -> s.equals("banana");
-        int result = ArrayTools.indexOfWithPredicate(array, predicate);
+        int result = ArrayTools.indexOf(array, predicate);
         assertEquals(1, result);
     }
 
     @Test
-    void indexOfWithPredicate_ArrayDoesNotContainMatchingElement_ReturnsNotFoundIndex() {
+    void indexOf_ArrayDoesNotContainMatchingElement_ReturnsNotFoundIndex() {
         String[] array = { "apple", "banana", "cherry" };
         Predicate<String> predicate = s -> s.equals("orange");
-        int result = ArrayTools.indexOfWithPredicate(array, predicate);
+        int result = ArrayTools.indexOf(array, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
@@ -847,12 +847,12 @@ public class ArrayToolsTests {
 
     @Test
     void indexOf_NullObject_ReturnsNotFound() {
-        assertEquals(ArrayTools.NOT_FOUND_INDEX, ArrayTools.indexOf(new String[] { "a", "b", "c" }, null));
+        assertEquals(ArrayTools.NOT_FOUND_INDEX, ArrayTools.indexOf(new String[] { "a", "b", "c" }, (String) null));
     }
 
     @Test
     void indexOf_ArrayContainsNull_ReturnsIndex() {
-        assertEquals(1, ArrayTools.indexOf(new String[] { "a", null, "c" }, null));
+        assertEquals(1, ArrayTools.indexOf(new String[] { "a", null, "c" }, (String) null));
     }
 
     // ================================
@@ -864,37 +864,37 @@ public class ArrayToolsTests {
     // ================================
 
     @Test
-    void lastIndexOfWithPredicate_NullPredicate_ThrowsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ArrayTools.lastIndexOfWithPredicate(new String[] {}, null));
+    void lastIndexOf_NullPredicate_ThrowsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ArrayTools.lastIndexOf(new String[] {}, null));
     }
 
     @Test
-    void lastIndexOfWithPredicate_NullArray_ReturnsNotFoundIndex() {
+    void lastIndexOf_NullArray_ReturnsNotFoundIndex() {
         Predicate<String> predicate = s -> s.equals("test");
-        int result = ArrayTools.lastIndexOfWithPredicate(null, predicate);
+        int result = ArrayTools.lastIndexOf(null, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
     @Test
-    void lastIndexOfWithPredicate_EmptyArray_ReturnsNotFoundIndex() {
+    void lastIndexOf_EmptyArray_ReturnsNotFoundIndex() {
         Predicate<String> predicate = s -> s.equals("test");
-        int result = ArrayTools.lastIndexOfWithPredicate(new String[] {}, predicate);
+        int result = ArrayTools.lastIndexOf(new String[] {}, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
     @Test
-    void lastIndexOfWithPredicate_ArrayContainsMatchingElement_ReturnsIndex() {
+    void lastIndexOf_ArrayContainsMatchingElement_ReturnsIndex() {
         String[] array = { "apple", "banana", "banana", "cherry" };
         Predicate<String> predicate = s -> s.equals("banana");
-        int result = ArrayTools.lastIndexOfWithPredicate(array, predicate);
+        int result = ArrayTools.lastIndexOf(array, predicate);
         assertEquals(2, result);
     }
 
     @Test
-    void lastIndexOfWithPredicate_ArrayDoesNotContainMatchingElement_ReturnsNotFoundIndex() {
+    void lastIndexOf_ArrayDoesNotContainMatchingElement_ReturnsNotFoundIndex() {
         String[] array = { "apple", "banana", "cherry" };
         Predicate<String> predicate = s -> s.equals("orange");
-        int result = ArrayTools.lastIndexOfWithPredicate(array, predicate);
+        int result = ArrayTools.lastIndexOf(array, predicate);
         assertEquals(ArrayTools.NOT_FOUND_INDEX, result);
     }
 
@@ -982,12 +982,12 @@ public class ArrayToolsTests {
 
     @Test
     void lastIndexOf_NullObject_ReturnsNotFound() {
-        assertEquals(ArrayTools.NOT_FOUND_INDEX, ArrayTools.lastIndexOf(new String[] { "a", "b", "c" }, null));
+        assertEquals(ArrayTools.NOT_FOUND_INDEX, ArrayTools.lastIndexOf(new String[] { "a", "b", "c" }, (String) null));
     }
 
     @Test
     void lastIndexOf_ArrayContainsNull_ReturnsIndex() {
-        assertEquals(3, ArrayTools.lastIndexOf(new String[] { "a", null, "c", null, "e" }, null));
+        assertEquals(3, ArrayTools.lastIndexOf(new String[] { "a", null, "c", null, "e" }, (String) null));
     }
 
     // ================================

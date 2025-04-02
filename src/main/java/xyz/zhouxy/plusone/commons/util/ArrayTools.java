@@ -863,7 +863,7 @@ public class ArrayTools {
 
     // #region - indexOf
 
-    public static <T> int indexOfWithPredicate(@Nullable T[] arr, Predicate<? super T> predicate) {
+    public static <T> int indexOf(@Nullable T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
@@ -877,7 +877,7 @@ public class ArrayTools {
     }
 
     public static <T> int indexOf(@Nullable T[] arr, @Nullable T obj) {
-        return indexOfWithPredicate(arr, item -> Objects.equals(item, obj));
+        return indexOf(arr, item -> Objects.equals(item, obj));
     }
 
     public static int indexOf(@Nullable char[] arr, char value) {
@@ -968,7 +968,7 @@ public class ArrayTools {
 
     // #region - lastIndexOf
 
-    public static <T> int lastIndexOfWithPredicate(@Nullable T[] arr, Predicate<? super T> predicate) {
+    public static <T> int lastIndexOf(@Nullable T[] arr, Predicate<? super T> predicate) { // TODO [优化] rename
         AssertTools.checkNotNull(predicate);
         if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
@@ -982,7 +982,7 @@ public class ArrayTools {
     }
 
     public static <T> int lastIndexOf(T[] arr, T obj) {
-        return lastIndexOfWithPredicate(arr, item -> Objects.equals(item, obj));
+        return lastIndexOf(arr, item -> Objects.equals(item, obj));
     }
 
     public static int lastIndexOf(@Nullable char[] arr, char value) {
@@ -1106,7 +1106,7 @@ public class ArrayTools {
     }
 
     public static boolean containsValue(@Nullable BigDecimal[] arr, @Nullable BigDecimal obj) {
-        return indexOfWithPredicate(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
+        return indexOf(arr, item -> BigDecimals.equalsValue(item, obj)) > NOT_FOUND_INDEX;
     }
 
     // #endregion
