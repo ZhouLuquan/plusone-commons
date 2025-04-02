@@ -39,6 +39,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
+@SuppressWarnings("deprecation")
 class ValidatableStringRecordTests {
 
     private static final Logger log = LoggerFactory.getLogger(ValidatableStringRecordTests.class);
@@ -83,6 +84,7 @@ class User {
     }
 }
 
+@SuppressWarnings("deprecation")
 @ValueObject
 class Email extends ValidatableStringRecord<Email> {
     private Email(String value) {
@@ -95,6 +97,7 @@ class Email extends ValidatableStringRecord<Email> {
     }
 }
 
+@SuppressWarnings("deprecation")
 @ValueObject
 class Username extends ValidatableStringRecord<Username> {
     private Username(String username) {
