@@ -968,7 +968,7 @@ public class ArrayTools {
 
     // #region - lastIndexOf
 
-    public static <T> int lastIndexOf(@Nullable T[] arr, Predicate<? super T> predicate) { // TODO [优化] rename
+    public static <T> int lastIndexOf(@Nullable T[] arr, Predicate<? super T> predicate) {
         AssertTools.checkNotNull(predicate);
         if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
