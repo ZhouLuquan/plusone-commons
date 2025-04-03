@@ -50,7 +50,7 @@ public class PagingAndSortingQueryParams {
     private Long pageNum;
     private List<String> orderBy;
 
-    private static final Pattern SORT_STR_PATTERN = Pattern.compile("^[a-zA-Z]\\w+-(desc|asc|DESC|ASC)$");
+    private static final Pattern SORT_STR_PATTERN = Pattern.compile("^[a-zA-Z][\\w-]{0,63}-(desc|asc|DESC|ASC)$");
 
     private final Map<String, String> sortableProperties;
 
