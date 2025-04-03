@@ -28,20 +28,49 @@ import javax.annotation.Nullable;
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public interface IWithIntCode {
+
+    /**
+     * 获取码值
+     * @return 码值
+     */
     int getCode();
 
+    /**
+     * 判断 {@code code} 与给定的值是否相等
+     *
+     * @param code 用于判断的值
+     * @return 判断结果
+     */
     default boolean isCodeEquals(int code) {
         return getCode() == code;
     }
 
+    /**
+     * 判断是否与给定的 {@link IWithCode} 有着相等的 {@code code}
+     *
+     * @param other 用于比较的对象
+     * @return 判断结果
+     */
     default boolean isSameCodeAs(@Nullable IWithCode<?> other) {
         return other != null && Objects.equals(getCode(), other.getCode());
     }
 
+    /**
+     * 判断是否与给定的 {@link IWithIntCode} 有着相等的 {@code code}
+     *
+     * @param other 用于比较的对象
+     * @return 判断结果
+     */
     default boolean isSameCodeAs(@Nullable IWithIntCode other) {
         return other != null && getCode() == other.getCode();
     }
 
+    /**
+     * 判断是否与给定的 {@link IWithLongCode} 有着相等的 {@code code}
+     *
+     * @param other 用于比较的对象
+     * @return 判断结果
+     */
     default boolean isSameCodeAs(@Nullable IWithLongCode other) {
         return other != null && getCode() == other.getCode();
     }

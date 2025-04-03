@@ -23,9 +23,13 @@ import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams.Sortable
 
 public class PagingParams {
 
+    /** 每页大小 */
     private final int size;
+    /** 当前页码 */
     private final long pageNum;
+    /** 偏移量 */
     private final long offset;
+    /** 排序 */
     private final List<SortableProperty> orderBy;
 
     PagingParams(int size, long pageNum, List<SortableProperty> orderBy) {
@@ -37,18 +41,38 @@ public class PagingParams {
 
     // Getters
 
+    /**
+     * 排序规则
+     *
+     * @return 排序规则
+     */
     public final List<SortableProperty> getOrderBy() {
         return Collections.unmodifiableList(this.orderBy);
     }
 
+    /**
+     * 每页大小
+     *
+     * @return 每页大小
+     */
     public final int getSize() {
         return this.size;
     }
 
+    /**
+     * 当前页码
+     *
+     * @return 当前页码
+     */
     public final long getPageNum() {
         return this.pageNum;
     }
 
+    /**
+     * 偏移量
+     *
+     * @return 偏移量
+     */
     public final long getOffset() {
         return this.offset;
     }

@@ -79,6 +79,12 @@ public class Chinese2ndGenIDCardNumber
         this.birthDate = birthDate;
     }
 
+    /**
+     * 根据身份证号码创建 {@code Chinese2ndGenIDCardNumber} 对象
+     *
+     * @param idCardNumber 身份证号码值
+     * @return {@code Chinese2ndGenIDCardNumber} 对象
+     */
     public static Chinese2ndGenIDCardNumber of(final String idCardNumber) {
         try {
             AssertTools.checkArgument(StringTools.isNotBlank(idCardNumber), "二代居民身份证校验失败：号码为空");
@@ -120,36 +126,71 @@ public class Chinese2ndGenIDCardNumber
         return value;
     }
 
+    /**
+     * 所属省份代码
+     *
+     * @return 所属省份代码
+     */
     @ReaderMethod
     public String getProvinceCode() {
         return provinceCode;
     }
 
+    /**
+     * 所属省份名称
+     *
+     * @return 所属省份名称
+     */
     @ReaderMethod
     public String getProvinceName() {
         return PROVINCE_CODES.get(this.provinceCode);
     }
 
+    /**
+     * 所属省份完整行政区划代码
+     *
+     * @return 所属省份完整行政区划代码
+     */
     @ReaderMethod
     public String getFullProvinceCode() {
         return Strings.padEnd(this.provinceCode, 12, '0');
     }
 
+    /**
+     * 所属市级代码
+     *
+     * @return 所属市级代码
+     */
     @ReaderMethod
     public String getCityCode() {
         return cityCode;
     }
 
+    /**
+     * 所属市级完整行政区划代码
+     *
+     * @return 所属市级完整行政区划代码
+     */
     @ReaderMethod
     public String getFullCityCode() {
         return Strings.padEnd(this.cityCode, 12, '0');
     }
 
+    /**
+     * 所属县级代码
+     *
+     * @return 所属县级代码
+     */
     @ReaderMethod
     public String getCountyCode() {
         return countyCode;
     }
 
+    /**
+     * 所属县级完整行政区划代码
+     *
+     * @return 所属县级完整行政区划代码
+     */
     @ReaderMethod
     public String getFullCountyCode() {
         return Strings.padEnd(this.countyCode, 12, '0');

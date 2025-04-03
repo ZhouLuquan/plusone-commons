@@ -124,26 +124,66 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  */
 public interface MultiTypesException<E extends Exception, T extends MultiTypesException.ExceptionType<E>> {
 
+    /**
+     * 异常类型
+     *
+     * @return 异常类型。通常是实现了 {@link ExceptionType} 的枚举。
+     */
     @Nonnull
     T getType();
 
+    /**
+     * 获取异常类型编码
+     *
+     * @return 异常类型编码
+     */
     default @Nonnull String getTypeCode() {
         return getType().getCode();
     }
 
+    /**
+     * 异常类型
+     */
     public static interface ExceptionType<E extends Exception> extends IWithCode<String> {
 
+        /**
+         * 默认异常信息
+         */
         String getDefaultMessage();
 
+        /**
+         * 创建异常
+         *
+         * @return 异常对象
+         */
         @Nonnull
         E create();
 
+        /**
+         * 使用指定 {@code message} 创建异常
+         *
+         * @param message 异常信息
+         * @return 异常对象
+         */
         @Nonnull
         E create(String message);
 
+        /**
+         * 使用指定 {@code cause} 创建异常
+         *
+         * @param cause 包装的异常
+         * @return 异常对象
+         */
         @Nonnull
         E create(Throwable cause);
 
+        /**
+         * 使用指定 {@code message} 和 {@code cause} 创建异常
+         *
+         * @param message 异常信息
+         * @param cause   包装的异常
+         * @return 异常对象
+         */
         @Nonnull
         E create(String message, Throwable cause);
 

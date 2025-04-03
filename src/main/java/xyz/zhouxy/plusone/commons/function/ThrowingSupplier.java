@@ -16,13 +16,27 @@
 
 package xyz.zhouxy.plusone.commons.function;
 
+/**
+ * ThrowingSupplier
+ *
+ * <p>
+ * 允许抛出异常的 Supplier 接口。
+ * </p>
+ *
+ * @param <T> 结果类型
+ * @param <E> 异常类型
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
+ * @see java.util.function.Supplier
+ */
 @FunctionalInterface
 public interface ThrowingSupplier<T, E extends Throwable> {
 
     /**
-     * Get a result, potentially throwing an exception.
+     * 获取一个结果，允许抛出异常。
      *
-     * @return a result
+     * @return 结果
      */
     T get() throws E;
 

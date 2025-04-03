@@ -33,18 +33,40 @@ public class BizException extends RuntimeException {
 
     private static final String DEFAULT_MSG = "业务异常";
 
+    /**
+     * 使用默认 message 构造新的业务异常。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public BizException() {
         super(DEFAULT_MSG);
     }
 
+    /**
+     * 使用指定的 {@code message} 构造新的业务异常。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public BizException(String message) {
         super(message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 构造新的业务异常。
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public BizException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 构造新的业务异常。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public BizException(String message, Throwable cause) {
         super(message, cause);
     }

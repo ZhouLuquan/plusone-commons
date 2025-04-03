@@ -79,43 +79,100 @@ public final class Ref<T> {
         this.value = value;
     }
 
+    /**
+     * 创建对象引用
+     *
+     * @param <T>   引用的类型
+     * @param value 引用的对象
+     * @return {@code Ref} 对象
+     */
     public static <T> Ref<T> of(@Nullable T value) {
         return new Ref<>(value);
     }
 
+    /**
+     * 创建空引用
+     *
+     * @param <T>   引用的类型
+     * @return 空引用
+     */
     public static <T> Ref<T> empty() {
         return new Ref<>(null);
     }
 
+    /**
+     * 获取引用的对象
+     *
+     * @return 引用的对象
+     */
     @Nullable
     public T getValue() {
         return value;
     }
 
+    /**
+     * 设置引用的对象
+     *
+     * @param value 要引用的对象
+     */
     public void setValue(@Nullable T value) {
         this.value = value;
     }
 
+    /**
+     * 使用 {@link UnaryOperator} 修改 {@code Ref} 内部引用的对象
+     *
+     * @param operator 修改逻辑
+     */
     public void transformValue(UnaryOperator<T> operator) {
         this.value = operator.apply(this.value);
     }
 
+    /**
+     * 使用 {@link Function} 修改所引用的对象，返回新的 {@code Ref}
+     *
+     * @param <R>      结果的引用类型
+     * @param function 修改逻辑
+     * @return 修改后的对象的引用
+     */
     public <R> Ref<R> transform(Function<? super T, R> function) {
         return Ref.of(function.apply(this.value));
     }
 
+    /**
+     * 使用 {@link Predicate} 检查引用的对象
+     *
+     * @param predicate 判断逻辑
+     * @return 判断结果
+     */
     public boolean checkValue(Predicate<? super T> predicate) {
         return predicate.test(this.value);
     }
 
+    /**
+     * 将引用的对象作为入参，执行 {@link Consumer} 的逻辑
+     *
+     * @param consumer 要执行的逻辑
+     */
     public void execute(Consumer<? super T> consumer) {
         consumer.accept(value);
     }
 
+    /**
+     * 判断所引用的对象是否为 {@code null}
+     *
+     * @return 是否为 {@code null}
+     */
     public boolean isNull() {
         return this.value == null;
     }
 
+
+    /**
+     * 判断所引用的对象是否不为 {@code null}
+     *
+     * @return 是否不为 {@code null}
+     */
     public boolean isNotNull() {
         return this.value != null;
     }

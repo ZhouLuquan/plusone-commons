@@ -702,18 +702,43 @@ public class DateTimeTools {
     // #region - start & end
     // ================================
 
+    /**
+     * 获取指定年份的开始日期
+     *
+     * @param year 年份
+     * @return 指定年份的开始日期
+     */
     public static LocalDate startDateOfYear(int year) {
         return LocalDate.ofYearDay(year, 1);
     }
 
+    /**
+     * 获取指定年份的结束日期
+     *
+     * @param year 年份
+     * @return 指定年份的结束日期
+     */
     public static LocalDate endDateOfYear(int year) {
         return LocalDate.of(year, 12, 31);
     }
 
+    /**
+     * 获取指定日期的第二天的开始时间
+     *
+     * @param date 日期
+     * @return 指定日期的第二天的开始时间
+     */
     public static LocalDateTime startOfNextDate(LocalDate date) {
         return date.plusDays(1L).atStartOfDay();
     }
 
+    /**
+     * 获取指定日期的第二天的开始时间
+     *
+     * @param date 日期
+     * @param zone 时区
+     * @return 指定日期的第二天的开始时间
+     */
     public static ZonedDateTime startOfNextDate(LocalDate date, ZoneId zone) {
         return date.plusDays(1L).atStartOfDay(zone);
     }
@@ -726,30 +751,72 @@ public class DateTimeTools {
     // #region - isFuture
     // ================================
 
+    /**
+     * 判断指定日期时间是否在将来
+     *
+     * @param date 日期时间
+     * @return 指定日期时间是否在将来
+     */
     public static boolean isFuture(Date date) {
         return date.after(new Date());
     }
 
-    public static boolean isFuture(Calendar date) {
-        return date.after(Calendar.getInstance());
+    /**
+     * 判断指定日期时间是否在将来
+     *
+     * @param calendar 日期时间
+     * @return 指定日期时间是否在将来
+     */
+    public static boolean isFuture(Calendar calendar) {
+        return calendar.after(Calendar.getInstance());
     }
 
+    /**
+     * 判断指定时刻是否在将来
+     *
+     * @param instant 时刻
+     * @return 指定时刻是否在将来
+     */
     public static boolean isFuture(Instant instant) {
         return instant.isAfter(Instant.now());
     }
 
+    /**
+     * 判断指定时间戳是否在将来
+     *
+     * @param timeMillis 时间戳
+     * @return 指定时间戳是否在将来
+     */
     public static boolean isFuture(long timeMillis) {
         return timeMillis > System.currentTimeMillis();
     }
 
+    /**
+     * 判断指定日期是否在将来
+     *
+     * @param date 日期
+     * @return 指定日期是否在将来
+     */
     public static boolean isFuture(LocalDate date) {
         return date.isAfter(LocalDate.now());
     }
 
+    /**
+     * 判断指定日期时间是否在将来
+     *
+     * @param dateTime 日期时间
+     * @return 指定日期时间是否在将来
+     */
     public static boolean isFuture(LocalDateTime dateTime) {
         return dateTime.isAfter(LocalDateTime.now());
     }
 
+    /**
+     * 判断指定日期时间是否在将来
+     *
+     * @param dateTime 日期时间
+     * @return 指定日期时间是否在将来
+     */
     public static boolean isFuture(ZonedDateTime dateTime) {
         return dateTime.isAfter(ZonedDateTime.now());
     }
@@ -762,30 +829,72 @@ public class DateTimeTools {
     // #region - isPast
     // ================================
 
+    /**
+     * 判断指定日期时间是否在过去
+     *
+     * @param date 日期时间
+     * @return 指定日期时间是否在过去
+     */
     public static boolean isPast(Date date) {
         return date.before(new Date());
     }
 
-    public static boolean isPast(Calendar date) {
-        return date.before(Calendar.getInstance());
+    /**
+     * 判断指定日期时间是否在过去
+     *
+     * @param calendar 日期时间
+     * @return 指定日期时间是否在过去
+     */
+    public static boolean isPast(Calendar calendar) {
+        return calendar.before(Calendar.getInstance());
     }
 
+    /**
+     * 判断指定时刻是否在过去
+     *
+     * @param instant 时刻
+     * @return 指定时刻是否在过去
+     */
     public static boolean isPast(Instant instant) {
         return instant.isBefore(Instant.now());
     }
 
+    /**
+     * 判断指定时间戳是否在过去
+     *
+     * @param timeMillis 时间戳
+     * @return 指定时间戳是否在过去
+     */
     public static boolean isPast(long timeMillis) {
         return timeMillis < System.currentTimeMillis();
     }
 
+    /**
+     * 判断指定日期是否在过去
+     *
+     * @param date 日期
+     * @return 指定日期是否在过去
+     */
     public static boolean isPast(LocalDate date) {
         return date.isBefore(LocalDate.now());
     }
 
+    /**
+     * 判断指定日期时间是否在过去
+     *
+     * @param dateTime 日期时间
+     * @return 指定日期时间是否在过去
+     */
     public static boolean isPast(LocalDateTime dateTime) {
         return dateTime.isBefore(LocalDateTime.now());
     }
 
+    /**
+     * 判断指定日期时间是否在过去
+     *
+     * @param dateTime 日期时间
+     * @return 指定日期时间是否在过去
+     */
     public static boolean isPast(ZonedDateTime dateTime) {
         return dateTime.isBefore(ZonedDateTime.now());
     }
@@ -798,14 +907,33 @@ public class DateTimeTools {
     // #region - others
     // ================================
 
+    /**
+     * 获取指定日期的时间范围
+     *
+     * @param date 日期
+     * @return 指定日期的时间范围
+     */
     public static Range<LocalDateTime> toDateTimeRange(LocalDate date) {
         return Range.closedOpen(date.atStartOfDay(), startOfNextDate(date));
     }
 
+    /**
+     * 获取指定日期的时间范围
+     *
+     * @param date 日期
+     * @param zone 时区
+     * @return 指定日期的时间范围
+     */
     public static Range<ZonedDateTime> toDateTimeRange(LocalDate date, ZoneId zone) {
         return Range.closedOpen(date.atStartOfDay(zone), startOfNextDate(date, zone));
     }
 
+    /**
+     * 判断指定年份是否为闰年
+     *
+     * @param year 年份
+     * @return 指定年份是否为闰年
+     */
     public static boolean isLeapYear(int year) {
         return IsoChronology.INSTANCE.isLeapYear(year);
     }
@@ -815,7 +943,7 @@ public class DateTimeTools {
     // ================================
 
     /**
-     * 私有构造方法，明确标识该常量类的作用。
+     * 私有构造方法
      */
     private DateTimeTools() {
         throw new IllegalStateException("Utility class");

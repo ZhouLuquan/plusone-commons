@@ -39,11 +39,26 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
     private final BiConsumer<TSubTree, T> addChildMethod;
     private final Comparator<? super T> defaultComparator;
 
+    /**
+     * 构造一个 {@code TreeBuilder}。不指定用于排序的 {@code Comparator}。
+     *
+     * @param identityGetter       从节点中获取其标识的逻辑
+     * @param parentIdentityGetter 获取父节点标识的逻辑
+     * @param addChild             添加子节点的逻辑
+     */
     public TreeBuilder(Function<T, TIdentity> identityGetter, Function<T, Optional<TIdentity>> parentIdentityGetter,
             BiConsumer<TSubTree, T> addChild) {
         this(identityGetter, parentIdentityGetter, addChild, null);
     }
 
+    /**
+     * 构造一个 {@code TreeBuilder}。
+     *
+     * @param identityGetter       从节点中获取其标识的逻辑
+     * @param parentIdentityGetter 获取父节点标识的逻辑
+     * @param addChild             添加子节点的逻辑
+     * @param defaultComparator    默认的 {@code Comparator}，用于排序
+     */
     public TreeBuilder(Function<T, TIdentity> identityGetter, Function<T, Optional<TIdentity>> parentIdentityGetter,
             BiConsumer<TSubTree, T> addChild, @Nullable Comparator<? super T> defaultComparator) {
         this.identityGetter = identityGetter;

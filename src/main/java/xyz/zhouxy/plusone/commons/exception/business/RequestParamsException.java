@@ -30,18 +30,40 @@ public class RequestParamsException extends BizException {
 
     private static final String DEFAULT_MSG = "用户请求参数错误";
 
+    /**
+     * 使用默认 message 构造新的 {@code RequestParamsException}。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public RequestParamsException() {
         super(DEFAULT_MSG);
     }
 
+    /**
+     * 使用指定的 {@code message} 构造新的 {@code RequestParamsException}。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public RequestParamsException(String message) {
         super(message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 构造新的 {@code RequestParamsException}。
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public RequestParamsException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 构造新的 {@code RequestParamsException}。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public RequestParamsException(String message, Throwable cause) {
         super(message, cause);
     }

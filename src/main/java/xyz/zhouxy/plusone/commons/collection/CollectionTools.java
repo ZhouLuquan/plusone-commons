@@ -42,26 +42,62 @@ public class CollectionTools {
     // #region - isEmpty
     // ================================
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param collection 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable Collection<?> collection) {
         return collection == null || collection.isEmpty();
     }
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param map 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable Map<?, ?> map) {
         return map == null || map.isEmpty();
     }
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param table 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable Table<?, ?, ?> table) {
         return table == null || table.isEmpty();
     }
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param map 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable Multimap<?, ?> map) {
         return map == null || map.isEmpty();
     }
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param set 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable Multiset<?> set) {
         return set == null || set.isEmpty();
     }
 
+    /**
+     * 判断集合是否为空
+     *
+     * @param set 集合
+     * @return 是否为空
+     */
     public static boolean isEmpty(@Nullable RangeSet<?> set) {
         return set == null || set.isEmpty();
     }
@@ -74,26 +110,62 @@ public class CollectionTools {
     // #region - isNotEmpty
     // ================================
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param collection 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable Collection<?> collection) {
         return collection != null && !collection.isEmpty();
     }
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param map 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable Map<?, ?> map) {
         return map != null && !map.isEmpty();
     }
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param table 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable Table<?, ?, ?> table) {
         return table != null && !table.isEmpty();
     }
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param map 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable Multimap<?, ?> map) {
         return map != null && !map.isEmpty();
     }
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param set 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable Multiset<?> set) {
         return set != null && !set.isEmpty();
     }
 
+    /**
+     * 判断集合是否不为空
+     *
+     * @param set 集合
+     * @return 是否不为空
+     */
     public static boolean isNotEmpty(@Nullable RangeSet<?> set) {
         return set != null && !set.isEmpty();
     }
@@ -106,16 +178,41 @@ public class CollectionTools {
     // #region - nullToEmpty
     // ================================
 
+    /**
+     * 将 {@code null} 转为空 {@code List}
+     *
+     * @param <T> List 元素的类型
+     * @param list list
+     * @return 如果 {@code list} 为 {@code null}，返回空列表；
+     *         如果 {@code list} 不为 {@code null}，返回 {@code list} 本身
+     */
     @Nonnull
     public static <T> List<T> nullToEmptyList(@Nullable List<T> list) {
         return list == null ? Collections.emptyList() : list;
     }
 
+    /**
+     * 将 {@code null} 转为空 {@code Set}
+     *
+     * @param <T> Set 元素的类型
+     * @param set set
+     * @return 如果 {@code set} 为 {@code null}，返回空集合；
+     *         如果 {@code set} 不为 {@code null}，返回 {@code set} 本身
+     */
     @Nonnull
     public static <T> Set<T> nullToEmptySet(@Nullable Set<T> set) {
         return set == null ? Collections.emptySet() : set;
     }
 
+    /**
+     * 将 {@code null} 转为空 {@code Map}
+     *
+     * @param <K> Map 的键的类型
+     * @param <V> Map 的值的类型
+     * @param map map
+     * @return 如果 {@code map} 为 {@code null}，返回空集合；
+     *         如果 {@code map} 不为 {@code null}，返回 {@code map} 本身
+     */
     @Nonnull
     public static <K, V> Map<K, V> nullToEmptyMap(@Nullable Map<K, V> map) {
         return map == null ? Collections.emptyMap() : map;

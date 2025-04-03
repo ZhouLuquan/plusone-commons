@@ -35,10 +35,23 @@ public class UnifiedResponse<T> {
     // #region - Constructors
     // ================================
 
+    /**
+     * 构造 {@code UnifiedResponse}
+     *
+     * @param code    状态码
+     * @param message 响应信息
+     */
     UnifiedResponse(String code, @Nullable String message) {
         this(code, message, null);
     }
 
+    /**
+     * 构造 {@code UnifiedResponse}
+     *
+     * @param code    状态码
+     * @param message 响应信息
+     * @param data    响应数据
+     */
     UnifiedResponse(String code, @Nullable String message, @Nullable T data) {
         this.code = Objects.requireNonNull(code);
         this.message = message == null ? "" : message;
@@ -53,14 +66,29 @@ public class UnifiedResponse<T> {
     // #region - Getters
     // ================================
 
+    /**
+     * 状态码
+     *
+     * @return 状态码
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * 响应信息
+     *
+     * @return 响应信息
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * 响应数据
+     *
+     * @return 响应数据
+     */
     @Nullable
     public T getData() {
         return data;

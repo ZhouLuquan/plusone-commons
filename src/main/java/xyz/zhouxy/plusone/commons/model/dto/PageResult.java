@@ -43,20 +43,44 @@ public class PageResult<T> {
         this.total = total;
     }
 
+    /**
+     * 创建一个分页查询的结果
+     *
+     * @param <T>     内容类型
+     * @param content 一页数据
+     * @param total   总数据量
+     * @return 分页查询的结果
+     */
     @StaticFactoryMethod(PageResult.class)
     public static <T> PageResult<T> of(@Nullable final List<T> content, final long total) {
         return new PageResult<>(content, total);
     }
 
+    /**
+     * 创建一个空的分页查询的结果
+     *
+     * @param <T> 内容类型
+     * @return 空结果
+     */
     @StaticFactoryMethod(PageResult.class)
     public static <T> PageResult<T> empty() {
         return new PageResult<>(Collections.emptyList(), 0L);
     }
 
+    /**
+     * 总数据量
+     *
+     * @return 总数据量
+     */
     public long getTotal() {
         return total;
     }
 
+    /**
+     * 一页数据
+     *
+     * @return 一页数据
+     */
     public List<T> getContent() {
         return content;
     }

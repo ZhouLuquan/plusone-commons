@@ -54,6 +54,11 @@ public class PagingAndSortingQueryParams {
 
     private final Map<String, String> sortableProperties;
 
+    /**
+     * 构造分页排序查询参数
+     *
+     * @param sortableProperties 可排序的属性。不可为空。
+     */
     public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
         AssertTools.checkArgument(CollectionTools.isNotEmpty(sortableProperties),
                 "Sortable properties can not be empty.");
@@ -74,16 +79,31 @@ public class PagingAndSortingQueryParams {
         this.orderBy = orderBy;
     }
 
+    /**
+     * 设置每页大小
+     *
+     * @param size 每页大小
+     */
     public final void setSize(@Nullable Integer size) {
         this.size = size;
     }
 
+    /**
+     * 设置页码
+     *
+     * @param pageNum 页码
+     */
     public final void setPageNum(@Nullable Long pageNum) {
         this.pageNum = pageNum;
     }
 
     // Setters end
 
+    /**
+     * 构建分页参数
+     *
+     * @return {@code PagingParams} 对象
+     */
     public final PagingParams buildPagingParams() {
         final int sizeValue = this.size != null ? this.size : defaultSizeInternal();
         final long pageNumValue = this.pageNum != null ? this.pageNum : 1L;
@@ -95,6 +115,13 @@ public class PagingAndSortingQueryParams {
         return new PagingParams(sizeValue, pageNumValue, propertiesToSort);
     }
 
+    /**
+     * 默认每页大小
+     *
+     * <p>NOTE: 可覆写此方法</p>
+     *
+     * @return 默认每页大小
+     */
     @Virtual
     protected int defaultSizeInternal() {
         return DEFAULT_PAGE_SIZE;
@@ -124,6 +151,9 @@ public class PagingAndSortingQueryParams {
         return new SortableProperty(propertyName, columnName, orderType);
     }
 
+    /**
+     * 可排序属性
+     */
     public static final class SortableProperty {
         private final String propertyName;
         private final String columnName;
@@ -140,18 +170,38 @@ public class PagingAndSortingQueryParams {
             this.sqlSnippet = this.propertyName + " " + this.orderType;
         }
 
+        /**
+         * 属性名
+         *
+         * @return 属性名
+         */
         public String getPropertyName() {
             return propertyName;
         }
 
+        /**
+         * 对应数据库中列名称
+         *
+         * @return 列名称
+         */
         public String getColumnName() {
             return columnName;
         }
 
+        /**
+         * 排序方式
+         *
+         * @return 排序方式
+         */
         public String getOrderType() {
             return orderType;
         }
 
+        /**
+         * SQL 片段
+         *
+         * @return SQL 片段
+         */
         public String getSqlSnippet() {
             return sqlSnippet;
         }

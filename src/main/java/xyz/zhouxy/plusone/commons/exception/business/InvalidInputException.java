@@ -60,18 +60,45 @@ public final class InvalidInputException
         this.type = type;
     }
 
+    /**
+     * 创建默认类型的 {@code InvalidInputException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code message} 为 {@link Type#DEFAULT} 的默认信息。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public InvalidInputException() {
         this(Type.DEFAULT);
     }
 
+    /**
+     * 使用指定 {@code message} 创建默认类型的 {@code InvalidInputException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public InvalidInputException(String message) {
         this(Type.DEFAULT, message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 创建默认类型的 {@code InvalidInputException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public InvalidInputException(Throwable cause) {
         this(Type.DEFAULT, cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 创建默认类型的 {@code InvalidInputException}。
+     * {@code type} 为 {@link Type#DEFAULT}。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public InvalidInputException(String message, Throwable cause) {
         this(Type.DEFAULT, message, cause);
     }

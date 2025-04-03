@@ -16,15 +16,25 @@
 
 package xyz.zhouxy.plusone.commons.function;
 
+/**
+ * ThrowingPredicate
+ *
+ * <p>
+ * 接收一个参数，返回一个布尔值，可抛出异常。
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
+ * @see java.util.function.Predicate
+ */
 @FunctionalInterface
 public interface ThrowingPredicate<T, E extends Throwable> {
 
     /**
-     * Evaluates this predicate on the given argument.
+     * 对给定的参数进行评估
      *
-     * @param t the input argument
-     * @return {@code true} if the input argument matches the predicate,
-     * otherwise {@code false}
+     * @param t 入参
+     * @return 入参符合条件时返回 {@code true}，否则返回 {@code false}
      */
     boolean test(T t) throws E;
 }

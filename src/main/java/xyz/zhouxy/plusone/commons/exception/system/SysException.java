@@ -30,18 +30,40 @@ public class SysException extends RuntimeException {
 
     private static final String DEFAULT_MSG = "系统异常";
 
+    /**
+     * 使用默认 message 构造新的系统异常。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public SysException() {
         super(DEFAULT_MSG);
     }
 
+    /**
+     * 使用指定的 {@code message} 构造新的系统异常。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public SysException(String message) {
         super(message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 构造新的系统异常。
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public SysException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 构造新的系统异常。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public SysException(String message, Throwable cause) {
         super(message, cause);
     }

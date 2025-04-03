@@ -134,16 +134,34 @@ public class OptionalTools {
         return optionalObj.orElse(null);
     }
 
+    /**
+     * 将 {@link OptionalInt} 转为 {@link Integer}
+     *
+     * @param optionalObj optional 对象
+     * @return {@link Integer} 对象。如果 {@code OptionalInt} 的值缺失，返回 {@code null}。
+     */
     @Beta
     public static Integer toInteger(OptionalInt optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsInt() : null;
     }
 
+    /**
+     * 将 {@link OptionalLong} 转为 {@link Long}
+     *
+     * @param optionalObj optional 对象
+     * @return {@link Long} 对象。如果 {@code OptionalLong} 的值缺失，返回 {@code null}。
+     */
     @Beta
     public static Long toLong(OptionalLong optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsLong() : null;
     }
 
+    /**
+     * 将 {@link OptionalDouble} 转为 {@link Double}
+     *
+     * @param optionalObj optional 对象
+     * @return {@link Double} 对象。如果 {@code OptionalDouble} 的值缺失，返回 {@code null}。
+     */
     @Beta
     public static Double toDouble(OptionalDouble optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsDouble() : null;

@@ -36,7 +36,7 @@ import xyz.zhouxy.plusone.commons.util.AssertTools;
  * @deprecated 弃用。使用工厂方法创建对象，并在其中进行校验即可。
  */
 @Deprecated
-public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<T>>
+public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<T>> // NOSONAR 暂不删除
         implements Comparable<T> {
 
     @Nonnull
@@ -44,15 +44,35 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
 
     private final Matcher matcher;
 
+    /**
+     * 构造字符串值对象
+     *
+     * @param value   字符串值
+     * @param pattern 正则
+     */
     protected ValidatableStringRecord(String value, Pattern pattern) {
         this(value, pattern, "Invalid value");
     }
 
+    /**
+     * 构造字符串值对象
+     *
+     * @param value                字符串值
+     * @param pattern              正则
+     * @param errorMessageSupplier 正则不匹配时的错误信息
+     */
     protected ValidatableStringRecord(String value, Pattern pattern,
             Supplier<String> errorMessageSupplier) {
         this(value, pattern, errorMessageSupplier.get());
     }
 
+    /**
+     * 构造字符串值对象
+     *
+     * @param value        字符串值
+     * @param pattern      正则
+     * @param errorMessage 正则不匹配时的错误信息
+     */
     protected ValidatableStringRecord(String value, Pattern pattern, String errorMessage) {
         AssertTools.checkArgument(Objects.nonNull(value), "The value cannot be null.");
         AssertTools.checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
@@ -99,6 +119,11 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
         return this.value();
     }
 
+    /**
+     * 获取正则匹配结果
+     *
+     * @return {@code Matcher} 对象
+     */
     protected final Matcher getMatcher() {
         return matcher;
     }

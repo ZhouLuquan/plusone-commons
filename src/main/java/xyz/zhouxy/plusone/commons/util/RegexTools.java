@@ -326,12 +326,26 @@ public final class RegexTools {
         return input != null && pattern.matcher(input).matches();
     }
 
+    /**
+     * 判断 {@code input} 是否匹配至少一个正则。
+     *
+     * @param input    输入
+     * @param patterns 正则表达式
+     * @return 判断结果
+     */
     private static boolean matchesOneInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
         return input != null
                 && Arrays.stream(patterns)
                         .anyMatch(pattern -> pattern.matcher(input).matches());
     }
 
+    /**
+     * 判断 {@code input} 是否匹配全部正则。
+     *
+     * @param input    输入
+     * @param patterns 正则表达式
+     * @return 判断结果
+     */
     private static boolean matchesAllInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
         return input != null
                 && Arrays.stream(patterns)

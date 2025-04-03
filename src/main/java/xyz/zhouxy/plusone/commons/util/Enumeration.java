@@ -48,10 +48,20 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
         this.name = name;
     }
 
+    /**
+     * 枚举整数码值
+     *
+     * @return 整数码值
+     */
     public final int getId() {
         return id;
     }
 
+    /**
+     * 枚举名称
+     *
+     * @return 枚举名称
+     */
     public final String getName() {
         return name;
     }
@@ -84,6 +94,9 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
         return getClass().getSimpleName() + '(' + id + ":" + name + ')';
     }
 
+    /**
+     * 枚举值集合
+     */
     protected static final class ValueSet<T extends Enumeration<T>> {
         private final Map<Integer, T> valueMap;
 
@@ -91,6 +104,13 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
             this.valueMap = valueMap;
         }
 
+        /**
+         * 创建枚举值集合
+         *
+         * @param <T>    枚举类型
+         * @param values 枚举值
+         * @return 枚举值集合
+         */
         @StaticFactoryMethod(ValueSet.class)
         public static <T extends Enumeration<T>> ValueSet<T> of(T[] values) {
             Map<Integer, T> temp = Arrays.stream(values)
@@ -98,11 +118,22 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
             return new ValueSet<>(Collections.unmodifiableMap(temp));
         }
 
+        /**
+         * 根据整数码值获取枚举对象
+         *
+         * @param id 整数码
+         * @return 枚举对象
+         */
         public T get(int id) {
             AssertTools.checkArgument(this.valueMap.containsKey(id), "[%s] 对应的值不存在", id);
             return this.valueMap.get(id);
         }
 
+        /**
+         * 获取所有枚举对象
+         *
+         * @return 所有枚举对象
+         */
         public Collection<T> getValues() {
             return this.valueMap.values();
         }

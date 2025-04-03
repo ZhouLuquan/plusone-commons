@@ -26,18 +26,40 @@ public final class DataNotExistsException extends Exception {
 
     private static final long serialVersionUID = 6536955800679703111L;
 
+    /**
+     * 使用默认 message 构造新的 {@code DataNotExistsException}。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public DataNotExistsException() {
         super();
     }
 
+    /**
+     * 使用指定的 {@code message} 构造新的 {@code DataNotExistsException}。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public DataNotExistsException(String message) {
         super(message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 构造新的 {@code DataNotExistsException}。
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public DataNotExistsException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 构造新的 {@code DataNotExistsException}。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public DataNotExistsException(String message, Throwable cause) {
         super(message, cause);
     }

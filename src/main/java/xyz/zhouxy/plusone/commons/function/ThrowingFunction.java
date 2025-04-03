@@ -15,14 +15,29 @@
  */
 package xyz.zhouxy.plusone.commons.function;
 
+/**
+ * ThrowingFunction
+ *
+ * <p>
+ * 接收一个参数，并返回一个结果，可以抛出异常。
+ * </p>
+ *
+ * @param <T> 入参类型
+ * @param <R> 返回结果类型
+ * @param <E> 异常类型
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0
+ * @see java.util.function.Function
+ */
 @FunctionalInterface
 public interface ThrowingFunction<T, R, E extends Throwable> {
 
     /**
-     * Applies this function to the given argument.
+     * 接收一个参数，并返回一个结果，可以抛出异常。
      *
-     * @param t the function argument
-     * @return the function result
+     * @param t 入参
+     * @return 函数结果
      */
     R apply(T t) throws E;
 

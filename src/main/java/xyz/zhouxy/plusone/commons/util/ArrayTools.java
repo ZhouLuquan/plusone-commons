@@ -470,10 +470,24 @@ public class ArrayTools {
 
     // repeat - char
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static char[] repeat(char[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static char[] repeat(char[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -491,10 +505,24 @@ public class ArrayTools {
 
     // repeat - byte
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static byte[] repeat(byte[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static byte[] repeat(byte[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -512,10 +540,24 @@ public class ArrayTools {
 
     // repeat - short
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static short[] repeat(short[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static short[] repeat(short[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -533,10 +575,24 @@ public class ArrayTools {
 
     // repeat - int
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static int[] repeat(int[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static int[] repeat(int[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -554,10 +610,24 @@ public class ArrayTools {
 
     // repeat - long
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static long[] repeat(long[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static long[] repeat(long[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -575,10 +645,24 @@ public class ArrayTools {
 
     // repeat - float
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static float[] repeat(float[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static float[] repeat(float[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -596,10 +680,24 @@ public class ArrayTools {
 
     // repeat - double
 
+    /**
+     * 重复数组中的元素
+     *
+     * @param arr   重复内容
+     * @param times 重复次数
+     * @return 重复后的数组
+     */
     public static double[] repeat(double[] arr, int times) {
         return repeat(arr, times, Integer.MAX_VALUE);
     }
 
+    /**
+     * 重复数组中的元素
+     * @param arr       重复内容
+     * @param times     重复次数
+     * @param maxLength 最大长度
+     * @return 重复后的数组
+     */
     public static double[] repeat(double[] arr, int times, int maxLength) {
         AssertTools.checkArgument(Objects.nonNull(arr));
         AssertTools.checkArgument(times >= 0,
@@ -621,14 +719,34 @@ public class ArrayTools {
 
     // fill - char
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(char[] a, @Nullable char[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(char[] a, @Nullable String values) {
         fill(a, 0, a.length, values != null ? values.toCharArray() : EMPTY_CHAR_ARRAY);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(char[] a, int fromIndex, int toIndex, @Nullable char[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -654,10 +772,24 @@ public class ArrayTools {
 
     // fill - byte
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(byte[] a, @Nullable byte[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(byte[] a, int fromIndex, int toIndex, @Nullable byte[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -683,10 +815,24 @@ public class ArrayTools {
 
     // fill - short
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(short[] a, @Nullable short[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(short[] a, int fromIndex, int toIndex, @Nullable short[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -712,10 +858,24 @@ public class ArrayTools {
 
     // fill - int
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(int[] a, @Nullable int[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(int[] a, int fromIndex, int toIndex, @Nullable int[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -741,10 +901,24 @@ public class ArrayTools {
 
     // fill - long
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(long[] a, @Nullable long[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(long[] a, int fromIndex, int toIndex, @Nullable long[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -770,10 +944,24 @@ public class ArrayTools {
 
     // fill - float
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(float[] a, @Nullable float[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(float[] a, int fromIndex, int toIndex, @Nullable float[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -799,10 +987,24 @@ public class ArrayTools {
 
     // fill - double
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static void fill(double[] a, @Nullable double[] values) {
         fill(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static void fill(double[] a, int fromIndex, int toIndex, @Nullable double[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
@@ -828,14 +1030,36 @@ public class ArrayTools {
 
     // fill - T
 
+    /**
+     * 填充数组
+     *
+     * @param a      要填充的数组
+     * @param values 填充内容
+     */
     public static <T> void fill(T[] a, @Nullable T[] values) {
         fillInternal(a, 0, a.length, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     public static <T> void fill(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         fillInternal(a, fromIndex, toIndex, values);
     }
 
+    /**
+     * 填充数组
+     *
+     * @param a         要填充的数组
+     * @param fromIndex 开始位置
+     * @param toIndex   结束位置
+     * @param values    填充内容
+     */
     private static <T> void fillInternal(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         AssertTools.checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {

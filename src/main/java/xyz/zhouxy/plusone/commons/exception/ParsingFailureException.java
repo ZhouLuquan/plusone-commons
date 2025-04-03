@@ -59,22 +59,56 @@ public final class ParsingFailureException
         this.type = type;
     }
 
+    /**
+     * 创建默认类型的 {@code ParsingFailureException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code message} 为 {@link Type#DEFAULT} 的默认信息。
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     */
     public ParsingFailureException() {
         this(Type.DEFAULT, Type.DEFAULT.getDefaultMessage());
     }
 
+    /**
+     * 使用指定 {@code message} 创建默认类型的 {@code ParsingFailureException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     *
+     * @param message 异常信息
+     */
     public ParsingFailureException(String message) {
         this(Type.DEFAULT, message);
     }
 
+    /**
+     * 使用指定的 {@code cause} 创建默认类型的 {@code ParsingFailureException}。
+     * {@code type} 为 {@link Type#DEFAULT}，
+     * {@code message} 为 (cause==null ? null : cause.toString())。
+     *
+     * @param cause 包装的异常
+     */
     public ParsingFailureException(Throwable cause) {
         this(Type.DEFAULT, cause);
     }
 
+    /**
+     * 使用指定的 {@code message} 和 {@code cause} 创建默认类型的 {@code ParsingFailureException}。
+     * {@code type} 为 {@link Type#DEFAULT}。
+     *
+     * @param message 异常信息
+     * @param cause   包装的异常
+     */
     public ParsingFailureException(String message, Throwable cause) {
         this(Type.DEFAULT, message, cause);
     }
 
+    /**
+     * 将 {@link DateTimeParseException} 包装为 {@link ParsingFailureException}。
+     * {@code type} 为 {@link Type#DATE_TIME_PARSING_FAILURE}。
+     *
+     * @param cause 包装的 {@code DateTimeParseException}
+     * @return ParsingFailureException
+     */
     public static ParsingFailureException of(DateTimeParseException cause) {
         if (cause == null) {
             return Type.DATE_TIME_PARSING_FAILURE.create();
@@ -82,10 +116,25 @@ public final class ParsingFailureException
         return Type.DATE_TIME_PARSING_FAILURE.create(cause.getMessage(), cause);
     }
 
+    /**
+     * 将 {@link DateTimeParseException} 包装为 {@link ParsingFailureException}。
+     * {@code type} 为 {@link Type#DATE_TIME_PARSING_FAILURE}。
+     *
+     * @param message 异常信息
+     * @param cause   包装的 {@code DateTimeParseException}
+     * @return ParsingFailureException
+     */
     public static ParsingFailureException of(String message, DateTimeParseException cause) {
         return Type.DATE_TIME_PARSING_FAILURE.create(message, cause);
     }
 
+    /**
+     * 将 {@link NumberFormatException} 包装为 {@link ParsingFailureException}。
+     * {@code type} 为 {@link Type#NUMBER_PARSING_FAILURE}。
+     *
+     * @param cause 包装的 {@code NumberFormatException}
+     * @return ParsingFailureException
+     */
     public static ParsingFailureException of(NumberFormatException cause) {
         if (cause == null) {
             return Type.NUMBER_PARSING_FAILURE.create();
@@ -93,6 +142,14 @@ public final class ParsingFailureException
         return Type.NUMBER_PARSING_FAILURE.create(cause.getMessage(), cause);
     }
 
+    /**
+     * 将 {@link NumberFormatException} 包装为 {@link ParsingFailureException}。
+     * {@code type} 为 {@link Type#NUMBER_PARSING_FAILURE}。
+     *
+     * @param message 异常信息
+     * @param cause   {@code NumberFormatException}
+     * @return ParsingFailureException
+     */
     public static ParsingFailureException of(String message, NumberFormatException cause) {
         return Type.NUMBER_PARSING_FAILURE.create(message, cause);
     }
@@ -103,10 +160,15 @@ public final class ParsingFailureException
         return type;
     }
 
+    /** 默认类型 */
     public static final Type DEFAULT = Type.DEFAULT;
+    /** 数字转换失败 */
     public static final Type NUMBER_PARSING_FAILURE = Type.NUMBER_PARSING_FAILURE;
+    /** 时间解析失败 */
     public static final Type DATE_TIME_PARSING_FAILURE = Type.DATE_TIME_PARSING_FAILURE;
+    /** JSON 解析失败 */
     public static final Type JSON_PARSING_FAILURE = Type.JSON_PARSING_FAILURE;
+    /** XML 解析失败 */
     public static final Type XML_PARSING_FAILURE = Type.XML_PARSING_FAILURE;
 
     public enum Type implements ExceptionType<ParsingFailureException> {

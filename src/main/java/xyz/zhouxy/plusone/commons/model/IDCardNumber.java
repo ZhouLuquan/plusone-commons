@@ -30,20 +30,31 @@ public interface IDCardNumber {
     static final int DEFAULT_DISPLAY_FRONT = 1;
     static final int DEFAULT_DISPLAY_END = 2;
 
+    /**
+     * 身份证号
+     *
+     * @return 身份证号
+     */
     String value();
 
     /**
      * 根据身份证号判断性别
+     *
+     * @return {@link Gender} 对象
      */
     Gender getGender();
 
     /**
      * 获取出生日期
+     *
+     * @return 出生日期
      */
     LocalDate getBirthDate();
 
     /**
      * 计算年龄
+     *
+     * @return 年龄
      */
     default int getAge() {
         LocalDate now = LocalDate.now();
@@ -54,14 +65,34 @@ public interface IDCardNumber {
     // #region - toString
     // ================================
 
+    /**
+     * 脱敏字符串（前面留 1 位，后面留 2 位）
+     *
+     * @return 脱敏字符串
+     */
     default String toDesensitizedString() {
         return StringTools.desensitize(value(), DEFAULT_REPLACED_CHAR, DEFAULT_DISPLAY_FRONT, DEFAULT_DISPLAY_END);
     }
 
+    /**
+     * 脱敏字符串
+     *
+     * @param front 前面保留的字符数
+     * @param end   后面保留的字符数
+     * @return 脱敏字符串
+     */
     default String toDesensitizedString(int front, int end) {
         return StringTools.desensitize(value(), DEFAULT_REPLACED_CHAR, front, end);
     }
 
+    /**
+     * 脱敏字符串
+     *
+     * @param replacedChar 替换字符
+     * @param front        前面保留的字符数
+     * @param end          后面保留的字符数
+     * @return 脱敏字符串
+     */
     default String toDesensitizedString(char replacedChar, int front, int end) {
         return StringTools.desensitize(value(), replacedChar, front, end);
     }

@@ -16,9 +16,26 @@
 
 package xyz.zhouxy.plusone.commons.function;
 
+/**
+ * Executable
+ *
+ * <p>
+ * 表示一个无入参无返回值的操作，可抛出异常。
+ * </p>
+ *
+ * @param <E> 可抛出的异常类型
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
+ */
 @FunctionalInterface
 public interface Executable<E extends Throwable> {
 
+    /**
+     * 执行
+     *
+     * @throws E 可抛出的异常
+     */
     void execute() throws E;
 
 }

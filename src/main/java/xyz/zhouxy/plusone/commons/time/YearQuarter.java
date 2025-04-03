@@ -139,6 +139,11 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         return of(yearMonth.getYear(), Quarter.fromMonth(yearMonth.getMonth()));
     }
 
+    /**
+     * 根据现在的日期，判断所在的年份与季度，创建 {@link YearQuarter} 实例
+     *
+     * @return {@link YearQuarter} 实例
+     */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter now() {
         return of(LocalDate.now());
@@ -148,46 +153,101 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
 
     // #region - Getters
 
+    /**
+     * 年份
+     *
+     * @return 年份
+     */
     public int getYear() {
         return this.year;
     }
 
+    /**
+     * 季度
+     *
+     * @return 季度
+     */
     public Quarter getQuarter() {
         return this.quarter;
     }
 
+    /**
+     * 季度值。从 1 开始。
+     *
+     * @return 季度值
+     */
     public int getQuarterValue() {
         return this.quarter.getValue();
     }
 
+    /**
+     * 该季度第一个月
+     *
+     * @return {@link YearMonth} 对象
+     */
     public YearMonth firstYearMonth() {
         return YearMonth.of(this.year, this.quarter.firstMonth());
     }
 
+    /**
+     * 该季度第一个月
+     *
+     * @return {@link Month} 对象
+     */
     public Month firstMonth() {
         return this.quarter.firstMonth();
     }
 
+    /**
+     * 该季度的第一个月
+     *
+     * @return 结果。月份值从 1 开始，1 表示 1月，以此类推。
+     */
     public int firstMonthValue() {
         return this.quarter.firstMonthValue();
     }
 
+    /**
+     * 该季度的最后一个月
+     *
+     * @return {@link YearMonth} 对象
+     */
     public YearMonth lastYearMonth() {
         return YearMonth.of(this.year, this.quarter.lastMonth());
     }
 
+    /**
+     * 该季度的最后一个月
+     *
+     * @return {@link Month} 对象
+     */
     public Month lastMonth() {
         return this.quarter.lastMonth();
     }
 
+    /**
+     * 该季度的最后一个月
+     *
+     * @return 结果。月份值从 1 开始，1 表示 1月，以此类推。
+     */
     public int lastMonthValue() {
         return this.quarter.lastMonthValue();
     }
 
+    /**
+     * 该季度的第一天
+     *
+     * @return {@link LocalDate} 对象
+     */
     public LocalDate firstDate() {
         return firstDate;
     }
 
+    /**
+     * 该季度的最后一天
+     *
+     * @return {@link LocalDate} 对象
+     */
     public LocalDate lastDate() {
         return lastDate;
     }
@@ -223,7 +283,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         if (yearsToAdd == 0L) {
             return this;
         }
-        int newYear = YEAR.checkValidIntValue(this.year + yearsToAdd);  // safe overflow
+        int newYear = YEAR.checkValidIntValue(this.year + yearsToAdd); // safe overflow
         return new YearQuarter(newYear, this.quarter);
     }
 

@@ -43,20 +43,41 @@ public enum Gender implements IWithIntCode {
         this.displayNameZh = displayNameZh;
     }
 
+    /**
+     * 根据码值获取对应枚举
+     *
+     * @param value 码值
+     * @return 枚举值
+     */
     public static Gender of(int value) {
         AssertTools.checkCondition(0 <= value && value < VALUES.length,
                 () -> new EnumConstantNotPresentException(Gender.class, String.valueOf(value)));
         return VALUES[value];
     }
 
+    /**
+     * 获取枚举码值
+     *
+     * @return 码值
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * 枚举名称
+     *
+     * @return 枚举名称
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     * 枚举中文名称
+     *
+     * @return 枚举中文名称
+     */
     public String getDisplayNameZh() {
         return displayNameZh;
     }

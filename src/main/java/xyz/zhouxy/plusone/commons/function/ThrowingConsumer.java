@@ -16,13 +16,24 @@
 
 package xyz.zhouxy.plusone.commons.function;
 
+/**
+ * ThrowingConsumer
+ *
+ * <p>
+ * 允许抛出异常的消费操作。是一个特殊的 {@link java.util.function.Consumer}。
+ * </p>
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @since 1.0.0
+ * @see java.util.function.Consumer
+ */
 @FunctionalInterface
 public interface ThrowingConsumer<T, E extends Throwable> {
 
     /**
-     * Consume the supplied argument, potentially throwing an exception.
+     * 消费给定的参数，允许抛出异常
      *
-     * @param t the argument to consume
+     * @param t 要消费的参数
      */
     void accept(T t) throws E;
 

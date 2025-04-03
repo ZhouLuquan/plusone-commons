@@ -36,18 +36,39 @@ public class IdGenerator {
 
     // ===== UUID =====
 
+    /**
+     * 生成 UUID
+     *
+     * @return UUID
+     */
     public static UUID newUuid() {
         return UUID.randomUUID();
     }
 
+    /**
+     * 生成 UUID 字符串
+     *
+     * @return UUID 字符串
+     */
     public static String uuidString() {
         return UUID.randomUUID().toString();
     }
 
+    /**
+     * 生成 UUID 字符串（无分隔符）
+     *
+     * @return UUID 字符串
+     */
     public static String simpleUuidString() {
         return toSimpleString(UUID.randomUUID());
     }
 
+    /**
+     * 生成 UUID 字符串（无分隔符）
+     *
+     * @param uuid UUID
+     * @return UUID 字符串
+     */
     public static String toSimpleString(UUID uuid) {
         AssertTools.checkArgument(Objects.nonNull(uuid));
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
@@ -67,11 +88,23 @@ public class IdGenerator {
 
     private static final Map<Long, IdWorker> snowflakePool = new ConcurrentHashMap<>();
 
+    /**
+     * 生成雪花ID
+     *
+     * @param workerId 工作机器ID
+     * @return 雪花ID
+     */
     public static long nextSnowflakeId(long workerId) {
         IdWorker generator = getSnowflakeIdGenerator(workerId);
         return generator.nextId();
     }
 
+    /**
+     * 获取雪花ID生成器
+     *
+     * @param workerId 工作机器ID
+     * @return {@code IdWorker} 对象。来自 Seata 的修改版雪花ID生成器。
+     */
     public static IdWorker getSnowflakeIdGenerator(long workerId) {
         return snowflakePool.computeIfAbsent(workerId, wid -> new IdWorker(workerId));
     }
