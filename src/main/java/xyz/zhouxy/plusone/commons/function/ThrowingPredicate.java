@@ -16,6 +16,7 @@
 
 package xyz.zhouxy.plusone.commons.function;
 
+@FunctionalInterface
 public interface ThrowingPredicate<T, E extends Throwable> {
 
     /**
