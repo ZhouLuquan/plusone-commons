@@ -64,7 +64,7 @@ public class OptionalTools {
      * @return {@link OptionalInt} 实例
      */
     public static OptionalInt toOptionalInt(Optional<Integer> optionalObj) {
-        return optionalObj.isPresent() ? OptionalInt.of(optionalObj.get()) : OptionalInt.empty();
+        return optionalObj.map(OptionalInt::of).orElseGet(OptionalInt::empty);
     }
 
     /**
@@ -91,7 +91,7 @@ public class OptionalTools {
      * @return {@link OptionalLong} 实例
      */
     public static OptionalLong toOptionalLong(Optional<Long> optionalObj) {
-        return optionalObj.isPresent() ? OptionalLong.of(optionalObj.get()) : OptionalLong.empty();
+        return optionalObj.map(OptionalLong::of).orElseGet(OptionalLong::empty);
     }
 
     /**
@@ -118,7 +118,7 @@ public class OptionalTools {
      * @return {@link OptionalDouble} 实例
      */
     public static OptionalDouble toOptionalDouble(Optional<Double> optionalObj) {
-        return optionalObj.isPresent() ? OptionalDouble.of(optionalObj.get()) : OptionalDouble.empty();
+        return optionalObj.map(OptionalDouble::of).orElseGet(OptionalDouble::empty);
     }
 
     /**
@@ -130,6 +130,7 @@ public class OptionalTools {
      * @return the value of the optional object if present, otherwise {@code null}.
      */
     @Beta
+    @Nullable
     public static <T> T orElseNull(Optional<T> optionalObj) {
         return optionalObj.orElse(null);
     }
@@ -141,6 +142,7 @@ public class OptionalTools {
      * @return {@link Integer} 对象。如果 {@code OptionalInt} 的值缺失，返回 {@code null}。
      */
     @Beta
+    @Nullable
     public static Integer toInteger(OptionalInt optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsInt() : null;
     }
@@ -152,6 +154,7 @@ public class OptionalTools {
      * @return {@link Long} 对象。如果 {@code OptionalLong} 的值缺失，返回 {@code null}。
      */
     @Beta
+    @Nullable
     public static Long toLong(OptionalLong optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsLong() : null;
     }
@@ -163,6 +166,7 @@ public class OptionalTools {
      * @return {@link Double} 对象。如果 {@code OptionalDouble} 的值缺失，返回 {@code null}。
      */
     @Beta
+    @Nullable
     public static Double toDouble(OptionalDouble optionalObj) {
         return optionalObj.isPresent() ? optionalObj.getAsDouble() : null;
     }
