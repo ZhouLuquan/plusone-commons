@@ -26,10 +26,10 @@ import javax.annotation.Nullable;
  */
 public class UnifiedResponse<T> {
 
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
 
-    private @Nullable T data;
+    private final @Nullable T data;
 
     // ================================
     // #region - Constructors
