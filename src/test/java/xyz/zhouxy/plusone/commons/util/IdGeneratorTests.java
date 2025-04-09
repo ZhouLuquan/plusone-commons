@@ -37,9 +37,8 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 
 public class IdGeneratorTests {
 
-    final ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10,
-            0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>());
+    final ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>());
 
     @Test
     void testSnowflakeIdGenerator() { // NOSONAR
@@ -48,7 +47,7 @@ public class IdGeneratorTests {
         for (int i = 0; i < 10000; i++) {
             executor.execute(() -> {
                 for (int j = 0; j < 50000; j++) {
-                    if (false == ids.add(snowflake.nextId())) {
+                    if (!ids.add(snowflake.nextId())) {
                         throw new RuntimeException("重复ID！");
                     }
                 }

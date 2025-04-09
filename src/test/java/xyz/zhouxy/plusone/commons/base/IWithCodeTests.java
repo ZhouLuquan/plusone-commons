@@ -81,7 +81,7 @@ class IWithCodeTests {
         assertThrows(NullPointerException.class, () -> WithLongCode.INSTANCE.isCodeEquals(longCode));
     }
 
-    private static enum WithCode implements IWithCode<String> {
+    private enum WithCode implements IWithCode<String> {
         INSTANCE("testCode"),
         SAME_CODE_INSTANCE("testCode"),
         WRONG_CODE_INSTANCE("wrongCode"),
@@ -102,7 +102,7 @@ class IWithCodeTests {
         }
     }
 
-    private static enum WithIntCode implements IWithIntCode {
+    private enum WithIntCode implements IWithIntCode {
         INSTANCE(0),
         SAME_CODE_INSTANCE(0),
         WRONG_CODE_INSTANCE(1),
@@ -120,7 +120,7 @@ class IWithCodeTests {
         }
     }
 
-    private static enum WithLongCode implements IWithLongCode {
+    private enum WithLongCode implements IWithLongCode {
         INSTANCE(0L),
         SAME_CODE_INSTANCE(0L),
         WRONG_CODE_INSTANCE(108L),

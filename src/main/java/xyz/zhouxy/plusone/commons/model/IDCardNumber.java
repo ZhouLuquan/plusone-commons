@@ -26,9 +26,9 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  */
 public interface IDCardNumber {
 
-    static final char DEFAULT_REPLACED_CHAR = '*';
-    static final int DEFAULT_DISPLAY_FRONT = 1;
-    static final int DEFAULT_DISPLAY_END = 2;
+    char DEFAULT_REPLACED_CHAR = '*';
+    int DEFAULT_DISPLAY_FRONT = 1;
+    int DEFAULT_DISPLAY_END = 2;
 
     /**
      * 身份证号

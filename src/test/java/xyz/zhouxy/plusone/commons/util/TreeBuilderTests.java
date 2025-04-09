@@ -87,19 +87,19 @@ class TreeBuilderTests {
             Arrays.stream(new Menu[] { B001, B002, B003, B004 })
                 .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-            MenuList.class.cast(menuMap.get("B")).children);
+            ((MenuList) menuMap.get("B")).children);
 
         assertEquals(
             Arrays.stream(new Menu[] { C1, C2, C3 })
                 .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-            MenuList.class.cast(menuMap.get("C")).children);
+            ((MenuList) menuMap.get("C")).children);
 
         assertEquals(
             Arrays.stream(new Menu[] { C1001, C1002 })
                 .sorted(Comparator.comparing(Menu::getOrderNum))
                 .collect(Collectors.toList()),
-            MenuList.class.cast(menuMap.get("C1")).children);
+            ((MenuList) menuMap.get("C1")).children);
 
     }
 
@@ -125,18 +125,18 @@ class TreeBuilderTests {
         }
 
         assertEquals(ImmutableList.of(B001, B002, B003, B004),
-                MenuList.class.cast(menuMap.get("B")).children);
+                ((MenuList) menuMap.get("B")).children);
 
         assertEquals(ImmutableList.of(C1, C2, C3),
-                MenuList.class.cast(menuMap.get("C")).children);
+                ((MenuList) menuMap.get("C")).children);
 
         assertEquals(ImmutableList.of(C1001, C1002),
-                MenuList.class.cast(menuMap.get("C1")).children);
+                ((MenuList) menuMap.get("C1")).children);
     }
 
     @ToString
     @EqualsAndHashCode
-    private static abstract class Menu implements Serializable { // NOSONAR
+    private abstract static class Menu implements Serializable {
         protected final String parentMenuCode;
         protected final String menuCode;
         protected final String title;

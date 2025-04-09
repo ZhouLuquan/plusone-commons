@@ -38,9 +38,7 @@ class QuarterTests {
         assertEquals(1, quarter.getValue());
         assertEquals("Q1", quarter.name());
 
-        assertThrows(DateTimeException.class, () -> {
-            Quarter.of(0);
-        });
+        assertThrows(DateTimeException.class, () -> Quarter.of(0));
 
         // ==========
 
@@ -85,9 +83,7 @@ class QuarterTests {
         assertEquals(2, quarter.getValue());
         assertEquals("Q2", quarter.name());
 
-        assertThrows(DateTimeException.class, () -> {
-            Quarter.of(5);
-        });
+        assertThrows(DateTimeException.class, () -> Quarter.of(5));
 
         // ==========
 
@@ -132,9 +128,7 @@ class QuarterTests {
         assertEquals(3, quarter.getValue());
         assertEquals("Q3", quarter.name());
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Quarter.valueOf("Abc");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Quarter.valueOf("Abc"));
 
         // ==========
 
@@ -179,9 +173,7 @@ class QuarterTests {
         assertEquals(4, quarter.getValue());
         assertEquals("Q4", quarter.name());
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Quarter.valueOf("Q5");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Quarter.valueOf("Q5"));
 
         // ==========
 

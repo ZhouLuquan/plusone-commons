@@ -181,13 +181,13 @@ public class PagingAndSortingQueryParamsTests {
         }
 
         AccountQueryParams queryParams = jackson.readValue(WRONG_JSON_STR, AccountQueryParams.class);
-        assertThrows(IllegalArgumentException.class, () -> queryParams.buildPagingParams()); // NOSONAR
+        assertThrows(IllegalArgumentException.class, queryParams::buildPagingParams);
     }
 
     static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Test
-    void testGson() throws Exception {
+    void testGson() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
 
@@ -226,7 +226,7 @@ public class PagingAndSortingQueryParamsTests {
         }
 
         AccountQueryParams queryParams = gson.fromJson(WRONG_JSON_STR, AccountQueryParams.class);
-        assertThrows(IllegalArgumentException.class, () -> queryParams.buildPagingParams()); // NOSONAR
+        assertThrows(IllegalArgumentException.class, queryParams::buildPagingParams);
     }
 }
 
