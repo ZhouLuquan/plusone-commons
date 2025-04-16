@@ -184,8 +184,6 @@ public class PagingAndSortingQueryParamsTests {
         assertThrows(IllegalArgumentException.class, queryParams::buildPagingParams);
     }
 
-    static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     @Test
     void testGson() {
         Gson gson = new GsonBuilder()
@@ -193,14 +191,26 @@ public class PagingAndSortingQueryParamsTests {
 
                     @Override
                     public void write(JsonWriter out, LocalDate value) throws IOException {
-                        out.value(dateFormatter.format(value));
+                        out.value(DateTimeFormatter.ISO_DATE.format(value));
                     }
 
                     @Override
                     public LocalDate read(JsonReader in) throws IOException {
-                        return LocalDate.parse(in.nextString(), dateFormatter);
+                        return LocalDate.parse(in.nextString(), DateTimeFormatter.ISO_DATE);
                     }
 
+                })
+                .registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
+
+                    @Override
+                    public void write(JsonWriter out, LocalDateTime value) throws IOException {
+                        out.value(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(value));
+                    }
+
+                    @Override
+                    public LocalDateTime read(JsonReader in) throws IOException {
+                        return LocalDateTime.parse(in.nextString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    }
                 })
                 .create();
         try (SqlSession session = sqlSessionFactory.openSession()) {
@@ -212,6 +222,7 @@ public class PagingAndSortingQueryParamsTests {
             List<AccountVO> list = accountQueries.queryAccountList(params, pagingParams);
             long count = accountQueries.countAccount(params);
             PageResult<AccountVO> accountPageResult = PageResult.of(list, count);
+
             log.info(gson.toJson(accountPageResult));
 
             assertEquals(Lists.newArrayList(
