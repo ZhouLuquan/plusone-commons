@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 the original author or authors.
+ * Copyright 2023-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,7 +184,7 @@ public class DateTimeTools {
     /**
      * 使用指定时区，将 {@link LocalDateTime} 对象转换为 {@link Instant} 对象
      *
-     * @param LocalDateTime {@link LocalDateTime} 对象
+     * @param localDateTime {@link LocalDateTime} 对象
      * @param zone          时区
      * @return {@link Instant} 对象
      */
