@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,23 +184,33 @@ public class PagingAndSortingQueryParamsTests {
         assertThrows(IllegalArgumentException.class, () -> queryParams.buildPagingParams()); // NOSONAR
     }
 
-    static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     @Test
-    void testGson() throws Exception {
+    void testGson() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
 
                     @Override
                     public void write(JsonWriter out, LocalDate value) throws IOException {
-                        out.value(dateFormatter.format(value));
+                        out.value(DateTimeFormatter.ISO_DATE.format(value));
                     }
 
                     @Override
                     public LocalDate read(JsonReader in) throws IOException {
-                        return LocalDate.parse(in.nextString(), dateFormatter);
+                        return LocalDate.parse(in.nextString(), DateTimeFormatter.ISO_DATE);
                     }
 
+                })
+                .registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
+
+                    @Override
+                    public void write(JsonWriter out, LocalDateTime value) throws IOException {
+                        out.value(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(value));
+                    }
+
+                    @Override
+                    public LocalDateTime read(JsonReader in) throws IOException {
+                        return LocalDateTime.parse(in.nextString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    }
                 })
                 .create();
         try (SqlSession session = sqlSessionFactory.openSession()) {
@@ -212,6 +222,7 @@ public class PagingAndSortingQueryParamsTests {
             List<AccountVO> list = accountQueries.queryAccountList(params, pagingParams);
             long count = accountQueries.countAccount(params);
             PageResult<AccountVO> accountPageResult = PageResult.of(list, count);
+
             log.info(gson.toJson(accountPageResult));
 
             assertEquals(Lists.newArrayList(
@@ -226,7 +237,7 @@ public class PagingAndSortingQueryParamsTests {
         }
 
         AccountQueryParams queryParams = gson.fromJson(WRONG_JSON_STR, AccountQueryParams.class);
-        assertThrows(IllegalArgumentException.class, () -> queryParams.buildPagingParams()); // NOSONAR
+        assertThrows(IllegalArgumentException.class, queryParams::buildPagingParams);
     }
 }
 
