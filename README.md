@@ -198,6 +198,7 @@ throw LoginException.Type.TOKEN_TIMEOUT.create();
 - **size** - 每页显示的记录数
 - **pageNum** - 当前页码
 - **orderBy** - 排序条件
+
 其中 `orderBy` 是一个 List，可以指定多个排序条件，每个排序条件是一个字符串， 格式为“**属性名-ASC**”或“**属性名-DESC**”，分别表示升序和降序。
 
 比如前端传入的 orderBy 为 ["name-ASC","age-DESC"]，意味着要按 name 进行升序，name 相同的情况下则按 age 进行降序。
