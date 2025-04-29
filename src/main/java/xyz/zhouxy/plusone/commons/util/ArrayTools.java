@@ -54,9 +54,9 @@ public class ArrayTools {
 
     public static final int NOT_FOUND_INDEX = -1;
 
-    // #region - isNullOrEmpty
+    // #region - isEmpty
 
-    // isNullOrEmpty
+    // isEmpty
 
     /**
      * 检查给定数组是否为空
@@ -65,84 +65,84 @@ public class ArrayTools {
      * @param <T> 数组中元素的类型
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static <T> boolean isNullOrEmpty(@Nullable T[] arr) {
+    public static <T> boolean isEmpty(@Nullable T[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - char
+    // isEmpty - char
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable char[] arr) {
+    public static boolean isEmpty(@Nullable char[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - byte
+    // isEmpty - byte
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable byte[] arr) {
+    public static boolean isEmpty(@Nullable byte[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - short
+    // isEmpty - short
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable short[] arr) {
+    public static boolean isEmpty(@Nullable short[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - int
+    // isEmpty - int
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable int[] arr) {
+    public static boolean isEmpty(@Nullable int[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - long
+    // isEmpty - long
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable long[] arr) {
+    public static boolean isEmpty(@Nullable long[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - float
+    // isEmpty - float
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable float[] arr) {
+    public static boolean isEmpty(@Nullable float[] arr) {
         return arr == null || arr.length == 0;
     }
 
-    // isNullOrEmpty - double
+    // isEmpty - double
     /**
      * 检查给定数组是否为空
      *
      * @param arr 待检查的数组，可以为 {@code null}
      * @return 如果数组为 {@code null} 或长度为 0，则返回  {@code true}；否则返回  {@code false}
      */
-    public static boolean isNullOrEmpty(@Nullable double[] arr) {
+    public static boolean isEmpty(@Nullable double[] arr) {
         return arr == null || arr.length == 0;
     }
 

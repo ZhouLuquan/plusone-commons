@@ -108,7 +108,7 @@ public class Numbers {
      * @return 求和结果
      */
     public static BigInteger sum(final BigInteger... numbers) {
-        if (ArrayTools.isNullOrEmpty(numbers)) {
+        if (ArrayTools.isEmpty(numbers)) {
             return BigInteger.ZERO;
         }
         BigInteger result = Numbers.nullToZero(numbers[0]);

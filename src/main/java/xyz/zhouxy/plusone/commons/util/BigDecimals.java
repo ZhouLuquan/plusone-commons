@@ -105,7 +105,7 @@ public class BigDecimals {
      * @return 求和结果
      */
     public static BigDecimal sum(final BigDecimal... numbers) {
-        if (ArrayTools.isNullOrEmpty(numbers)) {
+        if (ArrayTools.isEmpty(numbers)) {
             return BigDecimal.ZERO;
         }
         BigDecimal result = BigDecimals.nullToZero(numbers[0]);

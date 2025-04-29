@@ -57,53 +57,53 @@ public class ArrayToolsTests {
     static final double[] EMPTY_DOUBLE_ARRAY = {};
 
     // ================================
-    // #region - isNullOrEmpty
+    // #region - isEmpty
     // ================================
 
     @Test
-    void isNullOrEmpty_NullArray_ReturnsTrue() {
+    void isEmpty_NullArray_ReturnsTrue() {
         assertAll(
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_STRING_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_INTEGER_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_CHAR_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_BYTE_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_SHORT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_INT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_LONG_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_FLOAT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(NULL_DOUBLE_ARRAY)));
+                () -> assertTrue(ArrayTools.isEmpty(NULL_STRING_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_INTEGER_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_CHAR_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_BYTE_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_SHORT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_INT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_LONG_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_FLOAT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(NULL_DOUBLE_ARRAY)));
     }
 
     @Test
-    void isNullOrEmpty_EmptyArray_ReturnsTrue() {
+    void isEmpty_EmptyArray_ReturnsTrue() {
         assertAll(
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_STRING_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_INTEGER_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_CHAR_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_BYTE_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_SHORT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_INT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_LONG_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_FLOAT_ARRAY)),
-                () -> assertTrue(ArrayTools.isNullOrEmpty(EMPTY_DOUBLE_ARRAY)));
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_STRING_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_INTEGER_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_CHAR_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_BYTE_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_SHORT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_INT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_LONG_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_FLOAT_ARRAY)),
+                () -> assertTrue(ArrayTools.isEmpty(EMPTY_DOUBLE_ARRAY)));
     }
 
     @Test
-    void isNullOrEmpty_NonEmptyArray_ReturnsFalse() {
+    void isEmpty_NonEmptyArray_ReturnsFalse() {
         assertAll(
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new String[] { "a" })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new Integer[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new char[] { 'a' })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new byte[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new short[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new int[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new long[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new float[] { 1 })),
-                () -> assertFalse(ArrayTools.isNullOrEmpty(new double[] { 1 })));
+                () -> assertFalse(ArrayTools.isEmpty(new String[] { "a" })),
+                () -> assertFalse(ArrayTools.isEmpty(new Integer[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new char[] { 'a' })),
+                () -> assertFalse(ArrayTools.isEmpty(new byte[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new short[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new int[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new long[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new float[] { 1 })),
+                () -> assertFalse(ArrayTools.isEmpty(new double[] { 1 })));
     }
 
     // ================================
-    // #endregion - isNullOrEmpty
+    // #endregion - isEmpty
     // ================================
 
     // ================================
