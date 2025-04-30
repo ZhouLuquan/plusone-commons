@@ -99,6 +99,68 @@ public class AssertTools {
     // ================================
 
     // ================================
+    // #region - ArgumentNotNull
+    // ================================
+
+    /**
+     * 判断入参不为 {@code null}
+     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
+     */
+    public static <T> T checkArgumentNotNull(@Nullable T obj) {
+        checkCondition(obj != null, IllegalArgumentException::new);
+        return obj;
+    }
+
+    /**
+     * 判断入参不为 {@code null}
+     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessage 异常信息
+     * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
+     */
+    public static <T> T checkArgumentNotNull(@Nullable T obj, String errorMessage) {
+        checkCondition(obj != null, () -> new IllegalArgumentException(errorMessage));
+        return obj;
+    }
+
+    /**
+     * 判断入参不为 {@code null}
+     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageSupplier 异常信息
+     * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
+     */
+    public static <T> T checkArgumentNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
+        checkCondition(obj != null, () -> new IllegalArgumentException(errorMessageSupplier.get()));
+        return obj;
+    }
+
+    /**
+     * 判断入参不为 {@code null}
+     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
+     */
+    public static <T> T checkArgumentNotNull(@Nullable T obj,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(obj != null,
+                () -> new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs)));
+        return obj;
+    }
+
+    // ================================
+    // #endregion - ArgumentNotNull
+    // ================================
+
+    // ================================
     // #region - State
     // ================================
 
@@ -149,7 +211,7 @@ public class AssertTools {
     }
 
     // ================================
-    // #endregion
+    // #endregion - State
     // ================================
 
     // ================================
@@ -207,7 +269,7 @@ public class AssertTools {
     }
 
     // ================================
-    // #endregion
+    // #endregion - NotNull
     // ================================
 
     // ================================
