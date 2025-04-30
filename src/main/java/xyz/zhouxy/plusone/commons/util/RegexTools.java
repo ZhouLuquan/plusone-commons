@@ -17,29 +17,40 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+
 /**
- * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用（最多缓存大概 256 个）。
+ * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用。
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
- *
  */
 public final class RegexTools {
 
-    private static final int DEFAULT_CACHE_INITIAL_CAPACITY = 64;
     private static final int MAX_CACHE_SIZE = 256;
     private static final int DEFAULT_FLAG = 0;
-    private static final Map<RegexAndFlags, Pattern> PATTERN_CACHE
-            = new ConcurrentHashMap<>(DEFAULT_CACHE_INITIAL_CAPACITY);
+    private static final LoadingCache<RegexAndFlags, Pattern> PATTERN_CACHE = CacheBuilder
+            .newBuilder()
+            .maximumSize(MAX_CACHE_SIZE)
+            .build(new CacheLoader<RegexAndFlags, Pattern>() {
+                @SuppressWarnings("null")
+                public Pattern load(@Nonnull RegexAndFlags regexAndFlags) {
+                    return regexAndFlags.compilePattern();
+                }
+            });
+
+    // ================================
+    // #region - getPattern
+    // ================================
 
     /**
      * 获取 {@link Pattern} 实例。
@@ -273,11 +284,7 @@ public final class RegexTools {
     @Nonnull
     private static Pattern cacheAndGetPatternInternal(final String pattern, final int flags) {
         final RegexAndFlags regexAndFlags = new RegexAndFlags(pattern, flags);
-        if (PATTERN_CACHE.size() < MAX_CACHE_SIZE) {
-            return PATTERN_CACHE.computeIfAbsent(regexAndFlags, RegexAndFlags::compilePattern);
-        }
-        return Optional.ofNullable(PATTERN_CACHE.get(regexAndFlags))
-                .orElseGet(regexAndFlags::compilePattern);
+        return PATTERN_CACHE.getUnchecked(regexAndFlags);
     }
 
     /**
@@ -290,7 +297,7 @@ public final class RegexTools {
     @Nonnull
     private static Pattern getPatternInternal(final String pattern, final int flags) {
         final RegexAndFlags regexAndFlags = new RegexAndFlags(pattern, flags);
-        return Optional.ofNullable(PATTERN_CACHE.get(regexAndFlags))
+        return Optional.ofNullable(PATTERN_CACHE.getIfPresent(regexAndFlags))
                 .orElseGet(regexAndFlags::compilePattern);
     }
 
