@@ -16,7 +16,6 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -63,34 +62,36 @@ public class AssertTools {
      * 检查实参
      *
      * @param condition 判断参数是否符合条件的结果
-     * @param errMsg    异常信息
+     * @param errorMessage 异常信息
      * @throws IllegalArgumentException 当条件不满足时抛出
      */
-    public static void checkArgument(boolean condition, @Nullable String errMsg) {
-        checkCondition(condition, () -> new IllegalArgumentException(errMsg));
-    }
-
-    /**
-     * 检查实参
-     *
-     * @param condition       判断参数是否符合条件的结果
-     * @param messageSupplier 异常信息
-     * @throws IllegalArgumentException 当条件不满足时抛出
-     */
-    public static void checkArgument(boolean condition, Supplier<String> messageSupplier) {
-        checkCondition(condition, () -> new IllegalArgumentException(messageSupplier.get()));
+    public static void checkArgument(boolean condition, @Nullable String errorMessage) {
+        checkCondition(condition, () -> new IllegalArgumentException(errorMessage));
     }
 
     /**
      * 检查实参
      *
      * @param condition 判断参数是否符合条件的结果
-     * @param format    异常信息模板
-     * @param args      异常信息参数
+     * @param errorMessageSupplier 异常信息
      * @throws IllegalArgumentException 当条件不满足时抛出
      */
-    public static void checkArgument(boolean condition, String format, Object... args) {
-        checkCondition(condition, () -> new IllegalArgumentException(String.format(format, args)));
+    public static void checkArgument(boolean condition, Supplier<String> errorMessageSupplier) {
+        checkCondition(condition, () -> new IllegalArgumentException(errorMessageSupplier.get()));
+    }
+
+    /**
+     * 检查实参
+     *
+     * @param condition 判断参数是否符合条件的结果
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     * @throws IllegalArgumentException 当条件不满足时抛出
+     */
+    public static void checkArgument(boolean condition,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(condition,
+                () -> new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs)));
     }
 
     // ================================
@@ -115,34 +116,36 @@ public class AssertTools {
      * 检查状态
      *
      * @param condition 判断状态是否符合条件的结果
-     * @param errMsg    异常信息
+     * @param errorMessage 异常信息
      * @throws IllegalStateException 当条件不满足时抛出
      */
-    public static void checkState(boolean condition, @Nullable String errMsg) {
-        checkCondition(condition, () -> new IllegalStateException(errMsg));
-    }
-
-    /**
-     * 检查状态
-     *
-     * @param condition       判断状态是否符合条件的结果
-     * @param messageSupplier 异常信息
-     * @throws IllegalStateException 当条件不满足时抛出
-     */
-    public static void checkState(boolean condition, Supplier<String> messageSupplier) {
-        checkCondition(condition, () -> new IllegalStateException(messageSupplier.get()));
+    public static void checkState(boolean condition, @Nullable String errorMessage) {
+        checkCondition(condition, () -> new IllegalStateException(errorMessage));
     }
 
     /**
      * 检查状态
      *
      * @param condition 判断状态是否符合条件的结果
-     * @param format    异常信息模板
-     * @param args      异常信息参数
+     * @param errorMessageSupplier 异常信息
      * @throws IllegalStateException 当条件不满足时抛出
      */
-    public static void checkState(boolean condition, String format, Object... args) {
-        checkCondition(condition, () -> new IllegalStateException(String.format(format, args)));
+    public static void checkState(boolean condition, Supplier<String> errorMessageSupplier) {
+        checkCondition(condition, () -> new IllegalStateException(errorMessageSupplier.get()));
+    }
+
+    /**
+     * 检查状态
+     *
+     * @param condition 判断状态是否符合条件的结果
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     * @throws IllegalStateException 当条件不满足时抛出
+     */
+    public static void checkState(boolean condition,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(condition,
+                () -> new IllegalStateException(String.format(errorMessageTemplate, errorMessageArgs)));
     }
 
     // ================================
@@ -157,7 +160,7 @@ public class AssertTools {
      * 判空
      *
      * @param <T> 入参类型
-     * @param obj 入参     *
+     * @param obj 入参
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> void checkNotNull(@Nullable T obj) {
@@ -167,38 +170,40 @@ public class AssertTools {
     /**
      * 判空
      *
-     * @param <T>    入参类型
-     * @param obj    入参
-     * @param errMsg 异常信息     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessage 异常信息
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj, String errMsg) {
-        checkCondition(obj != null, () -> new NullPointerException(errMsg));
+    public static <T> void checkNotNull(@Nullable T obj, String errorMessage) {
+        checkCondition(obj != null, () -> new NullPointerException(errorMessage));
     }
 
     /**
      * 判空
      *
-     * @param <T>             入参类型
-     * @param obj             入参
-     * @param messageSupplier 异常信息     *
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageSupplier 异常信息
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj, Supplier<String> messageSupplier) {
-        checkCondition(obj != null, () -> new NullPointerException(messageSupplier.get()));
+    public static <T> void checkNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
+        checkCondition(obj != null, () -> new NullPointerException(errorMessageSupplier.get()));
     }
 
     /**
      * 判空
      *
-     * @param <T>    入参类型
-     * @param obj    入参
-     * @param format 异常信息模板
-     * @param args   异常信息参数
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj, String format, Object... args) {
-        checkCondition(obj != null, () -> new NullPointerException(String.format(format, args)));
+    public static <T> void checkNotNull(@Nullable T obj,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(obj != null,
+                () -> new NullPointerException(String.format(errorMessageTemplate, errorMessageArgs)));
     }
 
     // ================================
@@ -219,7 +224,7 @@ public class AssertTools {
      */
     public static <T> T checkExists(@Nullable T obj)
             throws DataNotExistsException {
-        checkCondition(Objects.nonNull(obj), DataNotExistsException::new);
+        checkCondition(obj != null, DataNotExistsException::new);
         return obj;
     }
 
@@ -228,51 +233,53 @@ public class AssertTools {
      *
      * @param <T> 入参类型
      * @param obj 入参
-     * @param message 异常信息
+     * @param errorMessage 异常信息
      * @return 如果 {@code obj} 存在，返回 {@code obj} 本身
      * @throws DataNotExistsException 当 {@code obj} 不存在时抛出
      */
-    public static <T> T checkExists(@Nullable T obj, String message)
+    public static <T> T checkExists(@Nullable T obj, String errorMessage)
             throws DataNotExistsException {
-        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(message));
+        checkCondition(obj != null, () -> new DataNotExistsException(errorMessage));
         return obj;
     }
 
     /**
      * 检查数据是否存在
      *
-     * @param <T>             入参类型
-     * @param obj             入参
-     * @param messageSupplier 异常信息
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageSupplier 异常信息
      * @return 如果 {@code obj} 存在，返回 {@code obj} 本身
      * @throws DataNotExistsException 当 {@code obj} 不存在时抛出
      */
-    public static <T> T checkExists(@Nullable T obj, Supplier<String> messageSupplier)
+    public static <T> T checkExists(@Nullable T obj, Supplier<String> errorMessageSupplier)
             throws DataNotExistsException {
-        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(messageSupplier.get()));
+        checkCondition(obj != null, () -> new DataNotExistsException(errorMessageSupplier.get()));
         return obj;
     }
 
     /**
      * 检查数据是否存在
      *
-     * @param <T>    入参类型
-     * @param obj    入参
-     * @param format 异常信息模板
-     * @param args   异常信息参数
+     * @param <T> 入参类型
+     * @param obj 入参
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
      * @return 如果 {@code obj} 存在，返回 {@code obj} 本身
      * @throws DataNotExistsException 当 {@code obj} 不存在时抛出
      */
-    public static <T> T checkExists(@Nullable T obj, String format, Object... args)
+    public static <T> T checkExists(@Nullable T obj,
+            String errorMessageTemplate, Object... errorMessageArgs)
             throws DataNotExistsException {
-        checkCondition(Objects.nonNull(obj), () -> new DataNotExistsException(String.format(format, args)));
+        checkCondition(obj != null,
+        () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
         return obj;
     }
 
     /**
      * 检查数据是否存在
      *
-     * @param <T>      入参类型
+     * @param <T> 入参类型
      * @param optional 入参
      * @return 如果 {@code optional} 存在，返回 {@code optional} 包含的值
      * @throws DataNotExistsException 当 {@code optional} 的值不存在时抛出
@@ -286,46 +293,48 @@ public class AssertTools {
     /**
      * 检查数据是否存在
      *
-     * @param <T>      入参类型
+     * @param <T> 入参类型
      * @param optional 入参
-     * @param message  异常信息
+     * @param errorMessage 异常信息
      * @return 如果 {@code optional} 存在，返回 {@code optional} 包含的值
      * @throws DataNotExistsException 当 {@code optional} 的值不存在时抛出
      */
-    public static <T> T checkExists(Optional<T> optional, String message)
+    public static <T> T checkExists(Optional<T> optional, String errorMessage)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), () -> new DataNotExistsException(message));
+        checkCondition(optional.isPresent(), () -> new DataNotExistsException(errorMessage));
         return optional.get();
     }
 
     /**
      * 检查数据是否存在
      *
-     * @param <T>             入参类型
-     * @param optional        入参
-     * @param messageSupplier 异常信息
+     * @param <T> 入参类型
+     * @param optional 入参
+     * @param errorMessageSupplier 异常信息
      * @return 如果 {@code optional} 存在，返回 {@code optional} 包含的值
      * @throws DataNotExistsException 当 {@code optional} 的值不存在时抛出
      */
-    public static <T> T checkExists(Optional<T> optional, Supplier<String> messageSupplier)
+    public static <T> T checkExists(Optional<T> optional, Supplier<String> errorMessageSupplier)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), () -> new DataNotExistsException(messageSupplier.get()));
+        checkCondition(optional.isPresent(), () -> new DataNotExistsException(errorMessageSupplier.get()));
         return optional.get();
     }
 
     /**
      * 检查数据是否存在
      *
-     * @param <T>      入参类型
+     * @param <T> 入参类型
      * @param optional 入参
-     * @param format   异常信息模板
-     * @param args     异常信息参数
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
      * @return 如果 {@code optional} 存在，返回 {@code optional} 包含的值
      * @throws DataNotExistsException 当 {@code optional} 的值不存在时抛出
      */
-    public static <T> T checkExists(Optional<T> optional, String format, Object... args)
+    public static <T> T checkExists(Optional<T> optional,
+            String errorMessageTemplate, Object... errorMessageArgs)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), () -> new DataNotExistsException(String.format(format, args)));
+        checkCondition(optional.isPresent(),
+                () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
         return optional.get();
     }
 
@@ -341,7 +350,7 @@ public class AssertTools {
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
+     * @param result 实际影响的数据量
      */
     public static void checkAffectedRows(int expectedValue, int result) {
         checkAffectedRows(expectedValue, result,
@@ -352,45 +361,45 @@ public class AssertTools {
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
-     * @param message       异常信息
+     * @param result 实际影响的数据量
+     * @param errorMessage 异常信息
      */
-    public static void checkAffectedRows(int expectedValue, int result, @Nullable String message) {
-        checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
-    }
-
-    /**
-     * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
-     *
-     * @param expectedValue   预计的数量
-     * @param result          实际影响的数据量
-     * @param messageSupplier 异常信息
-     */
-    public static void checkAffectedRows(int expectedValue, int result,
-            Supplier<String> messageSupplier) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(messageSupplier.get()));
+    public static void checkAffectedRows(int expectedValue, int result, @Nullable String errorMessage) {
+        checkCondition(expectedValue == result, () -> new DataOperationResultException(errorMessage));
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
-     * @param format        异常信息模板
-     * @param args          异常信息参数
+     * @param result 实际影响的数据量
+     * @param errorMessageSupplier 异常信息
      */
     public static void checkAffectedRows(int expectedValue, int result,
-            String format, Object... args) {
+            Supplier<String> errorMessageSupplier) {
         checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(String.format(format, args)));
+                () -> new DataOperationResultException(errorMessageSupplier.get()));
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
+     * @param result 实际影响的数据量
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     */
+    public static void checkAffectedRows(int expectedValue, int result,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(String.format(errorMessageTemplate, errorMessageArgs)));
+    }
+
+    /**
+     * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
+     *
+     * @param expectedValue 预计的数量
+     * @param result 实际影响的数据量
      */
     public static void checkAffectedRows(long expectedValue, long result) {
         checkAffectedRows(expectedValue, result,
@@ -401,38 +410,38 @@ public class AssertTools {
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
-     * @param message       异常信息
+     * @param result 实际影响的数据量
+     * @param errorMessage 异常信息
      */
-    public static void checkAffectedRows(long expectedValue, long result, @Nullable String message) {
-        checkCondition(expectedValue == result, () -> new DataOperationResultException(message));
-    }
-
-    /**
-     * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
-     *
-     * @param expectedValue   预计的数量
-     * @param result          实际影响的数据量
-     * @param messageSupplier 异常信息
-     */
-    public static void checkAffectedRows(long expectedValue, long result,
-            Supplier<String> messageSupplier) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(messageSupplier.get()));
+    public static void checkAffectedRows(long expectedValue, long result, @Nullable String errorMessage) {
+        checkCondition(expectedValue == result, () -> new DataOperationResultException(errorMessage));
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
      * @param expectedValue 预计的数量
-     * @param result        实际影响的数据量
-     * @param format        异常信息模板
-     * @param args          异常信息参数
+     * @param result 实际影响的数据量
+     * @param errorMessageSupplier 异常信息
      */
     public static void checkAffectedRows(long expectedValue, long result,
-            String format, Object... args) {
+            Supplier<String> errorMessageSupplier) {
         checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(String.format(format, args)));
+                () -> new DataOperationResultException(errorMessageSupplier.get()));
+    }
+
+    /**
+     * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
+     *
+     * @param expectedValue 预计的数量
+     * @param result 实际影响的数据量
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     */
+    public static void checkAffectedRows(long expectedValue, long result,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkCondition(expectedValue == result,
+                () -> new DataOperationResultException(String.format(errorMessageTemplate, errorMessageArgs)));
     }
 
     /**
@@ -448,32 +457,33 @@ public class AssertTools {
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result  实际影响的数据量
-     * @param message 异常信息
+     * @param result 实际影响的数据量
+     * @param errorMessage 异常信息
      */
-    public static void checkAffectedOneRow(int result, String message) {
-        checkAffectedRows(1, result, message);
-    }
-
-    /**
-     * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
-     *
-     * @param result          实际影响的数据量
-     * @param messageSupplier 异常信息
-     */
-    public static void checkAffectedOneRow(int result, Supplier<String> messageSupplier) {
-        checkAffectedRows(1, result, messageSupplier);
+    public static void checkAffectedOneRow(int result, String errorMessage) {
+        checkAffectedRows(1, result, errorMessage);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
      * @param result 实际影响的数据量
-     * @param format 异常信息模板
-     * @param args   异常信息参数
+     * @param errorMessageSupplier 异常信息
      */
-    public static void checkAffectedOneRow(int result, String format, Object... args) {
-        checkAffectedRows(1, result, format, args);
+    public static void checkAffectedOneRow(int result, Supplier<String> errorMessageSupplier) {
+        checkAffectedRows(1, result, errorMessageSupplier);
+    }
+
+    /**
+     * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
+     *
+     * @param result 实际影响的数据量
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
+     */
+    public static void checkAffectedOneRow(int result,
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkAffectedRows(1, result, errorMessageTemplate, errorMessageArgs);
     }
 
     /**
@@ -489,33 +499,33 @@ public class AssertTools {
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result  实际影响的数据量
-     * @param message 异常信息
+     * @param result 实际影响的数据量
+     * @param errorMessage 异常信息
      */
-    public static void checkAffectedOneRow(long result, String message) {
-        checkAffectedRows(1L, result, message);
-    }
-
-    /**
-     * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
-     *
-     * @param result          实际影响的数据量
-     * @param messageSupplier 异常信息
-     */
-    public static void checkAffectedOneRow(long result, Supplier<String> messageSupplier) {
-        checkAffectedRows(1L, result, messageSupplier);
+    public static void checkAffectedOneRow(long result, String errorMessage) {
+        checkAffectedRows(1L, result, errorMessage);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
      * @param result 实际影响的数据量
-     * @param format 异常信息模板
-     * @param args   异常信息参数
+     * @param errorMessageSupplier 异常信息
+     */
+    public static void checkAffectedOneRow(long result, Supplier<String> errorMessageSupplier) {
+        checkAffectedRows(1L, result, errorMessageSupplier);
+    }
+
+    /**
+     * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
+     *
+     * @param result 实际影响的数据量
+     * @param errorMessageTemplate 异常信息模板
+     * @param errorMessageArgs 异常信息参数
      */
     public static void checkAffectedOneRow(long result,
-            String format, Object... args) {
-        checkAffectedRows(1L, result, format, args);
+            String errorMessageTemplate, Object... errorMessageArgs) {
+        checkAffectedRows(1L, result, errorMessageTemplate, errorMessageArgs);
     }
 
     // ================================
@@ -529,9 +539,9 @@ public class AssertTools {
     /**
      * 当条件不满足时抛出异常。
      *
-     * @param <T>       异常类型
+     * @param <T> 异常类型
      * @param condition 条件
-     * @param e         异常
+     * @param e 异常
      * @throws T 当条件不满足时抛出异常
      */
     public static <T extends Exception> void checkCondition(boolean condition, Supplier<T> e)
