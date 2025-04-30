@@ -21,6 +21,12 @@ import java.util.List;
 
 import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams.SortableProperty;
 
+/**
+ * 分页参数
+ *
+ * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @see PagingAndSortingQueryParams
+ */
 public class PagingParams {
 
     /** 每页大小 */

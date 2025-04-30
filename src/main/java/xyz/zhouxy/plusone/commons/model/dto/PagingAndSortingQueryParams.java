@@ -40,6 +40,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @see PagingParams
  * @see PageResult
  */
 public class PagingAndSortingQueryParams {
