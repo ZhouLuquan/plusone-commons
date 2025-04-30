@@ -56,31 +56,6 @@ class RegexToolsTests {
     }
 
     @Test
-    void getPatterns_CachePatternTrue_ReturnsCachedPatterns() {
-        String[] patterns = {"abc", "def"};
-        Pattern[] cachedPatterns = RegexTools.getPatterns(patterns, true);
-        Pattern[] patternsFromCache = RegexTools.getPatterns(patterns, true);
-        assertSame(cachedPatterns[0], patternsFromCache[0]);
-        assertSame(cachedPatterns[1], patternsFromCache[1]);
-    }
-
-    @Test
-    void getPatterns_CachePatternFalse_ReturnsNewPatterns() {
-        String[] patterns = {"getPatterns_CachePatternFalse_ReturnsNewPatterns1", "getPatterns_CachePatternFalse_ReturnsNewPatterns2"};
-        Pattern[] patterns1 = RegexTools.getPatterns(patterns, false);
-        Pattern[] patterns2 = RegexTools.getPatterns(patterns, false);
-        assertNotSame(patterns1[0], patterns2[0]);
-        assertNotSame(patterns1[1], patterns2[1]);
-    }
-
-    @Test
-    void getPatterns_NullPatterns_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RegexTools.getPatterns(null, true);
-        });
-    }
-
-    @Test
     void matches_InputMatchesPattern_ReturnsTrue() {
         String pattern = "abc";
         Pattern compiledPattern = Pattern.compile(pattern);

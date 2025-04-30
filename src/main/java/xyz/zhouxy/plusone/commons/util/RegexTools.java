@@ -62,31 +62,6 @@ public final class RegexTools {
     }
 
     /**
-     * 将各个正则表达式转为 {@link Pattern} 实例。
-     *
-     * @param patterns     正则表达式
-     * @param cachePattern 是否缓存 {@link Pattern} 实例
-     * @return {@link Pattern} 实例数组
-     */
-    public static Pattern[] getPatterns(final String[] patterns, final boolean cachePattern) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        return cachePattern
-                ? cacheAndGetPatternsInternal(patterns)
-                : getPatternsInternal(patterns);
-    }
-
-    /**
-     * 将各个正则表达式转为 {@link Pattern} 实例，不缓存。
-     *
-     * @param patterns 正则表达式
-     * @return {@link Pattern} 实例数组
-     */
-    public static Pattern[] getPatterns(final String[] patterns) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        return getPatternsInternal(patterns);
-    }
-
-    /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
      *
      * @param input   输入
@@ -149,66 +124,6 @@ public final class RegexTools {
     public static boolean matches(@Nullable final CharSequence input, final String pattern) {
         AssertTools.checkNotNull(pattern);
         return matchesInternal(input, getPatternInternal(pattern));
-    }
-
-    /**
-     * 判断 {@code input} 是否匹配 {@code patterns} 中的一个。
-     *
-     * @param input        输入
-     * @param patterns     正则表达式
-     * @param cachePattern 是否缓存 {@link Pattern} 实例
-     * @return 判断结果
-     */
-    public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns,
-            final boolean cachePattern) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        final Pattern[] patternSet = cachePattern
-                ? cacheAndGetPatternsInternal(patterns)
-                : getPatternsInternal(patterns);
-        return matchesOneInternal(input, patternSet);
-    }
-
-    /**
-     * 判断 {@code input} 是否匹配 {@code patterns} 中的一个。不缓存 {@link Pattern} 实例。
-     *
-     * @param input    输入
-     * @param patterns 正则表达式
-     * @return 判断结果
-     */
-    public static boolean matchesOne(@Nullable final CharSequence input, final String[] patterns) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        final Pattern[] patternSet = getPatternsInternal(patterns);
-        return matchesOneInternal(input, patternSet);
-    }
-
-    /**
-     * 判断 {@code input} 是否匹配全部正则。
-     *
-     * @param input        输入
-     * @param patterns     正则表达式
-     * @param cachePattern 是否缓存 {@link Pattern} 实例
-     * @return 判断结果
-     */
-    public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns,
-            final boolean cachePattern) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        final Pattern[] patternSet = cachePattern
-                ? cacheAndGetPatternsInternal(patterns)
-                : getPatternsInternal(patterns);
-        return matchesAllInternal(input, patternSet);
-    }
-
-    /**
-     * 判断 {@code input} 是否匹配全部正则。不缓存 {@link Pattern} 实例。
-     *
-     * @param input    输入
-     * @param patterns 正则表达式
-     * @return 判断结果
-     */
-    public static boolean matchesAll(@Nullable final CharSequence input, final String[] patterns) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        final Pattern[] patternSet = getPatternsInternal(patterns);
-        return matchesAllInternal(input, patternSet);
     }
 
     /**
@@ -287,32 +202,6 @@ public final class RegexTools {
             result = Pattern.compile(pattern);
         }
         return result;
-    }
-
-    /**
-     * 将各个正则表达式转为 {@link Pattern} 实例。
-     *
-     * @param patterns 正则表达式
-     * @return {@link Pattern} 实例数组
-     */
-    @Nonnull
-    private static Pattern[] cacheAndGetPatternsInternal(final String[] patterns) {
-        return Arrays.stream(patterns)
-                .map(RegexTools::cacheAndGetPatternInternal)
-                .toArray(Pattern[]::new);
-    }
-
-    /**
-     * 将各个正则表达式转为 {@link Pattern} 实例。
-     *
-     * @param patterns 正则表达式
-     * @return {@link Pattern} 实例数组
-     */
-    @Nonnull
-    private static Pattern[] getPatternsInternal(final String[] patterns) {
-        return Arrays.stream(patterns)
-                .map(RegexTools::getPatternInternal)
-                .toArray(Pattern[]::new);
     }
 
     /**
