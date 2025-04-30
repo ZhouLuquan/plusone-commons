@@ -33,19 +33,42 @@ public
 class RegexToolsTests {
 
     @Test
-    void getPattern_CachePatternTrue_ReturnsCachedPattern() {
+    void getPattern_SameRegexAndFlag_CachePatternIsTrue_ReturnsCachedPattern() {
         String pattern = "abc";
         Pattern cachedPattern = RegexTools.getPattern(pattern, true);
-        Pattern patternFromCache = RegexTools.getPattern(pattern, true);
+        Pattern patternFromCache = RegexTools.getPattern(pattern);
         assertSame(cachedPattern, patternFromCache, "Pattern should be cached");
+
+        Pattern cachedPatternWithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE, true);
+        Pattern patternFromCacheWithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE);
+        assertSame(cachedPatternWithFlag, patternFromCacheWithFlag, "Pattern should be cached");
     }
 
     @Test
-    void getPattern_CachePatternFalse_ReturnsNewPattern() {
-        String pattern = "getPattern_CachePatternFalse_ReturnsNewPattern";
+    void getPattern_SameRegexAndFlag_CachePatternFalse_ReturnsNewPattern() {
+        String pattern = "getPattern_SameRegexAndFlag_CachePatternFalse_ReturnsNewPattern";
         Pattern pattern1 = RegexTools.getPattern(pattern, false);
         Pattern pattern2 = RegexTools.getPattern(pattern, false);
+        Pattern pattern3 = RegexTools.getPattern(pattern);
         assertNotSame(pattern1, pattern2, "Pattern should not be cached");
+        assertNotSame(pattern1, pattern3, "Pattern should not be cached");
+        assertNotSame(pattern2, pattern3, "Pattern should not be cached");
+
+        Pattern pattern1WithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE, false);
+        Pattern pattern2WithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE, false);
+        Pattern pattern3WithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE);
+        assertNotSame(pattern1WithFlag, pattern2WithFlag, "Pattern should not be cached");
+        assertNotSame(pattern1WithFlag, pattern3WithFlag, "Pattern should not be cached");
+        assertNotSame(pattern2WithFlag, pattern3WithFlag, "Pattern should not be cached");
+    }
+
+    @Test
+    void getPattern_SameRegexAndDifferentFlag_ReturnsNewPattern() {
+        String pattern = "getPattern_SameRegexAndDifferentFlag_CachePatternFalse_ReturnsNewPattern";
+
+        Pattern pattern1WithFlag = RegexTools.getPattern(pattern, Pattern.CASE_INSENSITIVE, true);
+        Pattern pattern2WithFlag = RegexTools.getPattern(pattern, 0, true);
+        assertNotSame(pattern1WithFlag, pattern2WithFlag, "Patterns should not be the same");
     }
 
     @Test
@@ -53,27 +76,38 @@ class RegexToolsTests {
         assertThrows(NullPointerException.class, () -> {
             RegexTools.getPattern(null, true);
         });
+        assertThrows(NullPointerException.class, () -> {
+            RegexTools.getPattern(null, Pattern.CASE_INSENSITIVE, true);
+        });
     }
 
     @Test
     void matches_InputMatchesPattern_ReturnsTrue() {
         String pattern = "abc";
+        assertTrue(RegexTools.matches("abc", pattern), "Input should match pattern");
+        assertFalse(RegexTools.matches("ABC", pattern), "Input should match pattern");
+        assertTrue(RegexTools.matches("ABC", pattern, Pattern.CASE_INSENSITIVE), "Input should match pattern");
+
         Pattern compiledPattern = Pattern.compile(pattern);
         assertTrue(RegexTools.matches("abc", compiledPattern), "Input should match pattern");
+        assertFalse(RegexTools.matches("ABC", compiledPattern), "Input should match pattern");
+
+        assertTrue(RegexTools.matches("abc", pattern, true), "Input should match pattern");
+        Pattern cachedPattern1 = RegexTools.getPattern(pattern);
+        Pattern cachedPattern2 = RegexTools.getPattern(pattern);
+        assertSame(cachedPattern1, cachedPattern2, "Cached pattern should be the same");
     }
 
     @Test
     void matches_InputDoesNotMatchPattern_ReturnsFalse() {
         String pattern = "abc";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        assertFalse(RegexTools.matches("abcd", compiledPattern), "Input should not match pattern");
+        assertFalse(RegexTools.matches("abcd", pattern), "Input should not match pattern");
     }
 
     @Test
     void matches_NullInput_ReturnsFalse() {
         String pattern = "abc";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        assertFalse(RegexTools.matches(null, compiledPattern), "Null input should return false");
+        assertFalse(RegexTools.matches(null, pattern), "Null input should return false");
     }
 
     @Test
@@ -94,6 +128,7 @@ class RegexToolsTests {
             compiledPatterns[i] = Pattern.compile(patterns[i]);
         }
         assertFalse(RegexTools.matchesOne("xyz", compiledPatterns), "Input should not match any pattern");
+        assertFalse(RegexTools.matchesOne(null, compiledPatterns), "Input should not match any pattern");
     }
 
     @Test
@@ -114,30 +149,40 @@ class RegexToolsTests {
             compiledPatterns[i] = Pattern.compile(patterns[i]);
         }
         assertFalse(RegexTools.matchesAll("abc", compiledPatterns), "Input should not match all patterns");
+        assertFalse(RegexTools.matchesAll(null, compiledPatterns), "Input should not match all patterns");
     }
 
     @Test
     void getMatcher_ValidInputAndPattern_ReturnsMatcher() {
         String pattern = "abc";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        Matcher matcher = RegexTools.getMatcher("abc", compiledPattern);
-        assertNotNull(matcher, "Matcher should not be null");
+        Matcher matcher1 = RegexTools.getMatcher("abc", pattern);
+        assertNotNull(matcher1, "Matcher should not be null");
+        assertTrue(matcher1.matches(), "Should be matches");
+
+        Matcher matcher2 = RegexTools.getMatcher("ABC", pattern, true);
+        assertNotNull(matcher2, "Matcher should not be null");
+        assertFalse(matcher2.matches(), "Should be matches");
+
+        Pattern cachedPattern = RegexTools.getPattern(pattern);
+        Pattern patternFromCache = RegexTools.getPattern(pattern);
+        assertSame(cachedPattern, patternFromCache);
     }
 
     @Test
     void getMatcher_NullInput_ThrowsException() {
         String pattern = "abc";
-        Pattern compiledPattern = Pattern.compile(pattern);
         assertThrows(NullPointerException.class, () -> {
-            RegexTools.getMatcher(null, compiledPattern);
+            RegexTools.getMatcher(null, pattern);
         });
     }
 
     @Test
     void getMatcher_NullPattern_ThrowsException() {
-        final Pattern pattern = null;
         assertThrows(NullPointerException.class, () -> {
-            RegexTools.getMatcher("abc", pattern);
+            RegexTools.getMatcher("abc", (String) null);
+        });
+        assertThrows(NullPointerException.class, () -> {
+            RegexTools.getMatcher("abc", (Pattern) null);
         });
     }
 

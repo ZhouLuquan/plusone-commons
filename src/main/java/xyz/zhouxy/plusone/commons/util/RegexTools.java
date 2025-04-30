@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +37,8 @@ public final class RegexTools {
 
     private static final int DEFAULT_CACHE_INITIAL_CAPACITY = 64;
     private static final int MAX_CACHE_SIZE = 256;
-    private static final Map<String, Pattern> PATTERN_CACHE
+    private static final int DEFAULT_FLAG = 0;
+    private static final Map<RegexAndFlags, Pattern> PATTERN_CACHE
             = new ConcurrentHashMap<>(DEFAULT_CACHE_INITIAL_CAPACITY);
 
     /**
@@ -46,8 +49,20 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern, final boolean cachePattern) {
+        return getPattern(pattern, DEFAULT_FLAG, cachePattern);
+    }
+
+    /**
+     * 获取 {@link Pattern} 实例。
+     *
+     * @param pattern      正则表达式
+     * @param flags        正则表达式匹配标识
+     * @param cachePattern 是否缓存 {@link Pattern} 实例
+     * @return {@link Pattern} 实例
+     */
+    public static Pattern getPattern(final String pattern, final int flags, final boolean cachePattern) {
         AssertTools.checkNotNull(pattern);
-        return cachePattern ? cacheAndGetPatternInternal(pattern) : getPatternInternal(pattern);
+        return cachePattern ? cacheAndGetPatternInternal(pattern, flags) : getPatternInternal(pattern, flags);
     }
 
     /**
@@ -57,9 +72,29 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern) {
-        AssertTools.checkNotNull(pattern);
-        return getPatternInternal(pattern);
+        return getPattern(pattern, DEFAULT_FLAG);
     }
+
+    /**
+     * 获取 {@link Pattern} 实例，不缓存。
+     *
+     * @param pattern 正则表达式
+     * @param flags   正则表达式匹配标识
+     * @return {@link Pattern} 实例
+     */
+    @Nonnull
+    public static Pattern getPattern(final String pattern, final int flags) {
+        AssertTools.checkNotNull(pattern);
+        return getPatternInternal(pattern, flags);
+    }
+
+    // ================================
+    // #endregion - getPattern
+    // ================================
+
+    // ================================
+    // #region - matches
+    // ================================
 
     /**
      * 判断 {@code input} 是否匹配 {@code pattern}。
@@ -107,11 +142,21 @@ public final class RegexTools {
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern,
             final boolean cachePattern) {
-        AssertTools.checkNotNull(pattern);
-        Pattern p = cachePattern
-                ? cacheAndGetPatternInternal(pattern)
-                : getPatternInternal(pattern);
-        return matchesInternal(input, p);
+        return matches(input, pattern, DEFAULT_FLAG, cachePattern);
+    }
+
+    /**
+     * 判断 {@code input} 是否匹配 {@code pattern}。
+     *
+     * @param input        输入
+     * @param pattern      正则表达式
+     * @param flags        正则表达式匹配标识
+     * @param cachePattern 是否缓存 {@link Pattern} 实例
+     * @return 判断结果
+     */
+    public static boolean matches(@Nullable final CharSequence input, final String pattern, final int flags,
+            final boolean cachePattern) {
+        return matchesInternal(input, getPattern(pattern, flags, cachePattern));
     }
 
     /**
@@ -122,9 +167,29 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final String pattern) {
-        AssertTools.checkNotNull(pattern);
-        return matchesInternal(input, getPatternInternal(pattern));
+        return matches(input, pattern, DEFAULT_FLAG);
     }
+
+    /**
+     * 判断 {@code input} 是否匹配 {@code pattern}。不缓存 {@link Pattern} 实例。
+     *
+     * @param input   输入
+     * @param pattern 正则表达式
+     * @param flags   正则表达式匹配标识
+     * @return 判断结果
+     */
+    public static boolean matches(@Nullable final CharSequence input,
+            final String pattern, final int flags) {
+        return matchesInternal(input, getPattern(pattern, flags));
+    }
+
+    // ================================
+    // #endregion - matches
+    // ================================
+
+    // ================================
+    // #region - getMatcher
+    // ================================
 
     /**
      * 生成 Matcher。
@@ -148,12 +213,21 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern, boolean cachePattern) {
-        AssertTools.checkNotNull(input);
-        AssertTools.checkNotNull(pattern);
-        final Pattern p = cachePattern
-                ? cacheAndGetPatternInternal(pattern)
-                : getPatternInternal(pattern);
-        return p.matcher(input);
+        return getMatcher(input, pattern, DEFAULT_FLAG, cachePattern);
+    }
+
+    /**
+     * 生成 Matcher。
+     *
+     * @param input        输入
+     * @param pattern      正则表达式
+     * @param flags        正则表达式匹配标识
+     * @param cachePattern 是否缓存 {@link Pattern} 实例
+     * @return 结果
+     */
+    public static Matcher getMatcher(final CharSequence input,
+            final String pattern, final int flags, boolean cachePattern) {
+        return getMatcher(input, getPattern(pattern, flags, cachePattern));
     }
 
     /**
@@ -164,44 +238,60 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern) {
-        AssertTools.checkNotNull(input);
-        AssertTools.checkNotNull(pattern);
-        return getPatternInternal(pattern).matcher(input);
+        return getMatcher(input, pattern, DEFAULT_FLAG);
     }
 
-    // ========== internal methods ==========
+    /**
+     * 生成 Matcher。不缓存 {@link Pattern} 实例。
+     *
+     * @param input   输入
+     * @param pattern 正则表达式
+     * @param flags   正则表达式匹配标识
+     * @return 结果
+     */
+    public static Matcher getMatcher(final CharSequence input, final String pattern, final int flags) {
+        AssertTools.checkNotNull(input);
+        AssertTools.checkNotNull(pattern);
+        return getPatternInternal(pattern, flags).matcher(input);
+    }
+
+    // ================================
+    // #endregion - getMatcher
+    // ================================
+
+    // ================================
+    // #region - internal methods
+    // ================================
 
     /**
      * 获取 {@link Pattern} 实例。
      *
      * @param pattern      正则表达式
+     * @param flags        正则表达式匹配标识
      * @return {@link Pattern} 实例
      */
     @Nonnull
-    private static Pattern cacheAndGetPatternInternal(final String pattern) {
+    private static Pattern cacheAndGetPatternInternal(final String pattern, final int flags) {
+        final RegexAndFlags regexAndFlags = new RegexAndFlags(pattern, flags);
         if (PATTERN_CACHE.size() < MAX_CACHE_SIZE) {
-            return PATTERN_CACHE.computeIfAbsent(pattern, Pattern::compile);
+            return PATTERN_CACHE.computeIfAbsent(regexAndFlags, RegexAndFlags::compilePattern);
         }
-        Pattern result = PATTERN_CACHE.get(pattern);
-        if (result != null) {
-            return result;
-        }
-        return Pattern.compile(pattern);
+        return Optional.ofNullable(PATTERN_CACHE.get(regexAndFlags))
+                .orElseGet(regexAndFlags::compilePattern);
     }
 
     /**
      * 获取 {@link Pattern} 实例，不缓存。
      *
      * @param pattern 正则表达式
+     * @param flags   正则表达式匹配标识
      * @return {@link Pattern} 实例
      */
     @Nonnull
-    private static Pattern getPatternInternal(final String pattern) {
-        Pattern result = PATTERN_CACHE.get(pattern);
-        if (result == null) {
-            result = Pattern.compile(pattern);
-        }
-        return result;
+    private static Pattern getPatternInternal(final String pattern, final int flags) {
+        final RegexAndFlags regexAndFlags = new RegexAndFlags(pattern, flags);
+        return Optional.ofNullable(PATTERN_CACHE.get(regexAndFlags))
+                .orElseGet(regexAndFlags::compilePattern);
     }
 
     /**
@@ -241,8 +331,49 @@ public final class RegexTools {
                         .allMatch(pattern -> pattern.matcher(input).matches());
     }
 
+    // ================================
+    // #endregion - internal methods
+    // ================================
+
     private RegexTools() {
         // 不允许实例化
         throw new IllegalStateException("Utility class");
     }
+
+    // ================================
+    // #region - RegexAndFlags
+    // ================================
+
+    private static final class RegexAndFlags {
+        private final String regex;
+        private final int flags;
+
+        private RegexAndFlags(String regex, int flags) {
+            this.regex = regex;
+            this.flags = flags;
+        }
+
+        private final Pattern compilePattern() {
+            return Pattern.compile(regex, flags);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(regex, flags);
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if (this == obj)
+                return true;
+            if (!(obj instanceof RegexAndFlags))
+                return false;
+            RegexAndFlags other = (RegexAndFlags) obj;
+            return Objects.equals(regex, other.regex) && flags == other.flags;
+        }
+    }
+
+    // ================================
+    // #endregion - RegexAndFlags
+    // ================================
 }
