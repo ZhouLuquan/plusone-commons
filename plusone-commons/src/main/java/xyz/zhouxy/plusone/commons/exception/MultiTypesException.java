@@ -29,7 +29,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * 异常实现 {@link MultiTypesException} 的 {@link #getType} 方法，返回对应的场景类型。
  * </p>
  * <p>
- * 表示场景类型的枚举实现 {@link ExceptionType}，其中的工厂方法用于创建类型对象。
+ * 表示场景类型的枚举实现 {@link ExceptionType}，其中的工厂方法用于创建对应类型的异常。
  * </p>
  *
  * <pre>

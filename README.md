@@ -73,7 +73,7 @@ System.out.println(result); // Output: Return string
 
 异常实现 `MultiTypesException` 的 `MultiTypesException#getType` 方法，返回对应的场景类型。
 
-表示场景类型的枚举实现 `MultiTypesException.ExceptionType`，其中的工厂方法用于创建类型对象。
+表示场景类型的枚举实现 `MultiTypesException.ExceptionType`，其中的工厂方法用于创建对应类型的异常。
 ```java
 public final class LoginException
         extends RuntimeException
