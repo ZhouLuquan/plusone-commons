@@ -1,7 +1,7 @@
 {
     "version": "0.2",
     "ignorePaths": [
-        "src/test"
+        "*/src/test"
     ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
