@@ -33,43 +33,49 @@ package xyz.zhouxy.plusone.commons.exception.system;
  */
 public final class DataOperationResultException extends SysException {
 
-    private static final String DEFAULT_MSG = "数据操作的结果不符合预期";
+    private final long expected;
+    private final long actual;
 
     /**
-     * 使用默认 message 构造新的 {@code DataOperationResultException}。
-     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     * 创建一个 {@code DataOperationResultException} 对象
+     *
+     * @param expected 预期影响的行数
+     * @param actual 实际影响的行数
      */
-    public DataOperationResultException() {
-        super(DEFAULT_MSG);
+    public DataOperationResultException(long expected, long actual) {
+        super(String.format("The number of rows affected is expected to be %d, but is: %d", expected, actual));
+        this.expected = expected;
+        this.actual = actual;
     }
 
     /**
-     * 使用指定的 {@code message} 构造新的 {@code DataOperationResultException}。
-     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
+     * 创建一个 {@code DataOperationResultException} 对象
      *
-     * @param message 异常信息
+     * @param expected 预期影响的行数
+     * @param actual 实际影响的行数
+     * @param message 错误信息
      */
-    public DataOperationResultException(String message) {
+    public DataOperationResultException(long expected, long actual, String message) {
         super(message);
+        this.expected = expected;
+        this.actual = actual;
     }
 
     /**
-     * 使用指定的 {@code cause} 构造新的 {@code DataOperationResultException}。
-     * {@code message} 为 (cause==null ? null : cause.toString())。
+     * 预期影响的行数
      *
-     * @param cause 包装的异常
+     * @return the expected
      */
-    public DataOperationResultException(Throwable cause) {
-        super(cause);
+    public long getExpected() {
+        return expected;
     }
 
     /**
-     * 使用指定的 {@code message} 和 {@code cause} 构造新的 {@code DataOperationResultException}。
+     * 实际影响的行数
      *
-     * @param message 异常信息
-     * @param cause   包装的异常
+     * @return the actual
      */
-    public DataOperationResultException(String message, Throwable cause) {
-        super(message, cause);
+    public long getActual() {
+        return actual;
     }
 }

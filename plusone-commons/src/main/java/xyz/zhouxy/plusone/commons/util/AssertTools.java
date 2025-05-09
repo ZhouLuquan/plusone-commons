@@ -334,7 +334,7 @@ public class AssertTools {
             String errorMessageTemplate, Object... errorMessageArgs)
             throws DataNotExistsException {
         checkCondition(obj != null,
-        () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
+                () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
         return obj;
     }
 
@@ -411,141 +411,154 @@ public class AssertTools {
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      */
-    public static void checkAffectedRows(int expectedValue, int result) {
-        checkAffectedRows(expectedValue, result,
-                "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
+    public static void checkAffectedRows(int expected, int actualRowCount) {
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount);
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessage 异常信息
      */
-    public static void checkAffectedRows(int expectedValue, int result, @Nullable String errorMessage) {
-        checkCondition(expectedValue == result, () -> new DataOperationResultException(errorMessage));
+    public static void checkAffectedRows(int expected, int actualRowCount,
+            @Nullable String errorMessage) {
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount, errorMessage);
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageSupplier 异常信息
      */
-    public static void checkAffectedRows(int expectedValue, int result,
+    public static void checkAffectedRows(int expected, int actualRowCount,
             Supplier<String> errorMessageSupplier) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(errorMessageSupplier.get()));
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount, errorMessageSupplier.get());
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
      */
-    public static void checkAffectedRows(int expectedValue, int result,
+    public static void checkAffectedRows(int expected, int actualRowCount,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount,
+                    String.format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      */
-    public static void checkAffectedRows(long expectedValue, long result) {
-        checkAffectedRows(expectedValue, result,
-                "The number of rows affected is expected to be %d, but is: %d", expectedValue, result);
+    public static void checkAffectedRows(long expected, long actualRowCount) {
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount);
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessage 异常信息
      */
-    public static void checkAffectedRows(long expectedValue, long result, @Nullable String errorMessage) {
-        checkCondition(expectedValue == result, () -> new DataOperationResultException(errorMessage));
+    public static void checkAffectedRows(long expected, long actualRowCount,
+            @Nullable String errorMessage) {
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount, errorMessage);
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageSupplier 异常信息
      */
-    public static void checkAffectedRows(long expectedValue, long result,
+    public static void checkAffectedRows(long expected, long actualRowCount,
             Supplier<String> errorMessageSupplier) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(errorMessageSupplier.get()));
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount, errorMessageSupplier.get());
+        }
     }
 
     /**
      * 当影响的数据量与预计不同时抛出 {@link DataOperationResultException}。
      *
-     * @param expectedValue 预计的数量
-     * @param result 实际影响的数据量
+     * @param expected 预期影响的行数
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
      */
-    public static void checkAffectedRows(long expectedValue, long result,
+    public static void checkAffectedRows(long expected, long actualRowCount,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(expectedValue == result,
-                () -> new DataOperationResultException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (expected != actualRowCount) {
+            throw new DataOperationResultException(expected, actualRowCount,
+                    String.format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      */
-    public static void checkAffectedOneRow(int result) {
-        checkAffectedRows(1, result,
-                () -> "The number of rows affected is expected to be 1, but is: " + result);
+    public static void checkAffectedOneRow(int actualRowCount) {
+        checkAffectedRows(1, actualRowCount);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessage 异常信息
      */
-    public static void checkAffectedOneRow(int result, String errorMessage) {
-        checkAffectedRows(1, result, errorMessage);
+    public static void checkAffectedOneRow(int actualRowCount, String errorMessage) {
+        checkAffectedRows(1, actualRowCount, errorMessage);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageSupplier 异常信息
      */
-    public static void checkAffectedOneRow(int result, Supplier<String> errorMessageSupplier) {
-        checkAffectedRows(1, result, errorMessageSupplier);
+    public static void checkAffectedOneRow(int actualRowCount, Supplier<String> errorMessageSupplier) {
+        checkAffectedRows(1, actualRowCount, errorMessageSupplier);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
      */
-    public static void checkAffectedOneRow(int result,
+    public static void checkAffectedOneRow(int actualRowCount,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkAffectedRows(1, result, errorMessageTemplate, errorMessageArgs);
+        checkAffectedRows(1, actualRowCount, errorMessageTemplate, errorMessageArgs);
     }
 
     /**
@@ -554,40 +567,39 @@ public class AssertTools {
      * @param result 实际影响的数据量
      */
     public static void checkAffectedOneRow(long result) {
-        checkAffectedRows(1L, result,
-                () -> "The number of rows affected is expected to be 1, but is: " + result);
+        checkAffectedRows(1L, result);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessage 异常信息
      */
-    public static void checkAffectedOneRow(long result, String errorMessage) {
-        checkAffectedRows(1L, result, errorMessage);
+    public static void checkAffectedOneRow(long actualRowCount, String errorMessage) {
+        checkAffectedRows(1L, actualRowCount, errorMessage);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageSupplier 异常信息
      */
-    public static void checkAffectedOneRow(long result, Supplier<String> errorMessageSupplier) {
-        checkAffectedRows(1L, result, errorMessageSupplier);
+    public static void checkAffectedOneRow(long actualRowCount, Supplier<String> errorMessageSupplier) {
+        checkAffectedRows(1L, actualRowCount, errorMessageSupplier);
     }
 
     /**
      * 当影响的数据量不为 1 时抛出 {@link DataOperationResultException}。
      *
-     * @param result 实际影响的数据量
+     * @param actualRowCount 实际影响的行数
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
      */
-    public static void checkAffectedOneRow(long result,
+    public static void checkAffectedOneRow(long actualRowCount,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkAffectedRows(1L, result, errorMessageTemplate, errorMessageArgs);
+        checkAffectedRows(1L, actualRowCount, errorMessageTemplate, errorMessageArgs);
     }
 
     // ================================
