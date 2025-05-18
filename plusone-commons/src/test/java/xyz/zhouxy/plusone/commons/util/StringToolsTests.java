@@ -370,6 +370,38 @@ class StringToolsTests {
     // #endregion - desensitize
     // ================================
 
+    // ================================
+    // #region - toQuotedString
+    // ================================
+
+    @Test
+    void toQuotedString_NullInput_ReturnsNullStr() {
+        String result = StringTools.toQuotedString(null);
+        assertEquals("null", result);
+
+        assertEquals("The value is null.", String.format("The value is %s.", result));
+    }
+
+    @Test
+    void toQuotedString_EmptyString_ReturnsEmptyString() {
+        String result = StringTools.toQuotedString("");
+        assertEquals("\"\"", result);
+
+        assertEquals("The value is \"\".", String.format("The value is %s.", result));
+    }
+
+    @Test
+    void toQuotedString_ValidInput_ReturnsQuotedString() {
+        String result = StringTools.toQuotedString("Hello World");
+        assertEquals("\"Hello World\"", result);
+
+        assertEquals("The value is \"Hello World\".", String.format("The value is %s.", result));
+    }
+
+    // ================================
+    // #endregion - toQuotedString
+    // ================================
+
     @Test
     void test_constructor_isNotAccessible_ThrowsIllegalStateException() {
         Constructor<?>[] constructors = StringTools.class.getDeclaredConstructors();

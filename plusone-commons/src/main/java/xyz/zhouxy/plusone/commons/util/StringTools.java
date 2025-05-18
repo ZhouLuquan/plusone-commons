@@ -220,6 +220,23 @@ public class StringTools {
         return String.valueOf(charArray);
     }
 
+    /**
+     * 转换为带引号的字符串
+     *
+     * @param value 值
+     * @return 带引号的字符串
+     * @since 1.1.0
+     */
+    public static String toQuotedString(@Nullable String value) {
+        if (value == null) {
+            return "null";
+        }
+        if (value.isEmpty()) {
+            return "\"\"";
+        }
+        return "\"" + value + "\"";
+    }
+
     private StringTools() {
         throw new IllegalStateException("Utility class");
     }
