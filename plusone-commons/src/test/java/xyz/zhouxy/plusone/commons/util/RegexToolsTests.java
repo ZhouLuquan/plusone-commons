@@ -111,24 +111,24 @@ class RegexToolsTests {
     }
 
     @Test
-    void matchesOne_InputMatchesOnePattern_ReturnsTrue() {
+    void matchesAny_InputMatchesAnyPattern_ReturnsTrue() {
         String[] patterns = {"abc", "def"};
         Pattern[] compiledPatterns = new Pattern[patterns.length];
         for (int i = 0; i < patterns.length; i++) {
             compiledPatterns[i] = Pattern.compile(patterns[i]);
         }
-        assertTrue(RegexTools.matchesOne("abc", compiledPatterns), "Input should match one pattern");
+        assertTrue(RegexTools.matchesAny("abc", compiledPatterns), "Input should match one pattern");
     }
 
     @Test
-    void matchesOne_InputDoesNotMatchAnyPattern_ReturnsFalse() {
+    void matchesAny_InputDoesNotMatchAnyPattern_ReturnsFalse() {
         String[] patterns = {"abc", "def"};
         Pattern[] compiledPatterns = new Pattern[patterns.length];
         for (int i = 0; i < patterns.length; i++) {
             compiledPatterns[i] = Pattern.compile(patterns[i]);
         }
-        assertFalse(RegexTools.matchesOne("xyz", compiledPatterns), "Input should not match any pattern");
-        assertFalse(RegexTools.matchesOne(null, compiledPatterns), "Input should not match any pattern");
+        assertFalse(RegexTools.matchesAny("xyz", compiledPatterns), "Input should not match any pattern");
+        assertFalse(RegexTools.matchesAny(null, compiledPatterns), "Input should not match any pattern");
     }
 
     @Test

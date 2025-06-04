@@ -126,9 +126,9 @@ public final class RegexTools {
      * @param patterns 正则
      * @return 判断结果
      */
-    public static boolean matchesOne(@Nullable final CharSequence input, final Pattern[] patterns) {
+    public static boolean matchesAny(@Nullable final CharSequence input, final Pattern[] patterns) {
         AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
-        return matchesOneInternal(input, patterns);
+        return matchesAnyInternal(input, patterns);
     }
 
     /**
@@ -319,7 +319,7 @@ public final class RegexTools {
      * @param patterns 正则表达式
      * @return 判断结果
      */
-    private static boolean matchesOneInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
+    private static boolean matchesAnyInternal(@Nullable final CharSequence input, final Pattern[] patterns) {
         return input != null
                 && Arrays.stream(patterns)
                         .anyMatch(pattern -> pattern.matcher(input).matches());
