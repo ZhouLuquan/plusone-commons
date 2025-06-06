@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package xyz.zhouxy.plusone.commons.gson;
+package xyz.zhouxy.plusone.commons.gson.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,9 +33,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.*;
 
 @Slf4j
-public class GsonTypeAdapterTests {
+public final class JSR310TypeAdaptersTests {
 
     final Gson gsonWithDefaultFormatter = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter().nullSafe())
