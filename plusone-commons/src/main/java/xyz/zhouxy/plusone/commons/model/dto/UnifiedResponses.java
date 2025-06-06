@@ -40,7 +40,7 @@ public class UnifiedResponses {
      * @return {@code UnifiedResponse} 对象。
      *         {@code code} = "2000000", {@code message} = "SUCCESS", {@code data} = null
      */
-    public static UnifiedResponse<Void> success() {
+    public static <T> UnifiedResponse<T> success() {
         return new UnifiedResponse<>(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
     }
 
@@ -51,7 +51,7 @@ public class UnifiedResponses {
      * @return {@code UnifiedResponse} 对象。
      *         {@code code} = "2000000", {@code data} = null
      */
-    public static UnifiedResponse<Void> success(@Nullable String message) {
+    public static <T> UnifiedResponse<T> success(@Nullable String message) {
         return new UnifiedResponse<>(SUCCESS_CODE, message);
     }
 
@@ -83,7 +83,7 @@ public class UnifiedResponses {
      * @param message 错误信息
      * @return {@code UnifiedResponse} 对象（{@code data} 为 {@code null}）
      */
-    public static UnifiedResponse<Void> error(String code, @Nullable String message) {
+    public static <T> UnifiedResponse<T> error(String code, @Nullable String message) {
         return new UnifiedResponse<>(code, message);
     }
 
@@ -109,7 +109,7 @@ public class UnifiedResponses {
      *         {@code message} 为异常的 {@code message}，
      *         {@code data} 为 {@code null}。
      */
-    public static UnifiedResponse<Void> error(String code, Throwable e) {
+    public static <T> UnifiedResponse<T> error(String code, Throwable e) {
         return new UnifiedResponse<>(code, e.getMessage());
     }
 
@@ -128,7 +128,7 @@ public class UnifiedResponses {
      * @param message 响应信息
      * @return {@code UnifiedResponse} 对象（{@code data} 为 {@code null}）
      */
-    public static UnifiedResponse<Void> of(String code, @Nullable String message) {
+    public static <T> UnifiedResponse<T> of(String code, @Nullable String message) {
         return new UnifiedResponse<>(code, message);
     }
 

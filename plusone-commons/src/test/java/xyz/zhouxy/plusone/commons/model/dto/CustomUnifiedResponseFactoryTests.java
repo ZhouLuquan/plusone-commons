@@ -558,11 +558,11 @@ class CustomUnifiedResponseFactoryTests {
         public static final String SUCCESS_CODE = "0000000";
         public static final String DEFAULT_SUCCESS_MSG = "成功";
 
-        public static UnifiedResponse<Void> success() {
+        public static <T> UnifiedResponse<T> success() {
             return of(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
         }
 
-        public static UnifiedResponse<Void> success(@Nullable String message) {
+        public static <T> UnifiedResponse<T> success(@Nullable String message) {
             return of(SUCCESS_CODE, message);
         }
 
