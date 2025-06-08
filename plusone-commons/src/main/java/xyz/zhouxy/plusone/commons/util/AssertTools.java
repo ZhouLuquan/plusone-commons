@@ -29,7 +29,6 @@ import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
  *
  * <p>
  * 本工具类不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
- * </p>
  *
  * <pre>
  * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");

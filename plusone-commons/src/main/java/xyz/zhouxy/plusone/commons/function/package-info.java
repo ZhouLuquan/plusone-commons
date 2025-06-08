@@ -20,7 +20,6 @@
  * <h3>1. PredicateTools</h3>
  * <p>
  * {@link PredicateTools} 用于 {@link java.util.function.Predicate} 的相关操作。
- * </p>
  *
  * <h3>2. Functional interfaces</h3>
  * <p>
@@ -39,7 +38,6 @@
  * | Optional      | ToOptionalBiFunction | Optional&lt;R&gt; apply(T,U)           |
  * | Optional      | ToOptionalFunction   | Optional&lt;R&gt; apply(T)             |
  * </pre>
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */

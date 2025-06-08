@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * 随机工具类
  * <p>
  * 建议调用方自行维护 Random 对象
- * </p>
+ *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  */
 public final class RandomTools {

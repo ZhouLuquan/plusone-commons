@@ -21,7 +21,6 @@ package xyz.zhouxy.plusone.commons.function;
  *
  * <p>
  * 允许抛出异常的 Supplier 接口。
- * </p>
  *
  * @param <T> 结果类型
  * @param <E> 异常类型

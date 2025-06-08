@@ -26,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * <p>
  * 生成 UUID 和 修改版雪花ID（Seata 版本）
- * </p>
  *
  * @see UUID
  * @see IdWorker

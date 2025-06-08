@@ -20,7 +20,6 @@ package xyz.zhouxy.plusone.commons.function;
  *
  * <p>
  * 接收一个参数，并返回一个结果，可以抛出异常。
- * </p>
  *
  * @param <T> 入参类型
  * @param <R> 返回结果类型

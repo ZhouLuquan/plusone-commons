@@ -28,7 +28,6 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
  *
  * <p>
  * BigDecimal 工具类
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

@@ -21,11 +21,10 @@ package xyz.zhouxy.plusone.commons.exception.business;
  *
  * <p>
  * 业务异常
- * </p>
  *
  * <p>
  * <b>NOTE: 通常表示业务中的意外情况。如：用户错误输入、缺失必填字段、用户余额不足等。</b>
- * </p>
+ *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
  */

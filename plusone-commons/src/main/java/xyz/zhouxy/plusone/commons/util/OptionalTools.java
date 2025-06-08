@@ -45,7 +45,6 @@ public class OptionalTools {
      * <p>
      * 包装类为 {@code null} 表示值的缺失，转为 {@link OptionalInt} 后，由
      * {@link OptionalInt#empty()} 表示值的缺失。
-     * </p>
      *
      * @param value 包装对象
      * @return {@link OptionalInt} 实例
@@ -58,7 +57,6 @@ public class OptionalTools {
      * 将 {@code Optional<Integer>} 对象转为 {@link OptionalInt} 对象。
      * <p>
      * {@code Optional<Integer>} 将整数包装了两次，改为使用 {@link OptionalInt} 包装其中的整数数据。
-     * </p>
      *
      * @param optionalObj {@code Optional<Integer>} 对象
      * @return {@link OptionalInt} 实例
@@ -72,7 +70,6 @@ public class OptionalTools {
      * <p>
      * 包装类为 {@code null} 表示值的缺失，转为 {@link OptionalLong} 后，由
      * {@link OptionalLong#empty()} 表示值的缺失。
-     * </p>
      *
      * @param value 包装对象
      * @return {@link OptionalLong} 实例
@@ -85,7 +82,6 @@ public class OptionalTools {
      * 将 {@code Optional<Long>} 转为 {@link OptionalLong}。
      * <p>
      * {@code Optional<Long>} 将整数包装了两次，改为使用 {@link OptionalLong} 包装其中的整数数据。
-     * </p>
      *
      * @param optionalObj 包装对象
      * @return {@link OptionalLong} 实例
@@ -99,7 +95,6 @@ public class OptionalTools {
      * <p>
      * 包装类为 {@code null} 表示值的缺失，转为 {@link OptionalDouble} 后，由
      * {@link OptionalDouble#empty()} 表示值的缺失。
-     * </p>
      *
      * @param value 包装对象
      * @return {@link OptionalDouble} 实例
@@ -112,7 +107,6 @@ public class OptionalTools {
      * 将 {@code Optional<Double>} 转为 {@link OptionalDouble}。
      * <p>
      * {@code Optional<Double>} 将整数包装了两次，改为使用 {@link OptionalDouble} 包装其中的整数数据。
-     * </p>
      *
      * @param optionalObj 包装对象
      * @return {@link OptionalDouble} 实例

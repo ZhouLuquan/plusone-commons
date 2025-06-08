@@ -24,13 +24,12 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *
  * <p>
  * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
- * </p>
+ *
  * <p>
  * 异常实现 {@link MultiTypesException} 的 {@link #getType} 方法，返回对应的场景类型。
- * </p>
+ *
  * <p>
  * 表示场景类型的枚举实现 {@link ExceptionType}，其中的工厂方法用于创建对应类型的异常。
- * </p>
  *
  * <pre>
  * public final class LoginException
@@ -61,7 +60,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *
  *     // ...
  *
- *     public enum Type implements ExceptionType<LoginException> {
+ *     public enum Type implements ExceptionType&lt;LoginException&gt; {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),
@@ -117,7 +116,6 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * <pre>
  * throw LoginException.Type.TOKEN_TIMEOUT.create();
  * </pre>
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

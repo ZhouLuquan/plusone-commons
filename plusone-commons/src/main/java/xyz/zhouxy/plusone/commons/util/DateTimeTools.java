@@ -215,7 +215,6 @@ public class DateTimeTools {
      * <p>
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上还是同一时间戳，
      * 只是不同时区的表示。
-     * </p>
      *
      * @param timeMillis 时间戳
      * @param zone       时区
@@ -230,7 +229,6 @@ public class DateTimeTools {
      * <p>
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上还是同一时间戳，
      * 只是不同时区的表示。
-     * </p>
      *
      * @param dateTime {@link Date} 对象
      * @param zone     时区
@@ -245,7 +243,6 @@ public class DateTimeTools {
      * <p>
      * 传入不同 {@link ZoneId}，获取到的 {@link ZonedDateTime} 对象实际上表示的还是还是同一时间戳的时间，
      * 只是不同时区的表示。
-     * </p>
      *
      * @param dateTime {@link Date} 对象
      * @param timeZone 时区

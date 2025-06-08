@@ -31,7 +31,6 @@ import xyz.zhouxy.plusone.commons.constant.PatternConsts;
  *
  * <p>
  * 字符串工具类。
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

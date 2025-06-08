@@ -21,13 +21,12 @@ package xyz.zhouxy.plusone.commons.exception.system;
  *
  * <p>
  * 当数据操作的结果不符合预期时抛出。
- * </p>
  *
  * <p>
  * 比如当一个 insert 或 update 操作时，预计影响数据库中的一行数据，但结果却影响了零条数据或多条数据，
  * 当出现这种始料未及的诡异情况时，抛出 {@link DataOperationResultException} 并回滚事务。
  * 后续需要排查原因。
- * </p>
+ *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
  */

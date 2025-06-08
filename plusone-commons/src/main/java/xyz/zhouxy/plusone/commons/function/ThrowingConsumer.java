@@ -21,7 +21,6 @@ package xyz.zhouxy.plusone.commons.function;
  *
  * <p>
  * 允许抛出异常的消费操作。是一个特殊的 {@link java.util.function.Consumer}。
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

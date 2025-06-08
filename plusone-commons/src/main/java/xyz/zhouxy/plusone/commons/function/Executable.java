@@ -21,7 +21,6 @@ package xyz.zhouxy.plusone.commons.function;
  *
  * <p>
  * 表示一个无入参无返回值的操作，可抛出异常。
- * </p>
  *
  * @param <E> 可抛出的异常类型
  *

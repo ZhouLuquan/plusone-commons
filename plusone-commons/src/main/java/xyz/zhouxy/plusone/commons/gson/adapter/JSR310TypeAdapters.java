@@ -164,7 +164,7 @@ public class JSR310TypeAdapters {
     *
     * <p>
     * 使用 {@link DateTimeFormatter#ISO_INSTANT} 进行 {@link Instant} 的序列化与反序列化。
-    * </p>
+    *
     */
     public static final class InstantTypeAdapter extends TypeAdapter<Instant> {
 

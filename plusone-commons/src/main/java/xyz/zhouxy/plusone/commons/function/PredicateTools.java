@@ -23,7 +23,6 @@ import java.util.function.Predicate;
  *
  * <p>
  * {@link Predicate} 相关操作。
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

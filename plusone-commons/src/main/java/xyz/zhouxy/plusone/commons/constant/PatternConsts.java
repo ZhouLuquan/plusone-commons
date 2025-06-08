@@ -31,7 +31,7 @@ public final class PatternConsts {
      * yyyyMMdd
      *
      * @see RegexConsts#BASIC_ISO_DATE
-     * </p>
+     *
      */
     public static final Pattern BASIC_ISO_DATE = Pattern.compile(RegexConsts.BASIC_ISO_DATE);
 

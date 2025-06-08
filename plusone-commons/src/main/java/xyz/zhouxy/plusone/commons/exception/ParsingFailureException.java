@@ -33,7 +33,6 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
  * <pre>
  * throw new RequestParamsException(ParsingFailureException.of(ParsingFailureException.Type.NUMBER_PARSING_FAILURE));
  * </pre>
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

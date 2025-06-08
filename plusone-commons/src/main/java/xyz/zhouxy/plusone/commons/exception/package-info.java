@@ -15,18 +15,17 @@
  */
 
 /**
- * <h2>异常<h2>
+ * <h2>异常</h2>
  *
  * <h3>1. {@link MultiTypesException} - 多类型异常</h3>
  * <p>
  * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
- * </p>
+ *
  * <p>
  * 异常实现 {@link MultiTypesException} 的 {@link MultiTypesException#getType} 方法，返回对应的场景类型。
- * </p>
+ *
  * <p>
  * 表示场景类型的枚举实现 {@link MultiTypesException.ExceptionType}，其中的工厂方法用于创建对应类型的异常。
- * </p>
  *
  * <pre>
  * public final class LoginException
@@ -57,7 +56,7 @@
  *
  *     // ...
  *
- *     public enum Type implements ExceptionType<LoginException> {
+ *     public enum Type implements ExceptionType&lt;LoginException&gt; {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),
@@ -113,7 +112,6 @@
  * <pre>
  * throw LoginException.Type.TOKEN_TIMEOUT.create();
  * </pre>
- * </p>
  *
  * <h3>2. 业务异常</h3>
  * 预设常见的业务异常。可继承 {@link BizException} 自定义业务异常。

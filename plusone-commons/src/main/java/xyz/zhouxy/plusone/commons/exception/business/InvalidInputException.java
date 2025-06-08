@@ -26,11 +26,10 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
  *
  * <p>
  * 用户输入内容非法
- * </p>
  *
  * <p>
  * <b>NOTE: 属业务异常</b>
- * </p>
+ *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
  */

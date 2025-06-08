@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 /**
  * {@link Ref} 包装了一个值，表示对该值的应用。
  *
- * <p>灵感来自于 C# 的 {@value ref} 参数修饰符。C# 允许通过以下方式，将值返回给调用端：</p>
+ * <p>灵感来自于 C&num; 的 {@code ref} 参数修饰符。C&num; 允许通过以下方式，将值返回给调用端：</p>
  * <pre>
  * void Method(ref int refArgument)
  * {
@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
  * <p>
  * 当一个方法需要产生多个结果时，无法有多个返回值，可以使用 {@link Ref} 作为参数传入，方法内部修改 {@link Ref} 的值。
  * 调用方在调用方法之后，使用 {@code getValue()} 获取结果。
- * </p>
+ *
  * <pre>
  * String method(final Ref&lt;Integer&gt; intRefArgument, final Ref&lt;String&gt; strRefArgument) {
  *     intRefArgument.transformValue(i -&gt; i + 44);

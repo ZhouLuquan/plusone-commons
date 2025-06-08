@@ -40,7 +40,6 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  *
  * <p>
  * 中国第二代居民身份证号
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0

@@ -24,7 +24,6 @@ import com.google.common.annotations.Beta;
  * <p>
  * 一个特殊的 {@link java.util.function.UnaryOperator}。
  * 表示对 {@code char} 的一元操作。
- * </p>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
