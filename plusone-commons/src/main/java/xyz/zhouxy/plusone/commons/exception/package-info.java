@@ -31,6 +31,7 @@
  * public final class LoginException
  *         extends RuntimeException
  *         implements MultiTypesException&lt;LoginException, LoginException.Type&gt; {
+ *     private static final long serialVersionUID = 881293090625085616L;
  *     private final Type type;
  *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
  *         super(message);

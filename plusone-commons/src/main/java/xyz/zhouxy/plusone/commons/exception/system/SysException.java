@@ -26,6 +26,7 @@ package xyz.zhouxy.plusone.commons.exception.system;
  * @since 1.0.0
  */
 public class SysException extends RuntimeException {
+    private static final long serialVersionUID = -936435090625482516L;
 
     private static final String DEFAULT_MSG = "系统异常";
 

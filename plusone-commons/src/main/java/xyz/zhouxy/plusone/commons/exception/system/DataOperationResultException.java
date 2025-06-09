@@ -31,6 +31,7 @@ package xyz.zhouxy.plusone.commons.exception.system;
  * @since 1.0.0
  */
 public final class DataOperationResultException extends SysException {
+    private static final long serialVersionUID = 992754090625352516L;
 
     private final long expected;
     private final long actual;

@@ -78,6 +78,7 @@ System.out.println(result); // Output: Return string
 public final class LoginException
         extends RuntimeException
         implements MultiTypesException<LoginException, LoginException.Type> {
+    private static final long serialVersionUID = 881293090625085616L;
     private final Type type;
     private LoginException(@Nonnull Type type, @Nonnull String message) {
         super(message);

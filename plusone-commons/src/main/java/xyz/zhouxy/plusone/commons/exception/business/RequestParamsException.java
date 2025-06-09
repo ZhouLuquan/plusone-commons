@@ -26,6 +26,7 @@ package xyz.zhouxy.plusone.commons.exception.business;
  * @since 1.0.0
  */
 public class RequestParamsException extends BizException {
+    private static final long serialVersionUID = 448337090625192516L;
 
     private static final String DEFAULT_MSG = "用户请求参数错误";
 

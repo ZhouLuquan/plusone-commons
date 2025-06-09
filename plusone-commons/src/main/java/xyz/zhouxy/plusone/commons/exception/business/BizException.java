@@ -29,6 +29,7 @@ package xyz.zhouxy.plusone.commons.exception.business;
  * @since 1.0.0
  */
 public class BizException extends RuntimeException {
+    private static final long serialVersionUID = 982585090625482416L;
 
     private static final String DEFAULT_MSG = "业务异常";
 

@@ -36,6 +36,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
 public final class InvalidInputException
         extends RequestParamsException
         implements MultiTypesException<InvalidInputException, InvalidInputException.Type> {
+    private static final long serialVersionUID = -28994090625082516L;
 
     private final Type type;
 
