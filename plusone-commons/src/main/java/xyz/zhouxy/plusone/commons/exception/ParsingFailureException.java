@@ -31,7 +31,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
  * 如果表示用户传参造成的解析失败，可使用 {@link RequestParamsException#RequestParamsException(Throwable)}，
  * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出。
  * <pre>
- * throw new RequestParamsException(ParsingFailureException.of(ParsingFailureException.Type.NUMBER_PARSING_FAILURE));
+ * throw new RequestParamsException(ParsingFailureException.Type.NUMBER_PARSING_FAILURE.create());
  * </pre>
  *
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
