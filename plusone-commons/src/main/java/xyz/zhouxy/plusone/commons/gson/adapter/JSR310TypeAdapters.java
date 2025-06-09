@@ -21,6 +21,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalQuery;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -42,16 +44,15 @@ public class JSR310TypeAdapters {
      * {@code LocalDate} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code LocalDate} 进行相互转换。
      */
-    public static final class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
-
-        private final DateTimeFormatter dateTimeFormatter;
+    public static final class LocalDateTypeAdapter
+            extends TemporalAccessorTypeAdapter<LocalDate, LocalDateTypeAdapter> {
 
         /**
          * 默认构造函数，
          * 使用 {@link DateTimeFormatter#ISO_LOCAL_DATE} 进行 {@link LocalDate} 的序列化与反序列化。
          */
         public LocalDateTypeAdapter() {
-            this.dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            this(DateTimeFormatter.ISO_LOCAL_DATE);
         }
 
         /**
@@ -61,20 +62,7 @@ public class JSR310TypeAdapters {
          * @param formatter 用于序列化 {@link LocalDate} 的格式化器，不可为 {@code null}。
          */
         public LocalDateTypeAdapter(DateTimeFormatter formatter) {
-            AssertTools.checkArgumentNotNull(formatter, "formatter can not be null.");
-            this.dateTimeFormatter = formatter;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void write(JsonWriter out, LocalDate value) throws IOException {
-            out.value(dateTimeFormatter.format(value));
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public LocalDate read(JsonReader in) throws IOException {
-            return LocalDate.parse(in.nextString(), dateTimeFormatter);
+            super(LocalDate::from, formatter);
         }
     }
 
@@ -82,16 +70,15 @@ public class JSR310TypeAdapters {
      * {@code LocalDateTime} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code LocalDateTime} 进行相互转换。
      */
-    public static final class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
-
-        private final DateTimeFormatter dateTimeFormatter;
+    public static final class LocalDateTimeTypeAdapter
+            extends TemporalAccessorTypeAdapter<LocalDateTime, LocalDateTimeTypeAdapter> {
 
         /**
          * 默认构造函数，
          * 使用 {@link DateTimeFormatter#ISO_LOCAL_DATE_TIME} 进行 {@link LocalDateTime} 的序列化与反序列化。
          */
         public LocalDateTimeTypeAdapter() {
-            this.dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            this(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
 
         /**
@@ -101,20 +88,7 @@ public class JSR310TypeAdapters {
          * @param formatter 用于序列化 {@link LocalDateTime} 的格式化器，不可为 {@code null}。
          */
         public LocalDateTimeTypeAdapter(DateTimeFormatter formatter) {
-            AssertTools.checkArgumentNotNull(formatter, "formatter can not be null.");
-            this.dateTimeFormatter = formatter;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void write(JsonWriter out, LocalDateTime value) throws IOException {
-            out.value(dateTimeFormatter.format(value));
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public LocalDateTime read(JsonReader in) throws IOException {
-            return LocalDateTime.parse(in.nextString(), dateTimeFormatter);
+            super(LocalDateTime::from, formatter);
         }
     }
 
@@ -122,16 +96,15 @@ public class JSR310TypeAdapters {
      * {@code ZonedDateTime} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code ZonedDateTime} 进行相互转换。
      */
-    public static final class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
-
-        private final DateTimeFormatter dateTimeFormatter;
+    public static final class ZonedDateTimeTypeAdapter
+            extends TemporalAccessorTypeAdapter<ZonedDateTime, ZonedDateTimeTypeAdapter> {
 
         /**
          * 默认构造函数，
          * 使用 {@link DateTimeFormatter#ISO_ZONED_DATE_TIME} 进行 {@link ZonedDateTime} 的序列化与反序列化。
          */
         public ZonedDateTimeTypeAdapter() {
-            this.dateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+            this(DateTimeFormatter.ISO_ZONED_DATE_TIME);
         }
 
         /**
@@ -141,20 +114,7 @@ public class JSR310TypeAdapters {
          * @param formatter 用于序列化 {@link ZonedDateTime} 的格式化器，不可为 {@code null}。
          */
         public ZonedDateTimeTypeAdapter(DateTimeFormatter formatter) {
-            AssertTools.checkArgumentNotNull(formatter, "formatter can not be null.");
-            this.dateTimeFormatter = formatter;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void write(JsonWriter out, ZonedDateTime value) throws IOException {
-            out.value(dateTimeFormatter.format(value));
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public ZonedDateTime read(JsonReader in) throws IOException {
-            return ZonedDateTime.parse(in.nextString(), dateTimeFormatter);
+            super(ZonedDateTime::from, formatter);
         }
     }
 
@@ -166,18 +126,40 @@ public class JSR310TypeAdapters {
     * 使用 {@link DateTimeFormatter#ISO_INSTANT} 进行 {@link Instant} 的序列化与反序列化。
     *
     */
-    public static final class InstantTypeAdapter extends TypeAdapter<Instant> {
+    public static final class InstantTypeAdapter
+            extends TemporalAccessorTypeAdapter<Instant, InstantTypeAdapter> {
 
-        /** {@inheritDoc} */
-        @Override
-        public void write(JsonWriter out, Instant value) throws IOException {
-            out.value(DateTimeFormatter.ISO_INSTANT.format(value));
+        public InstantTypeAdapter() {
+            super(Instant::from, DateTimeFormatter.ISO_INSTANT);
+        }
+    }
+
+    private abstract static class TemporalAccessorTypeAdapter<
+            T extends TemporalAccessor,
+            TTypeAdapter extends TemporalAccessorTypeAdapter<T, TTypeAdapter>>
+        extends TypeAdapter<T> {
+
+        private final TemporalQuery<T> temporalQuery;
+
+        private final DateTimeFormatter dateTimeFormatter;
+
+        protected TemporalAccessorTypeAdapter(
+                TemporalQuery<T> temporalQuery, DateTimeFormatter dateTimeFormatter) {
+            AssertTools.checkArgumentNotNull(dateTimeFormatter, "formatter must not be null.");
+            this.temporalQuery = temporalQuery;
+            this.dateTimeFormatter = dateTimeFormatter;
         }
 
         /** {@inheritDoc} */
         @Override
-        public Instant read(JsonReader in) throws IOException {
-            return Instant.parse(in.nextString());
+        public void write(JsonWriter out, T value) throws IOException {
+            out.value(dateTimeFormatter.format(value));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public T read(JsonReader in) throws IOException {
+            return dateTimeFormatter.parse(in.nextString(), temporalQuery);
         }
     }
 
