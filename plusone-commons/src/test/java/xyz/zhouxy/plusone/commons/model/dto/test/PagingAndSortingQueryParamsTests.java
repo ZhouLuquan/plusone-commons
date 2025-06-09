@@ -19,14 +19,12 @@ package xyz.zhouxy.plusone.commons.model.dto.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -45,9 +43,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -57,6 +52,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+
+import xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.LocalDateTimeTypeAdapter;
+import xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.LocalDateTypeAdapter;
 import xyz.zhouxy.plusone.commons.model.dto.PageResult;
 import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams;
 import xyz.zhouxy.plusone.commons.model.dto.PagingParams;
@@ -187,31 +185,8 @@ public class PagingAndSortingQueryParamsTests {
     @Test
     void testGson() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
-
-                    @Override
-                    public void write(JsonWriter out, LocalDate value) throws IOException {
-                        out.value(DateTimeFormatter.ISO_DATE.format(value));
-                    }
-
-                    @Override
-                    public LocalDate read(JsonReader in) throws IOException {
-                        return LocalDate.parse(in.nextString(), DateTimeFormatter.ISO_DATE);
-                    }
-
-                })
-                .registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
-
-                    @Override
-                    public void write(JsonWriter out, LocalDateTime value) throws IOException {
-                        out.value(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(value));
-                    }
-
-                    @Override
-                    public LocalDateTime read(JsonReader in) throws IOException {
-                        return LocalDateTime.parse(in.nextString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    }
-                })
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter().nullSafe())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter().nullSafe())
                 .create();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             AccountQueryParams params = gson.fromJson(JSON_STR, AccountQueryParams.class);
