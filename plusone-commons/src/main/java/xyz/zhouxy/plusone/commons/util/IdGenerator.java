@@ -16,8 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
+
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -69,7 +70,7 @@ public class IdGenerator {
      * @return UUID 字符串
      */
     public static String toSimpleString(UUID uuid) {
-        AssertTools.checkArgument(Objects.nonNull(uuid));
+        checkArgumentNotNull(uuid);
         return (uuidDigits(uuid.getMostSignificantBits() >> 32, 8) +
                 uuidDigits(uuid.getMostSignificantBits() >> 16, 4) +
                 uuidDigits(uuid.getMostSignificantBits(), 4) +

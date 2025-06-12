@@ -16,6 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
@@ -72,7 +75,7 @@ public final class RegexTools {
      * @return {@link Pattern} 实例
      */
     public static Pattern getPattern(final String pattern, final int flags, final boolean cachePattern) {
-        AssertTools.checkNotNull(pattern);
+        checkNotNull(pattern);
         return cachePattern ? cacheAndGetPatternInternal(pattern, flags) : getPatternInternal(pattern, flags);
     }
 
@@ -95,7 +98,7 @@ public final class RegexTools {
      */
     @Nonnull
     public static Pattern getPattern(final String pattern, final int flags) {
-        AssertTools.checkNotNull(pattern);
+        checkNotNull(pattern);
         return getPatternInternal(pattern, flags);
     }
 
@@ -115,7 +118,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matches(@Nullable final CharSequence input, final Pattern pattern) {
-        AssertTools.checkNotNull(pattern);
+        checkNotNull(pattern);
         return matchesInternal(input, pattern);
     }
 
@@ -127,7 +130,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAny(@Nullable final CharSequence input, final Pattern[] patterns) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
+        checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return matchesAnyInternal(input, patterns);
     }
 
@@ -139,7 +142,7 @@ public final class RegexTools {
      * @return 判断结果
      */
     public static boolean matchesAll(@Nullable final CharSequence input, final Pattern[] patterns) {
-        AssertTools.checkArgument(ArrayTools.isAllElementsNotNull(patterns));
+        checkArgument(ArrayTools.isAllElementsNotNull(patterns));
         return matchesAllInternal(input, patterns);
     }
 
@@ -210,8 +213,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final Pattern pattern) {
-        AssertTools.checkNotNull(input);
-        AssertTools.checkNotNull(pattern);
+        checkNotNull(input);
+        checkNotNull(pattern);
         return pattern.matcher(input);
     }
 
@@ -261,8 +264,8 @@ public final class RegexTools {
      * @return 结果
      */
     public static Matcher getMatcher(final CharSequence input, final String pattern, final int flags) {
-        AssertTools.checkNotNull(input);
-        AssertTools.checkNotNull(pattern);
+        checkNotNull(input);
+        checkNotNull(pattern);
         return getPatternInternal(pattern, flags).matcher(input);
     }
 

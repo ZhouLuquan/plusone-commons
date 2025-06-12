@@ -15,6 +15,8 @@
  */
 package xyz.zhouxy.plusone.commons.gson.adapter;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
+
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,8 +29,6 @@ import java.time.temporal.TemporalQuery;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 包含 JSR-310 相关数据类型的 {@code TypeAdapter}
@@ -145,7 +145,7 @@ public class JSR310TypeAdapters {
 
         protected TemporalAccessorTypeAdapter(
                 TemporalQuery<T> temporalQuery, DateTimeFormatter dateTimeFormatter) {
-            AssertTools.checkArgumentNotNull(dateTimeFormatter, "formatter must not be null.");
+            checkArgumentNotNull(dateTimeFormatter, "formatter must not be null.");
             this.temporalQuery = temporalQuery;
             this.dateTimeFormatter = dateTimeFormatter;
         }

@@ -17,12 +17,12 @@
 package xyz.zhouxy.plusone.commons.base;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
 
 import javax.annotation.Nonnull;
 
 import org.junit.jupiter.api.Test;
 
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 class IWithCodeTests {
 
@@ -91,7 +91,7 @@ class IWithCodeTests {
         private final String code;
 
         WithCode(String code) {
-            AssertTools.checkNotNull(code);
+            checkNotNull(code);
             this.code = code;
         }
 

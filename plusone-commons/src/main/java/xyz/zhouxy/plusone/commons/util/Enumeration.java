@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,7 +46,7 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
     protected final String name;
 
     protected Enumeration(final int id, final String name) {
-        AssertTools.checkArgument(StringTools.isNotBlank(name), "Name of enumeration must has text.");
+        checkArgument(StringTools.isNotBlank(name), "Name of enumeration must has text.");
         this.id = id;
         this.name = name;
     }
@@ -126,7 +128,7 @@ public abstract class Enumeration<T extends Enumeration<T>> // NOSONAR 暂不移
          * @return 枚举对象
          */
         public T get(int id) {
-            AssertTools.checkArgument(this.valueMap.containsKey(id), "[%s] 对应的值不存在", id);
+            checkArgument(this.valueMap.containsKey(id), "[%s] 对应的值不存在", id);
             return this.valueMap.get(id);
         }
 

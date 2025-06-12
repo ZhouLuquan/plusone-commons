@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -76,7 +78,7 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
      * @param nodes 平铺的节点列表
      */
     public List<T> buildTree(Collection<T> nodes) {
-        AssertTools.checkNotNull(nodes);
+        checkNotNull(nodes);
         return buildTreeInternal(nodes, this.defaultComparator);
     }
 
@@ -93,7 +95,7 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
      *                   <b>仅影响调用 addChild 的顺序，如果操作对象本身对应的控制了子节点的顺序，无法影响其相关逻辑。</b>
      */
     public List<T> buildTree(Collection<T> nodes, @Nullable Comparator<? super T> comparator) {
-        AssertTools.checkNotNull(nodes);
+        checkNotNull(nodes);
         final Comparator<? super T> c = (comparator != null) ? comparator : this.defaultComparator;
         return buildTreeInternal(nodes, c);
     }

@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -110,7 +112,7 @@ public class StringTools {
      * @return 结果
      */
     public static String repeat(final String str, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(str));
+        checkArgument(Objects.nonNull(str));
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
     }
 
@@ -210,8 +212,8 @@ public class StringTools {
         if (src == null || src.isEmpty()) {
             return EMPTY_STRING;
         }
-        AssertTools.checkArgument(front >= 0 && end >= 0);
-        AssertTools.checkArgument((front + end) <= src.length(), "需要截取的长度不能大于原字符串长度");
+        checkArgument(front >= 0 && end >= 0);
+        checkArgument((front + end) <= src.length(), "需要截取的长度不能大于原字符串长度");
         final char[] charArray = src.toCharArray();
         for (int i = front; i < charArray.length - end; i++) {
             charArray[i] = replacedChar;

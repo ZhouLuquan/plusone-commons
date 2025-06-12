@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.time;
 
 import static java.time.temporal.ChronoField.YEAR;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -32,7 +33,6 @@ import javax.annotation.Nullable;
 import com.google.errorprone.annotations.Immutable;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 表示年份与季度
@@ -93,7 +93,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(LocalDate date) {
-        AssertTools.checkNotNull(date);
+        checkNotNull(date);
         return new YearQuarter(date.getYear(), Quarter.fromMonth(date.getMonth()));
     }
 
@@ -105,7 +105,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(Date date) {
-        AssertTools.checkNotNull(date);
+        checkNotNull(date);
         @SuppressWarnings("deprecation")
         final int yearValue = YEAR.checkValidIntValue(date.getYear() + 1900L);
         @SuppressWarnings("deprecation")
@@ -121,7 +121,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(Calendar date) {
-        AssertTools.checkNotNull(date);
+        checkNotNull(date);
         final int yearValue = ChronoField.YEAR.checkValidIntValue(date.get(Calendar.YEAR));
         final int monthValue = date.get(Calendar.MONTH) + 1;
         return new YearQuarter(yearValue, Quarter.fromMonth(monthValue));
@@ -135,7 +135,7 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      */
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(YearMonth yearMonth) {
-        AssertTools.checkNotNull(yearMonth);
+        checkNotNull(yearMonth);
         return of(yearMonth.getYear(), Quarter.fromMonth(yearMonth.getMonth()));
     }
 

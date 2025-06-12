@@ -16,8 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkCondition;
+
 import xyz.zhouxy.plusone.commons.base.IWithIntCode;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 性别
@@ -50,7 +51,7 @@ public enum Gender implements IWithIntCode {
      * @return 枚举值
      */
     public static Gender of(int value) {
-        AssertTools.checkCondition(0 <= value && value < VALUES.length,
+        checkCondition(0 <= value && value < VALUES.length,
                 () -> new EnumConstantNotPresentException(Gender.class, String.valueOf(value)));
         return VALUES[value];
     }

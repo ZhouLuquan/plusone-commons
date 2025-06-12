@@ -31,11 +31,11 @@ import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
  * 本工具类不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
  *
  * <pre>
- * AssertTools.checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
- * AssertTools.checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
- * AssertTools.checkCondition(!CollectionUtils.isEmpty(roles),
+ * checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
+ * checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
+ * checkCondition(!CollectionUtils.isEmpty(roles),
  *     () -> new InvalidInputException("The roles cannot be empty."));
- * AssertTools.checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
+ * checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
  *     "must be a well-formed email address");
  * </pre>
  *

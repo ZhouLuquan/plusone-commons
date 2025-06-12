@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
+
 import java.math.BigDecimal;
 
 import javax.annotation.Nonnull;
@@ -53,8 +55,8 @@ public class BigDecimals {
      * @return 当 {@code a} 大于 {@code b} 时返回 {@code true}
      */
     public static boolean gt(BigDecimal a, BigDecimal b) {
-        AssertTools.checkNotNull(a, "Parameter could not be null.");
-        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        checkNotNull(a, "Parameter could not be null.");
+        checkNotNull(b, "Parameter could not be null.");
         return (a != b) && (a.compareTo(b) > 0);
     }
 
@@ -66,8 +68,8 @@ public class BigDecimals {
      * @return 当 {@code a} 大于等于 {@code b} 时返回 {@code true}
      */
     public static boolean ge(BigDecimal a, BigDecimal b) {
-        AssertTools.checkNotNull(a, "Parameter could not be null.");
-        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        checkNotNull(a, "Parameter could not be null.");
+        checkNotNull(b, "Parameter could not be null.");
         return (a == b) || (a.compareTo(b) >= 0);
     }
 
@@ -79,8 +81,8 @@ public class BigDecimals {
      * @return 当 {@code a} 小于 {@code b} 时返回 {@code true}
      */
     public static boolean lt(BigDecimal a, BigDecimal b) {
-        AssertTools.checkNotNull(a, "Parameter could not be null.");
-        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        checkNotNull(a, "Parameter could not be null.");
+        checkNotNull(b, "Parameter could not be null.");
         return (a != b) && (a.compareTo(b) < 0);
     }
 
@@ -92,8 +94,8 @@ public class BigDecimals {
      * @return 当 {@code a} 小于等于 {@code b} 时返回 {@code true}
      */
     public static boolean le(BigDecimal a, BigDecimal b) {
-        AssertTools.checkNotNull(a, "Parameter could not be null.");
-        AssertTools.checkNotNull(b, "Parameter could not be null.");
+        checkNotNull(a, "Parameter could not be null.");
+        checkNotNull(b, "Parameter could not be null.");
         return (a == b) || (a.compareTo(b) <= 0);
     }
 

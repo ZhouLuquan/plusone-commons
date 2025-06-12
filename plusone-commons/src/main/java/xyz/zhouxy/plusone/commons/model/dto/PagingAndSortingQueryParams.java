@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.model.dto;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -27,7 +29,6 @@ import com.google.common.collect.ImmutableMap;
 
 import xyz.zhouxy.plusone.commons.annotation.Virtual;
 import xyz.zhouxy.plusone.commons.collection.CollectionTools;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 import xyz.zhouxy.plusone.commons.util.RegexTools;
 import xyz.zhouxy.plusone.commons.util.StringTools;
 
@@ -60,10 +61,10 @@ public class PagingAndSortingQueryParams {
      * @param sortableProperties 可排序的属性。不可为空。
      */
     public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
-        AssertTools.checkArgument(CollectionTools.isNotEmpty(sortableProperties),
+        checkArgument(CollectionTools.isNotEmpty(sortableProperties),
                 "Sortable properties can not be empty.");
         sortableProperties.forEach((k, v) ->
-                AssertTools.checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
+                checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
                 "Property name must not be blank."));
         this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
     }
@@ -107,7 +108,7 @@ public class PagingAndSortingQueryParams {
     public final PagingParams buildPagingParams() {
         final int sizeValue = this.size != null ? this.size : defaultSizeInternal();
         final long pageNumValue = this.pageNum != null ? this.pageNum : 1L;
-        AssertTools.checkArgument(CollectionTools.isNotEmpty(this.orderBy),
+        checkArgument(CollectionTools.isNotEmpty(this.orderBy),
                 "The 'orderBy' cannot be empty");
         final List<SortableProperty> propertiesToSort = this.orderBy.stream()
                 .map(this::generateSortableProperty)
@@ -138,13 +139,13 @@ public class PagingAndSortingQueryParams {
     }
 
     private SortableProperty generateSortableProperty(String orderByStr) {
-        AssertTools.checkArgument(StringTools.isNotBlank(orderByStr));
-        AssertTools.checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
+        checkArgument(StringTools.isNotBlank(orderByStr));
+        checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
         String[] propertyNameAndOrderType = orderByStr.split("-");
-        AssertTools.checkArgument(propertyNameAndOrderType.length == 2);
+        checkArgument(propertyNameAndOrderType.length == 2);
 
         String propertyName = propertyNameAndOrderType[0];
-        AssertTools.checkArgument(sortableProperties.containsKey(propertyName),
+        checkArgument(sortableProperties.containsKey(propertyName),
                 "The property name must be in the set of sortable properties.");
         String columnName = sortableProperties.get(propertyName);
         String orderType = propertyNameAndOrderType[1];
@@ -164,7 +165,7 @@ public class PagingAndSortingQueryParams {
         SortableProperty(String propertyName, String columnName, String orderType) {
             this.propertyName = propertyName;
             this.columnName = columnName;
-            AssertTools.checkArgument("ASC".equalsIgnoreCase(orderType) || "DESC".equalsIgnoreCase(orderType));
+            checkArgument("ASC".equalsIgnoreCase(orderType) || "DESC".equalsIgnoreCase(orderType));
             this.orderType = orderType.toUpperCase();
 
             this.sqlSnippet = this.propertyName + " " + this.orderType;

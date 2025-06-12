@@ -16,6 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.util;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -258,7 +261,7 @@ public class ArrayTools {
      * @throws IllegalArgumentException 当参数为空时抛出
      */
     public static <T> boolean isAllElementsNotNull(final T[] arr) {
-        AssertTools.checkArgument(arr != null, "The array cannot be null.");
+        checkArgument(arr != null, "The array cannot be null.");
         return Arrays.stream(arr).allMatch(Objects::nonNull);
     }
 
@@ -488,10 +491,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static char[] repeat(char[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_CHAR_ARRAY;
@@ -523,10 +526,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static byte[] repeat(byte[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_BYTE_ARRAY;
@@ -558,10 +561,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static short[] repeat(short[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_SHORT_ARRAY;
@@ -593,10 +596,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static int[] repeat(int[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_INT_ARRAY;
@@ -628,10 +631,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static long[] repeat(long[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_LONG_ARRAY;
@@ -663,10 +666,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static float[] repeat(float[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_FLOAT_ARRAY;
@@ -698,10 +701,10 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static double[] repeat(double[] arr, int times, int maxLength) {
-        AssertTools.checkArgument(Objects.nonNull(arr));
-        AssertTools.checkArgument(times >= 0,
+        checkArgument(Objects.nonNull(arr));
+        checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
-        AssertTools.checkArgument(maxLength >= 0,
+        checkArgument(maxLength >= 0,
                 "The max length must be greater than or equal to zero");
         if (times == 0) {
             return EMPTY_DOUBLE_ARRAY;
@@ -747,7 +750,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(char[] a, int fromIndex, int toIndex, @Nullable char[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -790,7 +793,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(byte[] a, int fromIndex, int toIndex, @Nullable byte[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -833,7 +836,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(short[] a, int fromIndex, int toIndex, @Nullable short[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -876,7 +879,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(int[] a, int fromIndex, int toIndex, @Nullable int[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -919,7 +922,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(long[] a, int fromIndex, int toIndex, @Nullable long[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -962,7 +965,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(float[] a, int fromIndex, int toIndex, @Nullable float[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -1005,7 +1008,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(double[] a, int fromIndex, int toIndex, @Nullable double[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -1060,7 +1063,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     private static <T> void fillInternal(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
-        AssertTools.checkArgument(Objects.nonNull(a));
+        checkArgument(Objects.nonNull(a));
         if (values == null || values.length == 0) {
             return;
         }
@@ -1087,7 +1090,7 @@ public class ArrayTools {
     // #region - indexOf
 
     public static <T> int indexOf(@Nullable T[] arr, Predicate<? super T> predicate) {
-        AssertTools.checkNotNull(predicate);
+        checkNotNull(predicate);
         if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }
@@ -1192,7 +1195,7 @@ public class ArrayTools {
     // #region - lastIndexOf
 
     public static <T> int lastIndexOf(@Nullable T[] arr, Predicate<? super T> predicate) {
-        AssertTools.checkNotNull(predicate);
+        checkNotNull(predicate);
         if (arr == null || arr.length == 0) {
             return NOT_FOUND_INDEX;
         }

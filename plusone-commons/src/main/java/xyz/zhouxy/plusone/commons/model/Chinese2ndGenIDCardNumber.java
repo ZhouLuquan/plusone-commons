@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +34,6 @@ import com.google.errorprone.annotations.Immutable;
 import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 import xyz.zhouxy.plusone.commons.annotation.ValueObject;
 import xyz.zhouxy.plusone.commons.constant.PatternConsts;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 import xyz.zhouxy.plusone.commons.util.StringTools;
 
 /**
@@ -86,13 +87,13 @@ public class Chinese2ndGenIDCardNumber
      */
     public static Chinese2ndGenIDCardNumber of(final String idCardNumber) {
         try {
-            AssertTools.checkArgument(StringTools.isNotBlank(idCardNumber), "二代居民身份证校验失败：号码为空");
+            checkArgument(StringTools.isNotBlank(idCardNumber), "二代居民身份证校验失败：号码为空");
             final String value = idCardNumber.toUpperCase();
             final Matcher matcher = PatternConsts.CHINESE_2ND_ID_CARD_NUMBER.matcher(value);
-            AssertTools.checkArgument(matcher.matches(), () -> "二代居民身份证校验失败：" + value);
+            checkArgument(matcher.matches(), () -> "二代居民身份证校验失败：" + value);
 
             final String provinceCode = matcher.group("province");
-            AssertTools.checkArgument(Chinese2ndGenIDCardNumber.PROVINCE_CODES.containsKey(provinceCode));
+            checkArgument(Chinese2ndGenIDCardNumber.PROVINCE_CODES.containsKey(provinceCode));
 
             final String cityCode = matcher.group("city");
             final String countyCode = matcher.group("county");

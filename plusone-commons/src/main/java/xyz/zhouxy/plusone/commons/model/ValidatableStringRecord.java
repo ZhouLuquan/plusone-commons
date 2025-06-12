@@ -16,6 +16,8 @@
 
 package xyz.zhouxy.plusone.commons.model;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -25,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 带校验的字符串值对象
@@ -74,10 +75,10 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
      * @param errorMessage 正则不匹配时的错误信息
      */
     protected ValidatableStringRecord(String value, Pattern pattern, String errorMessage) {
-        AssertTools.checkArgument(Objects.nonNull(value), "The value cannot be null.");
-        AssertTools.checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
+        checkArgument(Objects.nonNull(value), "The value cannot be null.");
+        checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
         this.matcher = pattern.matcher(value);
-        AssertTools.checkArgument(this.matcher.matches(), errorMessage);
+        checkArgument(this.matcher.matches(), errorMessage);
         this.value = value;
     }
 

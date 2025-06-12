@@ -16,6 +16,9 @@
 
 package xyz.zhouxy.plusone.commons.time;
 
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkCondition;
+
 import java.time.DateTimeException;
 import java.time.Month;
 import java.time.MonthDay;
@@ -25,7 +28,6 @@ import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.base.IWithIntCode;
-import xyz.zhouxy.plusone.commons.util.AssertTools;
 
 /**
  * 季度
@@ -89,7 +91,7 @@ public enum Quarter implements IWithIntCode {
      */
     @StaticFactoryMethod(Quarter.class)
     public static Quarter fromMonth(Month month) {
-        AssertTools.checkNotNull(month);
+        checkNotNull(month);
         final int monthValue = month.getValue();
         return of(computeQuarterValueInternal(monthValue));
     }
@@ -246,7 +248,7 @@ public enum Quarter implements IWithIntCode {
      * @throws DateTimeException 如果给定的季度值不在有效范围内（1到4），将抛出异常
      */
     public static int checkValidIntValue(int value) {
-        AssertTools.checkCondition(value >= 1 && value <= 4,
+        checkCondition(value >= 1 && value <= 4,
                 () -> new DateTimeException("Invalid value for Quarter: " + value));
         return value;
     }
