@@ -38,7 +38,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
  * @since 1.0.0
  */
 public final class ParsingFailureException
-        extends RuntimeException
+        extends Exception
         implements MultiTypesException<ParsingFailureException, ParsingFailureException.Type> {
     private static final long serialVersionUID = 795996090625132616L;
 
