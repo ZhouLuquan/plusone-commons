@@ -24,7 +24,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
 /**
  * 身份证号
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public interface IDCardNumber {
 

@@ -22,7 +22,7 @@ package xyz.zhouxy.plusone.commons.exception.business;
  * <p>
  * 用户请求参数错误
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public class RequestParamsException extends BizException {

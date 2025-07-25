@@ -121,7 +121,7 @@
  * <h3>3. 系统异常</h3>
  * 预设常见的系统异常。可继承 {@link SysException} 自定义系统异常。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 package xyz.zhouxy.plusone.commons.exception;
 

@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <p>
  * 标识方法是写方法，如 setter。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see ReaderMethod
  */

@@ -33,7 +33,7 @@ import com.google.gson.stream.JsonWriter;
 /**
  * 包含 JSR-310 相关数据类型的 {@code TypeAdapter}
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.1.0
  * @see TypeAdapter
  * @see com.google.gson.GsonBuilder

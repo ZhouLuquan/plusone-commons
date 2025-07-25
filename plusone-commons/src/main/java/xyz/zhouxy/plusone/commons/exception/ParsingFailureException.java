@@ -34,7 +34,7 @@ import xyz.zhouxy.plusone.commons.exception.IMultiTypesException.IExceptionType;
  * throw new RequestParamsException(ParsingFailureException.Type.NUMBER_PARSING_FAILURE.create());
  * </pre>
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public final class ParsingFailureException

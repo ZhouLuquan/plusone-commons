@@ -25,7 +25,7 @@ import com.google.common.annotations.Beta;
  * 一个特殊的 {@link java.util.function.UnaryOperator}。
  * 表示对 {@code boolean} 值的一元操作。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see java.util.function.UnaryOperator
  */

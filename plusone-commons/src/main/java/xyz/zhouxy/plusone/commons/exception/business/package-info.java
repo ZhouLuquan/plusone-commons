@@ -17,6 +17,6 @@
 /**
  * 业务异常
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 package xyz.zhouxy.plusone.commons.exception.business;

@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 /**
  * 枚举工具类
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public final class EnumTools {
 

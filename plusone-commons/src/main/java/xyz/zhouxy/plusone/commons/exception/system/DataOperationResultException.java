@@ -27,7 +27,7 @@ package xyz.zhouxy.plusone.commons.exception.system;
  * 当出现这种始料未及的诡异情况时，抛出 {@link DataOperationResultException} 并回滚事务。
  * 后续需要排查原因。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public final class DataOperationResultException extends SysException {

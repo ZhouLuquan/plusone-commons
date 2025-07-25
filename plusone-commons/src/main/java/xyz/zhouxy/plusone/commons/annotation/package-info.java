@@ -54,6 +54,6 @@
  * <p>
  * 标记一个类，表示其作为值对象，区别于 Entity。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 package xyz.zhouxy.plusone.commons.annotation;

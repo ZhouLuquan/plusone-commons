@@ -27,7 +27,7 @@ import java.lang.annotation.Documented;
  *
  * <p>标识方法为不支持的操作。该方法将抛出 {@link UnsupportedOperationException}。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @version 1.0
  * @since 1.0.0
  * @see UnsupportedOperationException

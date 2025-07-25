@@ -22,7 +22,7 @@ package xyz.zhouxy.plusone.commons.exception.system;
  * <p>
  * 通常表示应用代码存在问题，或因环境问题，引发异常。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public class SysException extends RuntimeException {

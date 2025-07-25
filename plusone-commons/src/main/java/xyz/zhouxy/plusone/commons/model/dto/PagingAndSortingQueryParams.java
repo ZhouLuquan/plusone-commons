@@ -39,7 +39,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * 根据传入的 {@code size} 和 {@code pageNum}，
  * 提供 {@code getOffset} 方法计算 SQL 语句中 {@code offset} 的值。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @see PagingParams
  * @see PageResult
  */

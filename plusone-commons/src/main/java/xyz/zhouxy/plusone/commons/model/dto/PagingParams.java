@@ -24,7 +24,7 @@ import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams.Sortable
 /**
  * 分页参数
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @see PagingAndSortingQueryParams
  */
 public class PagingParams {

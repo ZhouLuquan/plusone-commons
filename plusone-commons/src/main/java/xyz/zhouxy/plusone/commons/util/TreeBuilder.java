@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 /**
  * TreeBuilder
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public class TreeBuilder<T, TSubTree extends T, TIdentity> {

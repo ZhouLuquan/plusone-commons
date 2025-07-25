@@ -60,7 +60,7 @@
  * 自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG 和工厂方法。
  * 见 <a href="http://zhouxy.xyz:3000/plusone/plusone-commons/issues/22">issue#22</a>。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 @ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.model.dto;

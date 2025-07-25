@@ -22,7 +22,7 @@ package xyz.zhouxy.plusone.commons.function;
  * <p>
  * 接收一个参数，返回一个布尔值，可抛出异常。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see java.util.function.Predicate
  */

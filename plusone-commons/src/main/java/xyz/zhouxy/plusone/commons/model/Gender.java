@@ -23,7 +23,7 @@ import xyz.zhouxy.plusone.commons.base.IWithIntCode;
 /**
  * 性别
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public enum Gender implements IWithIntCode {
     UNKNOWN(0, "Unknown", "未知"),

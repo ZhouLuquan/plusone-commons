@@ -19,7 +19,7 @@
  * <p>
  * 包含业务建模可能用到的性别、身份证等元素，也包含 DTO 相关类，如分页查询参数，响应结果，分页结果等。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 @ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.model;

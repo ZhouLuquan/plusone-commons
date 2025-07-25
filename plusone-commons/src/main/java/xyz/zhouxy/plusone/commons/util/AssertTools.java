@@ -39,7 +39,7 @@ import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
  *     "must be a well-formed email address");
  * </pre>
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public class AssertTools {
 

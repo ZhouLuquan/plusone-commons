@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  *
  * <p>标识方法为静态工厂方法
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 @Target(ElementType.METHOD)

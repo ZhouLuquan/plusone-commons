@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * <p>
  * {@link Predicate} 相关操作。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see Predicate
  */

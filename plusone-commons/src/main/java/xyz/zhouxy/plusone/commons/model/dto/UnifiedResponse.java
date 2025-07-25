@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 /**
  * 统一结果，对返回给前端的数据进行封装。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public class UnifiedResponse<T> {
 

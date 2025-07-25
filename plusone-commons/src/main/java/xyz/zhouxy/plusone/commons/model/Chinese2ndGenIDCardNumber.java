@@ -42,7 +42,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * <p>
  * 中国第二代居民身份证号
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see xyz.zhouxy.plusone.commons.constant.PatternConsts#CHINESE_2ND_ID_CARD_NUMBER
  */

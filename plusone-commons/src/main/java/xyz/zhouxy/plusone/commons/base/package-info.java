@@ -66,7 +66,7 @@
  * 类似于枚举这样的类型，通常需要设置固定的码值表示对应的含义。
  * 可实现 {@link IWithCode}、{@link IWithIntCode}、{@link IWithLongCode}，便于在需要的地方对这些接口的实现进行处理。
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 @CheckReturnValue
 @ParametersAreNonnullByDefault

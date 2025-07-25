@@ -25,7 +25,7 @@ package xyz.zhouxy.plusone.commons.function;
  * @param <T> 结果类型
  * @param <E> 异常类型
  *
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  * @see java.util.function.Supplier
  */

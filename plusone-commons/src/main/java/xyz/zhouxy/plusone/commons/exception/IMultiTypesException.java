@@ -124,7 +124,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *
  * @param <X> 具体异常类
  * @param <T> 异常场景
- * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
+ * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
 public interface IMultiTypesException<
