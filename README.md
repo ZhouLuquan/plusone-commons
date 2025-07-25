@@ -68,16 +68,16 @@ System.out.println(result); // Output: Return string
 `RegexConsts` 包含常见正则表达式；`PatternConsts` 包含对应的 `Pattern` 对象
 
 ## 五、exception - 异常
-### 1. MultiTypesException - 多类型异常
+### 1. IMultiTypesException - 多类型异常
 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
 
-异常实现 `MultiTypesException` 的 `MultiTypesException#getType` 方法，返回对应的场景类型。
+异常实现 `IMultiTypesException` 的 `IMultiTypesException#getType` 方法，返回对应的场景类型。
 
-表示场景类型的枚举实现 `MultiTypesException.ExceptionType`，其中的工厂方法用于创建对应类型的异常。
+表示场景类型的枚举实现 `IMultiTypesException.IExceptionType`，其中的工厂方法用于创建对应类型的异常。
 ```java
 public final class LoginException
         extends RuntimeException
-        implements MultiTypesException<LoginException, LoginException.Type> {
+        implements IMultiTypesException<LoginException, LoginException.Type, String> {
     private static final long serialVersionUID = 881293090625085616L;
     private final Type type;
     private LoginException(@Nonnull Type type, @Nonnull String message) {
@@ -104,7 +104,7 @@ public final class LoginException
 
     // ...
 
-    public enum Type implements ExceptionType {
+    public enum Type implements IExceptionType<LoginException, String> {
         DEFAULT("00", "当前会话未登录"),
         NOT_TOKEN("10", "未提供token"),
         INVALID_TOKEN("20", "token无效"),

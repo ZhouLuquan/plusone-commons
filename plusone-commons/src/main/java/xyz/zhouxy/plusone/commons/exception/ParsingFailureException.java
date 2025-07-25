@@ -21,7 +21,7 @@ import java.time.format.DateTimeParseException;
 import javax.annotation.Nonnull;
 
 import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
-import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
+import xyz.zhouxy.plusone.commons.exception.IMultiTypesException.IExceptionType;
 
 /**
  * 解析失败异常
@@ -39,7 +39,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
  */
 public final class ParsingFailureException
         extends Exception
-        implements MultiTypesException<ParsingFailureException, ParsingFailureException.Type> {
+        implements IMultiTypesException<ParsingFailureException, ParsingFailureException.Type, String> {
     private static final long serialVersionUID = 795996090625132616L;
 
     private final Type type;
@@ -171,7 +171,7 @@ public final class ParsingFailureException
     /** XML 解析失败 */
     public static final Type XML_PARSING_FAILURE = Type.XML_PARSING_FAILURE;
 
-    public enum Type implements ExceptionType<ParsingFailureException> {
+    public enum Type implements IExceptionType<ParsingFailureException, String> {
         DEFAULT("00", "解析失败"),
         NUMBER_PARSING_FAILURE("10", "数字转换失败"),
         DATE_TIME_PARSING_FAILURE("20", "时间解析失败"),

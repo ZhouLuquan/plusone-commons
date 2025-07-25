@@ -17,20 +17,21 @@
 /**
  * <h2>异常</h2>
  *
- * <h3>1. {@link MultiTypesException} - 多类型异常</h3>
+ * <h3>1. {@link IMultiTypesException} - 多类型异常</h3>
  * <p>
  * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
  *
  * <p>
- * 异常实现 {@link MultiTypesException} 的 {@link MultiTypesException#getType} 方法，返回对应的场景类型。
+ * 异常实现 {@link IMultiTypesException} 的 {@link IMultiTypesException#getType} 方法，返回对应的场景类型。
  *
  * <p>
- * 表示场景类型的枚举实现 {@link MultiTypesException.ExceptionType}，其中的工厂方法用于创建对应类型的异常。
+ * 表示场景类型的枚举实现 {@link IMultiTypesException.IExceptionType}，各个枚举值本身就是该场景的异常的工厂实例，
+ * 使用其中的工厂方法用于创建对应类型的异常。
  *
  * <pre>
  * public final class LoginException
  *         extends RuntimeException
- *         implements MultiTypesException&lt;LoginException, LoginException.Type&gt; {
+ *         implements IMultiTypesException&lt;LoginException, LoginException.Type, String&gt; {
  *     private static final long serialVersionUID = 881293090625085616L;
  *     private final Type type;
  *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
@@ -57,7 +58,7 @@
  *
  *     // ...
  *
- *     public enum Type implements ExceptionType&lt;LoginException&gt; {
+ *     public enum Type implements IExceptionType&lt;LoginException, String&gt; {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),

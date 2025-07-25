@@ -15,26 +15,30 @@
  */
 package xyz.zhouxy.plusone.commons.exception;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
+import xyz.zhouxy.plusone.commons.annotation.Virtual;
 import xyz.zhouxy.plusone.commons.base.IWithCode;
 
 /**
- * MultiTypesException
+ * IMultiTypesException
  *
  * <p>
  * 异常在不同场景下被抛出，可以用不同的枚举值，表示不同的场景类型。
  *
  * <p>
- * 异常实现 {@link MultiTypesException} 的 {@link #getType} 方法，返回对应的场景类型。
+ * 异常实现 {@link IMultiTypesException} 的 {@link #getType} 方法，返回对应的场景类型。
  *
  * <p>
- * 表示场景类型的枚举实现 {@link ExceptionType}，其中的工厂方法用于创建对应类型的异常。
+ * 表示场景类型的枚举实现 {@link IExceptionType}，各个枚举值本身就是该场景的异常的工厂实例，
+ * 使用其中的工厂方法用于创建对应类型的异常。
  *
  * <pre>
  * public final class LoginException
  *         extends RuntimeException
- *         implements MultiTypesException&lt;LoginException, LoginException.Type&gt; {
+ *         implements IMultiTypesException&lt;LoginException, LoginException.Type, String&gt; {
  *     private static final long serialVersionUID = 881293090625085616L;
  *     private final Type type;
  *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
@@ -61,7 +65,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *
  *     // ...
  *
- *     public enum Type implements ExceptionType&lt;LoginException&gt; {
+ *     public enum Type implements IExceptionType&lt;LoginException, String&gt; {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),
@@ -118,15 +122,20 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * throw LoginException.Type.TOKEN_TIMEOUT.create();
  * </pre>
  *
+ * @param <X> 具体异常类
+ * @param <T> 异常场景
  * @author <a href="http://zhouxy.xyz:3000/ZhouXY108">ZhouXY</a>
  * @since 1.0.0
  */
-public interface MultiTypesException<E extends Exception, T extends MultiTypesException.ExceptionType<E>> {
+public interface IMultiTypesException<
+        X extends Exception,
+        T extends IMultiTypesException.IExceptionType<X, TCode>,
+        TCode extends Serializable> {
 
     /**
      * 异常类型
      *
-     * @return 异常类型。通常是实现了 {@link ExceptionType} 的枚举。
+     * @return 异常类型。通常是实现了 {@link IExceptionType} 的枚举。
      */
     @Nonnull
     T getType();
@@ -136,55 +145,25 @@ public interface MultiTypesException<E extends Exception, T extends MultiTypesEx
      *
      * @return 异常类型编码
      */
-    default @Nonnull String getTypeCode() {
+    default @Nonnull TCode getTypeCode() {
         return getType().getCode();
     }
 
     /**
      * 异常类型
      */
-    public static interface ExceptionType<E extends Exception> extends IWithCode<String> {
+    public static interface IExceptionType<X extends Exception, TCode extends Serializable>
+            extends IWithCode<TCode>, IExceptionFactory<X> {
 
         /**
          * 默认异常信息
          */
         String getDefaultMessage();
 
-        /**
-         * 创建异常
-         *
-         * @return 异常对象
-         */
-        @Nonnull
-        E create();
-
-        /**
-         * 使用指定 {@code message} 创建异常
-         *
-         * @param message 异常信息
-         * @return 异常对象
-         */
-        @Nonnull
-        E create(String message);
-
-        /**
-         * 使用指定 {@code cause} 创建异常
-         *
-         * @param cause 包装的异常
-         * @return 异常对象
-         */
-        @Nonnull
-        E create(Throwable cause);
-
-        /**
-         * 使用指定 {@code message} 和 {@code cause} 创建异常
-         *
-         * @param message 异常信息
-         * @param cause   包装的异常
-         * @return 异常对象
-         */
-        @Nonnull
-        E create(String message, Throwable cause);
+        @Virtual
+        default String getDescription() {
+            return getDefaultMessage();
+        }
 
     }
 }

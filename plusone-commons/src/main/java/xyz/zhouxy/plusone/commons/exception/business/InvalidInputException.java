@@ -18,8 +18,8 @@ package xyz.zhouxy.plusone.commons.exception.business;
 
 import javax.annotation.Nonnull;
 
-import xyz.zhouxy.plusone.commons.exception.MultiTypesException.ExceptionType;
-import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
+import xyz.zhouxy.plusone.commons.exception.IMultiTypesException.IExceptionType;
+import xyz.zhouxy.plusone.commons.exception.IMultiTypesException;
 
 /**
  * InvalidInputException
@@ -35,7 +35,7 @@ import xyz.zhouxy.plusone.commons.exception.MultiTypesException;
  */
 public final class InvalidInputException
         extends RequestParamsException
-        implements MultiTypesException<InvalidInputException, InvalidInputException.Type> {
+        implements IMultiTypesException<InvalidInputException, InvalidInputException.Type, String> {
     private static final long serialVersionUID = -28994090625082516L;
 
     private final Type type;
@@ -109,7 +109,7 @@ public final class InvalidInputException
         return this.type;
     }
 
-    public enum Type implements ExceptionType<InvalidInputException> {
+    public enum Type implements IExceptionType<InvalidInputException, String> {
         DEFAULT("00", "用户输入内容非法"),
         CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS("01", "包含非法恶意跳转链接"),
         CONTAINS_ILLEGAL_WORDS("02", "包含违禁敏感词"),
