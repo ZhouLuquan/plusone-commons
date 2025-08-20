@@ -69,9 +69,16 @@ class NumbersTests {
 
     @Test
     public void sum_BigIntegerArray_ReturnsCorrectSum() {
-        BigInteger[] numbers = {new BigInteger("1"), new BigInteger("2"), new BigInteger("3")};
+        BigInteger[] numbers = {
+            new BigInteger("1"),
+            new BigInteger("2"),
+            null,
+            new BigInteger("3")
+        };
         BigInteger result = Numbers.sum(numbers);
         assertEquals(new BigInteger("6"), result);
+
+        assertEquals(BigInteger.ZERO, Numbers.sum(new BigInteger[0]));
     }
 
     @Test
