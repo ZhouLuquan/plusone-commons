@@ -33,6 +33,7 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 /**
  * 枚举类
  *
+ * <p>
  * 参考 <a href="https://lostechies.com/jimmybogard/2008/08/12/enumeration-classes/">Enumeration classes</a>
  *
  * @author ZhouXY108 <luquanlion@outlook.com>

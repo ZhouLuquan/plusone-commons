@@ -36,7 +36,7 @@ public final class RandomTools {
     private static final SecureRandom DEFAULT_SECURE_RANDOM;
 
     static {
-        SecureRandom secureRandom = null;
+        SecureRandom secureRandom;
         try {
             secureRandom = SecureRandom.getInstanceStrong(); // 获取高强度安全随机数生成器
         }

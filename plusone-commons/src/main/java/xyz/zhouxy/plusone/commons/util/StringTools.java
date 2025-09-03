@@ -177,6 +177,9 @@ public class StringTools {
      */
     @Beta
     public static boolean isURL(@Nullable final String cs) {
+        if (cs == null) {
+            return false;
+        }
         try {
             new URL(cs);
         } catch (MalformedURLException e) {

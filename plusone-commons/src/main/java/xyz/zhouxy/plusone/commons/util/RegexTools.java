@@ -363,7 +363,7 @@ public final class RegexTools {
             this.flags = flags;
         }
 
-        private final Pattern compilePattern() {
+        private Pattern compilePattern() {
             return Pattern.compile(regex, flags);
         }
 

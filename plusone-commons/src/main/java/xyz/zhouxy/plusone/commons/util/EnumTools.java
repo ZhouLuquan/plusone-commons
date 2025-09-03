@@ -154,7 +154,7 @@ public final class EnumTools {
      */
     @Nullable
     public static <E extends Enum<?>> Integer checkOrdinalNullable(Class<E> enumType, @Nullable Integer ordinal) {
-        return checkOrdinalOrDefault(enumType, ordinal, (Integer) null);
+        return checkOrdinalOrDefault(enumType, ordinal, null);
     }
 
     /**
