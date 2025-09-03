@@ -54,7 +54,9 @@ public class JodaTimeTools {
      * @param zone          时区
      * @return {@link org.joda.time.Instant} 对象
      */
-    public static org.joda.time.Instant toJodaInstant(java.time.LocalDateTime localDateTime, java.time.ZoneId zone) {
+    public static org.joda.time.Instant toJodaInstant(
+            java.time.LocalDateTime localDateTime,
+            java.time.ZoneId zone) {
         return toJodaInstant(java.time.ZonedDateTime.of(localDateTime, zone));
     }
 
@@ -92,9 +94,9 @@ public class JodaTimeTools {
      * {@link org.joda.time.DateTimeZone} 对象
      * 转换为 Java 中的 {@link java.time.Instant} 对象
      *
-     * @param localDateTime
-     * @param zone
-     * @return
+     * @param localDateTime {@link org.joda.time.LocalDateTime} 对象
+     * @param zone {@link org.joda.time.DateTimeZone} 对象
+     * @return Java 表示时间戳的 {@link java.time.Instant} 对象
      */
     public static java.time.Instant toJavaInstant(
             org.joda.time.LocalDateTime localDateTime,
@@ -135,8 +137,9 @@ public class JodaTimeTools {
     public static org.joda.time.DateTime toJodaDateTime(
             java.time.LocalDateTime localDateTime,
             java.time.ZoneId zone) {
-        org.joda.time.DateTimeZone dateTimeZone = toJodaZone(zone);
-        return toJodaInstant(java.time.ZonedDateTime.of(localDateTime, zone).toInstant()).toDateTime(dateTimeZone);
+        org.joda.time.LocalDateTime jodaLocalDateTime = toJodaLocalDateTime(localDateTime);
+        org.joda.time.DateTimeZone jodaZone = toJodaZone(zone);
+        return jodaLocalDateTime.toDateTime(jodaZone);
     }
 
     /**
@@ -218,9 +221,15 @@ public class JodaTimeTools {
      * @return joda-time LocalDateTime
      */
     public static org.joda.time.LocalDateTime toJodaLocalDateTime(java.time.LocalDateTime localDateTime) {
-        java.time.ZoneId javaZone = java.time.ZoneId.systemDefault();
-        org.joda.time.DateTimeZone jodaZone = toJodaZone(javaZone);
-        return toJodaInstant(localDateTime, javaZone).toDateTime(jodaZone).toLocalDateTime();
+        return new org.joda.time.LocalDateTime(
+                localDateTime.getYear(),
+                localDateTime.getMonthValue(),
+                localDateTime.getDayOfMonth(),
+                localDateTime.getHour(),
+                localDateTime.getMinute(),
+                localDateTime.getSecond(),
+                localDateTime.getNano() / 1_000_000 // 毫秒转纳秒
+        );
     }
 
     // ================================
@@ -238,9 +247,15 @@ public class JodaTimeTools {
      * @return Java 8 LocalDateTime
      */
     public static java.time.LocalDateTime toJavaLocalDateTime(org.joda.time.LocalDateTime localDateTime) {
-        org.joda.time.DateTimeZone jodaZone = org.joda.time.DateTimeZone.getDefault();
-        java.time.ZoneId javaZone = toJavaZone(jodaZone);
-        return toJavaInstant(localDateTime, jodaZone).atZone(javaZone).toLocalDateTime();
+        return java.time.LocalDateTime.of(
+                localDateTime.getYear(),
+                localDateTime.getMonthOfYear(),
+                localDateTime.getDayOfMonth(),
+                localDateTime.getHourOfDay(),
+                localDateTime.getMinuteOfHour(),
+                localDateTime.getSecondOfMinute(),
+                localDateTime.getMillisOfSecond() * 1_000_000 // 毫秒转纳秒
+        );
     }
 
     // ================================

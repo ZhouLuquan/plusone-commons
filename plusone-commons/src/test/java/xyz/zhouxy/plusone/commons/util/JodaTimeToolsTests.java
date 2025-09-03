@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 public class JodaTimeToolsTests {
 
     // Java
-    static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2024, 12, 29, 12, 58, 30, 333000000);
+    static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2024, 12, 29, 12, 58, 30, 333 * 1_000_000);
     static final LocalDate LOCAL_DATE = LOCAL_DATE_TIME.toLocalDate();
     static final LocalTime LOCAL_TIME = LOCAL_DATE_TIME.toLocalTime();
 
