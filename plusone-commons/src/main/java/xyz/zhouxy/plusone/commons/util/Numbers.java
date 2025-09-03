@@ -29,7 +29,9 @@ import javax.annotation.Nullable;
  */
 public class Numbers {
 
+    // ================================
     // #region - sum
+    // ================================
 
     /**
      * 求和
@@ -131,9 +133,13 @@ public class Numbers {
         return BigDecimals.sum(numbers);
     }
 
+    // ================================
     // #endregion
+    // ================================
 
+    // ================================
     // #region - nullToZero
+    // ================================
 
     /**
      * 将 {@code null} 转换为 {@code 0}
@@ -217,7 +223,122 @@ public class Numbers {
         return BigDecimals.nullToZero(val);
     }
 
-    // #endregion
+    // ================================
+    // #endregion - nullToZero
+    // ================================
+
+    // ================================
+    // #region - parse
+    // ================================
+
+    /**
+     * 将字符串转为对应 {@link Short}，转换失败时返回 {@code defaultValue}（允许为 {@code null}）。
+     *
+     * @param str 要转换的字符串
+     * @param defaultValue 默认值
+     * @return 转换结果
+     */
+    @Nullable
+    public static Short parseShort(@Nullable String str, @Nullable Short defaultValue) {
+        if (StringTools.isBlank(str)) {
+            return defaultValue;
+        }
+        try {
+            return Short.parseShort(str);
+        }
+        catch (NumberFormatException ignore) {
+            // ignore
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 将字符串转为 {@link Integer}，转换失败时返回 {@code defaultValue}（允许为 {@code null}）。
+     *
+     * @param str 要转换的字符串
+     * @param defaultValue 默认值
+     * @return 转换结果
+     */
+    @Nullable
+    public static Integer parseInteger(@Nullable String str, @Nullable Integer defaultValue) {
+        if (StringTools.isBlank(str)) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(str);
+        }
+        catch (NumberFormatException ignore) {
+            // ignore
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 将字符串转为 {@link Long}，转换失败时返回 {@code defaultValue}（允许为 {@code null}）。
+     *
+     * @param str 要转换的字符串
+     * @param defaultValue 默认值
+     * @return 转换结果
+     */
+    @Nullable
+    public static Long parseLong(@Nullable String str, @Nullable Long defaultValue) {
+        if (StringTools.isBlank(str)) {
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(str);
+        }
+        catch (NumberFormatException ignore) {
+            // ignore
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 将字符串转为 {@link Float}，转换失败时返回 {@code defaultValue}（允许为 {@code null}）。
+     *
+     * @param str 要转换的字符串
+     * @param defaultValue 默认值
+     * @return 转换结果
+     */
+    @Nullable
+    public static Float parseFloat(@Nullable String str, @Nullable Float defaultValue) {
+        if (StringTools.isBlank(str)) {
+            return defaultValue;
+        }
+        try {
+            return Float.parseFloat(str);
+        }
+        catch (NumberFormatException ignore) {
+            // ignore
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 将字符串转为 {@link Double}，转换失败时返回 {@code defaultValue}（允许为 {@code null}）。
+     *
+     * @param str 要转换的字符串
+     * @param defaultValue 默认值
+     * @return 转换结果
+     */
+    @Nullable
+    public static Double parseDouble(@Nullable String str, @Nullable Double defaultValue) {
+        if (StringTools.isBlank(str)) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(str);
+        }
+        catch (NumberFormatException ignore) {
+            // ignore
+        }
+        return defaultValue;
+    }
+
+    // ================================
+    // #endregion - parse
+    // ================================
 
     private Numbers() {
         throw new IllegalStateException("Utility class");

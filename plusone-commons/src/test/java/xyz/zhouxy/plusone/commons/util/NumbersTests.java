@@ -26,6 +26,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public
@@ -190,6 +191,100 @@ class NumbersTests {
         BigDecimal value = null;
         BigDecimal result = Numbers.nullToZero(value);
         assertEquals(BigDecimal.ZERO, result);
+    }
+
+    /**
+     * Test for {@link Numbers#parseShort(String, Short)}.
+     */
+    @Test
+    public void parseShort() {
+        assertEquals((short) 12345, Numbers.parseShort("12345", (short) 5));
+        assertEquals((short) 5, Numbers.parseShort("1234.5", (short) 5));
+        assertEquals((short) 5, Numbers.parseShort("", (short) 5));
+        assertEquals((short) 5, Numbers.parseShort(null, (short) 5));
+
+        assertEquals((short) 12345, Numbers.parseShort("12345", null));
+        assertNull(Numbers.parseShort("1234.5", null));
+        assertNull(Numbers.parseShort("", null));
+        assertNull(Numbers.parseShort(null, null));
+    }
+
+    /**
+     * Test for {@link Numbers#parseInteger(String, Integer)}.
+     */
+    @Test
+    public void parseInteger() {
+        assertEquals(12345, Numbers.parseInteger("12345", 5));
+        assertEquals(5, Numbers.parseInteger("1234.5", 5));
+        assertEquals(5, Numbers.parseInteger("", 5));
+        assertEquals(5, Numbers.parseInteger(null, 5));
+
+        assertEquals(12345, Numbers.parseInteger("12345", null));
+        assertNull(Numbers.parseInteger("1234.5", null));
+        assertNull(Numbers.parseInteger("", null));
+        assertNull(Numbers.parseInteger(null, null));
+    }
+
+    /**
+     * Test for {@link Numbers#parseLong(String, Long)}.
+     */
+    @Test
+    public void parseLong() {
+        assertEquals(12345L, Numbers.parseLong("12345", 5L));
+        assertEquals(5L, Numbers.parseLong("1234.5", 5L));
+        assertEquals(5L, Numbers.parseLong("", 5L));
+        assertEquals(5L, Numbers.parseLong(null, 5L));
+
+        assertEquals(12345L, Numbers.parseLong("12345", null));
+        assertNull(Numbers.parseLong("1234.5", null));
+        assertNull(Numbers.parseLong("", null));
+        assertNull(Numbers.parseLong(null, null));
+    }
+
+    /**
+     * Test for {@link Numbers#parseFloat(String, Float)}.
+     */
+    @Test
+    public void parseFloat() {
+        assertEquals(1.2345f, Numbers.parseFloat("1.2345", 5.1f));
+        assertEquals(5.0f, Numbers.parseFloat("a", 5.0f));
+        assertEquals(5.0f, Numbers.parseFloat("-001Z.2345", 5.0f));
+        assertEquals(5.0f, Numbers.parseFloat("+001AB.2345", 5.0f));
+        assertEquals(5.0f, Numbers.parseFloat("001Z.2345", 5.0f));
+        assertEquals(5.0f, Numbers.parseFloat("", 5.0f));
+        assertEquals(5.0f, Numbers.parseFloat(null, 5.0f));
+
+        assertEquals(1.2345f, Numbers.parseFloat("1.2345", null));
+        assertNull(Numbers.parseFloat("a", null));
+        assertNull(Numbers.parseFloat("-001Z.2345", null));
+        assertNull(Numbers.parseFloat("+001AB.2345", null));
+        assertNull(Numbers.parseFloat("001Z.2345", null));
+        assertNull(Numbers.parseFloat("", null));
+        assertNull(Numbers.parseFloat(null, null));
+    }
+
+    /**
+     * Test for {@link Numbers#parseDouble(String, Double)}.
+     */
+    @Test
+    public void parseDouble() {
+        assertEquals(1.2345d, Numbers.parseDouble("1.2345", 5.1d));
+        assertEquals(5.0d, Numbers.parseDouble("a", 5.0d));
+        assertEquals(1.2345d, Numbers.parseDouble("001.2345", 5.1d));
+        assertEquals(-1.2345d, Numbers.parseDouble("-001.2345", 5.1d));
+        assertEquals(1.2345d, Numbers.parseDouble("+001.2345", 5.1d));
+        assertEquals(0d, Numbers.parseDouble("000.00", 5.1d));
+        assertEquals(5.1d, Numbers.parseDouble("", 5.1d));
+        assertEquals(5.1d, Numbers.parseDouble((String) null, 5.1d));
+
+        assertEquals(1.2345d, Numbers.parseDouble("1.2345", null));
+        assertEquals(null, Numbers.parseDouble("a", null));
+        assertEquals(1.2345d, Numbers.parseDouble("001.2345", null));
+        assertEquals(-1.2345d, Numbers.parseDouble("-001.2345", null));
+        assertEquals(1.2345d, Numbers.parseDouble("+001.2345", null));
+        assertEquals(0d, Numbers.parseDouble("000.00", null));
+        assertEquals(null, Numbers.parseDouble("", null));
+        assertEquals(null, Numbers.parseDouble((String) null, null));
     }
 
     @Test
