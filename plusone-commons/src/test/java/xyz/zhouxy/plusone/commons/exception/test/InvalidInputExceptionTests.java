@@ -38,7 +38,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create();
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getTypeCode());
         assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
     }
@@ -50,7 +49,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message);
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -62,7 +60,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.create(message);
         });
         assertSame(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION, e.getType());
-        assertEquals(InvalidInputException.Type.PICTURE_CONTAINS_ILLEGAL_INFORMATION.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -77,7 +74,6 @@ public class InvalidInputExceptionTests {
             });
 
             assertSame(InvalidInputException.Type.INFRINGE_COPYRIGHT, e.getType());
-            assertEquals(InvalidInputException.Type.INFRINGE_COPYRIGHT.getCode(), e.getTypeCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
             assertSame(nfe, e.getCause());
@@ -92,7 +88,6 @@ public class InvalidInputExceptionTests {
         });
 
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -106,7 +101,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.create(message, nfe);
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_AND_MALICIOUS_LINKS.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -120,7 +114,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -134,7 +127,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, npe);
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -148,7 +140,6 @@ public class InvalidInputExceptionTests {
             throw InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.create(message, nfe);
         });
         assertSame(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS, e.getType());
-        assertEquals(InvalidInputException.Type.CONTAINS_ILLEGAL_WORDS.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -167,7 +158,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException();
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertEquals(InvalidInputException.Type.DEFAULT.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
     }
@@ -179,7 +169,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -191,7 +180,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -206,7 +194,6 @@ public class InvalidInputExceptionTests {
             });
 
             assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-            assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
             assertSame(nfe, e.getCause());
@@ -221,7 +208,6 @@ public class InvalidInputExceptionTests {
         });
 
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -235,7 +221,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message, nfe);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -249,7 +234,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message, nfe);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -263,7 +247,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message, npe);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -277,7 +260,6 @@ public class InvalidInputExceptionTests {
             throw new InvalidInputException(message, nfe);
         });
         assertSame(InvalidInputException.Type.DEFAULT, e.getType());
-        assertEquals(InvalidInputException.Type.DEFAULT.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }

@@ -15,12 +15,7 @@
  */
 package xyz.zhouxy.plusone.commons.exception;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
-
-import xyz.zhouxy.plusone.commons.annotation.Virtual;
-import xyz.zhouxy.plusone.commons.base.IWithCode;
 
 /**
  * IMultiTypesException
@@ -38,7 +33,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * <pre>
  * public final class LoginException
  *         extends RuntimeException
- *         implements IMultiTypesException&lt;LoginException, LoginException.Type, String&gt; {
+ *         implements IMultiTypesException&lt;LoginException.Type&gt; {
  *     private static final long serialVersionUID = 881293090625085616L;
  *     private final Type type;
  *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
@@ -65,7 +60,7 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  *
  *     // ...
  *
- *     public enum Type implements IExceptionType&lt;LoginException, String&gt; {
+ *     public enum Type implements IExceptionType&lt;String&gt;, IExceptionFactory&lt;LoginException&gt; {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),
@@ -122,15 +117,11 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * throw LoginException.Type.TOKEN_TIMEOUT.create();
  * </pre>
  *
- * @param <X> 具体异常类
  * @param <T> 异常场景
  * @author ZhouXY108 <luquanlion@outlook.com>
  * @since 1.0.0
  */
-public interface IMultiTypesException<
-        X extends Exception,
-        T extends IMultiTypesException.IExceptionType<X, TCode>,
-        TCode extends Serializable> {
+public interface IMultiTypesException<T extends IExceptionType<?>> {
 
     /**
      * 异常类型
@@ -139,31 +130,4 @@ public interface IMultiTypesException<
      */
     @Nonnull
     T getType();
-
-    /**
-     * 获取异常类型编码
-     *
-     * @return 异常类型编码
-     */
-    default @Nonnull TCode getTypeCode() {
-        return getType().getCode();
-    }
-
-    /**
-     * 异常类型
-     */
-    public static interface IExceptionType<X extends Exception, TCode extends Serializable>
-            extends IWithCode<TCode>, IExceptionFactory<X> {
-
-        /**
-         * 默认异常信息
-         */
-        String getDefaultMessage();
-
-        @Virtual
-        default String getDescription() {
-            return getDefaultMessage();
-        }
-
-    }
 }

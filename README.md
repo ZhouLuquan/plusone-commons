@@ -77,7 +77,7 @@ System.out.println(result); // Output: Return string
 ```java
 public final class LoginException
         extends RuntimeException
-        implements IMultiTypesException<LoginException, LoginException.Type, String> {
+        implements IMultiTypesException<LoginException.Type> {
     private static final long serialVersionUID = 881293090625085616L;
     private final Type type;
     private LoginException(@Nonnull Type type, @Nonnull String message) {
@@ -104,7 +104,7 @@ public final class LoginException
 
     // ...
 
-    public enum Type implements IExceptionType<LoginException, String> {
+    public enum Type implements IExceptionType<String>, IExceptionFactory<LoginException> {
         DEFAULT("00", "当前会话未登录"),
         NOT_TOKEN("10", "未提供token"),
         INVALID_TOKEN("20", "token无效"),

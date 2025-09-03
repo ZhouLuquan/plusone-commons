@@ -20,7 +20,8 @@ import javax.annotation.Nonnull;
 /**
  * 异常工厂
  *
- * @author ZhouXY
+ * @param <X> 异常类型
+ * @author ZhouXY108 <luquanlion@outlook.com>
  */
 public interface IExceptionFactory<X extends Exception> {
     /**

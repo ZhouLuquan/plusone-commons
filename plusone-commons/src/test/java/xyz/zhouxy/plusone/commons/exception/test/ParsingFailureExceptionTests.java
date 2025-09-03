@@ -41,7 +41,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create();
         });
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
     }
@@ -53,7 +52,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.JSON_PARSING_FAILURE.create(message);
         });
         assertSame(ParsingFailureException.Type.JSON_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.Type.JSON_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -65,7 +63,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.XML_PARSING_FAILURE.create(message);
         });
         assertSame(ParsingFailureException.XML_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.XML_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -80,7 +77,6 @@ public class ParsingFailureExceptionTests {
             });
 
             assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-            assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
             log.info("{}", e.getMessage());
             assertEquals(nfe.toString(), e.getMessage());
             assertSame(nfe, e.getCause());
@@ -95,7 +91,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -109,7 +104,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.NUMBER_PARSING_FAILURE.create(message, nfe);
         });
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -123,7 +117,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, nfe);
         });
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertSame(nfe, e.getCause());
     }
@@ -137,7 +130,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, npe);
         });
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -151,7 +143,6 @@ public class ParsingFailureExceptionTests {
             throw ParsingFailureException.DATE_TIME_PARSING_FAILURE.create(message, nfe);
         });
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -175,7 +166,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(dtpe.getMessage(), e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -189,7 +179,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
     }
@@ -206,7 +195,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -223,7 +211,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -238,7 +225,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -253,7 +239,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.DATE_TIME_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.DATE_TIME_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
@@ -277,7 +262,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(dtpe.getMessage(), e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -291,7 +275,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getDefaultMessage(), e.getMessage());
         assertNull(e.getCause());
     }
@@ -308,7 +291,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -325,7 +307,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertSame(dtpe, e.getCause());
     }
@@ -340,7 +321,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertEquals(message, e.getMessage());
         assertNull(e.getCause());
     }
@@ -355,7 +335,6 @@ public class ParsingFailureExceptionTests {
         });
 
         assertSame(ParsingFailureException.NUMBER_PARSING_FAILURE, e.getType());
-        assertEquals(ParsingFailureException.NUMBER_PARSING_FAILURE.getCode(), e.getTypeCode());
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
