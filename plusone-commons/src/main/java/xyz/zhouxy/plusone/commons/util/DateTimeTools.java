@@ -27,11 +27,11 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.chrono.IsoChronology;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.time.Quarter;
@@ -649,7 +649,7 @@ public class DateTimeTools {
     // ================================
 
     // ================================
-    // #region - others
+    // #region - range
     // ================================
 
     /**
@@ -674,13 +674,59 @@ public class DateTimeTools {
     }
 
     /**
+     * 将指定日期范围转为日期时间范围
+     *
+     * @param dateRange 日期范围
+     * @return 对应的日期时间范围
+     */
+    public static Range<LocalDateTime> toDateTimeRange(Range<LocalDate> dateRange) {
+        BoundType lowerBoundType = dateRange.lowerBoundType();
+        LocalDateTime lowerEndpoint = lowerBoundType == BoundType.CLOSED
+                ? dateRange.lowerEndpoint().atStartOfDay()
+                : dateRange.lowerEndpoint().plusDays(1).atStartOfDay();
+        BoundType upperBoundType = dateRange.upperBoundType();
+        LocalDateTime upperEndpoint = upperBoundType == BoundType.CLOSED
+                ? dateRange.upperEndpoint().plusDays(1).atStartOfDay()
+                : dateRange.upperEndpoint().atStartOfDay();
+
+        return Range.closedOpen(lowerEndpoint, upperEndpoint);
+    }
+
+    /**
+     * 将指定日期范围转为日期时间范围
+     *
+     * @param dateRange 日期范围
+     * @return 对应的日期时间范围
+     */
+    public static Range<ZonedDateTime> toDateTimeRange(Range<LocalDate> dateRange, ZoneId zone) {
+        BoundType lowerBoundType = dateRange.lowerBoundType();
+        ZonedDateTime lowerEndpoint = lowerBoundType == BoundType.CLOSED
+                ? dateRange.lowerEndpoint().atStartOfDay(zone)
+                : dateRange.lowerEndpoint().plusDays(1).atStartOfDay(zone);
+        BoundType upperBoundType = dateRange.upperBoundType();
+        ZonedDateTime upperEndpoint = upperBoundType == BoundType.CLOSED
+                ? dateRange.upperEndpoint().plusDays(1).atStartOfDay(zone)
+                : dateRange.upperEndpoint().atStartOfDay(zone);
+
+        return Range.closedOpen(lowerEndpoint, upperEndpoint);
+    }
+
+    // ================================
+    // #endregion - range
+    // ================================
+
+    // ================================
+    // #region - others
+    // ================================
+
+    /**
      * 判断指定年份是否为闰年
      *
      * @param year 年份
      * @return 指定年份是否为闰年
      */
     public static boolean isLeapYear(int year) {
-        return IsoChronology.INSTANCE.isLeapYear(year);
+        return Year.isLeap(year);
     }
 
     // ================================

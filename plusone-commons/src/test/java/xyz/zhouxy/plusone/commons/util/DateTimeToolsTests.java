@@ -43,6 +43,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 
 import xyz.zhouxy.plusone.commons.time.Quarter;
@@ -83,24 +84,6 @@ class DateTimeToolsTests {
         CALENDAR.setTime(DATE);
     }
 
-    // Joda
-    static final org.joda.time.LocalDateTime JODA_LOCAL_DATE_TIME
-            = new org.joda.time.LocalDateTime(2024, 12, 29, 12, 58, 30, 333);
-    static final org.joda.time.LocalDate JODA_LOCAL_DATE = JODA_LOCAL_DATE_TIME.toLocalDate();
-    static final org.joda.time.LocalTime JODA_LOCAL_TIME = JODA_LOCAL_DATE_TIME.toLocalTime();
-
-    // Joda - 2024-12-29 12:58:30.333 SystemDefaultZone
-    static final org.joda.time.DateTimeZone JODA_SYS_ZONE = org.joda.time.DateTimeZone.getDefault();
-    static final org.joda.time.DateTime JODA_DATE_TIME_WITH_SYS_ZONE = JODA_LOCAL_DATE_TIME.toDateTime(JODA_SYS_ZONE);
-    static final org.joda.time.Instant JODA_INSTANT_WITH_SYS_ZONE = JODA_DATE_TIME_WITH_SYS_ZONE.toInstant();
-    static final long JODA_INSTANT_MILLIS = JODA_INSTANT_WITH_SYS_ZONE.getMillis();
-
-    // Joda - 2024-12-29 12:58:30.333 GMT+04:00
-    static final org.joda.time.DateTimeZone JODA_ZONE = org.joda.time.DateTimeZone.forID("GMT+04:00");
-    static final org.joda.time.DateTime JODA_DATE_TIME = JODA_LOCAL_DATE_TIME.toDateTime(JODA_ZONE);
-    static final org.joda.time.Instant JODA_INSTANT = JODA_DATE_TIME.toInstant();
-    static final long JODA_MILLIS = JODA_INSTANT.getMillis();
-
     // ================================
     // #region - toDate
     // ================================
@@ -109,9 +92,7 @@ class DateTimeToolsTests {
     void toDate_timeMillis() {
         assertNotEquals(SYS_DATE, DATE);
         log.info("SYS_DATE: {}, DATE: {}", SYS_DATE, DATE);
-        assertEquals(SYS_DATE, JODA_DATE_TIME_WITH_SYS_ZONE.toDate());
         assertEquals(SYS_DATE, DateTimeTools.toDate(INSTANT_MILLIS));
-        assertEquals(DATE, JODA_DATE_TIME.toDate());
         assertEquals(DATE, DateTimeTools.toDate(MILLIS));
     }
 
@@ -393,11 +374,11 @@ class DateTimeToolsTests {
     // ================================
 
     // ================================
-    // #region - others
+    // #region - range
     // ================================
 
     @Test
-    void startDateTimeRange() {
+    void toDateTimeRange_specifiedDate() {
         Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(LOCAL_DATE);
         assertEquals(LOCAL_DATE.atStartOfDay(), localDateTimeRange.lowerEndpoint());
         assertEquals(LocalDate.of(2024, 12, 30).atStartOfDay(), localDateTimeRange.upperEndpoint());
@@ -411,8 +392,96 @@ class DateTimeToolsTests {
         assertFalse(zonedDateTimeRange.contains(LocalDate.of(2024, 12, 30).atStartOfDay().atZone(SYS_ZONE_ID)));
     }
 
+    @Test
+    void toDateTimeRange_dateRange_openRange() {
+        // (2000-01-01..2025-10-01) -> [2000-01-02T00:00..2025-10-01T00:00)
+        Range<LocalDate> dateRange = Range.open(
+                LocalDate.of(2000, 1, 1),
+                LocalDate.of(2025, 10, 1));
+
+        Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(dateRange);
+        assertEquals(BoundType.CLOSED, localDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 2, 0, 0), localDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, localDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 1, 0, 0), localDateTimeRange.upperEndpoint());
+        log.info(localDateTimeRange.toString());
+
+        Range<ZonedDateTime> zonedDateTimeRange = DateTimeTools.toDateTimeRange(dateRange, ZONE_ID);
+        assertEquals(BoundType.CLOSED, zonedDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 2, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, zonedDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 1, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.upperEndpoint());
+        log.info(zonedDateTimeRange.toString());
+    }
+
+    @Test
+    void toDateTimeRange_dateRange_openClosedRange() {
+        // (2000-01-01..2025-10-01] -> [2025-01-02T00-00..2025-10-02 00:00)
+        Range<LocalDate> dateRange = Range.openClosed(
+                LocalDate.of(2000, 1, 1),
+                LocalDate.of(2025, 10, 1));
+
+        Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(dateRange);
+        assertEquals(BoundType.CLOSED, localDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 2, 0, 0), localDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, localDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 2, 0, 0), localDateTimeRange.upperEndpoint());
+        log.info(localDateTimeRange.toString());
+
+        Range<ZonedDateTime> zonedDateTimeRange = DateTimeTools.toDateTimeRange(dateRange, ZONE_ID);
+        assertEquals(BoundType.CLOSED, zonedDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 2, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, zonedDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 2, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.upperEndpoint());
+        log.info(zonedDateTimeRange.toString());
+    }
+
+    @Test
+    void toDateTimeRange_dateRange_closedRange() {
+        // [2000-01-01..2025-10-01] -> [2025-01-01T00-00..2025-10-02 00:00)
+        Range<LocalDate> dateRange = Range.closed(
+                LocalDate.of(2000, 1, 1),
+                LocalDate.of(2025, 10, 1));
+
+        Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(dateRange);
+        assertEquals(BoundType.CLOSED, localDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 1, 0, 0), localDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, localDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 2, 0, 0), localDateTimeRange.upperEndpoint());
+        log.info(localDateTimeRange.toString());
+
+        Range<ZonedDateTime> zonedDateTimeRange = DateTimeTools.toDateTimeRange(dateRange, ZONE_ID);
+        assertEquals(BoundType.CLOSED, zonedDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 1, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, zonedDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 2, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.upperEndpoint());
+        log.info(zonedDateTimeRange.toString());
+    }
+
+    @Test
+    void toDateTimeRange_dateRange_closedOpenRange() {
+        // [2025-01-01..2025-10-01) -> [2025-01-01T00-00..2025-10-01 00:00)
+        Range<LocalDate> dateRange = Range.closedOpen(
+                LocalDate.of(2000, 1, 1),
+                LocalDate.of(2025, 10, 1));
+
+        Range<LocalDateTime> localDateTimeRange = DateTimeTools.toDateTimeRange(dateRange);
+        assertEquals(BoundType.CLOSED, localDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 1, 0, 0), localDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, localDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 1, 0, 0), localDateTimeRange.upperEndpoint());
+        log.info(localDateTimeRange.toString());
+
+        Range<ZonedDateTime> zonedDateTimeRange = DateTimeTools.toDateTimeRange(dateRange, ZONE_ID);
+        assertEquals(BoundType.CLOSED, zonedDateTimeRange.lowerBoundType());
+        assertEquals(LocalDateTime.of(2000, 1, 1, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.lowerEndpoint());
+        assertEquals(BoundType.OPEN, zonedDateTimeRange.upperBoundType());
+        assertEquals(LocalDateTime.of(2025, 10, 1, 0, 0).atZone(ZONE_ID), zonedDateTimeRange.upperEndpoint());
+        log.info(zonedDateTimeRange.toString());
+    }
+
     // ================================
-    // #endregion - others
+    // #endregion - range
     // ================================
 
     // ================================
