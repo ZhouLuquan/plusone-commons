@@ -33,7 +33,7 @@ public class NoAvailableMacFoundException extends SysException {
      * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
      */
     public NoAvailableMacFoundException() {
-        super();
+        super("无法找到可访问的 Mac 地址");
     }
 
     /**

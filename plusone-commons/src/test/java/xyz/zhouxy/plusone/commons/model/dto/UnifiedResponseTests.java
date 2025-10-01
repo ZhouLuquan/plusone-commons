@@ -379,7 +379,7 @@ class UnifiedResponseTests {
         assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, "查询失败", user));
 
         // Throwable
-        BizException bizException = new BizException("业务异常");
+        BizException bizException = BizException.of("业务异常");
         assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, bizException));
         assertThrows(NullPointerException.class, () -> UnifiedResponses.error(nullStatus, (Throwable) null));
     }

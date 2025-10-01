@@ -31,20 +31,12 @@ public class SysException extends RuntimeException {
     private static final String DEFAULT_MSG = "系统异常";
 
     /**
-     * 使用默认 message 构造新的系统异常。
-     * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
-     */
-    public SysException() {
-        super(DEFAULT_MSG);
-    }
-
-    /**
      * 使用指定的 {@code message} 构造新的系统异常。
      * {@code cause} 未初始化，后面可能会通过调用 {@link #initCause} 进行初始化。
      *
      * @param message 异常信息
      */
-    public SysException(String message) {
+    protected SysException(String message) {
         super(message);
     }
 
@@ -54,7 +46,7 @@ public class SysException extends RuntimeException {
      *
      * @param cause 包装的异常
      */
-    public SysException(Throwable cause) {
+    protected SysException(Throwable cause) {
         super(cause);
     }
 
@@ -64,7 +56,27 @@ public class SysException extends RuntimeException {
      * @param message 异常信息
      * @param cause   包装的异常
      */
-    public SysException(String message, Throwable cause) {
+    protected SysException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public static SysException of() {
+        return new SysException(DEFAULT_MSG);
+    }
+
+    public static SysException of(String message) {
+        return new SysException(message);
+    }
+
+    public static SysException of(String errorMessageFormat, Object... errorMessageArgs) {
+        return new SysException(String.format(errorMessageFormat, errorMessageArgs));
+    }
+
+    public static SysException of(Throwable cause) {
+        return new SysException(cause);
+    }
+
+    public static SysException of(String message, Throwable cause) {
+        return new SysException(message, cause);
     }
 }
