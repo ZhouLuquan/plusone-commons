@@ -5,8 +5,7 @@
     ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
-    "words": [],
-    "ignoreWords": [
+    "words": [
         "aliyun",
         "baomidou",
         "Batis",
@@ -33,6 +32,7 @@
         "Nonnull",
         "NOSONAR",
         "okhttp",
+        "okio",
         "ooxml",
         "overriden",
         "plusone",
