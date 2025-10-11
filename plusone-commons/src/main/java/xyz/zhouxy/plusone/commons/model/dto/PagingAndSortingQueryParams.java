@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
 
-import xyz.zhouxy.plusone.commons.annotation.Virtual;
 import xyz.zhouxy.plusone.commons.collection.CollectionTools;
 import xyz.zhouxy.plusone.commons.util.RegexTools;
 import xyz.zhouxy.plusone.commons.util.StringTools;
@@ -45,29 +44,9 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  */
 public class PagingAndSortingQueryParams {
 
-    private static final int DEFAULT_PAGE_SIZE = 15;
-
     private Integer size;
     private Long pageNum;
     private List<String> orderBy;
-
-    private static final Pattern SORT_STR_PATTERN = Pattern.compile("^[a-zA-Z][\\w-]{0,63}-(desc|asc|DESC|ASC)$");
-
-    private final Map<String, String> sortableProperties;
-
-    /**
-     * 构造分页排序查询参数
-     *
-     * @param sortableProperties 可排序的属性。不可为空。
-     */
-    public PagingAndSortingQueryParams(Map<String, String> sortableProperties) {
-        checkArgument(CollectionTools.isNotEmpty(sortableProperties),
-                "Sortable properties can not be empty.");
-        sortableProperties.forEach((k, v) ->
-                checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
-                "Property name must not be blank."));
-        this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
-    }
 
     // Setters
 
@@ -100,56 +79,18 @@ public class PagingAndSortingQueryParams {
 
     // Setters end
 
-    /**
-     * 构建分页参数
-     *
-     * @return {@code PagingParams} 对象
-     */
-    public final PagingParams buildPagingParams() {
-        final int sizeValue = this.size != null ? this.size : defaultSizeInternal();
-        final long pageNumValue = this.pageNum != null ? this.pageNum : 1L;
-        checkArgument(CollectionTools.isNotEmpty(this.orderBy),
-                "The 'orderBy' cannot be empty");
-        final List<SortableProperty> propertiesToSort = this.orderBy.stream()
-                .map(this::generateSortableProperty)
-                .collect(Collectors.toList());
-        return new PagingParams(sizeValue, pageNumValue, propertiesToSort);
-    }
-
-    /**
-     * 默认每页大小
-     *
-     * <p>NOTE: 可覆写此方法</p>
-     *
-     * @return 默认每页大小
-     */
-    @Virtual
-    protected int defaultSizeInternal() {
-        return DEFAULT_PAGE_SIZE;
-    }
-
     @Override
     public String toString() {
         return "PagingAndSortingQueryParams ["
                 + "size=" + size
                 + ", pageNum=" + pageNum
                 + ", orderBy=" + orderBy
-                + ", sortableProperties=" + sortableProperties
                 + "]";
     }
 
-    private SortableProperty generateSortableProperty(String orderByStr) {
-        checkArgument(StringTools.isNotBlank(orderByStr));
-        checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
-        String[] propertyNameAndOrderType = orderByStr.split("-");
-        checkArgument(propertyNameAndOrderType.length == 2);
-
-        String propertyName = propertyNameAndOrderType[0];
-        checkArgument(sortableProperties.containsKey(propertyName),
-                "The property name must be in the set of sortable properties.");
-        String columnName = sortableProperties.get(propertyName);
-        String orderType = propertyNameAndOrderType[1];
-        return new SortableProperty(propertyName, columnName, orderType);
+    protected static PagingParamsBuilder pagingParamsBuilder(
+            int defaultSize, int maxSize, Map<String, String> sortableProperties) {
+        return new PagingParamsBuilder(defaultSize, maxSize, sortableProperties);
     }
 
     /**
@@ -217,4 +158,47 @@ public class PagingAndSortingQueryParams {
         }
     }
 
+    protected static final class PagingParamsBuilder {
+        private static final Pattern SORT_STR_PATTERN = Pattern.compile("^[a-zA-Z][\\w-]{0,63}-(desc|asc|DESC|ASC)$");
+
+        private final Map<String, String> sortableProperties;
+        protected final int defaultSize;
+        protected final int maxSize;
+
+        private PagingParamsBuilder(int defaultSize, int maxSize, Map<String, String> sortableProperties) {
+            this.defaultSize = defaultSize;
+            this.maxSize = maxSize;
+            checkArgument(CollectionTools.isNotEmpty(sortableProperties),
+                    "Sortable properties can not be empty.");
+            sortableProperties.forEach((k, v) ->
+                    checkArgument(StringTools.isNotBlank(k) && StringTools.isNotBlank(v),
+                    "Property name must not be blank."));
+            this.sortableProperties = ImmutableMap.copyOf(sortableProperties);
+        }
+
+        public PagingParams buildPagingParams(PagingAndSortingQueryParams params) {
+            final int sizeValue = params.size != null ? params.size : this.defaultSize;
+            final long pageNumValue = params.pageNum != null ? params.pageNum : 1L;
+            checkArgument(CollectionTools.isNotEmpty(params.orderBy),
+                    "The 'orderBy' cannot be empty");
+            final List<SortableProperty> propertiesToSort = params.orderBy.stream()
+                    .map(this::generateSortableProperty)
+                    .collect(Collectors.toList());
+            return new PagingParams(sizeValue, pageNumValue, propertiesToSort);
+        }
+
+        private SortableProperty generateSortableProperty(String orderByStr) {
+            checkArgument(StringTools.isNotBlank(orderByStr));
+            checkArgument(RegexTools.matches(orderByStr, SORT_STR_PATTERN));
+            String[] propertyNameAndOrderType = orderByStr.split("-");
+            checkArgument(propertyNameAndOrderType.length == 2);
+
+            String propertyName = propertyNameAndOrderType[0];
+            checkArgument(sortableProperties.containsKey(propertyName),
+                    "The property name must be in the set of sortable properties.");
+            String columnName = sortableProperties.get(propertyName);
+            String orderType = propertyNameAndOrderType[1];
+            return new SortableProperty(propertyName, columnName, orderType);
+        }
+    }
 }
