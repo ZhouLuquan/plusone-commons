@@ -61,7 +61,7 @@ public class ZipToolsTests {
     }
 
     @Test
-    void zip_WithWrongLevel() throws IOException, DataFormatException {
+    void zip_WithWrongLevel() {
         Random random = new Random();
         final int levelGtMax = random.nextInt() + 9;
         assertThrows(IllegalArgumentException.class, () -> ZipTools.zip(bytes, levelGtMax));

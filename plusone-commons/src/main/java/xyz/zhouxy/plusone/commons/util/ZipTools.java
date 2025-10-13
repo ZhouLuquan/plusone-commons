@@ -73,11 +73,11 @@ public class ZipTools {
         if (input == null) {
             return null;
         }
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (DeflaterOutputStream dos = new DeflaterOutputStream(baos, new Deflater(level))) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (DeflaterOutputStream dos = new DeflaterOutputStream(out, new Deflater(level))) {
             dos.write(input);
             dos.finish();
-            return baos.toByteArray();
+            return out.toByteArray();
         }
     }
 
@@ -94,11 +94,11 @@ public class ZipTools {
         if (input == null) {
             return null;
         }
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (InflaterOutputStream dos = new InflaterOutputStream(baos, new Inflater())) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (InflaterOutputStream dos = new InflaterOutputStream(out, new Inflater())) {
             dos.write(input);
             dos.finish();
-            return baos.toByteArray();
+            return out.toByteArray();
         }
     }
 
