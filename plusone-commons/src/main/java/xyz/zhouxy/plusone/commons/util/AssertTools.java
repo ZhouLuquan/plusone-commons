@@ -54,7 +54,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当条件不满足时抛出
      */
     public static void checkArgument(boolean condition) {
-        checkCondition(condition, IllegalArgumentException::new);
+        if (!condition) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -65,7 +67,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当条件不满足时抛出
      */
     public static void checkArgument(boolean condition, @Nullable String errorMessage) {
-        checkCondition(condition, () -> new IllegalArgumentException(errorMessage));
+        if (!condition) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     /**
@@ -76,7 +80,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当条件不满足时抛出
      */
     public static void checkArgument(boolean condition, Supplier<String> errorMessageSupplier) {
-        checkCondition(condition, () -> new IllegalArgumentException(errorMessageSupplier.get()));
+        if (!condition) {
+            throw new IllegalArgumentException(errorMessageSupplier.get());
+        }
     }
 
     /**
@@ -89,8 +95,9 @@ public class AssertTools {
      */
     public static void checkArgument(boolean condition,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(condition,
-                () -> new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (!condition) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
     // ================================
@@ -109,7 +116,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj) {
-        checkCondition(obj != null, IllegalArgumentException::new);
+        if (obj == null) {
+            throw new IllegalArgumentException();
+        }
         return obj;
     }
 
@@ -122,7 +131,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj, String errorMessage) {
-        checkCondition(obj != null, () -> new IllegalArgumentException(errorMessage));
+        if (obj == null) {
+            throw new IllegalArgumentException(errorMessage);
+        }
         return obj;
     }
 
@@ -135,7 +146,9 @@ public class AssertTools {
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
-        checkCondition(obj != null, () -> new IllegalArgumentException(errorMessageSupplier.get()));
+        if (obj == null) {
+            throw new IllegalArgumentException(errorMessageSupplier.get());
+        }
         return obj;
     }
 
@@ -150,8 +163,9 @@ public class AssertTools {
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(obj != null,
-                () -> new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (obj == null) {
+            throw new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
         return obj;
     }
 
@@ -170,7 +184,9 @@ public class AssertTools {
      * @throws IllegalStateException 当条件不满足时抛出
      */
     public static void checkState(boolean condition) {
-        checkCondition(condition, IllegalStateException::new);
+        if (!condition) {
+            throw new IllegalStateException();
+        }
     }
 
     /**
@@ -181,7 +197,9 @@ public class AssertTools {
      * @throws IllegalStateException 当条件不满足时抛出
      */
     public static void checkState(boolean condition, @Nullable String errorMessage) {
-        checkCondition(condition, () -> new IllegalStateException(errorMessage));
+        if (!condition) {
+            throw new IllegalStateException(errorMessage);
+        }
     }
 
     /**
@@ -192,7 +210,9 @@ public class AssertTools {
      * @throws IllegalStateException 当条件不满足时抛出
      */
     public static void checkState(boolean condition, Supplier<String> errorMessageSupplier) {
-        checkCondition(condition, () -> new IllegalStateException(errorMessageSupplier.get()));
+        if (!condition) {
+            throw new IllegalStateException(errorMessageSupplier.get());
+        }
     }
 
     /**
@@ -205,8 +225,9 @@ public class AssertTools {
      */
     public static void checkState(boolean condition,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(condition,
-                () -> new IllegalStateException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (!condition) {
+            throw new IllegalStateException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
     // ================================
@@ -225,7 +246,9 @@ public class AssertTools {
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> void checkNotNull(@Nullable T obj) {
-        checkCondition(obj != null, NullPointerException::new);
+        if (obj == null) {
+            throw new NullPointerException();
+        }
     }
 
     /**
@@ -237,7 +260,9 @@ public class AssertTools {
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> void checkNotNull(@Nullable T obj, String errorMessage) {
-        checkCondition(obj != null, () -> new NullPointerException(errorMessage));
+        if (obj == null) {
+            throw new NullPointerException(errorMessage);
+        }
     }
 
     /**
@@ -249,7 +274,9 @@ public class AssertTools {
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> void checkNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
-        checkCondition(obj != null, () -> new NullPointerException(errorMessageSupplier.get()));
+        if (obj == null) {
+            throw new NullPointerException(errorMessageSupplier.get());
+        }
     }
 
     /**
@@ -263,8 +290,9 @@ public class AssertTools {
      */
     public static <T> void checkNotNull(@Nullable T obj,
             String errorMessageTemplate, Object... errorMessageArgs) {
-        checkCondition(obj != null,
-                () -> new NullPointerException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (obj == null) {
+            throw new NullPointerException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
     // ================================
@@ -285,7 +313,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(@Nullable T obj)
             throws DataNotExistsException {
-        checkCondition(obj != null, DataNotExistsException::new);
+        if (obj == null) {
+            throw new DataNotExistsException();
+        }
         return obj;
     }
 
@@ -300,7 +330,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(@Nullable T obj, String errorMessage)
             throws DataNotExistsException {
-        checkCondition(obj != null, () -> new DataNotExistsException(errorMessage));
+        if (obj == null) {
+            throw new DataNotExistsException(errorMessage);
+        }
         return obj;
     }
 
@@ -315,7 +347,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(@Nullable T obj, Supplier<String> errorMessageSupplier)
             throws DataNotExistsException {
-        checkCondition(obj != null, () -> new DataNotExistsException(errorMessageSupplier.get()));
+        if (obj == null) {
+            throw new DataNotExistsException(errorMessageSupplier.get());
+        }
         return obj;
     }
 
@@ -332,8 +366,9 @@ public class AssertTools {
     public static <T> T checkExists(@Nullable T obj,
             String errorMessageTemplate, Object... errorMessageArgs)
             throws DataNotExistsException {
-        checkCondition(obj != null,
-                () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (obj == null) {
+            throw new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
         return obj;
     }
 
@@ -347,7 +382,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(Optional<T> optional)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), DataNotExistsException::new);
+        if (!optional.isPresent()) {
+            throw new DataNotExistsException();
+        }
         return optional.get();
     }
 
@@ -362,7 +399,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(Optional<T> optional, String errorMessage)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), () -> new DataNotExistsException(errorMessage));
+        if (!optional.isPresent()) {
+            throw new DataNotExistsException(errorMessage);
+        }
         return optional.get();
     }
 
@@ -377,7 +416,9 @@ public class AssertTools {
      */
     public static <T> T checkExists(Optional<T> optional, Supplier<String> errorMessageSupplier)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(), () -> new DataNotExistsException(errorMessageSupplier.get()));
+        if (!optional.isPresent()) {
+            throw new DataNotExistsException(errorMessageSupplier.get());
+        }
         return optional.get();
     }
 
@@ -394,8 +435,9 @@ public class AssertTools {
     public static <T> T checkExists(Optional<T> optional,
             String errorMessageTemplate, Object... errorMessageArgs)
             throws DataNotExistsException {
-        checkCondition(optional.isPresent(),
-                () -> new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs)));
+        if (!optional.isPresent()) {
+            throw new DataNotExistsException(String.format(errorMessageTemplate, errorMessageArgs));
+        }
         return optional.get();
     }
 

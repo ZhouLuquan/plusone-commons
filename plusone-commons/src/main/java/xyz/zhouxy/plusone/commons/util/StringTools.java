@@ -17,10 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -112,7 +112,7 @@ public class StringTools {
      * @return 结果
      */
     public static String repeat(final String str, int times, int maxLength) {
-        checkArgument(Objects.nonNull(str));
+        checkArgumentNotNull(str);
         return String.valueOf(ArrayTools.repeat(str.toCharArray(), times, maxLength));
     }
 

@@ -17,10 +17,10 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -69,20 +69,20 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(Random random, char[] sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(random), "Random cannot be null.");
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(random, "Random cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
     public static String randomStr(char[] sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
     public static String secureRandomStr(char[] sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
     }
@@ -98,20 +98,20 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(Random random, String sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(random), "Random cannot be null.");
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(random, "Random cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
 
     public static String randomStr(String sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
 
     public static String secureRandomStr(String sourceCharacters, int length) {
-        checkArgument(Objects.nonNull(sourceCharacters), "Source characters cannot be null.");
+        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
     }

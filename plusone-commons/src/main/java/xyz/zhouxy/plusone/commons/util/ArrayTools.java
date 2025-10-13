@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.util;
 
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkNotNull;
 
 import java.math.BigDecimal;
@@ -491,7 +492,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static char[] repeat(char[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -526,7 +527,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static byte[] repeat(byte[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -561,7 +562,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static short[] repeat(short[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -596,7 +597,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static int[] repeat(int[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -631,7 +632,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static long[] repeat(long[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -666,7 +667,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static float[] repeat(float[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -701,7 +702,7 @@ public class ArrayTools {
      * @return 重复后的数组
      */
     public static double[] repeat(double[] arr, int times, int maxLength) {
-        checkArgument(Objects.nonNull(arr));
+        checkArgumentNotNull(arr);
         checkArgument(times >= 0,
                 "The number of times must be greater than or equal to zero");
         checkArgument(maxLength >= 0,
@@ -750,7 +751,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(char[] a, int fromIndex, int toIndex, @Nullable char[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -793,7 +794,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(byte[] a, int fromIndex, int toIndex, @Nullable byte[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -836,7 +837,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(short[] a, int fromIndex, int toIndex, @Nullable short[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -879,7 +880,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(int[] a, int fromIndex, int toIndex, @Nullable int[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -922,7 +923,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(long[] a, int fromIndex, int toIndex, @Nullable long[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -965,7 +966,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(float[] a, int fromIndex, int toIndex, @Nullable float[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -1008,7 +1009,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     public static void fill(double[] a, int fromIndex, int toIndex, @Nullable double[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }
@@ -1063,7 +1064,7 @@ public class ArrayTools {
      * @param values    填充内容
      */
     private static <T> void fillInternal(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
-        checkArgument(Objects.nonNull(a));
+        checkArgumentNotNull(a);
         if (values == null || values.length == 0) {
             return;
         }

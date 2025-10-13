@@ -17,6 +17,7 @@
 package xyz.zhouxy.plusone.commons.model;
 
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgument;
+import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -75,8 +76,8 @@ public abstract class ValidatableStringRecord<T extends ValidatableStringRecord<
      * @param errorMessage 正则不匹配时的错误信息
      */
     protected ValidatableStringRecord(String value, Pattern pattern, String errorMessage) {
-        checkArgument(Objects.nonNull(value), "The value cannot be null.");
-        checkArgument(Objects.nonNull(pattern), "The pattern cannot be null.");
+        checkArgumentNotNull(value, "The value cannot be null.");
+        checkArgumentNotNull(pattern, "The pattern cannot be null.");
         this.matcher = pattern.matcher(value);
         checkArgument(this.matcher.matches(), errorMessage);
         this.value = value;
