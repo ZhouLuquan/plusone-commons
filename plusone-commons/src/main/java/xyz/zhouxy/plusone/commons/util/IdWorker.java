@@ -27,7 +27,11 @@ import javax.annotation.Nullable;
 import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
 
 /**
- * Seata 提供的修改版雪花ID。
+ * 修改版雪花 ID 生成器
+ *
+ * <p>
+ * 来自 Seata (https://seata.apache.org) 的 {@code org.apache.seata.common.util.IdWorker}
+ *
  * <p>
  * 大体思路为：
  * <ol>
@@ -43,7 +47,6 @@ import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
  * <li><a href="https://juejin.cn/post/7264387737276203065">在开源项目中看到一个改良版的雪花算法，现在它是你的了。</a></li>
  * <li><a href="https://juejin.cn/post/7265516484029743138">关于若干读者，阅读“改良版雪花算法”后提出的几个共性问题的回复。</a></li>
  * </ul>
- *
  */
 public class IdWorker {
 
