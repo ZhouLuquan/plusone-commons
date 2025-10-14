@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.security.SecureRandom;
@@ -29,6 +30,8 @@ import java.util.Random;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.Range;
 
 @SuppressWarnings("null")
 public class RandomToolsTests {
@@ -56,13 +59,16 @@ public class RandomToolsTests {
 
     @Test
     public void randomStr_NullSourceCharacters_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> RandomTools.randomStr(random, (char[]) null, 5));
-        assertThrows(IllegalArgumentException.class, () -> RandomTools.randomStr(random, (String) null, 5));
+        assertThrows(IllegalArgumentException.class,
+                () -> RandomTools.randomStr(random, (char[]) null, 5));
+        assertThrows(IllegalArgumentException.class,
+                () -> RandomTools.randomStr(random, (String) null, 5));
     }
 
     @Test
     public void randomStr_NegativeLength_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> RandomTools.randomStr(random, sourceCharactersArray, -1));
+        assertThrows(IllegalArgumentException.class,
+                () -> RandomTools.randomStr(random, sourceCharactersArray, -1));
     }
 
     @Test
@@ -105,6 +111,50 @@ public class RandomToolsTests {
     public void secureRandomStr_StringSourceCharacters_ReturnsRandomString() {
         String result = RandomTools.secureRandomStr(sourceCharactersString, 5);
         assertEquals(5, result.length());
+    }
+
+    @Test
+    public void randomInt_WithMinAndMax() {
+        for (int i = 0; i < 1000; i++) {
+            int r = RandomTools.randomInt(random, -2, 3);
+            assertTrue(r >= -2 && r < 3);
+        }
+    }
+
+    @Test
+    public void randomInt_WithClosedOpenRange() {
+        Range<Integer> co = Range.closedOpen(-2, 3);
+        for (int i = 0; i < 1000; i++) {
+            int rco = RandomTools.randomInt(random, co);
+            assertTrue(rco >= -2 && rco < 3);
+        }
+    }
+
+    @Test
+    public void randomInt_WithClosedRange() {
+        Range<Integer> cc = Range.closed(-2, 3);
+        for (int i = 0; i < 1000; i++) {
+            int rcc = RandomTools.randomInt(random, cc);
+            assertTrue(rcc >= -2 && rcc <= 3);
+        }
+    }
+
+    @Test
+    public void randomInt_WithOpenClosedRange() {
+        Range<Integer> oc = Range.openClosed(-2, 3);
+        for (int i = 0; i < 1000; i++) {
+            int roc = RandomTools.randomInt(random, oc);
+            assertTrue(roc > -2 && roc <= 3);
+        }
+    }
+
+    @Test
+    public void randomInt_WithOpenRange() {
+        Range<Integer> oo = Range.open(-2, 3);
+        for (int i = 0; i < 1000; i++) {
+            int roo = RandomTools.randomInt(random, oo);
+            assertTrue(roo > -2 && roo < 3);
+        }
     }
 
     @Test
