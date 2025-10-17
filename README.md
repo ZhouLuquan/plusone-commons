@@ -211,7 +211,7 @@ throw LoginException.Type.TOKEN_TIMEOUT.create();
 #### 2. UnifiedResponse
 UnifiedResponse 对返回给前端的数据进行封装，包含 `code`、`message`、`data。`
 
-可使用 `UnifiedResponses` 快速构建 `UnifiedResponse` 对象。 `UnifiedResponses` 默认的成功代码为 "2000000"， 用户按测试类 `CustomUnifiedResponseFactoryTests` 中所示范的，继承 `UnifiedResponses` 实现自己的工厂类， 自定义 `SUCCESS_CODE` 和 `DEFAULT_SUCCESS_MSG` 和工厂方法。 见 [issue#22](http://gitea.zhouxy.xyz/plusone/plusone-commons/issues/22)。
+可使用 `UnifiedResponses` 快速构建 `UnifiedResponse` 对象。 `UnifiedResponses` 默认的成功代码为 "2000000"， 用户按测试类 `CustomUnifiedResponseFactoryTests` 中所示范的，继承 `UnifiedResponses` 实现自己的工厂类， 自定义 `SUCCESS_CODE` 和 `DEFAULT_SUCCESS_MSG` 和工厂方法。 见 [issue#22 @Gitea](http://gitea.zhouxy.xyz/plusone/plusone-commons/issues/22)。
 
 ## 八、time - 时间 API
 ### 1. 季度
