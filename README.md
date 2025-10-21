@@ -209,9 +209,34 @@ throw LoginException.Type.TOKEN_TIMEOUT.create();
 分页结果可以存放到 `PageResult` 中，作为出参。
 
 #### 2. UnifiedResponse
-UnifiedResponse 对返回给前端的数据进行封装，包含 `code`、`message`、`data。`
 
-可使用 `UnifiedResponses` 快速构建 `UnifiedResponse` 对象。 `UnifiedResponses` 默认的成功代码为 "2000000"， 用户按测试类 `CustomUnifiedResponseFactoryTests` 中所示范的，继承 `UnifiedResponses` 实现自己的工厂类， 自定义 `SUCCESS_CODE` 和 `DEFAULT_SUCCESS_MSG` 和工厂方法。 见 [issue#22 @Gitea](http://gitea.zhouxy.xyz/plusone/plusone-commons/issues/22)。
+`UnifiedResponse` 对返回给前端的数据进行封装，包含 `code`、`message`、`data。`
+
+`UnifiedResponses` 是 `UnifiedResponse` 的工厂类。用于快速构建 `UnifiedResponse` 对象，默认的成功代码为 `2000000`。
+
+用户可以继承 `UnifiedResponses` 实现自己的工厂类，自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG，以及工厂方法。如下所示：
+```java
+// 自定义工厂类
+public static class CustomUnifiedResponses extends UnifiedResponses {
+    public static final String SUCCESS_CODE = "000";
+    public static final String DEFAULT_SUCCESS_MSG = "成功";
+    public static <T> UnifiedResponse<T> success() {
+        return of(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
+    }
+    public static <T> UnifiedResponse<T> success(@Nullable String message) {
+        return of(SUCCESS_CODE, message);
+    }
+    public static <T> UnifiedResponse<T> success(@Nullable String message, @Nullable T data) {
+        return of(SUCCESS_CODE, message, data);
+    }
+    private CustomUnifiedResponses() {
+        super();
+    }
+}
+// 使用自定义工厂类
+CustomUnifiedResponses.success("查询成功", userList); // 状态码为 000
+```
+见 [issue#22 @Gitea](http://gitea.zhouxy.xyz/plusone/plusone-commons/issues/22)
 
 ## 八、time - 时间 API
 ### 1. 季度

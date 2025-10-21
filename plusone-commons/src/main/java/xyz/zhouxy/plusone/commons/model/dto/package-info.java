@@ -52,13 +52,11 @@
  * {@link UnifiedResponse} 对返回给前端的数据进行封装，包含 code、message、data。
  *
  * <p>
- * 可使用 {@link UnifiedResponses} 快速构建 {@link UnifiedResponse} 对象。
- * {@link UnifiedResponses} 默认的成功代码为 "2000000"，
- * 用户按测试类
- * <a href="http://zhouxy.xyz:3000/plusone/plusone-commons/src/branch/main/src/test/java/xyz/zhouxy/plusone/commons/model/dto/CustomUnifiedResponseFactoryTests.java">CustomUnifiedResponseFactoryTests</a>
- * 中所示范的，继承 {@link UnifiedResponses} 实现自己的工厂类，
- * 自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG 和工厂方法。
- * 见 <a href="http://zhouxy.xyz:3000/plusone/plusone-commons/issues/22">issue#22</a>。
+ * {@link UnifiedResponses} 用于快速构建 {@link UnifiedResponse} 对象，默认的成功代码为 {@code 2000000}。
+ *
+ * <p>
+ * 用户可以继承 {@link UnifiedResponses} 实现自己的工厂类，
+ * 自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG，以及工厂方法。
  *
  * @author ZhouXY108 <luquanlion@outlook.com>
  */
