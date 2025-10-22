@@ -36,7 +36,10 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import cn.hutool.core.util.ObjectUtil;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 @SuppressWarnings("null")
@@ -61,7 +64,7 @@ class TreeBuilderTests {
 
     private final TreeBuilder<Menu, MenuList, String> treeBuilder = new TreeBuilder<>(
             Menu::getMenuCode,
-            menu -> Optional.ofNullable(menu.parentMenuCode),
+            menu -> Optional.ofNullable(menu.getParentMenuCode()),
             MenuList::addChild,
             Comparator.comparing(Menu::getOrderNum));
 
@@ -134,45 +137,23 @@ class TreeBuilderTests {
                 ((MenuList) menuMap.get("C1")).children);
     }
 
-    @ToString
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     @EqualsAndHashCode
+    @ToString
     private abstract static class Menu implements Serializable {
-        protected final String parentMenuCode;
-        protected final String menuCode;
-        protected final String title;
-        protected final int orderNum;
-
-        public Menu(String parentMenuCode, String menuCode, String title, int orderNum) {
-            this.parentMenuCode = parentMenuCode;
-            this.menuCode = menuCode;
-            this.title = title;
-            this.orderNum = orderNum;
-        }
-
-        public String getMenuCode() {
-            return menuCode;
-        }
-
-        public String getParentMenuCode() {
-            return parentMenuCode;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public int getOrderNum() {
-            return orderNum;
-        }
+        protected final @Getter String parentMenuCode;
+        protected final @Getter String menuCode;
+        protected final @Getter String title;
+        protected final @Getter int orderNum;
 
         private static final long serialVersionUID = 20240917181424L;
     }
 
-    @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = true)
+    @ToString(callSuper = true)
     private static final class MenuItem extends Menu {
 
-        private final String url;
+        private final @Getter String url;
 
         private MenuItem(String parentMenuCode, String menuCode, String title, String url, int orderNum) {
             super(parentMenuCode, menuCode, title, orderNum);
@@ -185,10 +166,6 @@ class TreeBuilderTests {
 
         static MenuItem of(String menuCode, String title, String url, int orderNum) {
             return new MenuItem(null, menuCode, title, url, orderNum);
-        }
-
-        public String getUrl() {
-            return url;
         }
 
         private static final long serialVersionUID = 20240917181910L;
