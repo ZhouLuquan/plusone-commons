@@ -234,6 +234,10 @@ class AccountQueryParams extends PagingAndSortingQueryParams {
     private static final PagingParamsBuilder PAGING_PARAMS_BUILDER = PagingAndSortingQueryParams
             .pagingParamsBuilder(20, 100, PROPERTY_COLUMN_MAP);
 
+    public AccountQueryParams() {
+        super(PAGING_PARAMS_BUILDER);
+    }
+
     private @Getter @Setter Long id;
     private @Getter @Setter String username;
     private @Getter @Setter String email;
@@ -247,10 +251,6 @@ class AccountQueryParams extends PagingAndSortingQueryParams {
             return null;
         }
         return this.createTimeEnd.plusDays(1);
-    }
-
-    public PagingParams buildPagingParams() {
-        return PAGING_PARAMS_BUILDER.buildPagingParams(this);
     }
 }
 

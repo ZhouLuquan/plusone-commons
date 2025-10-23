@@ -35,8 +35,64 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * 分页排序查询参数
  *
  * <p>
- * 根据传入的 {@code size} 和 {@code pageNum}，
- * 提供 {@code getOffset} 方法计算 SQL 语句中 {@code offset} 的值。
+ * 包含三个主要的属性：
+ * <ul>
+ * <li>size - 每页显示的记录数</li>
+ * <li>pageNum - 当前页码</li>
+ * <li>orderBy - 排序条件</li>
+ * </ul>
+ *
+ * <p>
+ * 分页必须伴随着排序，不然可能出现同一个对象重复出现在不同页，有的对象不被查询到的情况。
+ *
+ * <p>
+ * 其中 {@code orderBy} 是一个 {@code List&lt;String&gt;}，可以指定多个排序条件。
+ * 每个排序条件是一个字符串， 格式为“属性名-ASC”或“属性名-DESC”，分别表示升序和降序。
+ * 例如，当 {@code orderBy} 的值为 {@code ["name-ASC","age-DESC"]}，
+ * 意味着要按 {@code name} 进行升序排列，{@code name} 相同的情况下则按 {@code age} 进行降序排列。
+ *
+ * <p>
+ * 用户可继承 {@link PagingAndSortingQueryParams} 构建自己的分页查询入参，
+ * 子类需在构造器中调用 {@link PagingAndSortingQueryParams} 的构造器，
+ * 传入一个 {@link PagingParamsBuilder} 用于构建分页参数。
+ * 同一场景下，复用一个 {@link PagingParamsBuilder} 实例即可。
+ *
+ * <p>
+ * 构建 {@link PagingParamsBuilder} 时，需传入一个 {@code Map} 作为可排序字段的白名单，
+ * {@code key} 是供前端指定用于排序的属性名，{@code value} 是对应数据库中的字段名。
+ * 只有在此白名单中的属性名才允许用于排序。
+ *
+ * <pre>
+ * class AccountQueryParams extends PagingAndSortingQueryParams {
+ *     private static final Map&lt;String, String&gt; PROPERTY_COLUMN_MAP = ImmutableMap.&lt;String, String&gt;builder()
+ *             .put("id", "id")
+ *             .put("username", "username")
+ *             .build();
+ *     private static final PagingParamsBuilder PAGING_PARAMS_BUILDER = PagingAndSortingQueryParams
+ *             .pagingParamsBuilder(20, 100, PROPERTY_COLUMN_MAP);
+ *
+ *     public AccountQueryParams() {
+ *         // 所有的 AccountQueryParams 复用同一个 PagingParamsBuilder 实例
+ *         super(PAGING_PARAMS_BUILDER);
+ *     }
+ *
+ *     private @Getter @Setter Long id;
+ *     private @Getter @Setter String username;
+ *     private @Getter @Setter String email;
+ *     private @Getter @Setter Integer status;
+ * }
+ *
+ * public PageResult&lt;AccountVO&gt; queryPage(AccountQueryParams params) {
+ *     // 获取分页参数
+ *     PagingParams pagingParams = params.buildPagingParams();
+ *     // 从 params 获取字段查询条件，从 pagingParams 获取分页条件，查询一页数据
+ *     List&lt;AccountVO&gt; list = accountQueries.queryAccountList(params, pagingParams);
+ *     // 查询总记录数
+ *     long count = accountQueries.countAccount(params);
+ *     // 返回分页结果
+ *     return PageResult.of(list, count);
+ * }
+ * </pre>
  *
  * @author ZhouXY108 <luquanlion@outlook.com>
  * @see PagingParams
@@ -44,9 +100,22 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  */
 public class PagingAndSortingQueryParams {
 
+    private final PagingParamsBuilder pagingParamsBuilder;
+
     private Integer size;
     private Long pageNum;
     private List<String> orderBy;
+
+    /**
+     * 创建一个 {@code PagingAndSortingQueryParams} 实例
+     *
+     * @param pagingParamsBuilder
+     *        分页参数构造器。
+     *        通过 {@link #pagingParamsBuilder(int, int, Map)} 创建，同一场景下只需要共享同一个实例。
+     */
+    public PagingAndSortingQueryParams(PagingParamsBuilder pagingParamsBuilder) {
+        this.pagingParamsBuilder = pagingParamsBuilder;
+    }
 
     // Setters
 
@@ -88,9 +157,29 @@ public class PagingAndSortingQueryParams {
                 + "]";
     }
 
-    protected static PagingParamsBuilder pagingParamsBuilder(
+    /**
+     * 创建一个分页参数构造器
+     *
+     * @param defaultSize 默认每页大小
+     * @param maxSize 最大每页大小
+     * @param sortableProperties
+     *        可排序属性。
+     *        key 是供前端指定用于排序的属性名，value 是对应数据库中的字段名。
+     *        只有在此白名单中的属性名才允许用于排序。
+     * @return 分页参数构造器
+     */
+    public static PagingParamsBuilder pagingParamsBuilder(
             int defaultSize, int maxSize, Map<String, String> sortableProperties) {
         return new PagingParamsBuilder(defaultSize, maxSize, sortableProperties);
+    }
+
+    /**
+     * 根据当前查询参数，构建分页参数
+     *
+     * @return 分页参数
+     */
+    public PagingParams buildPagingParams() {
+        return this.pagingParamsBuilder.buildPagingParams(this);
     }
 
     /**
@@ -103,7 +192,7 @@ public class PagingAndSortingQueryParams {
 
         private final String sqlSnippet;
 
-        SortableProperty(String propertyName, String columnName, String orderType) {
+        private SortableProperty(String propertyName, String columnName, String orderType) {
             this.propertyName = propertyName;
             this.columnName = columnName;
             checkArgument("ASC".equalsIgnoreCase(orderType) || "DESC".equalsIgnoreCase(orderType));
