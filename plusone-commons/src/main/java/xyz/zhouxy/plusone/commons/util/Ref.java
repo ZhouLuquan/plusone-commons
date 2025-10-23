@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.base;
+package xyz.zhouxy.plusone.commons.util;
 
 import java.util.Objects;
 import java.util.function.Consumer;

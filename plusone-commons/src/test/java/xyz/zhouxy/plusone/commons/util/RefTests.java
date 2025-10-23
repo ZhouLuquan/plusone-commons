@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.zhouxy.plusone.commons.base;
+package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
