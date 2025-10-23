@@ -33,15 +33,15 @@ import javax.annotation.Nullable;
  *     public static final String SUCCESS_CODE = "000";
  *     public static final String DEFAULT_SUCCESS_MSG = "成功";
  *
- *     public static <T> UnifiedResponse<T> success() {
+ *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success() {
  *         return of(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
  *     }
  *
- *     public static <T> UnifiedResponse<T> success(@Nullable String message) {
+ *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success(@Nullable String message) {
  *         return of(SUCCESS_CODE, message);
  *     }
  *
- *     public static <T> UnifiedResponse<T> success(@Nullable String message, @Nullable T data) {
+ *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success(@Nullable String message, @Nullable T data) {
  *         return of(SUCCESS_CODE, message, data);
  *     }
  *
