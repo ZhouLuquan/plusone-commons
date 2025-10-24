@@ -1,6 +1,6 @@
-## 7. 其它工具类
+## 7. 工具类
 
-### 7.1. 数组工具类（ArrayTools）
+### 7.1. 数组工具（ArrayTools）
 
 | 方法 | 描述 |
 | --- | --- |
@@ -14,7 +14,7 @@
 | `lastIndexOf`          | 获取元素最后出现在数组中的索引 |
 | `contains`             | 判断数组中是否包含某个元素 |
 
-### 7.2. 断言工具类（AssertTools）
+### 7.2. 断言工具（AssertTools）
 
 `AssertTools` 不封装过多判断逻辑，鼓励充分使用项目中的工具类对数据进行判断：
 
@@ -265,7 +265,7 @@ System.out.println(str.getValue()); // Output: Hello Java
 System.out.println(result); // Output: Return string
 ```
 
-### 7.7 其它
+### 7.7 其它工具类
 - **`BigDecimals`**: BigDecimal 工具
 - **`Numbers`**: 数字工具
 - **`OptionalTools`**: Optional 工具
