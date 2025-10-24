@@ -16,7 +16,7 @@ Plusone Commons 的工具类不追求“大而全”，而是只提供相对需�
 ## 3. 功能
 详细功能说明请查阅文档：
 
-+ [gitee 文档地址](https://gitee.com/zhouxy108/plusone-commons/tree/dev/docs)
++ [文档地址](/plusone-commons/docs)
 
 ## 4. 代码仓库
 项目仓库一共建了三个：
