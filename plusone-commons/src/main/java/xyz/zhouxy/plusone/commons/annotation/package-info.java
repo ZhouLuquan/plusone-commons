@@ -15,44 +15,7 @@
  */
 
 /**
- * <h2>注解</h2>
- *
- * <h3>
- * 1. {@link StaticFactoryMethod}
- * </h3>
- * <p>
- * 标识<b>静态工厂方法</b>。
- * 《Effective Java》的 Item1 建议考虑用静态工厂方法替换构造器，
- * 因而考虑有一个注解可以标记一下静态工厂方法，以和其它方法进行区分。
- *
- * <h3>
- * 2. {@link ReaderMethod} 和 {@link WriterMethod}
- * </h3>
- * <p>
- * 分别标识<b>读方法</b>（如 getter）或<b>写方法</b>（如 setter）。
- *
- * <p>
- * 最早是写了一个集合类，为了方便判断使用读写锁时，哪些情况下使用读锁，哪些情况下使用写锁。
- *
- * <h3>
- * 3. {@link UnsupportedOperation}
- * </h3>
- * <p>
- * 标识该方法不被支持或没有实现，将抛出 {@link UnsupportedOperationException}。
- * 为了方便在使用时，不需要点进源码，就能知道该方法没有实现。
- *
- * <h3>
- * 4. {@link Virtual}
- * </h3>
- * <p>
- * Java 非 final 的实例方法，对应 C++/C&num; 中的虚方法，允许被子类覆写。
- * {@link Virtual} 注解旨在设计父类时，强调该方法父类虽然有默认实现，但子类可以根据自己的需要覆写。
- *
- * <h3>
- * 5. {@link ValueObject}
- * </h3>
- * <p>
- * 标记一个类，表示其作为值对象，区别于 Entity。
+ * 注解
  *
  * @author ZhouXY108 <luquanlion@outlook.com>
  */

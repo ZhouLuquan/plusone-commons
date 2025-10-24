@@ -15,12 +15,7 @@
  */
 
 /**
- * <h2>集合</h2>
- *
- * <h3>
- * 1. {@link CollectionTools}
- * </h3>
- * 集合工具类
+ * 集合相关工具
  *
  * @author ZhouXY108 <luquanlion@outlook.com>
  */

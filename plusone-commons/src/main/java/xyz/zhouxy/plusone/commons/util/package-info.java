@@ -17,7 +17,8 @@
 /**
  * <h2>工具类</h2>
  * <p>
- * 包含树构建器（{@link TreeBuilder}）、断言工具（{@link AssertTools}）、ID 生成器（{@link IdGenerator}）及其它实用工具类。
+ * 包含树构建器（{@link TreeBuilder}）、断言工具（{@link AssertTools}）、
+ * ID 生成器（{@link IdGenerator}）及其它实用工具类。
  *
  * @author ZhouXY108 <luquanlion@outlook.com>
  */
