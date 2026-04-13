@@ -18,6 +18,7 @@ package xyz.zhouxy.plusone.commons.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static xyz.zhouxy.plusone.commons.util.AssertTools.*;
+import static xyz.zhouxy.plusone.commons.exception.system.JdbcUpdateAffectedIncorrectNumberOfRowsException.*;
 
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
-import xyz.zhouxy.plusone.commons.exception.system.DataOperationResultException;
+import xyz.zhouxy.plusone.commons.exception.system.JdbcUpdateAffectedIncorrectNumberOfRowsException;
 
 @SuppressWarnings("null")
 public class AssertToolsTests {
@@ -786,7 +787,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25);
 
-        DataOperationResultException e0 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e0 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108));
         assertEquals(String.format("The number of rows affected is expected to be %d, but is: %d", expectedValue, 108),
                 e0.getMessage());
@@ -801,7 +802,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25, message);
 
-        DataOperationResultException e1 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108, message));
         assertEquals(message, e1.getMessage());
 
@@ -809,7 +810,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25, nullMessage);
 
-        e1 = assertThrows(DataOperationResultException.class,
+        e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108, nullMessage));
         assertNull(e1.getMessage());
     }
@@ -822,7 +823,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25, messageSupplier);
 
-        DataOperationResultException e2 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e2 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108, messageSupplier));
         assertEquals(messageSupplier.get(), e2.getMessage());
 
@@ -840,7 +841,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25, "预计是 %d，结果是 %d。", expectedValue, 25);
 
-        DataOperationResultException e3 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e3 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108, "预计是 %d，结果是 %d。", expectedValue, 108));
         assertEquals("预计是 25，结果是 108。", e3.getMessage());
 
@@ -856,7 +857,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25L);
 
-        DataOperationResultException e0 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e0 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108L));
         assertEquals(String.format("The number of rows affected is expected to be %d, but is: %d", expectedValue, 108L),
                 e0.getMessage());
@@ -871,7 +872,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25L, message);
 
-        DataOperationResultException e1 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108L, message));
         assertEquals(message, e1.getMessage());
 
@@ -879,7 +880,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25L, nullMessage);
 
-        e1 = assertThrows(DataOperationResultException.class,
+        e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108L, nullMessage));
         assertNull(e1.getMessage());
     }
@@ -892,7 +893,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25L, messageSupplier);
 
-        DataOperationResultException e2 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e2 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108L, messageSupplier));
         assertEquals(messageSupplier.get(), e2.getMessage());
 
@@ -910,7 +911,7 @@ public class AssertToolsTests {
 
         checkAffectedRows(expectedValue, 25L, "预计是 %d，结果是 %d。", expectedValue, 25L);
 
-        DataOperationResultException e3 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e3 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedRows(expectedValue, 108L, "预计是 %d，结果是 %d。", expectedValue, 108L));
         assertEquals("预计是 25，结果是 108。", e3.getMessage());
 
@@ -924,7 +925,7 @@ public class AssertToolsTests {
     void testCheckAffectedOneRow_int() {
         checkAffectedOneRow(1);
 
-        DataOperationResultException e0 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e0 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108));
         assertEquals(String.format("The number of rows affected is expected to be 1, but is: %d", 108),
                 e0.getMessage());
@@ -937,7 +938,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1, message);
 
-        DataOperationResultException e1 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108, message));
         assertEquals(message, e1.getMessage());
 
@@ -945,7 +946,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1, nullMessage);
 
-        e1 = assertThrows(DataOperationResultException.class,
+        e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108, nullMessage));
         assertNull(e1.getMessage());
     }
@@ -956,7 +957,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1, messageSupplier);
 
-        DataOperationResultException e2 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e2 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108, messageSupplier));
         assertEquals(messageSupplier.get(), e2.getMessage());
 
@@ -972,7 +973,7 @@ public class AssertToolsTests {
     void testCheckAffectedOneRow_int_messageFormat() {
         checkAffectedOneRow(1, "预计是 %d，结果是 %d。", 1, 108);
 
-        DataOperationResultException e3 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e3 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108, "预计是 %d，结果是 %d。", 1, 108));
         assertEquals("预计是 1，结果是 108。", e3.getMessage());
 
@@ -986,7 +987,7 @@ public class AssertToolsTests {
     void testCheckAffectedOneRow_long() {
         checkAffectedOneRow(1L);
 
-        DataOperationResultException e0 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e0 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108L));
         assertEquals(String.format("The number of rows affected is expected to be 1, but is: %d", 108L),
                 e0.getMessage());
@@ -999,7 +1000,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1L, message);
 
-        DataOperationResultException e1 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108L, message));
         assertEquals(message, e1.getMessage());
 
@@ -1007,7 +1008,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1L, nullMessage);
 
-        e1 = assertThrows(DataOperationResultException.class,
+        e1 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108L, nullMessage));
         assertNull(e1.getMessage());
     }
@@ -1018,7 +1019,7 @@ public class AssertToolsTests {
 
         checkAffectedOneRow(1L, messageSupplier);
 
-        DataOperationResultException e2 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e2 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108L, messageSupplier));
         assertEquals(messageSupplier.get(), e2.getMessage());
 
@@ -1034,7 +1035,7 @@ public class AssertToolsTests {
     void testCheckAffectedOneRow_long_messageFormat() {
         checkAffectedOneRow(1L, "预计是 %d，结果是 %d。", 1L, 108L);
 
-        DataOperationResultException e3 = assertThrows(DataOperationResultException.class,
+        JdbcUpdateAffectedIncorrectNumberOfRowsException e3 = assertThrows(JdbcUpdateAffectedIncorrectNumberOfRowsException.class,
                 () -> checkAffectedOneRow(108L, "预计是 %d，结果是 %d。", 1L, 108L));
         assertEquals("预计是 1，结果是 108。", e3.getMessage());
 
