@@ -215,7 +215,6 @@ public class MapModifier<K, V> {
      * 修改 {@code map}
      *
      * @param map 要修改的 {@code map}
-     * @return 修改后的 {@code map}。当入参是 {@code null} 时，返回 {@code null}。
      */
     public <T extends Map<K, V>> void modify(@Nullable T map) {
         if (map != null) {

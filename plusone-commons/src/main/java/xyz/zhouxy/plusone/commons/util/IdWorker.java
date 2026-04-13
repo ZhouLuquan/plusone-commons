@@ -30,7 +30,7 @@ import xyz.zhouxy.plusone.commons.exception.system.NoAvailableMacFoundException;
  * 修改版雪花 ID 生成器
  *
  * <p>
- * 来自 Seata (https://seata.apache.org) 的 {@code org.apache.seata.common.util.IdWorker}
+ * 来自 <a href="https://seata.apache.org">Seata</a> 的 {@code org.apache.seata.common.util.IdWorker}
  *
  * <p>
  * 大体思路为：
@@ -183,7 +183,7 @@ public class IdWorker {
     /**
      * use lowest 10 bit of available MAC as workerId
      * @return workerId
-     * @throws SocketException
+     * @throws SocketException if an I/O error occurs.
      * @throws NoAvailableMacFoundException when there is no available mac found
      */
     private static long generateWorkerIdBaseOnMac() throws SocketException, NoAvailableMacFoundException {
