@@ -113,7 +113,7 @@ public class PagingAndSortingQueryParams {
      *        分页参数构造器。
      *        通过 {@link #pagingParamsBuilder(int, int, Map)} 创建，同一场景下只需要共享同一个实例。
      */
-    public PagingAndSortingQueryParams(PagingParamsBuilder pagingParamsBuilder) {
+    protected PagingAndSortingQueryParams(PagingParamsBuilder pagingParamsBuilder) {
         this.pagingParamsBuilder = pagingParamsBuilder;
     }
 
@@ -168,7 +168,7 @@ public class PagingAndSortingQueryParams {
      *        只有在此白名单中的属性名才允许用于排序。
      * @return 分页参数构造器
      */
-    public static PagingParamsBuilder pagingParamsBuilder(
+    protected static PagingParamsBuilder pagingParamsBuilder(
             int defaultSize, int maxSize, Map<String, String> sortableProperties) {
         return new PagingParamsBuilder(defaultSize, maxSize, sortableProperties);
     }
