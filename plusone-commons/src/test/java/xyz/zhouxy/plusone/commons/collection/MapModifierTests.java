@@ -99,7 +99,7 @@ public class MapModifierTests {
 
         assertDoesNotThrow(() -> modifier.modify((Map<String, String>) null));
 
-        // 创建一个有初始化数据的不可变的 {@code Map}
+        // 创建一个有初始化数据的不可变的 Map
         Map<String, String> unmodifiableMap = modifier.getUnmodifiableMap();
         assertEquals(expected, unmodifiableMap);
         assertThrows(UnsupportedOperationException.class,
