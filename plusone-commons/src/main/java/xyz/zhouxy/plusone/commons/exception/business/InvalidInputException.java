@@ -123,7 +123,7 @@ public final class InvalidInputException
         @Nonnull
         private final String defaultMessage;
 
-        Type(String code, String defaultMsg) {
+        Type(@Nonnull String code, @Nonnull String defaultMsg) {
             this.code = code;
             this.defaultMessage = defaultMsg;
         }

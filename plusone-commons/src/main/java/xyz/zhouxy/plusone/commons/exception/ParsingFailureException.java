@@ -183,7 +183,7 @@ public final class ParsingFailureException
         @Nonnull
         private final String defaultMessage;
 
-        Type(String code, String defaultMessage) {
+        Type(@Nonnull String code, @Nonnull String defaultMessage) {
             this.code = code;
             this.defaultMessage = defaultMessage;
         }
