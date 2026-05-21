@@ -261,7 +261,7 @@ public class ArrayTools {
      *
      * @throws IllegalArgumentException 当参数为空时抛出
      */
-    public static <T> boolean isAllElementsNotNull(final T[] arr) {
+    public static <T> boolean isAllElementsNotNull(@Nullable final T[] arr) {
         checkArgument(arr != null, "The array cannot be null.");
         return Arrays.stream(arr).allMatch(Objects::nonNull);
     }

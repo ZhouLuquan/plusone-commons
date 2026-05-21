@@ -46,7 +46,7 @@ public final class RegexTools {
             .maximumSize(MAX_CACHE_SIZE)
             .build(new CacheLoader<RegexAndFlags, Pattern>() {
                 @SuppressWarnings("null")
-                public Pattern load(@Nonnull RegexAndFlags regexAndFlags) {
+                public Pattern load(RegexAndFlags regexAndFlags) {
                     return regexAndFlags.compilePattern();
                 }
             });
