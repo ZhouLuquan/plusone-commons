@@ -21,13 +21,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.zhouxy.plusone.commons.util.DateTimeTools;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -492,6 +497,82 @@ public class YearQuarterTests {
     }
 
     // ================================
+    // #region - of(Date date, ZoneId zoneId)
+    // ================================
+
+    @Test
+    void of_ValidDateAndZoneId_CreatesYearQuarter() {
+        Date date = DateTimeTools.toDate(LocalDate.of(2023, 4, 1).atStartOfDay(ZoneId.of("GMT+8")));
+        YearQuarter yq08 = YearQuarter.of(date, ZoneId.of("GMT+8"));
+        assertEquals(2023, yq08.getYear());
+        assertEquals(2, yq08.getQuarterValue());
+        assertSame(Quarter.Q2, yq08.getQuarter());
+
+        YearQuarter yq00 = YearQuarter.of(date, ZoneId.of("GMT+0"));
+        assertEquals(2023, yq00.getYear());
+        assertEquals(1, yq00.getQuarterValue());
+        assertSame(Quarter.Q1, yq00.getQuarter());
+    }
+
+    @Test
+    void of_NullDateAndZoneId_NullPointerException() {
+        Date date = null;
+        assertThrows(NullPointerException.class, () -> {
+            YearQuarter.of(date, ZoneId.systemDefault());
+        });
+    }
+
+    @Test
+    void of_ValidDateAndNullZoneId_NullPointerException() {
+        Date date = new Date();
+        assertThrows(NullPointerException.class, () -> {
+            YearQuarter.of(date, (ZoneId) null);
+        });
+    }
+
+    // ================================
+    // #endregion - of(Date date, ZoneId zoneId)
+    // ================================
+
+    // ================================
+    // #region - of(Date date, TimeZone timeZone)
+    // ================================
+
+    @Test
+    void of_ValidDateAndTimeZone_CreatesYearQuarter() {
+        Date date = DateTimeTools.toDate(LocalDate.of(2023, 4, 1).atStartOfDay(ZoneId.of("GMT+8")));
+        YearQuarter yq08 = YearQuarter.of(date, TimeZone.getTimeZone("GMT+8"));
+        assertEquals(2023, yq08.getYear());
+        assertEquals(2, yq08.getQuarterValue());
+        assertSame(Quarter.Q2, yq08.getQuarter());
+
+        YearQuarter yq00 = YearQuarter.of(date, TimeZone.getTimeZone("GMT+0"));
+        assertEquals(2023, yq00.getYear());
+        assertEquals(1, yq00.getQuarterValue());
+        assertSame(Quarter.Q1, yq00.getQuarter());
+    }
+
+    @Test
+    void of_NullDateAndTimeZone_NullPointerException() {
+        Date date = null;
+        assertThrows(NullPointerException.class, () -> {
+            YearQuarter.of(date, TimeZone.getDefault());
+        });
+    }
+
+    @Test
+    void of_ValidDateAndNullTimeZone_NullPointerException() {
+        Date date = new Date();
+        assertThrows(NullPointerException.class, () -> {
+            YearQuarter.of(date, (TimeZone) null);
+        });
+    }
+
+    // ================================
+    // #endregion - of(Date date, ZoneId zoneId)
+    // ================================
+
+    // ================================
     // #endregion - of(Date date)
     // ================================
 
@@ -927,14 +1008,14 @@ public class YearQuarterTests {
                 YearQuarter minus = yq1.minusQuarters(-quartersToAdd);
                 assertEquals(plus, minus);
 
-                // offset: 表示自 公元 0000年以来，经历了多少季度。所以 0 表示 -0001,Q4; 1 表示 0000 Q1
-                long offset = (year * 4L + quarter) + quartersToAdd;
+                // offset: 表示自 公元 1 年以来，经历了多少季度。所以 0 表示 0000,Q4; 1 表示 0001,Q1
+                long offset = ((year - 1) * 4L + quarter) + quartersToAdd;
                 if (offset > 0) {
-                    assertEquals((offset - 1) / 4, plus.getYear());
+                    assertEquals((offset - 1) / 4 + 1, plus.getYear());
                     assertEquals(((offset - 1) % 4) + 1, plus.getQuarterValue());
                 } else {
-                    assertEquals((offset / 4 - 1), plus.getYear());
-                    assertEquals((4 + offset % 4), plus.getQuarterValue());
+                    assertEquals(offset / 4, plus.getYear());
+                    assertEquals(4 + offset % 4, plus.getQuarterValue());
                 }
             }
         }

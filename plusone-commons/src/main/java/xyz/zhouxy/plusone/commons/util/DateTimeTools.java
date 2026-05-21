@@ -34,6 +34,7 @@ import java.util.TimeZone;
 import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 
+import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 import xyz.zhouxy.plusone.commons.time.Quarter;
 import xyz.zhouxy.plusone.commons.time.YearQuarter;
 
@@ -383,9 +384,38 @@ public class DateTimeTools {
      *
      * @param date 日期
      * @return 日期所在的季度
+     *
+     * @deprecated
+     *      此方法使用系统默认时区，不建议使用。
+     *      请使用 {@link #of(Date,ZoneId)}、{@link #of(Date,TimeZone)} 或其它工厂方法
      */
+    @Deprecated
     public static YearQuarter getQuarter(Date date) {
         return YearQuarter.of(date);
+    }
+
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     *
+     * @param date 日期
+     * @param timeZone 时区
+     * @return {@link YearQuarter} 实例
+     */
+    @StaticFactoryMethod(YearQuarter.class)
+    public static YearQuarter getQuarter(Date date, ZoneId timeZone) {
+        return YearQuarter.of(date, timeZone);
+    }
+
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     *
+     * @param date 日期
+     * @param timeZone 时区
+     * @return {@link YearQuarter} 实例
+     */
+    @StaticFactoryMethod(YearQuarter.class)
+    public static YearQuarter getQuarter(Date date, TimeZone timeZone) {
+        return YearQuarter.of(date, timeZone);
     }
 
     /**
@@ -394,6 +424,7 @@ public class DateTimeTools {
      * @param date 日期
      * @return 日期所在的季度
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter getQuarter(Calendar date) {
         return YearQuarter.of(date);
     }
@@ -404,6 +435,7 @@ public class DateTimeTools {
      * @param month 月份
      * @return 季度
      */
+    @StaticFactoryMethod(Quarter.class)
     public static Quarter getQuarter(Month month) {
         return Quarter.fromMonth(month);
     }
@@ -415,6 +447,7 @@ public class DateTimeTools {
      * @param month 月
      * @return 季度
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter getQuarter(int year, Month month) {
         return YearQuarter.of(YearMonth.of(year, month));
     }
@@ -425,6 +458,7 @@ public class DateTimeTools {
      * @param yearMonth 年月
      * @return 季度
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter getQuarter(YearMonth yearMonth) {
         return YearQuarter.of(yearMonth);
     }
@@ -435,6 +469,7 @@ public class DateTimeTools {
      * @param date 日期
      * @return 日期所在的季度
      */
+    @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter getQuarter(LocalDate date) {
         return YearQuarter.of(date);
     }

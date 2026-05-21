@@ -23,10 +23,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.temporal.ChronoField;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
@@ -102,15 +104,48 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
      *
      * @param date 日期
      * @return {@link YearQuarter} 实例
+     *
+     * @deprecated
+     *      此方法使用系统默认时区，不建议使用。
+     *      请使用 {@link #of(Date,ZoneId)}、{@link #of(Date,TimeZone)} 或其它工厂方法
      */
+    @Deprecated
     @StaticFactoryMethod(YearQuarter.class)
     public static YearQuarter of(Date date) {
         checkNotNull(date);
-        @SuppressWarnings("deprecation")
         final int yearValue = YEAR.checkValidIntValue(date.getYear() + 1900L);
-        @SuppressWarnings("deprecation")
         final int monthValue = date.getMonth() + 1;
         return new YearQuarter(yearValue, Quarter.fromMonth(monthValue));
+    }
+
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     *
+     * @param date 日期
+     * @param zoneId 时区
+     * @return {@link YearQuarter} 实例
+     */
+    @StaticFactoryMethod(YearQuarter.class)
+    public static YearQuarter of(Date date, ZoneId zoneId) {
+        checkNotNull(date);
+        checkNotNull(zoneId);
+        LocalDate localDate = date.toInstant().atZone(zoneId).toLocalDate();
+        return YearQuarter.of(localDate);
+    }
+
+    /**
+     * 根据指定日期，判断日期所在的年份与季度，创建 {@link YearQuarter} 实例
+     *
+     * @param date 日期
+     * @param timeZone 时区
+     * @return {@link YearQuarter} 实例
+     */
+    @StaticFactoryMethod(YearQuarter.class)
+    public static YearQuarter of(Date date, TimeZone timeZone) {
+        checkNotNull(date);
+        checkNotNull(timeZone);
+        LocalDate localDate = date.toInstant().atZone(timeZone.toZoneId()).toLocalDate();
+        return YearQuarter.of(localDate);
     }
 
     /**
@@ -260,11 +295,9 @@ public final class YearQuarter implements Comparable<YearQuarter>, Serializable 
         if (quartersToAdd == 0L) {
             return this;
         }
-        long quarterCount = this.year * 4L + (this.quarter.getValue() - 1);
-        long calcQuarters = quarterCount + quartersToAdd; // safe overflow
-        int newYear = YEAR.checkValidIntValue(Math.floorDiv(calcQuarters, 4));
-        int newQuarter = (int) Math.floorMod(calcQuarters, 4) + 1;
-        return new YearQuarter(newYear, Quarter.of(newQuarter));
+        long quarterCount = (this.year - 1) * 4L + (this.quarter.getValue()) + quartersToAdd;
+        int newYear = YEAR.checkValidIntValue(Math.floorDiv(quarterCount - 1, 4) + 1);
+        return new YearQuarter(newYear, this.quarter.plus(quartersToAdd));
     }
 
     public YearQuarter minusQuarters(long quartersToAdd) {

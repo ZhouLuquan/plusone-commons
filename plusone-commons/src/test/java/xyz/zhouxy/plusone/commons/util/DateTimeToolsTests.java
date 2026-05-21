@@ -271,6 +271,12 @@ class DateTimeToolsTests {
         assertEquals(expectedYearQuarter, DateTimeTools.getQuarter(2024, Month.DECEMBER));
         assertEquals(expectedYearQuarter, DateTimeTools.getQuarter(YearMonth.of(2024, Month.DECEMBER)));
         assertEquals(expectedYearQuarter, DateTimeTools.getQuarter(LOCAL_DATE));
+
+        Date date = DateTimeTools.toDate(LocalDate.of(2026, 1, 1).atStartOfDay(ZoneId.of("GMT+8")));
+        assertEquals(YearQuarter.of(2026, 1), DateTimeTools.getQuarter(date, TimeZone.getTimeZone("GMT+8")));
+        assertEquals(YearQuarter.of(2026, 1), DateTimeTools.getQuarter(date, ZoneId.of("GMT+8")));
+        assertEquals(YearQuarter.of(2025, 4), DateTimeTools.getQuarter(date, TimeZone.getTimeZone("GMT+0")));
+        assertEquals(YearQuarter.of(2025, 4), DateTimeTools.getQuarter(date, ZoneId.of("GMT+0")));
     }
 
     // ================================
