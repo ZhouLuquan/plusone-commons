@@ -18,6 +18,7 @@ package xyz.zhouxy.plusone.commons.collection;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -207,34 +208,6 @@ public class MapModifierTests {
     }
 
     @Test
-    void putAll_entries() {
-        Map<String, String> entries = new HashMap<String, String>() {
-            {
-                put("key1", "value1");
-                put("key2", "value2");
-            }
-        };
-        Map<String, String> map = new MapModifier<String, String>()
-                .putAll(new SimpleEntry<>("key1", "value1"),
-                        new SimpleEntry<>("key2", "value2"))
-                .getAndModify(HashMap::new);
-        assertEquals(entries, map);
-        new MapModifier<String, String>()
-                .putAll()
-                .putAll(new SimpleEntry<>("key2", "newValue2"),
-                        new SimpleEntry<>("key3", "value3"))
-                .modify(map);
-        assertEquals(new HashMap<String, String>() {
-            {
-                put("key1", "value1");
-                put("key2", "value2");
-                put("key2", "newValue2");
-                put("key3", "value3");
-            }
-        }, map);
-    }
-
-    @Test
     void computeIfAbsent_keyAndFunction() {
         Map<String, String> map = new MapModifier<String, String>()
                 .computeIfAbsent("key1", k -> null)
@@ -254,6 +227,7 @@ public class MapModifierTests {
                 .computeIfAbsent("key1", k -> "newValue1")
                 .modify(map);
 
+        assertNotNull(map);
         assertTrue(map.containsKey("key1"));
         assertEquals("value1", map.get("key1"));
     }

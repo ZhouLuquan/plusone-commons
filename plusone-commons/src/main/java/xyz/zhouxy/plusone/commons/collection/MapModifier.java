@@ -18,16 +18,21 @@ package xyz.zhouxy.plusone.commons.collection;
 
 import static xyz.zhouxy.plusone.commons.util.AssertTools.checkArgumentNotNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.annotations.Beta;
@@ -74,16 +79,17 @@ import com.google.common.annotations.Beta;
 @Beta
 public class MapModifier<K, V> {
 
-    @Nonnull
-    private Consumer<Map<K, V>> operators;
+    private final List<Consumer<Map<K, V>>> operations;
 
     /**
      * 创建一个空的 MapModifier
      */
     public MapModifier() {
-        this.operators = m -> {
-            // do nothing
-        };
+        this.operations = new ArrayList<>();
+    }
+
+    public MapModifier(int initialCapacity) {
+        this.operations = new ArrayList<>(initialCapacity);
     }
 
     /**
@@ -133,27 +139,6 @@ public class MapModifier<K, V> {
     }
 
     /**
-     * 添加多个键值对。
-     *
-     * <p>
-     * <b>注意：键值对是否允许为 {@code null}，由最终作用的 {@link Map} 类型决定。</b>
-     *
-     * @param entries 要添加的键值对集合
-     * @return MapModifier
-     */
-    @SafeVarargs
-    public final MapModifier<K, V> putAll(Map.Entry<? extends K, ? extends V>... entries) {
-        if (entries.length == 0) {
-            return this;
-        }
-        return addOperationInternal(map -> {
-            for (Map.Entry<? extends K, ? extends V> entry : entries) {
-                map.put(entry.getKey(), entry.getValue());
-            }
-        });
-    }
-
-    /**
      * 当 {@code key} 不存在时，计算对应的值，并添加到 {@code map} 中。
      *
      * <p>
@@ -168,6 +153,7 @@ public class MapModifier<K, V> {
      */
     public MapModifier<K, V> computeIfAbsent(K key,
             Function<? super K, ? extends V> mappingFunction) {
+        checkArgumentNotNull(mappingFunction, "Mapping function cannot be null.");
         return addOperationInternal(map -> map.computeIfAbsent(key, mappingFunction));
     }
 
@@ -186,6 +172,7 @@ public class MapModifier<K, V> {
      */
     public MapModifier<K, V> computeIfPresent(K key,
             BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+        checkArgumentNotNull(remappingFunction, "Remapping function cannot be null.");
         return addOperationInternal(map -> map.computeIfPresent(key, remappingFunction));
     }
 
@@ -217,9 +204,10 @@ public class MapModifier<K, V> {
      * @param map 要修改的 {@code map}
      */
     public <T extends Map<K, V>> void modify(@Nullable T map) {
-        if (map != null) {
-            this.operators.accept(map);
+        if (map == null || this.operations.isEmpty()) {
+            return;
         }
+        this.operations.forEach(operator -> operator.accept(map));
     }
 
     /**
@@ -238,16 +226,75 @@ public class MapModifier<K, V> {
     }
 
     /**
+     * 获取 {@code HashMap}
+     *
+     * @return {@code HashMap}
+     */
+    public Map<K, V> getHashMap() {
+        return getAndModify(HashMap::new);
+    }
+
+    /**
+     * 获取 {@code LinkedHashMap}
+     *
+     * @return {@code LinkedHashMap}
+     */
+    public Map<K, V> getLinkedHashMap() {
+        return getAndModify(LinkedHashMap::new);
+    }
+
+    /**
+     * 获取 {@code TreeMap}
+     *
+     * @return {@code TreeMap}
+     */
+    public Map<K, V> getTreeMap() {
+        return getAndModify(TreeMap::new);
+    }
+
+    /**
+     * 获取 {@code ConcurrentHashMap}
+     *
+     * @return {@code ConcurrentHashMap}
+     */
+    public Map<K, V> getConcurrentHashMap() {
+        return getAndModify(ConcurrentHashMap::new);
+    }
+
+    /**
      * 创建一个有初始化数据的不可变的 {@code Map}
      *
      * @return 不可变的 {@code Map}
      */
     public Map<K, V> getUnmodifiableMap() {
-        return Collections.unmodifiableMap(getAndModify(HashMap::new));
+        return Collections.unmodifiableMap(Objects.requireNonNull(getAndModify(HashMap::new)));
     }
 
     private MapModifier<K, V> addOperationInternal(Consumer<Map<K, V>> operator) {
-        this.operators = this.operators.andThen(operator);
+        this.operations.add(operator);
         return this;
+    }
+
+    /**
+     * 获取操作数量
+     *
+     * @return 操作数量
+     */
+    public int getOperatorCount() {
+        return this.operations.size();
+    }
+
+    /**
+     * 是否有操作
+     *
+     * @return 如果有操作，则返回 {@code true}，否则返回 {@code false}
+     */
+    public boolean hasOperations() {
+        return !this.operations.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return "MapModifier [OperatorCount=" + this.operations.size() + "]";
     }
 }
