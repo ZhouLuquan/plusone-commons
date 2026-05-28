@@ -7,7 +7,7 @@
 
     <groupId>xyz.zhouxy.plusone</groupId>
     <artifactId>plusone-parent</artifactId>
-    <version>1.1.0-RC1</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <description>
