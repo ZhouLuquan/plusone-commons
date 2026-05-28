@@ -14,34 +14,11 @@
     <artifactId>plusone-dependencies</artifactId>
     <name>plusone-dependencies</name>
 
-    <url>https://gitea.zhouxy.xyz/plusone/plusone-commons</url>
-
     <packaging>pom</packaging>
 
     <description>
         plusone 相关项目依赖管理
     </description>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>Zhou Xingyi (周兴毅)</name>
-            <url>https://gitea.zhouxy.xyz/plusone</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://gitea.zhouxy.xyz/plusone/plusone-commons.git</connection>
-        <developerConnection>scm:git:ssh://gitea.zhouxy.xyz/plusone/plusone-commons.git</developerConnection>
-        <url>https://gitea.zhouxy.xyz/plusone/plusone-commons</url>
-    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -61,11 +38,6 @@
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
                 <version>${google-jsr305.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.checkerframework</groupId>
-                <artifactId>checker-qual</artifactId>
-                <version>${checker-qual.version}</version>
             </dependency>
 
             <dependency>
