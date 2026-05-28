@@ -7,14 +7,39 @@
     <parent>
         <groupId>xyz.zhouxy.plusone</groupId>
         <artifactId>plusone-parent</artifactId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.0-RC1</version>
     </parent>
 
     <artifactId>plusone-commons</artifactId>
 
+    <name>Plusone Commons</name>
+
+    <url>https://gitea.zhouxy.xyz/plusone/plusone-commons</url>
+
     <description>
         Plusone Commons 是一个 Java 工具类库，提供了一系列实用的类和方法，用于简化开发。结合 guava 使用。
     </description>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Zhou Xingyi (周兴毅)</name>
+            <url>https://gitea.zhouxy.xyz/plusone</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://gitea.zhouxy.xyz/plusone/plusone-commons.git</connection>
+        <developerConnection>scm:git:ssh://gitea.zhouxy.xyz/plusone/plusone-commons.git</developerConnection>
+        <url>https://gitea.zhouxy.xyz/plusone/plusone-commons</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
