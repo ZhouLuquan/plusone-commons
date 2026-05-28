@@ -32,7 +32,7 @@ import xyz.zhouxy.plusone.commons.base.IWithIntCode;
 /**
  * 季度
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public enum Quarter implements IWithIntCode {
     /** 第一季度 */

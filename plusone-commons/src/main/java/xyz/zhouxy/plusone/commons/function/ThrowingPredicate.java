@@ -22,7 +22,7 @@ package xyz.zhouxy.plusone.commons.function;
  * <p>
  * 接收一个参数，返回一个布尔值，可抛出异常。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see java.util.function.Predicate
  */
@@ -34,6 +34,7 @@ public interface ThrowingPredicate<T, E extends Throwable> {
      *
      * @param t 入参
      * @return 入参符合条件时返回 {@code true}，否则返回 {@code false}
+     * @throws E 抛出的异常
      */
     boolean test(T t) throws E;
 }

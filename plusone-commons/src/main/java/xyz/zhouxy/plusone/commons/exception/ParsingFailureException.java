@@ -33,7 +33,7 @@ import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
  * throw new RequestParamsException(ParsingFailureException.Type.NUMBER_PARSING_FAILURE.create());
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public final class ParsingFailureException

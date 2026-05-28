@@ -17,6 +17,6 @@
 /**
  * 包含常见的业务异常与系统异常，以及异常相关的工具
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 package xyz.zhouxy.plusone.commons.exception;

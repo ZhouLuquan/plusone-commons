@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.constant;
 /**
  * 正则表达式常量
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @see PatternConsts
  */
 public final class RegexConsts {

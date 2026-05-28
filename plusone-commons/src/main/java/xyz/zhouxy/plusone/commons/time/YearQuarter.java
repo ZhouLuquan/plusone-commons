@@ -39,7 +39,7 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
 /**
  * 表示年份与季度
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @Immutable
 public final class YearQuarter implements Comparable<YearQuarter>, Serializable {

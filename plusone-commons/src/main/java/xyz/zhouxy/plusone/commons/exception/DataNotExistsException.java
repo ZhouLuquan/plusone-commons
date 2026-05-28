@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.exception;
 /**
  * 数据不存在异常
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public final class DataNotExistsException extends Exception {

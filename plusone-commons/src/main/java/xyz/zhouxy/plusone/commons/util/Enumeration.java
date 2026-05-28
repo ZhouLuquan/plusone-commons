@@ -36,8 +36,8 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
  * <p>
  * 参考 <a href="https://lostechies.com/jimmybogard/2008/08/12/enumeration-classes/">Enumeration classes</a>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
- * @deprecated 设计 Enumeration 的灵感来自于 .net 社区，因为 C&num; 的枚举不带行为。
+ * @author ZhouXY
+ * @deprecated 设计 Enumeration 的灵感来自于 .net 社区，因为 C# 的枚举不带行为。
  * 但 Java 的枚举可以带行为，故大多数情况下不需要这种设计。
  */
 @Deprecated

@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 /**
  * TreeBuilder
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class TreeBuilder<T, TSubTree extends T, TIdentity> {
@@ -76,6 +76,7 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
      * 注意避免 nodes 中的元素产生变化所带来的意料之外的影响。</b>
      *
      * @param nodes 平铺的节点列表
+     * @return 构造结果
      */
     public List<T> buildTree(Collection<T> nodes) {
         checkNotNull(nodes);
@@ -93,6 +94,7 @@ public class TreeBuilder<T, TSubTree extends T, TIdentity> {
      *                   若为 {@code null}，则使用 {@link #defaultComparator}；
      *                   若 {@link #defaultComparator} 也为 {@code null}，则不排序。
      *                   <b>仅影响调用 addChild 的顺序，如果操作对象本身对应的控制了子节点的顺序，无法影响其相关逻辑。</b>
+     * @return 构建的树形结构
      */
     public List<T> buildTree(Collection<T> nodes, @Nullable Comparator<? super T> comparator) {
         checkNotNull(nodes);

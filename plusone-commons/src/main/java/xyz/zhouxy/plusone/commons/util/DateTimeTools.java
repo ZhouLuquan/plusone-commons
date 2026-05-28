@@ -41,7 +41,7 @@ import xyz.zhouxy.plusone.commons.time.YearQuarter;
 /**
  * 日期时间工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public class DateTimeTools {
 
@@ -387,7 +387,7 @@ public class DateTimeTools {
      *
      * @deprecated
      *      此方法使用系统默认时区，不建议使用。
-     *      请使用 {@link #of(Date,ZoneId)}、{@link #of(Date,TimeZone)} 或其它工厂方法
+     *      请使用 {@link #getQuarter(Date,ZoneId)}、{@link #getQuarter(Date,TimeZone)} 或其它工厂方法
      */
     @Deprecated
     public static YearQuarter getQuarter(Date date) {
@@ -731,6 +731,7 @@ public class DateTimeTools {
      * 将指定日期范围转为日期时间范围
      *
      * @param dateRange 日期范围
+     * @param zone 时区
      * @return 对应的日期时间范围
      */
     public static Range<ZonedDateTime> toDateTimeRange(Range<LocalDate> dateRange, ZoneId zone) {

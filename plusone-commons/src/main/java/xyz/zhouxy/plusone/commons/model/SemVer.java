@@ -32,7 +32,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
 /**
  * SemVer 语义版本号
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.1.0
  *
  * @see <a href="https://semver.org/">Semantic Versioning 2.0.0</a>

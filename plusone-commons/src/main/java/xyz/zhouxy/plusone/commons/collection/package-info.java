@@ -17,7 +17,7 @@
 /**
  * 集合相关工具
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.collection;

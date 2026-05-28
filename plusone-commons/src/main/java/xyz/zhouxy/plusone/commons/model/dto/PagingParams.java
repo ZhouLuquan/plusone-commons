@@ -24,7 +24,7 @@ import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams.Sortable
 /**
  * 分页参数
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @see PagingAndSortingQueryParams
  */
 public class PagingParams {

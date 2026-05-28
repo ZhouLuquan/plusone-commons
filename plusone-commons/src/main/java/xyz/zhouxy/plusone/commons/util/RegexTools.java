@@ -35,7 +35,7 @@ import com.google.common.cache.LoadingCache;
 /**
  * 封装一些常用的正则操作，并可以缓存 {@link Pattern} 实例以复用。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public final class RegexTools {
 

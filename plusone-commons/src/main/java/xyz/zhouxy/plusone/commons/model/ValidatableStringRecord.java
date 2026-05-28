@@ -32,7 +32,7 @@ import xyz.zhouxy.plusone.commons.annotation.ReaderMethod;
 /**
  * 带校验的字符串值对象
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  *
  * @deprecated 弃用。使用工厂方法创建对象，并在其中进行校验即可。

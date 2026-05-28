@@ -220,7 +220,7 @@ public class PagingAndSortingQueryParamsTests {
 /**
  * 账号信息查询参数
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @ToString(callSuper = true)
 class AccountQueryParams extends PagingAndSortingQueryParams {

@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  * 当出现这种始料未及的诡异情况时，抛出 {@link JdbcUpdateAffectedIncorrectNumberOfRowsException} 并回滚事务。
  * 后续需要排查原因。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public final class JdbcUpdateAffectedIncorrectNumberOfRowsException extends SysException {

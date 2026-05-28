@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <p>
  * 标识方法是写方法，如 setter。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see ReaderMethod
  */

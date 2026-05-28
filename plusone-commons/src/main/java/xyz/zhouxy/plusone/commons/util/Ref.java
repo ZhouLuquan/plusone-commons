@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 /**
  * {@link Ref} 包装了一个值，表示对该值的应用。
  *
- * <p>灵感来自于 C&num; 的 {@code ref} 参数修饰符。C&num; 允许通过以下方式，将值返回给调用端：</p>
+ * <p>灵感来自于 C# 的 {@code ref} 参数修饰符。C# 允许通过以下方式，将值返回给调用端：</p>
  * <pre>
  * void Method(ref int refArgument)
  * {
@@ -67,7 +67,7 @@ import javax.annotation.Nullable;
  * System.out.println(result); // Output: Return string
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public final class Ref<T> {

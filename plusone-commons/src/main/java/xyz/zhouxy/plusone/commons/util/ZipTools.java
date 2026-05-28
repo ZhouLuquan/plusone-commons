@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  * <p>
  * 提供最基础的数据压缩/解压方法
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  *
  * @see Deflater
  * @see Inflater
@@ -44,7 +44,6 @@ public class ZipTools {
      * 使用默认压缩级别压缩数据
      *
      * @param input 输入
-     * @param level 压缩级别
      * @return 压缩后的数据
      *
      * @throws IOException 发生 I/O 错误时抛出

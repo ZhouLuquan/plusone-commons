@@ -58,7 +58,7 @@
  * 用户可以继承 {@link UnifiedResponses} 实现自己的工厂类，
  * 自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG，以及工厂方法。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.model.dto;

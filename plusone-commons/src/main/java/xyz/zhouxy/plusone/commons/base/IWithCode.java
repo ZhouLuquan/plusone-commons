@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
  * 用于像自定义异常等需要带有 {@code code} 字段的类，
  * 方便其它地方的程序判断该类的是否实现了此接口，以此获取其实例的 {@code code} 字段的值。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public interface IWithCode<T> {
 

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * ValueObject - 值对象
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 @Inherited

@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
  * </pre>
  * 见 <a href="http://zhouxy.xyz:3000/plusone/plusone-commons/issues/22">issue#22</a>。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see UnifiedResponse
  */
@@ -70,6 +70,7 @@ public class UnifiedResponses {
     /**
      * 默认成功响应结果
      *
+     * @param <T> data 类型
      * @return {@code UnifiedResponse} 对象。
      *         {@code code} = "2000000", {@code message} = "SUCCESS", {@code data} = null
      */
@@ -81,6 +82,7 @@ public class UnifiedResponses {
      * 使用指定 {@code message} 创建成功响应结果
      *
      * @param message 成功信息
+     * @param <T>     data 类型
      * @return {@code UnifiedResponse} 对象。
      *         {@code code} = "2000000", {@code data} = null
      */
@@ -114,6 +116,7 @@ public class UnifiedResponses {
      *
      * @param code    错误码
      * @param message 错误信息
+     * @param <T>     data 类型
      * @return {@code UnifiedResponse} 对象（{@code data} 为 {@code null}）
      */
     public static <T> UnifiedResponse<T> error(String code, @Nullable String message) {
@@ -159,6 +162,7 @@ public class UnifiedResponses {
      *
      * @param code    状态码
      * @param message 响应信息
+     * @param <T>     data 类型
      * @return {@code UnifiedResponse} 对象（{@code data} 为 {@code null}）
      */
     public static <T> UnifiedResponse<T> of(String code, @Nullable String message) {

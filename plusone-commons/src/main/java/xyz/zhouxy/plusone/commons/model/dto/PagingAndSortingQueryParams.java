@@ -94,7 +94,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * }
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @see PagingParams
  * @see PageResult
  */

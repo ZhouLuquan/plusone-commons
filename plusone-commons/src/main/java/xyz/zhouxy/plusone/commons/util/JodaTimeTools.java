@@ -19,7 +19,7 @@ package xyz.zhouxy.plusone.commons.util;
 /**
  * Joda-Time 工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public class JodaTimeTools {
 

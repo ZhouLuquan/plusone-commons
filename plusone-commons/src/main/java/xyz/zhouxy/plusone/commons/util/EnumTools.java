@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 /**
  * 枚举工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public final class EnumTools {
 
@@ -173,9 +173,10 @@ public final class EnumTools {
     /**
      * 校验枚举的 ordinal，如果 ordinal 为 {@code null}，则返回 {@code defaultValue}。
      *
-     * @param <E>      枚举类型
-     * @param enumType 枚举类型
-     * @param ordinal  The ordinal
+     * @param <E>          枚举类型
+     * @param enumType     枚举类型
+     * @param ordinal      The ordinal
+     * @param defaultValue 默认值
      * @return The ordinal
      */
     @Nullable

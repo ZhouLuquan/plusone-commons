@@ -24,7 +24,7 @@ package xyz.zhouxy.plusone.commons.function;
  *
  * @param <E> 可抛出的异常类型
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 @FunctionalInterface

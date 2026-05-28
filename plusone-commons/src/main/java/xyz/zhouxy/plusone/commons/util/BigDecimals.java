@@ -31,7 +31,7 @@ import xyz.zhouxy.plusone.commons.annotation.StaticFactoryMethod;
  * <p>
  * BigDecimal 工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class BigDecimals {

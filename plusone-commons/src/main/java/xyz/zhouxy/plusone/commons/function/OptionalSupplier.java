@@ -25,7 +25,7 @@ import java.util.function.Supplier;
  * <p>
  * 返回 {@code Optional&lt;T&gt;} 对象。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see Optional
  * @see Supplier

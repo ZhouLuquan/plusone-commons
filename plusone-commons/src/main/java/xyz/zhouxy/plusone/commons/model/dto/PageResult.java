@@ -29,7 +29,7 @@ import xyz.zhouxy.plusone.commons.collection.CollectionTools;
  *
  * @param <T> 内容列表的元素类型
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @see PagingAndSortingQueryParams
  */
 public class PageResult<T> {

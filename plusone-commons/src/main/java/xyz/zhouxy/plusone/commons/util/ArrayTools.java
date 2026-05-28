@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
  * <p>
  * 数组工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class ArrayTools {
@@ -1038,6 +1038,7 @@ public class ArrayTools {
      *
      * @param a      要填充的数组
      * @param values 填充内容
+     * @param <T>    元素类型
      */
     public static <T> void fill(T[] a, @Nullable T[] values) {
         fillInternal(a, 0, a.length, values);
@@ -1050,6 +1051,7 @@ public class ArrayTools {
      * @param fromIndex 开始位置
      * @param toIndex   结束位置
      * @param values    填充内容
+     * @param <T>       元素类型
      */
     public static <T> void fill(T[] a, int fromIndex, int toIndex, @Nullable T[] values) {
         fillInternal(a, fromIndex, toIndex, values);

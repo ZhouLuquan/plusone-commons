@@ -22,12 +22,14 @@ import xyz.zhouxy.plusone.commons.base.IWithCode;
  * 异常场景
  *
  * @param <TCode> 场景编码
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public interface IExceptionType<TCode> extends IWithCode<TCode> {
 
     /**
      * 默认异常信息
+     *
+     * @return 默认异常信息
      */
     String getDefaultMessage();
 

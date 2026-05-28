@@ -30,7 +30,7 @@ import com.google.common.collect.Range;
 /**
  * 随机工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public final class RandomTools {
 
@@ -179,6 +179,7 @@ public final class RandomTools {
     /**
      * 使用传入的随机数生成器，生成随机整数
      *
+     * @param random 随机数生成器。根据需要传入
      * @param startInclusive 最小值（包含）
      * @param endExclusive 最大值（不包含）
      * @return 在区间 {@code [min, max)} 内的随机整数
@@ -222,6 +223,7 @@ public final class RandomTools {
     /**
      * 使用传入的随机数生成器，生成随机整数
      *
+     * @param random 随机数生成器
      * @param range 整数区间
      * @return 在指定区间内的随机整数
      *

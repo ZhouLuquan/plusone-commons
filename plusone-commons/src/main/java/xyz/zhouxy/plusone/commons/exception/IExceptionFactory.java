@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  * 异常工厂
  *
  * @param <X> 异常类型
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public interface IExceptionFactory<X extends Exception> {
     /**

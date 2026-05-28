@@ -22,7 +22,7 @@
  * 模仿 JDK 的 {@link java.time.Month} 和 {@link java.time.YearMonth}，
  * 实现 {@link Quarter}，{@link YearQuarter}，对季度进行建模。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @ParametersAreNonnullByDefault
 package xyz.zhouxy.plusone.commons.time;

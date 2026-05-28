@@ -25,7 +25,7 @@ package xyz.zhouxy.plusone.commons.function;
  * @param <R> 返回结果类型
  * @param <E> 异常类型
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0
  * @see java.util.function.Function
  */
@@ -37,6 +37,7 @@ public interface ThrowingFunction<T, R, E extends Throwable> {
      *
      * @param t 入参
      * @return 函数结果
+     * @throws E 抛出的异常
      */
     R apply(T t) throws E;
 

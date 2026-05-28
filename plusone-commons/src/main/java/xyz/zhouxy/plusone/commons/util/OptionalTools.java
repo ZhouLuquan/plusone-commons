@@ -31,7 +31,7 @@ import com.google.common.annotations.Beta;
  * <p>
  * 提供一些 Optional 相关的方法
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see Optional
  * @see OptionalInt

@@ -17,6 +17,6 @@
 /**
  * 系统异常
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 package xyz.zhouxy.plusone.commons.exception.system;

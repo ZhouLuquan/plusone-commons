@@ -22,7 +22,7 @@ package xyz.zhouxy.plusone.commons.exception.system;
  * <p>
  * 在无法找到可访问的 Mac 地址时抛出
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class NoAvailableMacFoundException extends SysException {

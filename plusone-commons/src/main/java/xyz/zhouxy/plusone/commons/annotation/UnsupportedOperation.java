@@ -27,7 +27,7 @@ import java.lang.annotation.Documented;
  *
  * <p>标识方法为不支持的操作。该方法将抛出 {@link UnsupportedOperationException}。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @version 1.0
  * @since 1.0.0
  * @see UnsupportedOperationException

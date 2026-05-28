@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  *
  * <p>标识方法为静态工厂方法
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 @Target(ElementType.METHOD)

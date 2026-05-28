@@ -39,6 +39,6 @@
  * | Optional      | ToOptionalFunction   | Optional&lt;R&gt; apply(T)             |
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 package xyz.zhouxy.plusone.commons.function;

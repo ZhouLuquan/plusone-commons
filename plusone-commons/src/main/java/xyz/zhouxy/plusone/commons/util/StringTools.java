@@ -34,7 +34,7 @@ import xyz.zhouxy.plusone.commons.constant.PatternConsts;
  * <p>
  * 字符串工具类。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class StringTools {

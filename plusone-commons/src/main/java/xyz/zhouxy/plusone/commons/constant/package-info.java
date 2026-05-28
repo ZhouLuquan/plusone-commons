@@ -22,7 +22,7 @@
  * </h3>
  * {@link RegexConsts} 包含常见正则表达式；{@link PatternConsts} 包含对应的 {@link Pattern} 对象。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 package xyz.zhouxy.plusone.commons.constant;
 

@@ -73,7 +73,7 @@ import com.google.common.annotations.Beta;
  *     .getAndModify(HashMap::new);
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.1.0
  */
 @Beta
@@ -202,6 +202,7 @@ public class MapModifier<K, V> {
      * 修改 {@code map}
      *
      * @param map 要修改的 {@code map}
+     * @param <T> {@code map} 的类型
      */
     public <T extends Map<K, V>> void modify(@Nullable T map) {
         if (map == null || this.operations.isEmpty()) {
@@ -214,6 +215,7 @@ public class MapModifier<K, V> {
      * 修改 {@code map}
      *
      * @param mapSupplier {@code map} 的 {@link Supplier}
+     * @param <T> {@code map} 的类型
      * @return 修改后的 {@code map}。
      *         当从 {@code mapSupplier} 获取的 {@code map} 为 {@code null} 时，返回 {@code null}。
      */

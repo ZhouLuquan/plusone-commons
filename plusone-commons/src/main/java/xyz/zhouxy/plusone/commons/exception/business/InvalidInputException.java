@@ -31,7 +31,7 @@ import xyz.zhouxy.plusone.commons.exception.IMultiTypesException;
  * <p>
  * <b>NOTE: 属业务异常</b>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public final class InvalidInputException

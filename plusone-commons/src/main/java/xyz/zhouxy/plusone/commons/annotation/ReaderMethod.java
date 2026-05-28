@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <p>
  * 标识方法是读方法，如 getter。
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see WriterMethod
  */

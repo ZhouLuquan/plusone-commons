@@ -33,7 +33,7 @@ import com.google.common.collect.Table;
 /**
  * 集合工具类
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public class CollectionTools {

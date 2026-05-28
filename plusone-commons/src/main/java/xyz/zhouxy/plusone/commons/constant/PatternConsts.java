@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 /**
  * 正则表达式常量
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @see RegexConsts
  * @see xyz.zhouxy.plusone.commons.util.RegexTools
  */

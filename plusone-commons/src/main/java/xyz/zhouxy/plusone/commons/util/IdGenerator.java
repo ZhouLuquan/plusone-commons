@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @see UUID
  * @see IdWorker
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public class IdGenerator {
 

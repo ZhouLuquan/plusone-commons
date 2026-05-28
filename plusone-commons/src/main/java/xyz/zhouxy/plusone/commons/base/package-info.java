@@ -17,7 +17,7 @@
 /**
  * 基础内容
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 @CheckReturnValue
 @ParametersAreNonnullByDefault

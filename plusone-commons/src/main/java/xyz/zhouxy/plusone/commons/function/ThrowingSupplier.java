@@ -25,7 +25,7 @@ package xyz.zhouxy.plusone.commons.function;
  * @param <T> 结果类型
  * @param <E> 异常类型
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  * @see java.util.function.Supplier
  */
@@ -36,6 +36,7 @@ public interface ThrowingSupplier<T, E extends Throwable> {
      * 获取一个结果，允许抛出异常。
      *
      * @return 结果
+     * @throws E 允许抛出的异常
      */
     T get() throws E;
 

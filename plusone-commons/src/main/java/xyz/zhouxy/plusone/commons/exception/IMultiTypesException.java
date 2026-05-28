@@ -118,7 +118,7 @@ import javax.annotation.Nonnull;
  * </pre>
  *
  * @param <T> 异常场景
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  * @since 1.0.0
  */
 public interface IMultiTypesException<T extends IExceptionType<?>> {

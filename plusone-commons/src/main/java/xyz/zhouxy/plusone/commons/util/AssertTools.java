@@ -33,12 +33,12 @@ import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
  * checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
  * checkCondition(!CollectionUtils.isEmpty(roles),
- *     () -> new InvalidInputException("The roles cannot be empty."));
+ *     () -&gt; new InvalidInputException("The roles cannot be empty."));
  * checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
  *     "must be a well-formed email address");
  * </pre>
  *
- * @author ZhouXY108 <luquanlion@outlook.com>
+ * @author ZhouXY
  */
 public class AssertTools {
 
@@ -112,6 +112,7 @@ public class AssertTools {
      *
      * @param <T> 入参类型
      * @param obj 入参
+     * @return 校验通过时返回入参
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj) {
@@ -127,6 +128,7 @@ public class AssertTools {
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessage 异常信息
+     * @return 校验通过时返回入参
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj, String errorMessage) {
@@ -142,6 +144,7 @@ public class AssertTools {
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessageSupplier 异常信息
+     * @return 校验通过时返回入参
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
@@ -158,6 +161,7 @@ public class AssertTools {
      * @param obj 入参
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
+     * @return 校验通过时返回入参
      * @throws IllegalArgumentException 当 {@code obj} 为 {@code null} 时抛出
      */
     public static <T> T checkArgumentNotNull(@Nullable T obj,
