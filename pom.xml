@@ -91,31 +91,6 @@
         <module>plusone-dependencies</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>aliyun</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>aliyun-plugin</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <profiles>
         <profile>
             <id>release</id>
@@ -149,4 +124,39 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <plugins>
+            <!-- Flatten 插件：生成包含继承信息的完整 POM 用于发布 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <!-- 核心配置：oss 模式专为 Sonatype/Maven Central 设计 -->
+                    <!-- 它会保留 url, licenses, developers, scm, properties 等必要元素 -->
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+                <executions>
+                    <!-- 在 process-resources 阶段生成展平的 POM -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- 在 clean 阶段删除展平的 POM -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
