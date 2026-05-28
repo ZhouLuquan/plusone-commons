@@ -11,7 +11,14 @@ Plusone Commons 的工具类不追求“大而全”，而是只提供相对需�
 ## 2. 安装
 项目基于 OpenJDK 8 和 maven 构建。
 
-项目目前暂未发布到 maven 中央仓库，使用时需克隆代码到本地，并安装到本地仓库，然后才能在项目中引入依赖。
+使用 Maven 添加依赖：
+```xml
+<dependency>
+    <groupId>xyz.zhouxy.plusone</groupId>
+    <artifactId>plusone-commons</artifactId>
+    <version>${plusone-commons.version}</version>
+</dependency>
+```
 
 ## 3. 功能
 详细功能说明请查阅文档：
@@ -23,7 +30,7 @@ Plusone Commons 的工具类不追求“大而全”，而是只提供相对需�
 
 + [GitHub](https://github.com/ZhouXY108/plusone-commons)
 + [gitee](https://gitee.com/zhouxy108/plusone-commons)
-+ [自建 Gitea 仓库](http://gitea.zhouxy.xyz/plusone/plusone-commons)
++ [自建 Gitea 仓库](https://gitea.zhouxy.xyz/plusone/plusone-commons)
 
 欢迎在 GitHub 和 gitee 上通过 issue 反馈使用过程中发现的问题和建议，也接受善意的 PR。
 
