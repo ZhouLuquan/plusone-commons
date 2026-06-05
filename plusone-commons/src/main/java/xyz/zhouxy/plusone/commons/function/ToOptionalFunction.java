@@ -23,7 +23,7 @@ import java.util.function.Function;
  * ToOptionalFunction
  *
  * <p>
- * 接受类型为 T 的参数，返回 {@code Optional&lt;R&gt;} 对象。
+ * 接受类型为 T 的参数，返回 {@code Optional<R>} 对象。
  *
  * @author ZhouXY
  * @since 1.0.0

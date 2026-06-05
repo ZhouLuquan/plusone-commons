@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  * {@link Ref} 包装了一个值，表示对该值的应用。
  *
  * <p>灵感来自于 C# 的 {@code ref} 参数修饰符。C# 允许通过以下方式，将值返回给调用端：</p>
- * <pre>
+ * <pre>{@code
  * void Method(ref int refArgument)
  * {
  *     refArgument = refArgument + 44;
@@ -37,35 +37,35 @@ import javax.annotation.Nullable;
  * int number = 1;
  * Method(ref number);
  * Console.WriteLine(number); // Output: 45
- * </pre>
+ * }</pre>
  * {@link Ref} 使 Java 可以达到类似的效果，如：
- * <pre>
- * void method(final Ref&lt;Integer&gt; refArgument) {
- *     refArgument.transformValue(i -&gt; i + 44);
+ * <pre>{@code
+ * void method(final Ref<Integer> refArgument) {
+ *     refArgument.transformValue(i -> i + 44);
  * }
  *
- * Ref&lt;Integer&gt; number = Ref.of(1);
+ * Ref<Integer> number = Ref.of(1);
  * method(number);
  * System.out.println(number.getValue()); // Output: 45
- * </pre>
+ * }</pre>
  * <p>
  * 当一个方法需要产生多个结果时，无法有多个返回值，可以使用 {@link Ref} 作为参数传入，方法内部修改 {@link Ref} 的值。
  * 调用方在调用方法之后，使用 {@code getValue()} 获取结果。
  *
- * <pre>
- * String method(final Ref&lt;Integer&gt; intRefArgument, final Ref&lt;String&gt; strRefArgument) {
- *     intRefArgument.transformValue(i -&gt; i + 44);
+ * <pre>{@code
+ * String method(final Ref<Integer> intRefArgument, final Ref<String> strRefArgument) {
+ *     intRefArgument.transformValue(i -> i + 44);
  *     strRefArgument.setValue("Hello " + strRefArgument.getValue());
  *     return "Return string";
  * }
  *
- * Ref&lt;Integer&gt; number = Ref.of(1);
- * Ref&lt;String&gt; str = Ref.of("Java");
+ * Ref<Integer> number = Ref.of(1);
+ * Ref<String> str = Ref.of("Java");
  * String result = method(number, str);
  * System.out.println(number.getValue()); // Output: 45
  * System.out.println(str.getValue()); // Output: Hello Java
  * System.out.println(result); // Output: Return string
- * </pre>
+ * }</pre>
  *
  * @author ZhouXY
  * @since 1.0.0

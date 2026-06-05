@@ -44,12 +44,12 @@ public class StringTools {
     /**
      * 判断字符串是否非空白
      *
-     * <pre>
+     * <pre>{@code
      * StringTools.isNotBlank(null);    // false
      * StringTools.isNotBlank("");      // false
      * StringTools.isNotBlank("   ");   // false
      * StringTools.isNotBlank("Hello"); // true
-     * </pre>
+     * }</pre>
      *
      * @param cs 检查的字符串
      * @return 是否非空白
@@ -69,12 +69,12 @@ public class StringTools {
     /**
      * 判断是否空白字符串
      *
-     * <pre>
+     * <pre>{@code
      * StringTools.isBlank(null);    // true
      * StringTools.isBlank("");      // true
      * StringTools.isBlank("   ");   // true
      * StringTools.isBlank("Hello"); // false
-     * </pre>
+     * }</pre>
      *
      * @param cs 检查的字符串
      * @return 是否空白
@@ -119,12 +119,12 @@ public class StringTools {
     /**
      * 判断字符串是否非空
      *
-     * <pre>
+     * <pre>{@code
      * StringTools.isNotEmpty(null);    // false
      * StringTools.isNotEmpty("");      // false
      * StringTools.isNotEmpty("   ");   // true
      * StringTools.isNotEmpty("Hello"); // true
-     * </pre>
+     * }</pre>
      *
      * @param cs 检查的字符串
      * @return 是否非空
@@ -137,12 +137,12 @@ public class StringTools {
     /**
      * 判断字符串是否为空字符串
      *
-     * <pre>
+     * <pre>{@code
      * StringTools.isEmpty(null);    // true
      * StringTools.isEmpty("");      // true
      * StringTools.isEmpty("   ");   // false
      * StringTools.isEmpty("Hello"); // false
-     * </pre>
+     * }</pre>
      *
      * @param cs 检查的字符串
      * @return 是否空字符串

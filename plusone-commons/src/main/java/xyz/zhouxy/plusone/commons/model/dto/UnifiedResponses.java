@@ -26,22 +26,22 @@ import javax.annotation.Nullable;
  * 用户可以继承 {@link UnifiedResponses} 实现自己的工厂类，
  * 自定义 SUCCESS_CODE 和 DEFAULT_SUCCESS_MSG，以及工厂方法。
  * 如下所示：
- * <pre>
+ * <pre>{@code
  * // 自定义工厂类
  * public static class CustomUnifiedResponses extends UnifiedResponses {
  *
  *     public static final String SUCCESS_CODE = "000";
  *     public static final String DEFAULT_SUCCESS_MSG = "成功";
  *
- *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success() {
+ *     public static <T> UnifiedResponse<T> success() {
  *         return of(SUCCESS_CODE, DEFAULT_SUCCESS_MSG);
  *     }
  *
- *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success(@Nullable String message) {
+ *     public static <T> UnifiedResponse<T> success(@Nullable String message) {
  *         return of(SUCCESS_CODE, message);
  *     }
  *
- *     public static &lt;T&gt; UnifiedResponse&lt;T&gt; success(@Nullable String message, @Nullable T data) {
+ *     public static <T> UnifiedResponse<T> success(@Nullable String message, @Nullable T data) {
  *         return of(SUCCESS_CODE, message, data);
  *     }
  *
@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
  * }
  * // 使用自定义工厂类
  * CustomUnifiedResponses.success("查询成功", userList); // 状态码为 000
- * </pre>
+ * }</pre>
  * 见 <a href="http://zhouxy.xyz:3000/plusone/plusone-commons/issues/22">issue#22</a>。
  *
  * @author ZhouXY

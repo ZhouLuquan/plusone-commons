@@ -29,9 +29,9 @@ import xyz.zhouxy.plusone.commons.exception.business.RequestParamsException;
  * 解析失败的不一定是客户传的参数，也可能是其它来源的数据解析失败。
  * 如果表示用户传参造成的解析失败，可使用 {@link RequestParamsException#RequestParamsException(Throwable)}，
  * 将 ParsingFailureException 包装成 {@link RequestParamsException} 再抛出。
- * <pre>
+ * <pre>{@code
  * throw new RequestParamsException(ParsingFailureException.Type.NUMBER_PARSING_FAILURE.create());
- * </pre>
+ * }</pre>
  *
  * @author ZhouXY
  * @since 1.0.0

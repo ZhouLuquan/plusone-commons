@@ -33,7 +33,7 @@ import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
  * checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
  * checkCondition(!CollectionUtils.isEmpty(roles),
- *     () -&gt; new InvalidInputException("The roles cannot be empty."));
+ *     () -> new InvalidInputException("The roles cannot be empty."));
  * checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
  *     "must be a well-formed email address");
  * }</pre>

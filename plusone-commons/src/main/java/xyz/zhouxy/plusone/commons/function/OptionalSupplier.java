@@ -23,7 +23,7 @@ import java.util.function.Supplier;
  * OptionalSupplier
  *
  * <p>
- * 返回 {@code Optional&lt;T&gt;} 对象。
+ * 返回 {@code Optional<T>} 对象。
  *
  * @author ZhouXY
  * @since 1.0.0

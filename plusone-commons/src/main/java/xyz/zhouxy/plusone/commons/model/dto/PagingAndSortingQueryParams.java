@@ -46,7 +46,7 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * 分页必须伴随着排序，不然可能出现同一个对象重复出现在不同页，有的对象不被查询到的情况。
  *
  * <p>
- * 其中 {@code orderBy} 是一个 {@code List&lt;String&gt;}，可以指定多个排序条件。
+ * 其中 {@code orderBy} 是一个 {@code List<String>}，可以指定多个排序条件。
  * 每个排序条件是一个字符串， 格式为“属性名-ASC”或“属性名-DESC”，分别表示升序和降序。
  * 例如，当 {@code orderBy} 的值为 {@code ["name-ASC","age-DESC"]}，
  * 意味着要按 {@code name} 进行升序排列，{@code name} 相同的情况下则按 {@code age} 进行降序排列。
@@ -62,9 +62,9 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  * {@code key} 是供前端指定用于排序的属性名，{@code value} 是对应数据库中的字段名。
  * 只有在此白名单中的属性名才允许用于排序。
  *
- * <pre>
+ * <pre>{@code
  * class AccountQueryParams extends PagingAndSortingQueryParams {
- *     private static final Map&lt;String, String&gt; PROPERTY_COLUMN_MAP = ImmutableMap.&lt;String, String&gt;builder()
+ *     private static final Map<String, String> PROPERTY_COLUMN_MAP = ImmutableMap.<String, String>builder()
  *             .put("id", "id")
  *             .put("username", "username")
  *             .build();
@@ -82,17 +82,17 @@ import xyz.zhouxy.plusone.commons.util.StringTools;
  *     private @Getter @Setter Integer status;
  * }
  *
- * public PageResult&lt;AccountVO&gt; queryPage(AccountQueryParams params) {
+ * public PageResult<AccountVO> queryPage(AccountQueryParams params) {
  *     // 获取分页参数
  *     PagingParams pagingParams = params.buildPagingParams();
  *     // 从 params 获取字段查询条件，从 pagingParams 获取分页条件，查询一页数据
- *     List&lt;AccountVO&gt; list = accountQueries.queryAccountList(params, pagingParams);
+ *     List<AccountVO> list = accountQueries.queryAccountList(params, pagingParams);
  *     // 查询总记录数
  *     long count = accountQueries.countAccount(params);
  *     // 返回分页结果
  *     return PageResult.of(list, count);
  * }
- * </pre>
+ * }</pre>
  *
  * @author ZhouXY
  * @see PagingParams

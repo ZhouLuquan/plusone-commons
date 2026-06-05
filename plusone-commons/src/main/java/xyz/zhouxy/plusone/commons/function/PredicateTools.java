@@ -32,14 +32,14 @@ public class PredicateTools {
 
     /**
      * 将 lambda 表达式或者方法引用指明为对应类型的 {@link Predicate} 对象。
-     * 如将 {@code Objects::nonNull} 明确地指定为 {@code Predicate&lt;String&gt;}，
+     * 如将 {@code Objects::nonNull} 明确地指定为 {@code Predicate<String>}，
      * 使之可以链式调用 {@link Predicate#and(Predicate)}、{@link Predicate#or(Predicate)}
      * 等方法，连接其它 {@code Predicate<? super T>} 对象。
      *
-     * <pre>
-     * Predicate&lt;String&gt; predicate = PredicateTools.&lt;String&gt;from(Objects::nonNull)
+     * <pre>{@code
+     * Predicate<String> predicate = PredicateTools.<String>from(Objects::nonNull)
      *         .and(StringUtils::isNotEmpty);
-     * </pre>
+     * }</pre>
      *
      * @param <T>       目标类型
      * @param predicate Lambda 表达式

@@ -30,10 +30,10 @@ import javax.annotation.Nonnull;
  * 表示场景类型的枚举实现 {@link IExceptionType}，各个枚举值本身就是该场景的异常的工厂实例，
  * 使用其中的工厂方法用于创建对应类型的异常。
  *
- * <pre>
+ * <pre>{@code
  * public final class LoginException
  *         extends RuntimeException
- *         implements IMultiTypesException&lt;LoginException.Type&gt; {
+ *         implements IMultiTypesException<LoginException.Type> {
  *     private static final long serialVersionUID = 881293090625085616L;
  *     private final Type type;
  *     private LoginException(&#64;Nonnull Type type, &#64;Nonnull String message) {
@@ -60,7 +60,7 @@ import javax.annotation.Nonnull;
  *
  *     // ...
  *
- *     public enum Type implements IExceptionType&lt;String&gt;, IExceptionFactory&lt;LoginException&gt; {
+ *     public enum Type implements IExceptionType<String>, IExceptionFactory<LoginException> {
  *         DEFAULT("00", "当前会话未登录"),
  *         NOT_TOKEN("10", "未提供token"),
  *         INVALID_TOKEN("20", "token无效"),
@@ -110,12 +110,12 @@ import javax.annotation.Nonnull;
  *         }
  *     }
  * }
- * </pre>
+ * }</pre>
  *
  * 使用时，可以使用这种方式创建并抛出异常：
- * <pre>
+ * <pre>{@code
  * throw LoginException.Type.TOKEN_TIMEOUT.create();
- * </pre>
+ * }</pre>
  *
  * @param <T> 异常场景
  * @author ZhouXY
