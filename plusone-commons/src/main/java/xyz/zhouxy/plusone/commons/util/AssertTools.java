@@ -246,12 +246,14 @@ public class AssertTools {
      *
      * @param <T> 入参类型
      * @param obj 入参
+     * @return 校验通过时返回入参
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj) {
+    public static <T> T checkNotNull(@Nullable T obj) {
         if (obj == null) {
             throw new NullPointerException();
         }
+        return obj;
     }
 
     /**
@@ -260,12 +262,14 @@ public class AssertTools {
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessage 异常信息
+     * @return 校验通过时返回入参
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj, String errorMessage) {
+    public static <T> T checkNotNull(@Nullable T obj, String errorMessage) {
         if (obj == null) {
             throw new NullPointerException(errorMessage);
         }
+        return obj;
     }
 
     /**
@@ -274,12 +278,14 @@ public class AssertTools {
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessageSupplier 异常信息
+     * @return 校验通过时返回入参
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
+    public static <T> T checkNotNull(@Nullable T obj, Supplier<String> errorMessageSupplier) {
         if (obj == null) {
             throw new NullPointerException(errorMessageSupplier.get());
         }
+        return obj;
     }
 
     /**
@@ -289,13 +295,15 @@ public class AssertTools {
      * @param obj 入参
      * @param errorMessageTemplate 异常信息模板
      * @param errorMessageArgs 异常信息参数
+     * @return 校验通过时返回入参
      * @throws NullPointerException 当 {@code obj} 为 {@code null} 时抛出
      */
-    public static <T> void checkNotNull(@Nullable T obj,
+    public static <T> T checkNotNull(@Nullable T obj,
             String errorMessageTemplate, Object... errorMessageArgs) {
         if (obj == null) {
             throw new NullPointerException(String.format(errorMessageTemplate, errorMessageArgs));
         }
+        return obj;
     }
 
     // ================================
