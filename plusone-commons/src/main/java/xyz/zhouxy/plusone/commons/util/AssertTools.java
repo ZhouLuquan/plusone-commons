@@ -29,14 +29,14 @@ import xyz.zhouxy.plusone.commons.exception.DataNotExistsException;
  * <p>
  * 本工具类不封装过多判断逻辑，鼓励充分使用项目中的工具类进行逻辑判断。
  *
- * <pre>
+ * <pre>{@code
  * checkArgument(StringUtils.hasText(str), "The argument cannot be blank.");
  * checkState(ArrayUtils.isNotEmpty(result), "The result cannot be empty.");
  * checkCondition(!CollectionUtils.isEmpty(roles),
  *     () -&gt; new InvalidInputException("The roles cannot be empty."));
  * checkCondition(RegexTools.matches(email, PatternConsts.EMAIL),
  *     "must be a well-formed email address");
- * </pre>
+ * }</pre>
  *
  * @author ZhouXY
  */
@@ -86,6 +86,10 @@ public class AssertTools {
 
     /**
      * 检查实参
+     *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkArgument(boolean, Supplier)}。
      *
      * @param condition 判断参数是否符合条件的结果
      * @param errorMessageTemplate 异常信息模板
@@ -157,6 +161,10 @@ public class AssertTools {
     /**
      * 判断入参不为 {@code null}
      *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkArgumentNotNull(Object, Supplier)}。
+     *
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessageTemplate 异常信息模板
@@ -220,6 +228,10 @@ public class AssertTools {
 
     /**
      * 检查状态
+     *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkState(boolean, Supplier)}。
      *
      * @param condition 判断状态是否符合条件的结果
      * @param errorMessageTemplate 异常信息模板
@@ -290,6 +302,10 @@ public class AssertTools {
 
     /**
      * 判空
+     *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkNotNull(Object, Supplier)}。
      *
      * @param <T> 入参类型
      * @param obj 入参
@@ -367,6 +383,10 @@ public class AssertTools {
     /**
      * 检查数据是否存在
      *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkExists(Object, Supplier)}。
+     *
      * @param <T> 入参类型
      * @param obj 入参
      * @param errorMessageTemplate 异常信息模板
@@ -436,6 +456,10 @@ public class AssertTools {
     /**
      * 检查数据是否存在
      *
+     * <p>
+     * 内部使用 {@link String#format(String, Object...)}，
+     * 当异常信息构建成本较高时，请务必使用 {@link #checkExists(Optional, Supplier)}。
+     *
      * @param <T> 入参类型
      * @param optional 入参
      * @param errorMessageTemplate 异常信息模板
@@ -461,7 +485,11 @@ public class AssertTools {
     // ================================
 
     /**
-     * 当条件不满足时抛出异常。
+     * 当条件不满足时抛出自定义异常。
+     *
+     * <p><b>注意：</b>注意避免编译器将泛型 {@code T} 向上推断为 {@code Throwable}，
+     * 导致调用方被迫声明 {@code throws Throwable}。建议确保 Lambda 返回具体的异常类型，
+     * 或使用显式泛型（如 {@code AssertTools.<MyException>checkCondition(...)}）来约束类型。
      *
      * @param <T> 异常类型
      * @param condition 条件
