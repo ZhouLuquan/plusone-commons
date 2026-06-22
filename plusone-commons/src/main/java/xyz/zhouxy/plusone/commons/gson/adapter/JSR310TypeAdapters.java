@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -43,101 +45,160 @@ public class JSR310TypeAdapters {
     /**
      * {@code LocalDate} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code LocalDate} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
      */
-    public static final class LocalDateTypeAdapter
-            extends TemporalAccessorTypeAdapter<LocalDate, LocalDateTypeAdapter> {
+    public static TypeAdapter<LocalDate> localDateTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(LocalDate::from, formatter);
+    }
 
-        /**
-         * 默认构造函数，
-         * 使用 {@link DateTimeFormatter#ISO_LOCAL_DATE} 进行 {@link LocalDate} 的序列化与反序列化。
-         */
-        public LocalDateTypeAdapter() {
-            this(DateTimeFormatter.ISO_LOCAL_DATE);
-        }
-
-        /**
-         * 构造函数，
-         * 使用传入的 {@link DateTimeFormatter} 进行 {@link LocalDate} 的序列化与反序列化。
-         *
-         * @param formatter 用于序列化 {@link LocalDate} 的格式化器，不可为 {@code null}。
-         */
-        public LocalDateTypeAdapter(DateTimeFormatter formatter) {
-            super(LocalDate::from, formatter);
-        }
+    /**
+     * {@code LocalDate} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code LocalDate} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<LocalDate> localDateTypeAdapter() {
+        return localDateTypeAdapter(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     /**
      * {@code LocalDateTime} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code LocalDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
      */
-    public static final class LocalDateTimeTypeAdapter
-            extends TemporalAccessorTypeAdapter<LocalDateTime, LocalDateTimeTypeAdapter> {
+    public static TypeAdapter<LocalDateTime> localDateTimeTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(LocalDateTime::from, formatter);
+    }
 
-        /**
-         * 默认构造函数，
-         * 使用 {@link DateTimeFormatter#ISO_LOCAL_DATE_TIME} 进行 {@link LocalDateTime} 的序列化与反序列化。
-         */
-        public LocalDateTimeTypeAdapter() {
-            this(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        }
+    /**
+     * {@code LocalDateTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code LocalDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<LocalDateTime> localDateTimeTypeAdapter() {
+        return localDateTimeTypeAdapter(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    }
 
-        /**
-         * 构造函数，
-         * 使用传入的 {@link DateTimeFormatter} 进行 {@link LocalDateTime} 的序列化与反序列化。
-         *
-         * @param formatter 用于序列化 {@link LocalDateTime} 的格式化器，不可为 {@code null}。
-         */
-        public LocalDateTimeTypeAdapter(DateTimeFormatter formatter) {
-            super(LocalDateTime::from, formatter);
-        }
+    /**
+     * {@code LocalTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code LocalTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<LocalTime> localTimeTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(LocalTime::from, formatter);
+    }
+
+    /**
+     * {@code LocalTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code LocalTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<LocalTime> localTimeTypeAdapter() {
+        return localTimeTypeAdapter(DateTimeFormatter.ISO_LOCAL_TIME);
     }
 
     /**
      * {@code ZonedDateTime} 的 {@code TypeAdapter}，
      * 用于 Gson 对 {@code ZonedDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
      */
-    public static final class ZonedDateTimeTypeAdapter
-            extends TemporalAccessorTypeAdapter<ZonedDateTime, ZonedDateTimeTypeAdapter> {
-
-        /**
-         * 默认构造函数，
-         * 使用 {@link DateTimeFormatter#ISO_ZONED_DATE_TIME} 进行 {@link ZonedDateTime} 的序列化与反序列化。
-         */
-        public ZonedDateTimeTypeAdapter() {
-            this(DateTimeFormatter.ISO_ZONED_DATE_TIME);
-        }
-
-        /**
-         * 构造函数，
-         * 使用传入的 {@link DateTimeFormatter} 进行 {@link ZonedDateTime} 的序列化与反序列化。
-         *
-         * @param formatter 用于序列化 {@link ZonedDateTime} 的格式化器，不可为 {@code null}。
-         */
-        public ZonedDateTimeTypeAdapter(DateTimeFormatter formatter) {
-            super(ZonedDateTime::from, formatter);
-        }
+    public static TypeAdapter<ZonedDateTime> zonedDateTimeTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(ZonedDateTime::from, formatter);
     }
 
     /**
-    * {@code Instant} 的 {@code TypeAdapter}，
-    * 用于 Gson 对 {@code Instant} 进行相互转换。
-    *
-    * <p>
-    * 使用 {@link DateTimeFormatter#ISO_INSTANT} 进行 {@link Instant} 的序列化与反序列化。
-    *
-    */
-    public static final class InstantTypeAdapter
-            extends TemporalAccessorTypeAdapter<Instant, InstantTypeAdapter> {
-
-        public InstantTypeAdapter() {
-            super(Instant::from, DateTimeFormatter.ISO_INSTANT);
-        }
+     * {@code ZonedDateTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code ZonedDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<ZonedDateTime> zonedDateTimeTypeAdapter() {
+        return zonedDateTimeTypeAdapter(DateTimeFormatter.ISO_ZONED_DATE_TIME);
     }
 
-    private abstract static class TemporalAccessorTypeAdapter<
-            T extends TemporalAccessor,
-            TTypeAdapter extends TemporalAccessorTypeAdapter<T, TTypeAdapter>>
-        extends TypeAdapter<T> {
+    /**
+     * {@code Instant} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code Instant} 进行相互转换。
+     *
+     * <p><b>注意：</b>{@link Instant} 的序列化与反序列化要求 {@link DateTimeFormatter}
+     * 包含时区信息（如 {@link DateTimeFormatter#ISO_INSTANT}），
+     * 传入不包含时区的格式化器可能导致序列化或反序列化失败。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     *
+     * @param formatter 用于序列化 {@link Instant} 的格式化器，不可为 {@code null}，
+     *                  且必须包含时区信息
+     */
+    public static TypeAdapter<Instant> instantTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(Instant::from, formatter);
+    }
+
+    /**
+     * {@code Instant} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code Instant} 进行相互转换。
+     *
+     * <p>使用 {@link DateTimeFormatter#ISO_INSTANT} 进行 {@link Instant} 的序列化与反序列化。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<Instant> instantTypeAdapter() {
+        return instantTypeAdapter(DateTimeFormatter.ISO_INSTANT);
+    }
+
+    /**
+     * {@code OffsetDateTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code OffsetDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<OffsetDateTime> offsetDateTimeTypeAdapter(DateTimeFormatter formatter) {
+        return createAdapter(OffsetDateTime::from, formatter);
+    }
+
+    /**
+     * {@code OffsetDateTime} 的 {@code TypeAdapter}，
+     * 用于 Gson 对 {@code OffsetDateTime} 进行相互转换。
+     *
+     * <p><b>注意：</b>返回的 {@link TypeAdapter} 默认<em>不是</em> null-safe 的。
+     * 如需支持 {@code null} 值的序列化与反序列化，请调用 {@link TypeAdapter#nullSafe()}。
+     */
+    public static TypeAdapter<OffsetDateTime> offsetDateTimeTypeAdapter() {
+        return offsetDateTimeTypeAdapter(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    }
+
+    /**
+     * 创建一个 {@link TemporalAccessorTypeAdapter} 实例。
+     *
+     * @param <T>            {@link TemporalAccessor} 的子类型
+     * @param temporalQuery  用于从解析结果中查询目标类型的查询器
+     * @param formatter      用于序列化与反序列化的格式化器，不可为 {@code null}
+     * @return 新的 {@link TypeAdapter} 实例
+     */
+    private static <T extends TemporalAccessor> TypeAdapter<T> createAdapter(
+            TemporalQuery<T> temporalQuery, DateTimeFormatter formatter) {
+        return new TemporalAccessorTypeAdapter<T>(temporalQuery, formatter) {
+        };
+    }
+
+    private abstract static class TemporalAccessorTypeAdapter<T extends TemporalAccessor>
+            extends TypeAdapter<T> {
 
         private final TemporalQuery<T> temporalQuery;
 
@@ -161,6 +222,7 @@ public class JSR310TypeAdapters {
         public T read(JsonReader in) throws IOException {
             return dateTimeFormatter.parse(in.nextString(), temporalQuery);
         }
+
     }
 
     private JSR310TypeAdapters() {

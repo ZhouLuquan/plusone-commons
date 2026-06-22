@@ -18,6 +18,8 @@ package xyz.zhouxy.plusone.commons.model.dto.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.localDateTimeTypeAdapter;
+import static xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.localDateTypeAdapter;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -52,9 +54,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-
-import xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.LocalDateTimeTypeAdapter;
-import xyz.zhouxy.plusone.commons.gson.adapter.JSR310TypeAdapters.LocalDateTypeAdapter;
 import xyz.zhouxy.plusone.commons.model.dto.PageResult;
 import xyz.zhouxy.plusone.commons.model.dto.PagingAndSortingQueryParams;
 import xyz.zhouxy.plusone.commons.model.dto.PagingParams;
@@ -185,8 +184,8 @@ public class PagingAndSortingQueryParamsTests {
     @Test
     void testGson() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter().nullSafe())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter().nullSafe())
+                .registerTypeAdapter(LocalDate.class, localDateTypeAdapter().nullSafe())
+                .registerTypeAdapter(LocalDateTime.class, localDateTimeTypeAdapter().nullSafe())
                 .create();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             AccountQueryParams params = gson.fromJson(JSON_STR, AccountQueryParams.class);
