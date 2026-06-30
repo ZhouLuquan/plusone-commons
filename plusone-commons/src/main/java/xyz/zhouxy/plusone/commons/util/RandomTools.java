@@ -24,6 +24,9 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 
@@ -42,7 +45,7 @@ public final class RandomTools {
             secureRandom = SecureRandom.getInstanceStrong(); // 获取高强度安全随机数生成器
         }
         catch (NoSuchAlgorithmException e) {
-            secureRandom = new SecureRandom(); // 获取普通的安全随机数生成器
+            secureRandom = new SecureRandom(); // NOSONAR // 获取普通的安全随机数生成器
         }
         DEFAULT_SECURE_RANDOM = secureRandom;
     }
@@ -94,7 +97,8 @@ public final class RandomTools {
      */
     public static String randomStr(Random random, char[] sourceCharacters, int length) {
         checkArgumentNotNull(random, "Random cannot be null.");
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgument(ArrayTools.isNotEmpty(sourceCharacters),
+                "Source characters cannot be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(random, sourceCharacters, length);
     }
@@ -107,7 +111,8 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(char[] sourceCharacters, int length) {
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgument(ArrayTools.isNotEmpty(sourceCharacters),
+                "Source characters cannot be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
     }
@@ -120,7 +125,8 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String secureRandomStr(char[] sourceCharacters, int length) {
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgument(ArrayTools.isNotEmpty(sourceCharacters),
+                "Source characters cannot be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
         return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
     }
@@ -137,9 +143,10 @@ public final class RandomTools {
      */
     public static String randomStr(Random random, String sourceCharacters, int length) {
         checkArgumentNotNull(random, "Random cannot be null.");
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgument(StringTools.isNotEmpty(sourceCharacters),
+                "Source characters must not be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
-        return randomStrInternal(random, sourceCharacters, length);
+        return randomStrInternal(random, sourceCharacters.toCharArray(), length);
     }
 
     /**
@@ -150,9 +157,10 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String randomStr(String sourceCharacters, int length) {
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgument(StringTools.isNotEmpty(sourceCharacters),
+                "Source characters must not be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
-        return randomStrInternal(ThreadLocalRandom.current(), sourceCharacters, length);
+        return randomStrInternal(currentThreadLocalRandom(), sourceCharacters.toCharArray(), length);
     }
 
     /**
@@ -163,9 +171,10 @@ public final class RandomTools {
      * @return 随机字符串
      */
     public static String secureRandomStr(String sourceCharacters, int length) {
-        checkArgumentNotNull(sourceCharacters, "Source characters cannot be null.");
+        checkArgumentNotNull(StringTools.isNotEmpty(sourceCharacters),
+                "Source characters must not be empty.");
         checkArgument(length >= 0, "The length should be greater than or equal to zero.");
-        return randomStrInternal(DEFAULT_SECURE_RANDOM, sourceCharacters, length);
+        return randomStrInternal(defaultSecureRandom(), sourceCharacters.toCharArray(), length);
     }
 
     // ================================
@@ -181,43 +190,40 @@ public final class RandomTools {
      *
      * @param random 随机数生成器。根据需要传入
      * @param startInclusive 最小值（包含）
-     * @param endExclusive 最大值（不包含）
-     * @return 在区间 {@code [min, max)} 内的随机整数
+     * @param endInclusive 最大值（包含）
+     * @return 在区间 {@code [min, max]} 内的随机整数
      *
      * @since 1.1.0
      */
-    public static int randomInt(Random random, int startInclusive, int endExclusive) {
+    public static int randomInt(Random random, int startInclusive, int endInclusive) {
         checkArgumentNotNull(random, "Random cannot be null.");
-        checkArgument(startInclusive < endExclusive, "Start value must be less than end value.");
-        return randomIntInternal(random, startInclusive, endExclusive);
+        return randomIntInternal(random, startInclusive, endInclusive);
     }
 
     /**
      * 使用当前线程的 {@code ThreadLocalRandom}，生成随机整数
      *
      * @param startInclusive 最小值（包含）
-     * @param endExclusive 最大值（不包含）
-     * @return 在区间 {@code [min, max)} 内的随机整数
+     * @param endInclusive 最大值（包含）
+     * @return 在区间 {@code [min, max]} 内的随机整数
      *
      * @since 1.1.0
      */
-    public static int randomInt(int startInclusive, int endExclusive) {
-        checkArgument(startInclusive < endExclusive, "Start value must be less than end value.");
-        return randomIntInternal(ThreadLocalRandom.current(), startInclusive, endExclusive);
+    public static int randomInt(int startInclusive, int endInclusive) {
+        return randomIntInternal(currentThreadLocalRandom(), startInclusive, endInclusive);
     }
 
     /**
      * 使用默认的 {@code SecureRandom}，生成随机整数
      *
      * @param startInclusive 最小值（包含）
-     * @param endExclusive 最大值（不包含）
-     * @return 在区间 {@code [min, max)} 内的随机整数
+     * @param endInclusive 最大值（包含）
+     * @return 在区间 {@code [min, max]} 内的随机整数
      *
      * @since 1.1.0
      */
-    public static int secureRandomInt(int startInclusive, int endExclusive) {
-        checkArgument(startInclusive < endExclusive, "Start value must be less than end value.");
-        return randomIntInternal(DEFAULT_SECURE_RANDOM, startInclusive, endExclusive);
+    public static int secureRandomInt(int startInclusive, int endInclusive) {
+        return randomIntInternal(defaultSecureRandom(), startInclusive, endInclusive);
     }
 
     /**
@@ -245,7 +251,7 @@ public final class RandomTools {
      */
     public static int randomInt(Range<Integer> range) {
         checkArgumentNotNull(range, "Range cannot be null.");
-        return randomIntInternal(ThreadLocalRandom.current(), range);
+        return randomIntInternal(currentThreadLocalRandom(), range);
     }
 
     /**
@@ -258,7 +264,7 @@ public final class RandomTools {
      */
     public static int secureRandomInt(Range<Integer> range) {
         checkArgumentNotNull(range, "Range cannot be null.");
-        return randomIntInternal(DEFAULT_SECURE_RANDOM, range);
+        return randomIntInternal(defaultSecureRandom(), range);
     }
 
     // ================================
@@ -291,49 +297,69 @@ public final class RandomTools {
     }
 
     /**
-     * 使用传入的随机数生成器，生成指定长度的字符串
-     *
-     * @param random           随机数生成器。根据需要可以传入
-     *                         {@link java.util.concurrent.ThreadLocalRandom}、{@link java.security.SecureRandom}
-     *                         等，不为空
-     * @param sourceCharacters 字符池。字符串的字符将在数组中选，不为空
-     * @param length           字符串长度
-     * @return 随机字符串
-     */
-    private static String randomStrInternal(Random random, String sourceCharacters, int length) {
-        if (length == 0) {
-            return StringTools.EMPTY_STRING;
-        }
-        final char[] result = new char[length];
-        for (int i = 0; i < length; i++) {
-            result[i] = sourceCharacters.charAt(random.nextInt(sourceCharacters.length()));
-        }
-        return String.valueOf(result);
-    }
-
-    /**
      * 使用传入的随机数生成器，生成随机整数
      *
      * @param startInclusive 最小值（包含）
-     * @param endExclusive 最大值（不包含）
-     * @return 在区间 {@code [min, max)} 内的随机整数
+     * @param endInclusive   最大值（包含）
+     * @return 在区间 {@code [min, max]} 内的随机整数
      */
-    private static int randomIntInternal(Random random, int startInclusive, int endExclusive) {
-        return random.nextInt(endExclusive - startInclusive) + startInclusive;
+    private static int randomIntInternal(Random random,
+                                         @Nullable Integer startInclusive,
+                                         @Nullable Integer endInclusive) {
+        long minValue = (startInclusive != null) ? startInclusive : Integer.MIN_VALUE;
+        long maxValue = (endInclusive != null) ? endInclusive : Integer.MAX_VALUE;
+
+        checkArgument(minValue <= maxValue,
+                "Invalid range: Start value (%d) must be less than or equal to end value (%d).", minValue, maxValue);
+        if (minValue == maxValue) {
+            return (int) minValue;
+        }
+        long range = maxValue - minValue + 1L;
+        long limit = Numbers.UNSIGNED_INT_SIZE - (Numbers.UNSIGNED_INT_SIZE % range) - 1;
+        long nextInt;
+        do {
+            nextInt = Integer.toUnsignedLong(random.nextInt());
+        } while (nextInt > limit);
+        return (int) (nextInt % range + minValue);
     }
 
     /**
      * 使用传入的随机数生成器，生成随机整数
      *
-     * @param range 整数区间
+     * @param range 整数区间，支持无界区间（如 {@link Range#atLeast(int)}、
+     *              {@link Range#all()} 等），无界时以 {@link Integer#MIN_VALUE} 或
+     *              {@link Integer#MAX_VALUE} 作为虚拟边界
      * @return 在指定区间内的随机整数
      */
     private static int randomIntInternal(Random random, Range<Integer> range) {
-        Integer lowerEndpoint = range.lowerEndpoint();
-        Integer upperEndpoint = range.upperEndpoint();
-        int min = range.lowerBoundType() == BoundType.CLOSED ? lowerEndpoint : lowerEndpoint + 1;
-        int max = range.upperBoundType() == BoundType.OPEN ? upperEndpoint : upperEndpoint + 1;
-        return random.nextInt(max - min) + min;
+        // 下界（含）
+        Integer startInclusive = null;
+        if (range.hasLowerBound()) {
+            int lower = range.lowerEndpoint();
+            if (range.lowerBoundType() == BoundType.CLOSED) {
+                startInclusive = lower;
+            }
+            else {
+                checkArgument(lower < Integer.MAX_VALUE,
+                        "Range must contain at least one integer value: %s", range);
+                startInclusive = lower + 1;
+            }
+        }
+
+        // 上界（含）
+        Integer endInclusive = null;
+        if (range.hasUpperBound()) {
+            int upper = range.upperEndpoint();
+            if (range.upperBoundType() == BoundType.CLOSED) {
+                endInclusive = upper;
+            }
+            else {
+                checkArgument(upper > Integer.MIN_VALUE,
+                        "Range must contain at least one integer value: %s", range);
+                endInclusive = upper - 1;
+            }
+        }
+        return randomIntInternal(random, startInclusive, endInclusive);
     }
 
     // ================================
