@@ -29,6 +29,16 @@ import javax.annotation.Nullable;
  */
 public class Numbers {
 
+    /**
+     * 无符号 int 的最大值（2^32 - 1）
+     */
+    public static final long MAX_UNSIGNED_INT = (1L << 32) - 1;
+
+    /**
+     * 无符号 int 的数量（2^32）
+     */
+    public static final long UNSIGNED_INT_SIZE = (1L << 32);
+
     // ================================
     // #region - sum
     // ================================
